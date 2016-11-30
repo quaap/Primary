@@ -3,6 +3,8 @@ package com.quaap.primary;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -85,14 +87,15 @@ public class Math1Activity extends AppCompatActivity {
         for (int i=1; i<numans; i++) {
             int tmpans;
             do {
-                tmpans = answer + getRand(-answer/2, Math.max(answer/2,5));
+                tmpans = answer + getRand(-answer, 9);
             } while (answers.contains(tmpans));
             answers.add(tmpans);
         }
         Collections.shuffle(answers);
-        for (int i=0; i<numans; i++) {
+        for (int i=0; i<answers.size(); i++) {
             int tmpans = answers.get(i);
             Button ansbutt = new Button(this);
+            ansbutt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36);
             ansbutt.setText(tmpans+"");
             ansbutt.setTag(tmpans);
             ansbutt.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +104,10 @@ public class Math1Activity extends AppCompatActivity {
                     answerGiven((int)view.getTag());
                 }
             });
+            ansbutt.setGravity(Gravity.RIGHT);
+            LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lparams.gravity = Gravity.RIGHT;
+            ansbutt.setLayoutParams(lparams);
             answerarea.addView(ansbutt);
             answerbuttons.add(ansbutt);
         }
