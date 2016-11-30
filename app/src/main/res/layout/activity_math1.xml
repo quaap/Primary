@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_math1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.quaap.primary.Math1Activity">
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:columnCount="2"
+        android:layout_alignParentTop="true">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="9999"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/num1"
+            android:layout_columnSpan="1"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:textSize="36sp"
+            android:layout_columnWeight="1" />
+
+        <TextView
+            android:text="+"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/op"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:textSize="36sp"
+            android:layout_columnWeight="1" />
+
+        <TextView
+            android:text="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/num2"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:textSize="36sp"
+            android:layout_columnWeight="1" />
+
+        <TextView
+            android:text="_________________"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView6"
+            android:layout_columnSpan="2" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="393dp"
+            android:layout_columnSpan="2"
+            android:gravity="right"
+            android:layout_gravity="right"
+            android:id="@+id/answer_area"></LinearLayout>
+    </GridLayout>
+
+</RelativeLayout>
