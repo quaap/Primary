@@ -75,4 +75,59 @@
             android:id="@+id/answer_area"></LinearLayout>
     </GridLayout>
 
+    <TextView
+        android:text="Level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView2"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/correct"
+        android:layout_alignParentStart="true"
+        android:id="@+id/level"
+        android:text="0"
+        android:textSize="24sp" />
+
+    <TextView
+        android:text="Correct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/textView3"
+        android:textSize="18sp" />
+
+    <TextView
+        android:text="Needed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView9"
+        android:layout_below="@+id/correct"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="25dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/needed"
+        android:textSize="24sp"
+        android:layout_below="@+id/textView9"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/correct"
+        android:textSize="24sp"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>
