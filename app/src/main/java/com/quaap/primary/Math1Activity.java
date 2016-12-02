@@ -12,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.quaap.primary.db.PrimaryDB;
+import com.quaap.primary.db.User;
+
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +22,7 @@ import java.util.List;
 
 public class Math1Activity extends AppCompatActivity {
 
+    private PrimaryDB db;
 
 
     @Override
@@ -27,6 +31,13 @@ public class Math1Activity extends AppCompatActivity {
         setContentView(R.layout.activity_math1);
         showProb();
         setLevelFields();
+        db = new PrimaryDB(this);
+        user = db.getUser("dad");
+        if (user == null) {
+            user = db.addUser("dad", "dad");
+
+        }
+
     }
 
     private int num1;
@@ -34,9 +45,12 @@ public class Math1Activity extends AppCompatActivity {
     private MathOp op;
     private int answer;
 
+    private User user;
 
 
     private int correct=0;
+    private int incorrect=0;
+
 
     private Level level = Level.PlusLevel1;
 
@@ -77,8 +91,11 @@ public class Math1Activity extends AppCompatActivity {
         for (Button ab: answerbuttons) {
             ab.setEnabled(false);
         }
+        boolean isright = ans == answer;
 
-        if (ans == answer) {
+        db.log(user, "Math", level.name(), num1+""+op+num2, answer+"", ans+"", isright);
+
+        if (isright) {
             Toast.makeText(this,"Correct!", Toast.LENGTH_SHORT).show();
             correct++;
             TextView correcttxt = (TextView)findViewById(R.id.correct);
@@ -90,6 +107,7 @@ public class Math1Activity extends AppCompatActivity {
             }
             showProb();
         } else {
+            incorrect++;
             Toast.makeText(this,"Wrong!", Toast.LENGTH_SHORT).show();
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
