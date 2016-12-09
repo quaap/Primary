@@ -1,5 +1,6 @@
 package com.quaap.primary;
 
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -24,25 +25,7 @@ import java.util.Locale;
 public class Math1Activity extends AppCompatActivity {
 
     private PrimaryDB db;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_math1);
-        showProb();
-        setLevelFields();
-        db = new PrimaryDB(this);
-        user = db.getUser("dad");
-        if (user == null) {
-            user = db.addUser("dad", "dad");
-
-        }
-
-    }
-
-
-
+    private SharedPreferences mPrefs;
 
     private int num1;
     private int num2;
@@ -55,9 +38,50 @@ public class Math1Activity extends AppCompatActivity {
     private int correct=0;
     private int incorrect=0;
 
-
-
     private Level level = Level.PlusLevel1;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+        mPrefs = getSharedPreferences("def", MODE_PRIVATE);
+        level = Level.valueOf(mPrefs.getString("level", Level.PlusLevel1.name()));
+        correct = mPrefs.getInt("correct", 0);
+        incorrect = mPrefs.getInt("incorrect", 0);
+
+        String userstr = mPrefs.getString("user", "dad");
+
+
+        setContentView(R.layout.activity_math1);
+        showProb();
+        setLevelFields();
+        db = new PrimaryDB(this);
+        user = db.getUser(userstr);
+        if (user == null) {
+            user = db.addUser(userstr, userstr);
+
+        }
+
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences.Editor ed = mPrefs.edit();
+
+        ed.putString("user", user.getName());
+        ed.putString("level", level.name());
+        ed.putInt("correct", correct);
+        ed.putInt("incorrect", incorrect);
+
+        ed.commit();
+    }
+
+
+
 
 
     private List<Button> answerbuttons = new ArrayList<>();
@@ -102,14 +126,16 @@ public class Math1Activity extends AppCompatActivity {
 
 
         if (isright) {
-            Toast.makeText(this,"Correct!", Toast.LENGTH_SHORT).show();
             correct++;
             if (correct>=level.getRounds()) {
-
                 db.logClass(user, "Math", level.name(), correct + incorrect, 100*correct/(float)(correct + incorrect));
 
                 correct = 0;
                 level = level.getNext();
+                Toast.makeText(this,"Correct! On to " + level.toString(), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this,"Correct!", Toast.LENGTH_SHORT).show();
+
             }
             showProb();
         } else {

@@ -278,7 +278,7 @@ public class PrimaryDB extends SQLiteOpenHelper {
         values.put("answered", answered);
         values.put("score", score);
 
-        db.insert(DETAIL_RECORD_TABLE, null, values);
+        db.insert(CLASS_RECORD_TABLE, null, values);
 
         //{"classid", "userid", "date", "answered", "score"};
         //{"int references classes(id)", "int references users(id)", "date", "int", "float"};
