@@ -10,6 +10,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.quaap.primary.Math1Activity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/level"
+        android:text="Level"
+        android:textSize="18sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -76,24 +85,6 @@
     </GridLayout>
 
     <TextView
-        android:text="Level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView2"
-        android:textSize="18sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/correct"
-        android:layout_alignParentStart="true"
-        android:id="@+id/level"
-        android:text="0"
-        android:textSize="24sp" />
-
-    <TextView
         android:text="Correct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -101,6 +92,15 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/textView3"
         android:textSize="18sp" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/correct"
+        android:textSize="24sp"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:text="Needed"
@@ -122,12 +122,24 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
+        android:text="Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_marginTop="31dp"
+        android:textSize="18sp"
+        android:layout_below="@+id/needed"
+        android:layout_alignStart="@+id/textView3" />
+
+    <TextView
         android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/correct"
-        android:textSize="24sp"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/score"
+        android:textSize="14sp"
+        android:layout_below="@+id/textView5"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_alignParentEnd="true"
+        android:gravity="end" />
 
 </RelativeLayout>

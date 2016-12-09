@@ -151,7 +151,7 @@ public class PrimaryDB extends SQLiteOpenHelper {
     }
 
 
-    public ClassSubject getClassSubject(String subject, String level) {
+    private ClassSubject getClassSubject(String subject, String level) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(CLASS_TABLE, CLASS_COLS, "subject=? and level=?", new String[]{subject, level}, null, null, null);
         try {
@@ -168,7 +168,7 @@ public class PrimaryDB extends SQLiteOpenHelper {
         return null;
     }
 
-    public ClassSubject addClassSubject(String subject, String level) {
+    private ClassSubject addClassSubject(String subject, String level) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("subject", subject);
@@ -265,7 +265,28 @@ public class PrimaryDB extends SQLiteOpenHelper {
     }
 
 
-        private static String buildCreateTableStmt(String tablename, String[] cols, String[] coltypes) {
+    public void logClass(User user, String subject, String level, int answered, float score) {
+        ClassSubject csub = getClassSubject(subject, level);
+        if (csub==null) {
+            csub = addClassSubject(subject, level);
+        }
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("classid", csub.getId());
+        values.put("userid", user.getId());
+        values.put("date", System.currentTimeMillis());
+        values.put("answered", answered);
+        values.put("score", score);
+
+        db.insert(DETAIL_RECORD_TABLE, null, values);
+
+        //{"classid", "userid", "date", "answered", "score"};
+        //{"int references classes(id)", "int references users(id)", "date", "int", "float"};
+
+
+    }
+
+    private static String buildCreateTableStmt(String tablename, String[] cols, String[] coltypes) {
 
         String create =  "CREATE TABLE " + tablename + " (";
         for (int i=0; i<cols.length; i++) {

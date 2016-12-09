@@ -19,6 +19,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class Math1Activity extends AppCompatActivity {
 
@@ -40,6 +41,9 @@ public class Math1Activity extends AppCompatActivity {
 
     }
 
+
+
+
     private int num1;
     private int num2;
     private MathOp op;
@@ -50,6 +54,7 @@ public class Math1Activity extends AppCompatActivity {
 
     private int correct=0;
     private int incorrect=0;
+
 
 
     private Level level = Level.PlusLevel1;
@@ -95,15 +100,16 @@ public class Math1Activity extends AppCompatActivity {
 
         db.log(user, "Math", level.name(), num1+""+op+num2, answer+"", ans+"", isright);
 
+
         if (isright) {
             Toast.makeText(this,"Correct!", Toast.LENGTH_SHORT).show();
             correct++;
-            TextView correcttxt = (TextView)findViewById(R.id.correct);
-            correcttxt.setText(String.format("%d", correct));
             if (correct>=level.getRounds()) {
+
+                db.logClass(user, "Math", level.name(), correct + incorrect, 100*correct/(float)(correct + incorrect));
+
                 correct = 0;
                 level = level.getNext();
-                setLevelFields();
             }
             showProb();
         } else {
@@ -119,14 +125,23 @@ public class Math1Activity extends AppCompatActivity {
                 }
             }, 2000);
         }
+        setLevelFields();
     }
 
     private void setLevelFields() {
         TextView leveltxt = (TextView)findViewById(R.id.level);
         //leveltxt.setText(String.format("%d", level.ordinal()));
         leveltxt.setText(level.toString());
+        TextView correcttxt = (TextView)findViewById(R.id.correct);
+        correcttxt.setText(String.format(Locale.getDefault(), "%d", correct));
+
         TextView neededtxt = (TextView)findViewById(R.id.needed);
-        neededtxt.setText(String.format("%d", level.getRounds()));
+        neededtxt.setText(String.format(Locale.getDefault(), "%d", level.getRounds()));
+
+        if (correct + incorrect>0) {
+            TextView scoretxt = (TextView) findViewById(R.id.score);
+            scoretxt.setText(String.format(Locale.getDefault(), "%3.1f%%", 100 * correct / (float) (correct + incorrect)));
+        }
     }
 
     private void makeRandomProblem() {
@@ -208,14 +223,16 @@ public class Math1Activity extends AppCompatActivity {
     }
 
     public enum Level {
-        PlusLevel1(MathOp.Plus, 10,  20),
-        PlusLevel2(MathOp.Plus, 20,  20),
-        PlusLevel3(MathOp.Plus, 50,  30),
-        PlusLevel4(MathOp.Plus, 100, 30),
+        PlusLevel1(MathOp.Plus, 10,  10),
+        MinusLevel1(MathOp.Minus, MathOp.Minus, 10, 10),
 
-        MinusLevel1(MathOp.Minus, MathOp.Minus, 10, 20),
+        PlusLevel2(MathOp.Plus, 20,  20),
         MinusLevel2(MathOp.Minus, MathOp.Minus, 20, 20),
+
+        PlusLevel3(MathOp.Plus, 50,  30),
         MinusLevel3(MathOp.Minus, MathOp.Minus, 50, 30),
+
+        PlusLevel4(MathOp.Plus, 100, 30),
         MinusLevel4(MathOp.Minus, MathOp.Minus, 100, 30),
 
         ;
