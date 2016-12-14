@@ -126,6 +126,27 @@
         android:gravity="end" />
 
     <TextView
+        android:text="Total Correct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView7"
+        android:layout_marginTop="31dp"
+        android:textSize="18sp"
+        android:layout_below="@+id/score"
+        android:layout_alignStart="@+id/textView3" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/total_ratio"
+        android:textSize="14sp"
+        android:layout_below="@+id/textView7"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_alignParentEnd="true"
+        android:gravity="end" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/level"

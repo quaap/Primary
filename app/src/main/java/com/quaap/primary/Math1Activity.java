@@ -30,28 +30,38 @@ public class Math1Activity extends AppCompatActivity {
     private MathOp op;
     private int answer;
 
-
-
-
     private int correct=0;
     private int incorrect=0;
 
+
     private int levelnum = 0;
 
+    private int highestLevelnum = 0;
+    private int totalCorrect=0;
+    private int totalIncorrect=0;
 
+    public static final String LEVELNAME = "levelnum";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPrefs = getSharedPreferences("def", MODE_PRIVATE);
 
-        levelnum = getIntent().getIntExtra("levelnum", -1);
+        levelnum = getIntent().getIntExtra(LEVELNAME, -1);
 
         if (levelnum==-1) {
-            mPrefs = getSharedPreferences("def", MODE_PRIVATE);
-            levelnum = mPrefs.getInt("levelnum", 0);
-            correct = mPrefs.getInt("correct", 0);
-            incorrect = mPrefs.getInt("incorrect", 0);
+            levelnum = mPrefs.getInt("levelnum", levelnum);
         }
+        if (highestLevelnum<levelnum) {
+            highestLevelnum = levelnum;
+        }
+
+        correct = mPrefs.getInt("correct", correct);
+        incorrect = mPrefs.getInt("incorrect", incorrect);
+        totalCorrect = mPrefs.getInt("totalCorrect", totalCorrect);
+        totalIncorrect = mPrefs.getInt("totalIncorrect", totalIncorrect);
+        highestLevelnum = mPrefs.getInt("highestLevelnum", highestLevelnum);
+
 
         setContentView(R.layout.activity_math1);
         int orientation = getResources().getConfiguration().orientation;
@@ -71,10 +81,12 @@ public class Math1Activity extends AppCompatActivity {
 
         SharedPreferences.Editor ed = mPrefs.edit();
 
-
         ed.putInt("levelnum", levelnum);
         ed.putInt("correct", correct);
         ed.putInt("incorrect", incorrect);
+        ed.putInt("totalCorrect", totalCorrect);
+        ed.putInt("totalIncorrect", totalIncorrect);
+        ed.putInt("highestLevelnum", highestLevelnum);
 
         ed.commit();
     }
@@ -125,6 +137,7 @@ public class Math1Activity extends AppCompatActivity {
         final TextView status = (TextView)findViewById(R.id.txtstatus);
         if (isright) {
             correct++;
+            totalCorrect++;
             if (correct>=levels[levelnum].getRounds()) {
 
                 correct = 0;
@@ -133,6 +146,9 @@ public class Math1Activity extends AppCompatActivity {
                     status.setText("Correct! You've completed all the levels!");
                     return;
                 } else {
+                    if (highestLevelnum<levelnum) {
+                        highestLevelnum = levelnum;
+                    }
                     status.setText("Correct! On to " + levelnum);
                 }
             } else {
@@ -151,6 +167,7 @@ public class Math1Activity extends AppCompatActivity {
             showProb();
         } else {
             incorrect++;
+            totalIncorrect++;
             status.setText("Try again!");
 
             handler.postDelayed(new Runnable() {
@@ -161,7 +178,7 @@ public class Math1Activity extends AppCompatActivity {
                     }
                     status.setText(" ");
                 }
-            }, 2000);
+            }, 1500);
         }
         setLevelFields();
     }
@@ -180,6 +197,10 @@ public class Math1Activity extends AppCompatActivity {
             TextView scoretxt = (TextView) findViewById(R.id.score);
             scoretxt.setText(String.format(Locale.getDefault(), "%3.1f%%", 100 * correct / (float) (correct + incorrect)));
         }
+
+        TextView total_ratio = (TextView)findViewById(R.id.total_ratio);
+        total_ratio.setText(String.format(Locale.getDefault(), "%d / %d", totalCorrect, totalCorrect + totalIncorrect));
+
     }
 
     private void makeRandomProblem() {
@@ -278,6 +299,8 @@ public class Math1Activity extends AppCompatActivity {
 
             new Level(10, MathOp.Divide, MathOp.Times, 10, 20),
 
+            new Level(11, MathOp.Divide, MathOp.Plus, 12, 200),
+
     };
 
 
@@ -303,12 +326,30 @@ public class Math1Activity extends AppCompatActivity {
         }
 
         public String toString() {
-            String ops = mMinMathOp.name();
-            if (mMaxMathOp != mMinMathOp) {
-                ops += "-" + mMaxMathOp.name();
-            }
-
+            String ops = getOpsStr();
             return "Level " + mLevel + "\nMax " + mMaxNum + "\n" + ops;
+        }
+
+        public String getName() {
+            String ops = getOpsStr();
+            return "Level " + mLevel + " Max " + mMaxNum + " " + ops;
+        }
+
+        private String getOpsStr() {
+            String ops = "";
+            for (MathOp m: MathOp.values()) {
+                if (m.ordinal()>=mMinMathOp.ordinal() && m.ordinal()<=mMaxMathOp.ordinal()) {
+                    ops += m.name();
+                    if (m.ordinal()<mMaxMathOp.ordinal()) {
+                        ops += ", ";
+                    }
+                }
+            }
+            return ops;
+        }
+
+        public int getLevelNum() {
+            return mLevel;
         }
 
         public MathOp getMaxMathOp() {
