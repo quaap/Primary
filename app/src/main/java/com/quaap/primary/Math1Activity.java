@@ -38,7 +38,9 @@ public class Math1Activity extends AppCompatActivity {
     private int correct=0;
     private int incorrect=0;
 
-    private Level level = Level.PlusLevel1;
+    private int levelnum = 0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class Math1Activity extends AppCompatActivity {
 
 
         mPrefs = getSharedPreferences("def", MODE_PRIVATE);
-        level = Level.valueOf(mPrefs.getString("level", Level.PlusLevel1.name()));
+        levelnum = mPrefs.getInt("levelnum", 0);
         correct = mPrefs.getInt("correct", 0);
         incorrect = mPrefs.getInt("incorrect", 0);
 
@@ -73,7 +75,7 @@ public class Math1Activity extends AppCompatActivity {
         SharedPreferences.Editor ed = mPrefs.edit();
 
         ed.putString("user", user.getName());
-        ed.putString("level", level.name());
+        ed.putInt("levelnum", levelnum);
         ed.putInt("correct", correct);
         ed.putInt("incorrect", incorrect);
 
@@ -122,17 +124,17 @@ public class Math1Activity extends AppCompatActivity {
         }
         boolean isright = ans == answer;
 
-        db.log(user, "Math", level.name(), num1+""+op+num2, answer+"", ans+"", isright);
+        db.log(user, "Math", levels[levelnum].name(), num1+""+op+num2, answer+"", ans+"", isright);
 
 
         if (isright) {
             correct++;
-            if (correct>=level.getRounds()) {
-                db.logClass(user, "Math", level.name(), correct + incorrect, 100*correct/(float)(correct + incorrect));
+            if (correct>=levels[levelnum].getRounds()) {
+                db.logClass(user, "Math", levels[levelnum].name(), correct + incorrect, 100*correct/(float)(correct + incorrect));
 
                 correct = 0;
-                level = level.getNext();
-                Toast.makeText(this,"Correct! On to " + level.toString(), Toast.LENGTH_SHORT).show();
+                levelnum++;
+                Toast.makeText(this,"Correct! On to " + levels[levelnum].toString(), Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this,"Correct!", Toast.LENGTH_SHORT).show();
 
@@ -157,12 +159,12 @@ public class Math1Activity extends AppCompatActivity {
     private void setLevelFields() {
         TextView leveltxt = (TextView)findViewById(R.id.level);
         //leveltxt.setText(String.format("%d", level.ordinal()));
-        leveltxt.setText(level.toString());
+        leveltxt.setText(levels[levelnum].toString());
         TextView correcttxt = (TextView)findViewById(R.id.correct);
         correcttxt.setText(String.format(Locale.getDefault(), "%d", correct));
 
         TextView neededtxt = (TextView)findViewById(R.id.needed);
-        neededtxt.setText(String.format(Locale.getDefault(), "%d", level.getRounds()));
+        neededtxt.setText(String.format(Locale.getDefault(), "%d", levels[levelnum].getRounds()));
 
         if (correct + incorrect>0) {
             TextView scoretxt = (TextView) findViewById(R.id.score);
@@ -171,9 +173,9 @@ public class Math1Activity extends AppCompatActivity {
     }
 
     private void makeRandomProblem() {
-        num1 = getRand(level.getMaxNum(correct));
-        num2 = getRand(level.getMaxNum(correct));
-        op = MathOp.random(level.getMinMathOp(), level.getMaxMathOp());
+        num1 = getRand(levels[levelnum].getMaxNum(correct));
+        num2 = getRand(levels[levelnum].getMaxNum(correct));
+        op = MathOp.random(levels[levelnum].getMinMathOp(), levels[levelnum].getMaxMathOp());
 
         if (op == MathOp.Minus || op == MathOp.Divide) {
             if (num1<num2) {
@@ -248,41 +250,50 @@ public class Math1Activity extends AppCompatActivity {
         return (int) (Math.random() * (upper + 1 - lower)) + lower;
     }
 
-    public enum Level {
-        PlusLevel1(MathOp.Plus, 10,  10),
-        MinusLevel1(MathOp.Minus, MathOp.Minus, 10, 10),
+    public static Level [] levels = {
+            new Level(1, MathOp.Plus, MathOp.Plus, 10,  20),
+            new Level(2, MathOp.Minus, MathOp.Minus, 10, 20),
 
-        PlusLevel2(MathOp.Plus, 20,  20),
-        MinusLevel2(MathOp.Minus, MathOp.Minus, 20, 20),
+            new Level(3, MathOp.Plus, MathOp.Plus, 20,  20),
+            new Level(4, MathOp.Minus, MathOp.Minus, 20, 20),
 
-        PlusLevel3(MathOp.Plus, 50,  30),
-        MinusLevel3(MathOp.Minus, MathOp.Minus, 50, 30),
+            new Level(5, MathOp.Plus, MathOp.Plus, 50,  20),
+            new Level(6, MathOp.Minus, MathOp.Minus, 50,  20),
 
-        PlusLevel4(MathOp.Plus, 100, 30),
-        MinusLevel4(MathOp.Minus, MathOp.Minus, 100, 30),
+            new Level(7, MathOp.Times, MathOp.Times, 5, 10),
 
-        ;
+            new Level(8, MathOp.Times, MathOp.Times, 10, 10),
+
+            new Level(9, MathOp.Divide, MathOp.Divide, 10, 10),
+
+            new Level(10, MathOp.Divide, MathOp.Times, 10, 20),
+
+    };
+
+
+    public static class Level {
 
         private MathOp mMaxMathOp;
         private MathOp mMinMathOp;
         private int mMaxNum;
         private int mRounds;
 
-        Level(MathOp maxMathOp, int maxNum, int rounds) {
-            this(maxMathOp, MathOp.Plus, maxNum, rounds);
+        private int mLevel;
+
+        Level(int levelnum, MathOp maxMathOp, int maxNum, int rounds) {
+            this(levelnum, maxMathOp, MathOp.Plus, maxNum, rounds);
         }
 
-        Level(MathOp maxMathOp, MathOp minMathOp, int maxNum, int rounds) {
+        Level(int levelnum, MathOp maxMathOp, MathOp minMathOp, int maxNum, int rounds) {
+            mLevel = levelnum;
             mMaxMathOp = maxMathOp;
             mMinMathOp = minMathOp;
             mMaxNum = maxNum;
             mRounds = rounds;
         }
 
-        public Level getNext() {
-            return this.ordinal() < values().length - 1
-                    ? values()[this.ordinal() + 1]
-                    : null;
+        public String name() {
+            return "" + mLevel + " " + mMaxMathOp.toString() + " " + mMaxNum;
         }
 
         public MathOp getMaxMathOp() {
