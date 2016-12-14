@@ -1,6 +1,8 @@
 package com.quaap.primary;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.quaap.primary.db.PrimaryDB;
-import com.quaap.primary.db.User;
-
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +23,6 @@ import java.util.Locale;
 
 public class Math1Activity extends AppCompatActivity {
 
-    private PrimaryDB db;
     private SharedPreferences mPrefs;
 
     private int num1;
@@ -32,7 +30,7 @@ public class Math1Activity extends AppCompatActivity {
     private MathOp op;
     private int answer;
 
-    private User user;
+
 
 
     private int correct=0;
@@ -46,24 +44,23 @@ public class Math1Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        levelnum = getIntent().getIntExtra("levelnum", -1);
 
-        mPrefs = getSharedPreferences("def", MODE_PRIVATE);
-        levelnum = mPrefs.getInt("levelnum", 0);
-        correct = mPrefs.getInt("correct", 0);
-        incorrect = mPrefs.getInt("incorrect", 0);
-
-        String userstr = mPrefs.getString("user", "dad");
-
+        if (levelnum==-1) {
+            mPrefs = getSharedPreferences("def", MODE_PRIVATE);
+            levelnum = mPrefs.getInt("levelnum", 0);
+            correct = mPrefs.getInt("correct", 0);
+            incorrect = mPrefs.getInt("incorrect", 0);
+        }
 
         setContentView(R.layout.activity_math1);
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
+            LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
+            answerarea.setOrientation(LinearLayout.HORIZONTAL);
+        }
         showProb();
         setLevelFields();
-        db = new PrimaryDB(this);
-        user = db.getUser(userstr);
-        if (user == null) {
-            user = db.addUser(userstr, userstr);
-
-        }
 
     }
 
@@ -74,7 +71,7 @@ public class Math1Activity extends AppCompatActivity {
 
         SharedPreferences.Editor ed = mPrefs.edit();
 
-        ed.putString("user", user.getName());
+
         ed.putInt("levelnum", levelnum);
         ed.putInt("correct", correct);
         ed.putInt("incorrect", incorrect);
@@ -117,6 +114,7 @@ public class Math1Activity extends AppCompatActivity {
     }
 
 
+    final Handler handler = new Handler();
     private void answerGiven(int ans) {
 
         for (Button ab: answerbuttons) {
@@ -124,32 +122,44 @@ public class Math1Activity extends AppCompatActivity {
         }
         boolean isright = ans == answer;
 
-        db.log(user, "Math", levels[levelnum].name(), num1+""+op+num2, answer+"", ans+"", isright);
-
-
+        final TextView status = (TextView)findViewById(R.id.txtstatus);
         if (isright) {
             correct++;
             if (correct>=levels[levelnum].getRounds()) {
-                db.logClass(user, "Math", levels[levelnum].name(), correct + incorrect, 100*correct/(float)(correct + incorrect));
 
                 correct = 0;
                 levelnum++;
-                Toast.makeText(this,"Correct! On to " + levels[levelnum].toString(), Toast.LENGTH_SHORT).show();
+                if (levelnum>=levels.length) {
+                    status.setText("Correct! You've completed all the levels!");
+                    return;
+                } else {
+                    status.setText("Correct! On to " + levelnum);
+                }
             } else {
-                Toast.makeText(this,"Correct!", Toast.LENGTH_SHORT).show();
-
+                status.setText("Correct!");
             }
+            final int corrects = correct;
+            final int incorrects = incorrect;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (corrects == correct && incorrects == incorrect) {
+                        status.setText(" ");
+                    }
+                }
+            }, status.getText().length() * 300);
             showProb();
         } else {
             incorrect++;
-            Toast.makeText(this,"Wrong!", Toast.LENGTH_SHORT).show();
-            final Handler handler = new Handler();
+            status.setText("Try again!");
+
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     for (Button ab: answerbuttons) {
                         ab.setEnabled(true);
                     }
+                    status.setText(" ");
                 }
             }, 2000);
         }
@@ -292,8 +302,13 @@ public class Math1Activity extends AppCompatActivity {
             mRounds = rounds;
         }
 
-        public String name() {
-            return "" + mLevel + " " + mMaxMathOp.toString() + " " + mMaxNum;
+        public String toString() {
+            String ops = mMinMathOp.name();
+            if (mMaxMathOp != mMinMathOp) {
+                ops += "-" + mMaxMathOp.name();
+            }
+
+            return "Level " + mLevel + "\nMax " + mMaxNum + "\n" + ops;
         }
 
         public MathOp getMaxMathOp() {

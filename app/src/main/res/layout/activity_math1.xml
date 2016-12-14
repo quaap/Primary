@@ -10,18 +10,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.quaap.primary.Math1Activity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/level"
-        android:text="Level"
-        android:textSize="18sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
     <GridLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:columnCount="2"
         android:layout_alignParentTop="true">
@@ -74,14 +65,6 @@
             android:layout_columnSpan="2"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="393dp"
-            android:layout_columnSpan="2"
-            android:gravity="right"
-            android:layout_gravity="right"
-            android:id="@+id/answer_area"></LinearLayout>
     </GridLayout>
 
     <TextView
@@ -141,5 +124,41 @@
         android:layout_alignStart="@+id/textView5"
         android:layout_alignParentEnd="true"
         android:gravity="end" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/level"
+        android:text="0"
+        android:textSize="18sp"
+        android:lines="3"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="2"
+        android:gravity="right"
+        android:layout_gravity="right"
+        android:id="@+id/answer_area"
+        android:layout_below="@+id/needed"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:text=" "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/txtstatus"
+        android:textSize="30sp" />
 
 </RelativeLayout>
