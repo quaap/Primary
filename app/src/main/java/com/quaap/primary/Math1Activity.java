@@ -131,6 +131,7 @@ public class Math1Activity extends AppCompatActivity {
 
     }
 
+    private int correctInARow = 0;
 
     final Handler handler = new Handler();
     private void answerGiven(int ans) {
@@ -143,8 +144,9 @@ public class Math1Activity extends AppCompatActivity {
         final TextView status = (TextView)findViewById(R.id.txtstatus);
         if (isright) {
             correct++;
+            correctInARow++;
             totalCorrect++;
-            tscore += (Math.abs(num1)+Math.abs(num2)) * (op.ordinal()+1);
+            tscore += (Math.abs(num1)+Math.abs(num2)) * (op.ordinal()+1) * ((correctInARow+1)/2);
 
             if (correct>=levels[levelnum].getRounds()) {
                 status.setText("Correct!");
@@ -158,10 +160,10 @@ public class Math1Activity extends AppCompatActivity {
                         highestLevelnum = levelnum+1;
                     }
                     new AlertDialog.Builder(this)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setIcon(android.R.drawable.ic_dialog_info)
                             .setTitle("Level complete!")
                             .setMessage("Go to the next level?")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener()  {
+                            .setPositiveButton("Next level", new DialogInterface.OnClickListener()  {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     levelnum++;
@@ -199,6 +201,7 @@ public class Math1Activity extends AppCompatActivity {
             showProb();
         } else {
             incorrect++;
+            correctInARow = 0;
             totalIncorrect++;
             status.setText("Try again!");
 
@@ -235,6 +238,15 @@ public class Math1Activity extends AppCompatActivity {
 
         TextView tscore_txt = (TextView)findViewById(R.id.tscore);
         tscore_txt.setText(String.format(Locale.getDefault(), "%d", tscore));
+
+        TextView bonuses = (TextView) findViewById(R.id.bonuses);
+        if (correctInARow>1) {
+            String btext = correctInARow + " in a row!";
+            bonuses.setText(btext);
+        } else {
+            bonuses.setText(" ");
+        }
+
 
     }
 
