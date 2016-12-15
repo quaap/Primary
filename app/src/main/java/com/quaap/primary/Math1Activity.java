@@ -3,7 +3,6 @@ package com.quaap.primary;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -15,9 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.security.SecureRandom;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -46,6 +44,7 @@ public class Math1Activity extends AppCompatActivity {
 
     public static final String LEVELNAME = "levelnum";
 
+    private ActivityWriter actwriter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,8 +78,20 @@ public class Math1Activity extends AppCompatActivity {
         showProb();
         setLevelFields();
 
+
+
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            actwriter = new ActivityWriter(this,"Math");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void onPause() {
@@ -98,6 +109,12 @@ public class Math1Activity extends AppCompatActivity {
         ed.putInt("tscore", tscore);
 
         ed.commit();
+
+        try {
+            if (actwriter !=null) actwriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -153,6 +170,10 @@ public class Math1Activity extends AppCompatActivity {
             correctInARow++;
             totalCorrect++;
             tscore += (Math.abs(num1)+Math.abs(num2)) * (op.ordinal()+1) * ((correctInARow+1)/2);
+
+            if (actwriter !=null) {
+                actwriter.log(levelnum+1, num1 + op.toString() + num2, answer+"", ans+"", isright, timespent, getCurrentPercentFloat());
+            }
 
             if (correct>=levels[levelnum].getRounds()) {
                 status.setText("Correct!");
@@ -210,6 +231,9 @@ public class Math1Activity extends AppCompatActivity {
             correctInARow = 0;
             totalIncorrect++;
             status.setText("Try again!");
+            if (actwriter !=null) {
+                actwriter.log(levelnum+1, num1 + op.toString() + num2, answer+"", ans+"", isright, timespent, getCurrentPercentFloat());
+            }
 
             handler.postDelayed(new Runnable() {
                 @Override
@@ -236,7 +260,7 @@ public class Math1Activity extends AppCompatActivity {
 
         if (correct + incorrect>0) {
             TextView scoretxt = (TextView) findViewById(R.id.score);
-            scoretxt.setText(String.format(Locale.getDefault(), "%3.1f%%", 100 * correct / (float) (correct + incorrect)));
+            scoretxt.setText(getCurrentPercent());
         }
 
         TextView total_ratio = (TextView)findViewById(R.id.total_ratio);
@@ -252,8 +276,17 @@ public class Math1Activity extends AppCompatActivity {
         } else {
             bonuses.setText(" ");
         }
+    }
 
+    private float getCurrentPercentFloat() {
+        if (correct + incorrect == 0) {
+            return 0;
+        }
+        return 100 * correct / (float) (correct + incorrect);
+    }
 
+    private String getCurrentPercent() {
+        return String.format(Locale.getDefault(), "%3.1f%%", getCurrentPercentFloat());
     }
 
     private void makeRandomProblem() {

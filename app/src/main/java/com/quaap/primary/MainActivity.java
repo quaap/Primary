@@ -1,8 +1,13 @@
 package com.quaap.primary;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
 
@@ -48,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
             }
         });
-
+        checkStorageAccess();
     }
 
     private void showLevelButtons() {
@@ -127,5 +133,33 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         Intent mathintent = new Intent(MainActivity.this, Math1Activity.class);
         mathintent.putExtra(Math1Activity.LEVELNAME, (int)view.getTag());
         startActivity(mathintent);
+    }
+
+    private boolean checkStorageAccess() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_WRITE_EXTERNAL_STORAGE);
+            return false;
+        }
+        return true;
+    }
+
+    private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 121;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_WRITE_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Toast.makeText(this, "Yay!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Boo!", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 }
