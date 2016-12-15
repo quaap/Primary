@@ -1,8 +1,8 @@
 package com.quaap.primary.math;
 
-import android.content.DialogInterface;
+
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
+
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -45,15 +45,14 @@ public class Math1Activity extends BaseActivity {
 
         OnCreateCommon(layoutId);
 
-        showProb();
-
     }
 
 
 
     private List<Button> answerbuttons = new ArrayList<>();
 
-    protected void showProb() {
+    @Override
+    protected void showProbImpl() {
 
         TextView num1txt = (TextView)findViewById(R.id.num1);
         TextView num2txt = (TextView)findViewById(R.id.num2);
@@ -78,100 +77,32 @@ public class Math1Activity extends BaseActivity {
             int tmpans = answers.get(i);
             makeAnswerButton(tmpans, answerarea, fontsize);
         }
-        starttime = System.currentTimeMillis();
+
 
     }
 
     private void answerGiven(int ans) {
-        long timespent = System.currentTimeMillis() - starttime;
 
         for (Button ab: answerbuttons) {
             ab.setEnabled(false);
         }
         boolean isright = ans == answer;
 
+        answerDone(isright, (Math.abs(num1)+Math.abs(num2)) * (op.ordinal()+1),
+                num1 + op.toString() + num2, answer+"", ans+"");
+
         final TextView status = (TextView)findViewById(R.id.txtstatus);
-        if (isright) {
-            correct++;
-            correctInARow++;
-            totalCorrect++;
-            tscore += (Math.abs(num1)+Math.abs(num2)) * (op.ordinal()+1) * ((correctInARow+1)/2);
-
-            if (actwriter !=null) {
-                actwriter.log(levelnum+1, num1 + op.toString() + num2, answer+"", ans+"", isright, timespent, getCurrentPercentFloat());
-            }
-
-            if (correct>=levels[levelnum].getRounds()) {
-                status.setText("Correct!");
-                correct = 0;
-                incorrect = 0;
-                if (levelnum+1>=levels.length) {
-                    status.setText("You've completed all the levels!");
-                    return;
-                } else {
-                    if (highestLevelnum<levelnum+1) {
-                        highestLevelnum = levelnum+1;
-                    }
-                    new AlertDialog.Builder(this)
-                            .setIcon(android.R.drawable.ic_dialog_info)
-                            .setTitle("Level complete!")
-                            .setMessage("Go to the next level?")
-                            .setPositiveButton("Next level", new DialogInterface.OnClickListener()  {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    levelnum++;
-                                    showProb();
-                                    setLevelFields();
-                                }
-
-                            })
-                            .setNegativeButton("Repeat this level", new DialogInterface.OnClickListener()  {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    correct = 0;
-                                    incorrect = 0;
-                                    showProb();
-                                    setLevelFields();
-                                }
-
-                            })
-                            .show();
-                    //status.setText("Correct! On to " + levelnum);
-                }
-            } else {
-                status.setText("Correct!");
-            }
-            final int corrects = correct;
-            final int incorrects = incorrect;
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (corrects == correct && incorrects == incorrect) {
-                        status.setText(" ");
-                    }
-                }
-            }, status.getText().length() * 300);
-            showProb();
-        } else {
-            incorrect++;
-            correctInARow = 0;
-            totalIncorrect++;
-            status.setText("Try again!");
-            if (actwriter !=null) {
-                actwriter.log(levelnum+1, num1 + op.toString() + num2, answer+"", ans+"", isright, timespent, getCurrentPercentFloat());
-            }
-
+        if (!isright) {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     for (Button ab: answerbuttons) {
                         ab.setEnabled(true);
                     }
-                    status.setText(" ");
                 }
             }, 1500);
         }
-        setLevelFields();
+
     }
 
     private void makeRandomProblem() {

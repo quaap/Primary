@@ -2,14 +2,17 @@ package com.quaap.primary.base;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -68,6 +71,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Level[] levels;
 
 
+    private void showProb() {
+        showProbImpl();
+        starttime = System.currentTimeMillis();
+    }
+
+    protected abstract void showProbImpl();
+
     private boolean hasStorageAccess() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             return false;
@@ -108,8 +118,85 @@ public abstract class BaseActivity extends AppCompatActivity {
             answerarea.setOrientation(LinearLayout.HORIZONTAL);
         }
         setLevelFields();
+        showProb();
     }
 
+    protected void answerDone(boolean isright, int addscore, String problem, String answer, String useranser) {
+        final TextView status = (TextView)findViewById(R.id.txtstatus);
+        long timespent = System.currentTimeMillis() - starttime;
+        if (isright) {
+            correct++;
+            correctInARow++;
+            totalCorrect++;
+            tscore += addscore * ((correctInARow+1)/2);
+
+            if (actwriter !=null) {
+                actwriter.log(levelnum+1, problem, answer, useranser, isright, timespent, getCurrentPercentFloat());
+            }
+
+            if (correct>=levels[levelnum].getRounds()) {
+                status.setText("Correct!");
+                correct = 0;
+                incorrect = 0;
+                if (levelnum+1>=levels.length) {
+                    status.setText("You've completed all the levels!");
+                    return;
+                } else {
+                    if (highestLevelnum<levelnum+1) {
+                        highestLevelnum = levelnum+1;
+                    }
+                    new AlertDialog.Builder(this)
+                            .setIcon(android.R.drawable.ic_dialog_info)
+                            .setTitle("Level complete!")
+                            .setMessage("Go to the next level?")
+                            .setPositiveButton("Next level", new DialogInterface.OnClickListener()  {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    levelnum++;
+                                    showProb();
+                                    setLevelFields();
+                                }
+
+                            })
+                            .setNegativeButton("Repeat this level", new DialogInterface.OnClickListener()  {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    correct = 0;
+                                    incorrect = 0;
+                                    showProb();
+                                    setLevelFields();
+                                }
+
+                            })
+                            .show();
+                    //status.setText("Correct! On to " + levelnum);
+                }
+            } else {
+                status.setText("Correct!");
+            }
+            final int corrects = correct;
+            final int incorrects = incorrect;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (corrects == correct && incorrects == incorrect) {
+                        status.setText(" ");
+                    }
+                }
+            }, status.getText().length() * 300);
+            showProb();
+        } else {
+            incorrect++;
+            correctInARow = 0;
+            totalIncorrect++;
+            status.setText("Try again!");
+            if (actwriter !=null) {
+                actwriter.log(levelnum+1, problem, answer, useranser, isright, timespent, getCurrentPercentFloat());
+            }
+
+        }
+        setLevelFields();
+    }
 
     @Override
     protected void onResume() {
