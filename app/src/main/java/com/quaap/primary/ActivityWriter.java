@@ -42,9 +42,11 @@ public class ActivityWriter {
         String fname = mSubject + "_" + mFileFormat.format(new Date());
         fname = fname.replaceAll("[/\\\\.(){}$|?<>]","_");
         File f = new File(getAppDocumentsDir(mContext),  fname + ".csv");
-
+        boolean newfile = !f.exists();
         mFw = new FileWriter(f, true);
-        writeRow("Time", "Level", "Problem", "Answer", "User answer", "Correct", "Time spent", "Running Percent");
+        if (newfile) {
+            writeRow("Time", "Level", "Problem", "Answer", "User answer", "Correct", "Time spent", "Running Percent");
+        }
     }
 
     public synchronized void close() throws IOException {
