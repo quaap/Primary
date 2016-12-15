@@ -1,6 +1,7 @@
 package com.quaap.primary.base;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -74,13 +75,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         return true;
     }
 
+    public static SharedPreferences getSharedPreferences(Context context, String subject) {
+        return context.getSharedPreferences("scores:"+subject, MODE_PRIVATE);
+    }
+
     protected void OnCreateCommon(int layoutId) {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar!=null) {
             actionBar.setTitle(getString(R.string.app_name) + ": " + subject);
         }
 
-        mPrefs = getSharedPreferences("scores:"+subject, MODE_PRIVATE);
+        mPrefs = getSharedPreferences(this, subject);
 
         levelnum = getIntent().getIntExtra(LEVELNAME, -1);
 
