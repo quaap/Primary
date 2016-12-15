@@ -64,8 +64,8 @@ public class ActivityWriter {
     public File getAppDocumentsDir(Context context) {
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS), context.getString(R.string.app_name));
-        if (!file.mkdirs()) {
-            Log.e("Primary", "Directory not created");
+        if (!file.exists() && !file.mkdirs()) {
+            Log.e("Primary", "Directory could not be created");
         }
         return file;
     }
@@ -103,7 +103,7 @@ public class ActivityWriter {
             mFw.write("\n");
             mFw.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("Primary", "Could not write row.", e);
         }
     }
 }

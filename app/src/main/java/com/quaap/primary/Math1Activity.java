@@ -1,13 +1,18 @@
 package com.quaap.primary;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -44,10 +49,17 @@ public class Math1Activity extends AppCompatActivity {
 
     public static final String LEVELNAME = "levelnum";
 
+
+
     private ActivityWriter actwriter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar!=null) {
+            actionBar.setTitle(getString(R.string.app_name) + ": " + getString(R.string.subject_math));
+        }
+
         mPrefs = getSharedPreferences("def", MODE_PRIVATE);
 
         levelnum = getIntent().getIntExtra(LEVELNAME, -1);
@@ -56,11 +68,11 @@ public class Math1Activity extends AppCompatActivity {
             levelnum = mPrefs.getInt("levelnum", levelnum);
             correct = mPrefs.getInt("correct", correct);
             incorrect = mPrefs.getInt("incorrect", incorrect);
+            correctInARow = mPrefs.getInt("correctInARow", correctInARow);
         }
         totalCorrect = mPrefs.getInt("totalCorrect", totalCorrect);
         totalIncorrect = mPrefs.getInt("totalIncorrect", totalIncorrect);
         highestLevelnum = mPrefs.getInt("highestLevelnum", highestLevelnum);
-        correctInARow = mPrefs.getInt("correctInARow", correctInARow);
         tscore = mPrefs.getInt("tscore", tscore);
 
 //        if (highestLevelnum<levelnum) {
@@ -81,15 +93,24 @@ public class Math1Activity extends AppCompatActivity {
 
 
     }
-
+    private boolean hasStorageAccess() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            return false;
+        }
+        return true;
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        try {
-            actwriter = new ActivityWriter(this,"Math");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (hasStorageAccess()) {
+            try {
+                actwriter = new ActivityWriter(this, getString(R.string.subject_math));
+            } catch (IOException e) {
+                Log.e("Primary", "Could not write file. Not logging user.", e);
+            }
+        } else {
+            actwriter = null;
         }
     }
 
@@ -112,8 +133,9 @@ public class Math1Activity extends AppCompatActivity {
 
         try {
             if (actwriter !=null) actwriter.close();
+            actwriter = null;
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("Primary", "Error closing activity file.",e);
         }
     }
 
@@ -270,7 +292,7 @@ public class Math1Activity extends AppCompatActivity {
         tscore_txt.setText(String.format(Locale.getDefault(), "%d", tscore));
 
         TextView bonuses = (TextView) findViewById(R.id.bonuses);
-        if (correctInARow>1) {
+        if (correctInARow>2) {
             String btext = correctInARow + " in a row!";
             bonuses.setText(btext);
         } else {

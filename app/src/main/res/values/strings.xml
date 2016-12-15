@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Primary</string>
+    <string name="subject_math">Math</string>
 </resources>
