@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".math.MathMenuActivity">
+        <activity android:name=".math.Math1MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".math.Math1Activity"
-            android:parentActivityName=".math.MathMenuActivity">
+            android:parentActivityName=".math.Math1MenuActivity">
         </activity>
     </application>
 

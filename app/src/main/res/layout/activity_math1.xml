@@ -23,7 +23,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="9999"
+            android:text="999"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/num1"
@@ -59,12 +59,13 @@
             android:textSize="32sp" />
 
         <TextView
-            android:text="_________________"
+            android:text="_______________"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView6"
             android:layout_columnSpan="2"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="12sp" />
 
     </GridLayout>
 

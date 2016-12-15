@@ -7,7 +7,7 @@ import com.quaap.primary.R;
 
 import com.quaap.primary.base.SubjectMenuActivity;
 
-public class MathMenuActivity extends SubjectMenuActivity {
+public class Math1MenuActivity extends SubjectMenuActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
