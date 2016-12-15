@@ -125,16 +125,6 @@
         android:layout_alignParentEnd="true"
         android:gravity="end" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/level"
-        android:text="0"
-        android:textSize="18sp"
-        android:lines="3"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -180,5 +170,27 @@
         android:gravity="left"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/score" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/level"
+        android:text="0"
+        android:textSize="18sp"
+        android:lines="3"
+        android:gravity="left|center_vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_alignBaseline="@+id/textView9" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tscore"
+        android:textSize="30sp"
+        android:textColor="@android:color/holo_blue_bright"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/level"
+        android:layout_alignParentLeft="true" />
 
 </RelativeLayout>

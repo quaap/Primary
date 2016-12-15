@@ -106,9 +106,9 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
             int correct = mPrefs.getInt("totalCorrect", 0);
             int incorrect = mPrefs.getInt("totalIncorrect", 0);
             int highest = mPrefs.getInt("highestLevelnum", 0)+1;
+            int tscore = mPrefs.getInt("tscore", 0);
             if (correct+incorrect>0) {
-                String score = "Status: Up to level " + highest + ".  Overall score: " + correct + "/" + (correct + incorrect);
-
+                String score = "Level: " + highest + ". Correct: " + correct + "/" + (correct + incorrect) + ". Points: " + tscore;
                 score_overview.setText(score);
             }
         }

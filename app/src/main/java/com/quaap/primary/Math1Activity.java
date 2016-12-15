@@ -1,10 +1,12 @@
 package com.quaap.primary;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -39,6 +41,7 @@ public class Math1Activity extends AppCompatActivity {
     private int highestLevelnum = 0;
     private int totalCorrect=0;
     private int totalIncorrect=0;
+    private int tscore = 0;
 
     public static final String LEVELNAME = "levelnum";
 
@@ -57,6 +60,8 @@ public class Math1Activity extends AppCompatActivity {
         totalCorrect = mPrefs.getInt("totalCorrect", totalCorrect);
         totalIncorrect = mPrefs.getInt("totalIncorrect", totalIncorrect);
         highestLevelnum = mPrefs.getInt("highestLevelnum", highestLevelnum);
+        tscore = mPrefs.getInt("tscore", tscore);
+
 //        if (highestLevelnum<levelnum) {
 //            highestLevelnum = levelnum;
 //        }
@@ -87,6 +92,7 @@ public class Math1Activity extends AppCompatActivity {
         ed.putInt("totalCorrect", totalCorrect);
         ed.putInt("totalIncorrect", totalIncorrect);
         ed.putInt("highestLevelnum", highestLevelnum);
+        ed.putInt("tscore", tscore);
 
         ed.commit();
     }
@@ -138,18 +144,44 @@ public class Math1Activity extends AppCompatActivity {
         if (isright) {
             correct++;
             totalCorrect++;
-            if (correct>=levels[levelnum].getRounds()) {
+            tscore += (Math.abs(num1)+Math.abs(num2)) * (op.ordinal()+1);
 
+            if (correct>=levels[levelnum].getRounds()) {
+                status.setText("Correct!");
                 correct = 0;
-                levelnum++;
-                if (levelnum>=levels.length) {
-                    status.setText("Correct! You've completed all the levels!");
+                incorrect = 0;
+                if (levelnum+1>=levels.length) {
+                    status.setText("You've completed all the levels!");
                     return;
                 } else {
-                    if (highestLevelnum<levelnum) {
-                        highestLevelnum = levelnum;
+                    if (highestLevelnum<levelnum+1) {
+                        highestLevelnum = levelnum+1;
                     }
-                    status.setText("Correct! On to " + levelnum);
+                    new AlertDialog.Builder(this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Level complete!")
+                            .setMessage("Go to the next level?")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener()  {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    levelnum++;
+                                    showProb();
+                                    setLevelFields();
+                                }
+
+                            })
+                            .setNegativeButton("Repeat this level", new DialogInterface.OnClickListener()  {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    correct = 0;
+                                    incorrect = 0;
+                                    showProb();
+                                    setLevelFields();
+                                }
+
+                            })
+                            .show();
+                    //status.setText("Correct! On to " + levelnum);
                 }
             } else {
                 status.setText("Correct!");
@@ -200,6 +232,9 @@ public class Math1Activity extends AppCompatActivity {
 
         TextView total_ratio = (TextView)findViewById(R.id.total_ratio);
         total_ratio.setText(String.format(Locale.getDefault(), "%d / %d", totalCorrect, totalCorrect + totalIncorrect));
+
+        TextView tscore_txt = (TextView)findViewById(R.id.tscore);
+        tscore_txt.setText(String.format(Locale.getDefault(), "%d", tscore));
 
     }
 
