@@ -1,5 +1,9 @@
 package com.quaap.primary;
 
+import com.quaap.primary.base.Level;
+import com.quaap.primary.math.Math1Level;
+import com.quaap.primary.math.MathOp;
+
 /**
  * Created by tom on 12/15/16.
  * <p>
@@ -17,31 +21,49 @@ package com.quaap.primary;
  */
 public class Levels {
 
-    public static final Math1Level [] Math1Levels = new Math1Level [] {
-            new Math1Level(MathOp.Plus, MathOp.Plus, 5,  10),
-            new Math1Level(MathOp.Minus, MathOp.Minus, 5, 10),
+    public static Level[] getLevels(String name) {
+        for (int i=0; i<LevelSetNames.length; i++ ) {
+            if (LevelSetNames[i].equals(name)) {
+                return LevelSets[i];
+            }
+        }
+        throw new IllegalArgumentException("No such Level name " + name);
+    }
 
-            new Math1Level(MathOp.Plus, MathOp.Plus, 10,  20),
-            new Math1Level(MathOp.Minus, MathOp.Minus, 10, 20),
 
-            new Math1Level(MathOp.Plus, MathOp.Plus, 15,  20),
-            new Math1Level(MathOp.Minus, MathOp.Minus, 15, 20),
+    public static final String[] LevelSetNames = {
+            "Math1Levels"
+    };
 
-            new Math1Level(MathOp.Plus, MathOp.Plus, 25,  10),
-            new Math1Level(MathOp.Minus, MathOp.Minus, 25,  10),
 
-            new Math1Level(MathOp.Times, MathOp.Times, 5, 10),
-            new Math1Level(MathOp.Divide, MathOp.Divide, 5, 10),
+    public static final Level[][] LevelSets =
+     {
+            //Math1Levels
+            {
+                    new Math1Level(MathOp.Plus, MathOp.Plus, 5, 10),
+                    new Math1Level(MathOp.Minus, MathOp.Minus, 5, 10),
 
-            new Math1Level(MathOp.Times, MathOp.Times, 10, 10),
-            new Math1Level(MathOp.Divide, MathOp.Divide, 10, 10),
+                    new Math1Level(MathOp.Plus, MathOp.Plus, 10, 20),
+                    new Math1Level(MathOp.Minus, MathOp.Minus, 10, 20),
 
-            new Math1Level(MathOp.Times, MathOp.Times, 12, 10),
-            new Math1Level(MathOp.Divide, MathOp.Divide, 12, 10),
+                    new Math1Level(MathOp.Plus, MathOp.Plus, 15, 20),
+                    new Math1Level(MathOp.Minus, MathOp.Minus, 15, 20),
 
-            new Math1Level(MathOp.Divide, MathOp.Times, 12, 30),
+                    new Math1Level(MathOp.Plus, MathOp.Plus, 25, 10),
+                    new Math1Level(MathOp.Minus, MathOp.Minus, 25, 10),
 
-            new Math1Level(MathOp.Divide, MathOp.Plus, 12, 200),
+                    new Math1Level(MathOp.Times, MathOp.Times, 5, 10),
+                    new Math1Level(MathOp.Divide, MathOp.Divide, 5, 10),
 
+                    new Math1Level(MathOp.Times, MathOp.Times, 10, 10),
+                    new Math1Level(MathOp.Divide, MathOp.Divide, 10, 10),
+
+                    new Math1Level(MathOp.Times, MathOp.Times, 12, 10),
+                    new Math1Level(MathOp.Divide, MathOp.Divide, 12, 10),
+
+                    new Math1Level(MathOp.Divide, MathOp.Times, 12, 30),
+
+                    new Math1Level(MathOp.Divide, MathOp.Plus, 12, 200)
+            }
     };
 }

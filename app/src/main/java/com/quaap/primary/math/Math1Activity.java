@@ -1,18 +1,9 @@
-package com.quaap.primary;
+package com.quaap.primary.math;
 
-import android.Manifest;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -20,11 +11,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.IOException;
+import com.quaap.primary.Levels;
+import com.quaap.primary.R;
+import com.quaap.primary.base.BaseActivity;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class Math1Activity extends BaseActivity {
 
@@ -33,10 +26,12 @@ public class Math1Activity extends BaseActivity {
     private MathOp op;
     private int answer;
 
+    public static final String LevelSetName = "Math1Levels";
+
 
 
     public Math1Activity() {
-        levels = Levels.Math1Levels;
+        levels = Levels.getLevels(LevelSetName);
 
     }
 

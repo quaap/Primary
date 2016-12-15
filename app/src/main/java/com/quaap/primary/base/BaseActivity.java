@@ -1,4 +1,4 @@
-package com.quaap.primary;
+package com.quaap.primary.base;
 
 import android.Manifest;
 import android.content.SharedPreferences;
@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.quaap.primary.R;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -34,7 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public static final String LEVELNAME = "levelnum";
     //protected Math1Level[] levels;
 
-    final Handler handler = new Handler();
+    final protected Handler handler = new Handler();
     protected SharedPreferences mPrefs;
     protected int correct=0;
     protected int incorrect=0;

@@ -1,4 +1,6 @@
-package com.quaap.primary;
+package com.quaap.primary.math;
+
+import com.quaap.primary.base.Level;
 
 /**
  * Created by tom on 12/14/16.

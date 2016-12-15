@@ -1,8 +1,10 @@
-package com.quaap.primary;
+package com.quaap.primary.base;
 
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
+
+import com.quaap.primary.R;
 
 import java.io.File;
 import java.io.FileWriter;

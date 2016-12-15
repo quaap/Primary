@@ -1,4 +1,4 @@
-package com.quaap.primary;
+package com.quaap.primary.math;
 
 import java.security.SecureRandom;
 

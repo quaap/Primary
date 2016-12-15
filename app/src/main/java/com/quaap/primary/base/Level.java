@@ -1,4 +1,4 @@
-package com.quaap.primary;
+package com.quaap.primary.base;
 
 /**
  * Created by tom on 12/15/16.

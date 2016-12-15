@@ -1,4 +1,4 @@
-package com.quaap.primary;
+package com.quaap.primary.math;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -18,6 +18,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.quaap.primary.Levels;
+import com.quaap.primary.R;
+import com.quaap.primary.base.BaseActivity;
+import com.quaap.primary.base.Level;
 
 public class MathMenuActivity extends AppCompatActivity implements Button.OnClickListener {
 
@@ -67,7 +72,7 @@ public class MathMenuActivity extends AppCompatActivity implements Button.OnClic
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.gravity = Gravity.CENTER_VERTICAL;
 
-        for( Level level: Levels.Math1Levels) {
+        for( Level level: Levels.getLevels(Math1Activity.LevelSetName)) {
 
             LinearLayout levelrow = new LinearLayout(this);
             levelrow.setOrientation(LinearLayout.HORIZONTAL);
