@@ -1,7 +1,7 @@
 package com.quaap.primary;
 
 /**
- * Created by tom on 12/14/16.
+ * Created by tom on 12/15/16.
  * <p>
  * Copyright (C) 2016  tom
  * <p>
@@ -15,75 +15,23 @@ package com.quaap.primary;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-public class Level {
+public abstract class Level {
+    protected static final Object nextlevelsync = new Object();
+    protected static int nextlevelnum = 1;
+    protected int mRounds;
+    protected int mLevel;
 
-    private MathOp mMaxMathOp;
-    private MathOp mMinMathOp;
-    private int mMaxNum;
-    private int mRounds;
-
-    private int mLevel;
-
-    private static int nextlevelnum = 1;
-    private static final Object nextlevelsync = new Object();
-
-
-    public Level(MathOp maxMathOp, int maxNum, int rounds) {
-        this(maxMathOp, MathOp.Plus, maxNum, rounds);
-    }
-
-    public Level(MathOp maxMathOp, MathOp minMathOp, int maxNum, int rounds) {
-        synchronized (nextlevelsync) {
-            mLevel = nextlevelnum++;
-        }
-        mMaxMathOp = maxMathOp;
-        mMinMathOp = minMathOp;
-        mMaxNum = maxNum;
+    public Level(int rounds) {
         mRounds = rounds;
     }
 
-    public String toString() {
-        String ops = getOpsStr();
-        return "Level " + mLevel + "\nMax " + mMaxNum + "\n" + ops;
-    }
+    public abstract String toString();
 
-    public String getName() {
-        String ops = getOpsStr();
-        return "Level " + mLevel + ": " + ops + " / Max " + mMaxNum ;
-    }
-
-    private String getOpsStr() {
-        String ops = "";
-        for (MathOp m: MathOp.values()) {
-            if (m.ordinal()>=mMinMathOp.ordinal() && m.ordinal()<=mMaxMathOp.ordinal()) {
-                ops += m.name();
-                if (m.ordinal()<mMaxMathOp.ordinal()) {
-                    ops += ", ";
-                }
-            }
-        }
-        return ops;
-    }
+    public abstract String getName();
 
     public int getLevelNum() {
         return mLevel;
     }
-
-    public MathOp getMaxMathOp() {
-        return mMaxMathOp;
-    }
-
-    public MathOp getMinMathOp() {
-        return mMinMathOp;
-    }
-
-    public int getMaxNum() {
-        return mMaxNum;
-    }
-
-//    public int getMaxNum(int prevCorrect) {
-//        return (int)(mMaxNum * ((double)Math.max(prevCorrect, mRounds/5.0)/mRounds));
-//    }
 
     public int getRounds() {
         return mRounds;

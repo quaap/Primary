@@ -26,120 +26,33 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-public class Math1Activity extends AppCompatActivity {
-
-    private SharedPreferences mPrefs;
+public class Math1Activity extends BaseActivity {
 
     private int num1;
     private int num2;
     private MathOp op;
     private int answer;
 
-    private int correct=0;
-    private int incorrect=0;
 
 
-    private int levelnum = 0;
+    public Math1Activity() {
+        levels = Levels.Math1Levels;
 
-    private int highestLevelnum = 0;
-    private int totalCorrect=0;
-    private int totalIncorrect=0;
-    private int tscore = 0;
-    private long starttime = System.currentTimeMillis();
-
-    public static final String LEVELNAME = "levelnum";
+    }
 
 
-
-    private ActivityWriter actwriter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar!=null) {
-            actionBar.setTitle(getString(R.string.app_name) + ": " + getString(R.string.subject_math));
-        }
 
-        mPrefs = getSharedPreferences("def", MODE_PRIVATE);
+        subject = getString(R.string.subject_math1);
+        int layoutId=R.layout.activity_math1;
 
-        levelnum = getIntent().getIntExtra(LEVELNAME, -1);
+        OnCreateCommon(layoutId);
 
-        if (levelnum==-1) {
-            levelnum = mPrefs.getInt("levelnum", levelnum);
-            correct = mPrefs.getInt("correct", correct);
-            incorrect = mPrefs.getInt("incorrect", incorrect);
-            correctInARow = mPrefs.getInt("correctInARow", correctInARow);
-        }
-        totalCorrect = mPrefs.getInt("totalCorrect", totalCorrect);
-        totalIncorrect = mPrefs.getInt("totalIncorrect", totalIncorrect);
-        highestLevelnum = mPrefs.getInt("highestLevelnum", highestLevelnum);
-        tscore = mPrefs.getInt("tscore", tscore);
-
-//        if (highestLevelnum<levelnum) {
-//            highestLevelnum = levelnum;
-//        }
-
-
-
-        setContentView(R.layout.activity_math1);
-        int orientation = getResources().getConfiguration().orientation;
-        if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
-            LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
-            answerarea.setOrientation(LinearLayout.HORIZONTAL);
-        }
         showProb();
-        setLevelFields();
-
-
 
     }
-    private boolean hasStorageAccess() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (hasStorageAccess()) {
-            try {
-                actwriter = new ActivityWriter(this, getString(R.string.subject_math));
-            } catch (IOException e) {
-                Log.e("Primary", "Could not write file. Not logging user.", e);
-            }
-        } else {
-            actwriter = null;
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        SharedPreferences.Editor ed = mPrefs.edit();
-
-        ed.putInt("levelnum", levelnum);
-        ed.putInt("correct", correct);
-        ed.putInt("incorrect", incorrect);
-        ed.putInt("totalCorrect", totalCorrect);
-        ed.putInt("totalIncorrect", totalIncorrect);
-        ed.putInt("highestLevelnum", highestLevelnum);
-        ed.putInt("correctInARow", correctInARow);
-        ed.putInt("tscore", tscore);
-
-        ed.commit();
-
-        try {
-            if (actwriter !=null) actwriter.close();
-            actwriter = null;
-        } catch (IOException e) {
-            Log.e("Primary", "Error closing activity file.",e);
-        }
-    }
-
-
 
 
 
@@ -173,10 +86,6 @@ public class Math1Activity extends AppCompatActivity {
         starttime = System.currentTimeMillis();
 
     }
-
-    private int correctInARow = 0;
-
-    final Handler handler = new Handler();
 
     private void answerGiven(int ans) {
         long timespent = System.currentTimeMillis() - starttime;
@@ -270,49 +179,8 @@ public class Math1Activity extends AppCompatActivity {
         setLevelFields();
     }
 
-    private void setLevelFields() {
-        TextView leveltxt = (TextView)findViewById(R.id.level);
-        //leveltxt.setText(String.format("%d", level.ordinal()));
-        leveltxt.setText(levels[levelnum].toString());
-        TextView correcttxt = (TextView)findViewById(R.id.correct);
-        correcttxt.setText(String.format(Locale.getDefault(), "%d", correct));
-
-        TextView neededtxt = (TextView)findViewById(R.id.needed);
-        neededtxt.setText(String.format(Locale.getDefault(), "%d", levels[levelnum].getRounds()));
-
-        if (correct + incorrect>0) {
-            TextView scoretxt = (TextView) findViewById(R.id.score);
-            scoretxt.setText(getCurrentPercent());
-        }
-
-        TextView total_ratio = (TextView)findViewById(R.id.total_ratio);
-        total_ratio.setText(String.format(Locale.getDefault(), "%d / %d", totalCorrect, totalCorrect + totalIncorrect));
-
-        TextView tscore_txt = (TextView)findViewById(R.id.tscore);
-        tscore_txt.setText(String.format(Locale.getDefault(), "%d", tscore));
-
-        TextView bonuses = (TextView) findViewById(R.id.bonuses);
-        if (correctInARow>2) {
-            String btext = correctInARow + " in a row!";
-            bonuses.setText(btext);
-        } else {
-            bonuses.setText(" ");
-        }
-    }
-
-    private float getCurrentPercentFloat() {
-        if (correct + incorrect == 0) {
-            return 0;
-        }
-        return 100 * correct / (float) (correct + incorrect);
-    }
-
-    private String getCurrentPercent() {
-        return String.format(Locale.getDefault(), "%3.1f%%", getCurrentPercentFloat());
-    }
-
     private void makeRandomProblem() {
-        int max = levels[levelnum].getMaxNum();
+        int max = ((Math1Level)levels[levelnum]).getMaxNum();
         if (correct>levels[levelnum].getRounds()/2) {
             num1 = getRand(max / 2, max);
         } else {
@@ -322,7 +190,7 @@ public class Math1Activity extends AppCompatActivity {
         if (num2==0 && Math.random()>.3) num2 = getRand(1, max);
         if (num2==1 && Math.random()>.3) num2 = getRand(2, max);
 
-        op = MathOp.random(levels[levelnum].getMinMathOp(), levels[levelnum].getMaxMathOp());
+        op = MathOp.random(((Math1Level)levels[levelnum]).getMinMathOp(), ((Math1Level)levels[levelnum]).getMaxMathOp());
 
         if (op == MathOp.Minus || op == MathOp.Divide) {
             if (num1<num2) {
@@ -388,42 +256,6 @@ public class Math1Activity extends AppCompatActivity {
                 throw new IllegalArgumentException("Unknown operator: " + op);
         }
     }
-
-    public int getRand(int upper) {
-        return getRand(0,upper);
-    }
-
-    public int getRand(int lower, int upper) {
-        return (int) (Math.random() * (upper + 1 - lower)) + lower;
-    }
-
-    public static final Level [] levels = {
-            new Level(MathOp.Plus, MathOp.Plus, 5,  10),
-            new Level(MathOp.Minus, MathOp.Minus, 5, 10),
-
-            new Level(MathOp.Plus, MathOp.Plus, 10,  20),
-            new Level(MathOp.Minus, MathOp.Minus, 10, 20),
-
-            new Level(MathOp.Plus, MathOp.Plus, 15,  20),
-            new Level(MathOp.Minus, MathOp.Minus, 15, 20),
-
-            new Level(MathOp.Plus, MathOp.Plus, 25,  10),
-            new Level(MathOp.Minus, MathOp.Minus, 25,  10),
-
-            new Level(MathOp.Times, MathOp.Times, 5, 10),
-            new Level(MathOp.Divide, MathOp.Divide, 5, 10),
-
-            new Level(MathOp.Times, MathOp.Times, 10, 10),
-            new Level(MathOp.Divide, MathOp.Divide, 10, 10),
-
-            new Level(MathOp.Times, MathOp.Times, 12, 10),
-            new Level(MathOp.Divide, MathOp.Divide, 12, 10),
-
-            new Level(MathOp.Divide, MathOp.Times, 12, 30),
-
-            new Level(MathOp.Divide, MathOp.Plus, 12, 200),
-
-    };
 
 
 }

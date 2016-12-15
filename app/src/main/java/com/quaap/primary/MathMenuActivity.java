@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
+public class MathMenuActivity extends AppCompatActivity implements Button.OnClickListener {
 
     SharedPreferences mPrefs;
     @Override
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         clear_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(MainActivity.this)
+                new AlertDialog.Builder(MathMenuActivity.this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle("Clear progress")
                         .setMessage("Are you sure you want to clear your progress?")
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.gravity = Gravity.CENTER_VERTICAL;
 
-        for( Level level: Math1Activity.levels) {
+        for( Level level: Levels.Math1Levels) {
 
             LinearLayout levelrow = new LinearLayout(this);
             levelrow.setOrientation(LinearLayout.HORIZONTAL);
@@ -130,8 +130,8 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
     @Override
     public void onClick(View view) {
-        Intent mathintent = new Intent(MainActivity.this, Math1Activity.class);
-        mathintent.putExtra(Math1Activity.LEVELNAME, (int)view.getTag());
+        Intent mathintent = new Intent(MathMenuActivity.this, Math1Activity.class);
+        mathintent.putExtra(BaseActivity.LEVELNAME, (int)view.getTag());
         startActivity(mathintent);
     }
 
