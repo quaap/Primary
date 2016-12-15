@@ -42,6 +42,7 @@ public class Math1Activity extends AppCompatActivity {
     private int totalCorrect=0;
     private int totalIncorrect=0;
     private int tscore = 0;
+    private long starttime = System.currentTimeMillis();
 
     public static final String LEVELNAME = "levelnum";
 
@@ -60,6 +61,7 @@ public class Math1Activity extends AppCompatActivity {
         totalCorrect = mPrefs.getInt("totalCorrect", totalCorrect);
         totalIncorrect = mPrefs.getInt("totalIncorrect", totalIncorrect);
         highestLevelnum = mPrefs.getInt("highestLevelnum", highestLevelnum);
+        correctInARow = mPrefs.getInt("correctInARow", correctInARow);
         tscore = mPrefs.getInt("tscore", tscore);
 
 //        if (highestLevelnum<levelnum) {
@@ -92,6 +94,7 @@ public class Math1Activity extends AppCompatActivity {
         ed.putInt("totalCorrect", totalCorrect);
         ed.putInt("totalIncorrect", totalIncorrect);
         ed.putInt("highestLevelnum", highestLevelnum);
+        ed.putInt("correctInARow", correctInARow);
         ed.putInt("tscore", tscore);
 
         ed.commit();
@@ -128,13 +131,16 @@ public class Math1Activity extends AppCompatActivity {
             int tmpans = answers.get(i);
             makeAnswerButton(tmpans, answerarea, fontsize);
         }
+        starttime = System.currentTimeMillis();
 
     }
 
     private int correctInARow = 0;
 
     final Handler handler = new Handler();
+
     private void answerGiven(int ans) {
+        long timespent = System.currentTimeMillis() - starttime;
 
         for (Button ab: answerbuttons) {
             ab.setEnabled(false);

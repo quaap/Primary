@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:columnCount="2"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:id="@+id/problem_area">
 
         <Space
             android:layout_width="wrap_content"
@@ -29,10 +30,10 @@
             android:layout_columnSpan="1"
             android:layout_gravity="right"
             android:gravity="right"
-            android:textSize="36sp"
             android:layout_columnWeight="1"
             android:textStyle="bold"
-            android:layout_marginRight="10sp" />
+            android:layout_marginRight="10sp"
+            android:textSize="32sp" />
 
         <TextView
             android:text="+"
@@ -41,9 +42,9 @@
             android:id="@+id/op"
             android:layout_gravity="right"
             android:gravity="right"
-            android:textSize="36sp"
             android:layout_columnWeight="1"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="32sp" />
 
         <TextView
             android:text="1"
@@ -52,10 +53,10 @@
             android:id="@+id/num2"
             android:layout_gravity="right"
             android:gravity="right"
-            android:textSize="36sp"
             android:layout_columnWeight="1"
             android:textStyle="bold"
-            android:layout_marginRight="10sp" />
+            android:layout_marginRight="10sp"
+            android:textSize="32sp" />
 
         <TextView
             android:text="_________________"
@@ -133,8 +134,9 @@
         android:gravity="right"
         android:layout_gravity="right"
         android:id="@+id/answer_area"
-        android:layout_below="@+id/needed"
-        android:layout_centerHorizontal="true">
+        android:layout_below="@+id/problem_area"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp">
 
         <TextView
             android:text=" "
@@ -180,7 +182,8 @@
         android:lines="3"
         android:gravity="left|center_vertical"
         android:layout_alignParentLeft="true"
-        android:layout_alignBaseline="@+id/textView9" />
+        android:layout_below="@+id/bonuses"
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:text="0"
@@ -189,9 +192,9 @@
         android:id="@+id/tscore"
         android:textSize="28sp"
         android:textColor="@android:color/holo_blue_bright"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/level"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/points_lab" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -199,5 +202,14 @@
         android:layout_below="@+id/tscore"
         android:layout_alignParentStart="true"
         android:id="@+id/bonuses" />
+
+    <TextView
+        android:text="Points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/points_lab"
+        android:textSize="18sp" />
 
 </RelativeLayout>
