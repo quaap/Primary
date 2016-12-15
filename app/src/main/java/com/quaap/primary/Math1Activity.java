@@ -51,16 +51,17 @@ public class Math1Activity extends AppCompatActivity {
 
         if (levelnum==-1) {
             levelnum = mPrefs.getInt("levelnum", levelnum);
+        } else {
+            correct = mPrefs.getInt("correct", correct);
+            incorrect = mPrefs.getInt("incorrect", incorrect);
         }
-        if (highestLevelnum<levelnum) {
-            highestLevelnum = levelnum;
-        }
-
-        correct = mPrefs.getInt("correct", correct);
-        incorrect = mPrefs.getInt("incorrect", incorrect);
         totalCorrect = mPrefs.getInt("totalCorrect", totalCorrect);
         totalIncorrect = mPrefs.getInt("totalIncorrect", totalIncorrect);
         highestLevelnum = mPrefs.getInt("highestLevelnum", highestLevelnum);
+//        if (highestLevelnum<levelnum) {
+//            highestLevelnum = levelnum;
+//        }
+
 
 
         setContentView(R.layout.activity_math1);
