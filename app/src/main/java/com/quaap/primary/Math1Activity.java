@@ -51,7 +51,6 @@ public class Math1Activity extends AppCompatActivity {
 
         if (levelnum==-1) {
             levelnum = mPrefs.getInt("levelnum", levelnum);
-        } else {
             correct = mPrefs.getInt("correct", correct);
             incorrect = mPrefs.getInt("incorrect", incorrect);
         }
@@ -205,8 +204,16 @@ public class Math1Activity extends AppCompatActivity {
     }
 
     private void makeRandomProblem() {
-        num1 = getRand(levels[levelnum].getMaxNum(correct));
-        num2 = getRand(levels[levelnum].getMaxNum(correct));
+        int max = levels[levelnum].getMaxNum();
+        if (correct>levels[levelnum].getRounds()/2) {
+            num1 = getRand(max / 2, max);
+        } else {
+            num1 = getRand(max);
+        }
+        num2 = getRand(max);
+        if (num2==0 && Math.random()>.3) num2 = getRand(1, max);
+        if (num2==1 && Math.random()>.3) num2 = getRand(2, max);
+
         op = MathOp.random(levels[levelnum].getMinMathOp(), levels[levelnum].getMaxMathOp());
 
         if (op == MathOp.Minus || op == MathOp.Divide) {
@@ -230,7 +237,7 @@ public class Math1Activity extends AppCompatActivity {
         for (int i=1; i<numans; i++) {
             int tmpans;
             do {
-                tmpans = answer + getRand(-Math.min(answer, 7), 7);
+                tmpans = answer + getRand(-Math.min(answer*2/3, 7), 6);
             } while (answers.contains(tmpans));
             answers.add(tmpans);
         }
@@ -282,25 +289,31 @@ public class Math1Activity extends AppCompatActivity {
         return (int) (Math.random() * (upper + 1 - lower)) + lower;
     }
 
-    public static Level [] levels = {
-            new Level(1, MathOp.Plus, MathOp.Plus, 10,  20),
-            new Level(2, MathOp.Minus, MathOp.Minus, 10, 20),
+    public static final Level [] levels = {
+            new Level(MathOp.Plus, MathOp.Plus, 5,  10),
+            new Level(MathOp.Minus, MathOp.Minus, 5, 10),
 
-            new Level(3, MathOp.Plus, MathOp.Plus, 20,  20),
-            new Level(4, MathOp.Minus, MathOp.Minus, 20, 20),
+            new Level(MathOp.Plus, MathOp.Plus, 10,  20),
+            new Level(MathOp.Minus, MathOp.Minus, 10, 20),
 
-            new Level(5, MathOp.Plus, MathOp.Plus, 50,  20),
-            new Level(6, MathOp.Minus, MathOp.Minus, 50,  20),
+            new Level(MathOp.Plus, MathOp.Plus, 15,  20),
+            new Level(MathOp.Minus, MathOp.Minus, 15, 20),
 
-            new Level(7, MathOp.Times, MathOp.Times, 5, 10),
+            new Level(MathOp.Plus, MathOp.Plus, 25,  10),
+            new Level(MathOp.Minus, MathOp.Minus, 25,  10),
 
-            new Level(8, MathOp.Times, MathOp.Times, 10, 10),
+            new Level(MathOp.Times, MathOp.Times, 5, 10),
+            new Level(MathOp.Divide, MathOp.Divide, 5, 10),
 
-            new Level(9, MathOp.Divide, MathOp.Divide, 10, 10),
+            new Level(MathOp.Times, MathOp.Times, 10, 10),
+            new Level(MathOp.Divide, MathOp.Divide, 10, 10),
 
-            new Level(10, MathOp.Divide, MathOp.Times, 10, 20),
+            new Level(MathOp.Times, MathOp.Times, 12, 10),
+            new Level(MathOp.Divide, MathOp.Divide, 12, 10),
 
-            new Level(11, MathOp.Divide, MathOp.Plus, 12, 200),
+            new Level(MathOp.Divide, MathOp.Times, 12, 30),
+
+            new Level(MathOp.Divide, MathOp.Plus, 12, 200),
 
     };
 

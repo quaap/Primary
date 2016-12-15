@@ -24,12 +24,18 @@ public class Level {
 
     private int mLevel;
 
-    Level(int levelnum, MathOp maxMathOp, int maxNum, int rounds) {
-        this(levelnum, maxMathOp, MathOp.Plus, maxNum, rounds);
+    private static int nextlevelnum = 1;
+    private static final Object nextlevelsync = new Object();
+
+
+    public Level(MathOp maxMathOp, int maxNum, int rounds) {
+        this(maxMathOp, MathOp.Plus, maxNum, rounds);
     }
 
-    Level(int levelnum, MathOp maxMathOp, MathOp minMathOp, int maxNum, int rounds) {
-        mLevel = levelnum;
+    public Level(MathOp maxMathOp, MathOp minMathOp, int maxNum, int rounds) {
+        synchronized (nextlevelsync) {
+            mLevel = nextlevelnum++;
+        }
         mMaxMathOp = maxMathOp;
         mMinMathOp = minMathOp;
         mMaxNum = maxNum;
@@ -43,7 +49,7 @@ public class Level {
 
     public String getName() {
         String ops = getOpsStr();
-        return "Level " + mLevel + " Max " + mMaxNum + " " + ops;
+        return "Level " + mLevel + " / " + ops + " / Max " + mMaxNum ;
     }
 
     private String getOpsStr() {
@@ -75,9 +81,9 @@ public class Level {
         return mMaxNum;
     }
 
-    public int getMaxNum(int prevCorrect) {
-        return (int)(mMaxNum * ((double)Math.max(prevCorrect, mRounds/5)/mRounds));
-    }
+//    public int getMaxNum(int prevCorrect) {
+//        return (int)(mMaxNum * ((double)Math.max(prevCorrect, mRounds/5.0)/mRounds));
+//    }
 
     public int getRounds() {
         return mRounds;

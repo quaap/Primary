@@ -1,7 +1,9 @@
 package com.quaap.primary;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -21,10 +23,6 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
         mPrefs = getSharedPreferences("def", MODE_PRIVATE);
 
-        int highest = mPrefs.getInt("highestLevelnum", 0);
-
-        LinearLayout activity_main = (LinearLayout)findViewById(R.id.button_layout);
-
         Button math_button = (Button)findViewById(R.id.math_button);
         math_button.setTag(-1);
         math_button.setOnClickListener(this);
@@ -33,27 +31,41 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         clear_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor ed = mPrefs.edit();
-                ed.clear();
-                ed.commit();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Clear progress")
+                        .setMessage("Are you sure you want to clear your progress?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()  {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                clearProgress();
+                            }
 
-                show_hide_gip();
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
 
             }
         });
 
+    }
+
+    private void showLevelButtons() {
+        int highest = mPrefs.getInt("highestLevelnum", 0);
+
+        LinearLayout button_layout = (LinearLayout)findViewById(R.id.button_layout);
+
+        button_layout.removeAllViews();
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
 
 
         for( Level level: Math1Activity.levels) {
 
-
-
             LinearLayout levelrow = new LinearLayout(this);
             levelrow.setOrientation(LinearLayout.HORIZONTAL);
-            activity_main.addView(levelrow);
-
+            button_layout.addView(levelrow);
 
             Button levelbutt = new Button(this);
             levelbutt.setLayoutParams(lp);
@@ -71,10 +83,16 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
             boolean beenthere = level.getLevelNum()-1<=highest;
             levelbutt.setEnabled(beenthere);
             desc.setEnabled(beenthere);
-
-
         }
+    }
 
+    private void clearProgress() {
+        SharedPreferences.Editor ed = mPrefs.edit();
+        ed.clear();
+        ed.commit();
+
+        show_hide_gip();
+        showLevelButtons();
     }
 
     private void show_hide_gip() {
@@ -92,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         super.onResume();
 
         show_hide_gip();
+        showLevelButtons();
     }
 
     @Override
