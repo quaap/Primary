@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
 
 
-        for( Math1Activity.Level level: Math1Activity.levels) {
+        for( Level level: Math1Activity.levels) {
 
 
 
