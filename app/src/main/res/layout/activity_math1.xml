@@ -187,7 +187,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tscore"
-        android:textSize="30sp"
+        android:textSize="28sp"
         android:textColor="@android:color/holo_blue_bright"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/level"
