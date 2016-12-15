@@ -49,7 +49,7 @@ public class Level {
 
     public String getName() {
         String ops = getOpsStr();
-        return "Level " + mLevel + " / " + ops + " / Max " + mMaxNum ;
+        return "Level " + mLevel + ": " + ops + " / Max " + mMaxNum ;
     }
 
     private String getOpsStr() {

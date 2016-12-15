@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         button_layout.removeAllViews();
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-
+        lp.gravity = Gravity.CENTER_VERTICAL;
 
         for( Level level: Math1Activity.levels) {
 
@@ -97,11 +97,20 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
     private void show_hide_gip() {
         LinearLayout gip_layout = (LinearLayout)findViewById(R.id.gip_layout);
-
+        TextView score_overview = (TextView)findViewById(R.id.score_overview);
         if (mPrefs.getInt("levelnum", -1)==-1) {
             gip_layout.setVisibility(View.GONE);
+            score_overview.setText(" ");
         } else {
             gip_layout.setVisibility(View.VISIBLE);
+            int correct = mPrefs.getInt("totalCorrect", 0);
+            int incorrect = mPrefs.getInt("totalIncorrect", 0);
+            int highest = mPrefs.getInt("highestLevelnum", 0)+1;
+            if (correct+incorrect>0) {
+                String score = "Status: Up to level " + highest + ".  Overall score: " + correct + "/" + (correct + incorrect);
+
+                score_overview.setText(score);
+            }
         }
     }
 

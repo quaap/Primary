@@ -27,11 +27,9 @@
             <Button
                 android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:id="@+id/math_button"
+                android:id="@+id/math_button"
             android:layout_below="@+id/textView"
             android:layout_centerHorizontal="true"
-                android:layout_marginBottom="16dp"
                 android:text="Resume Game"
                 android:layout_gravity="left" />
 
@@ -48,6 +46,16 @@
                 android:layout_gravity="right" />
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/score_overview"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_horizontal"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
