@@ -60,6 +60,20 @@
             android:id="@+id/total_ratio"
             android:textSize="18sp"
             android:gravity="center_horizontal" />
+
+
     </LinearLayout>
+
+    <TextView
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sideusername"
+        android:textSize="18sp"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:background="#eeeeff"
+        android:paddingStart="4dp"
+        android:paddingEnd="2dp" />
 
 </LinearLayout>

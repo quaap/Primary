@@ -45,6 +45,7 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
     private Class mTargetActivity;
 
     private String mLevelSetName;
+    protected String username;
 
     protected void OnCreateCommon(int subjectResId, String levelSetName, Class targetActivity) {
         subject = getString(subjectResId);
@@ -52,8 +53,11 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
         mLevelSetName = levelSetName;
 
         setContentView(R.layout.activity_subject_menu);
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
 
-        mPrefs = BaseActivity.getSharedPreferences(this, subject);
+
+        mPrefs = BaseActivity.getSharedPreferences(this, username, subject);
 
         Button resume_button = (Button)findViewById(R.id.resume_button);
         resume_button.setTag(-1);
@@ -159,6 +163,7 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
     public void onClick(View view) {
         Intent intent = new Intent(this, mTargetActivity);
         intent.putExtra(BaseActivity.LEVELNAME, (int)view.getTag());
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 

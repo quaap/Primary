@@ -75,6 +75,12 @@
             android:id="@+id/user_avatar_spinner"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp" />
+
+        <Button
+            android:text="Add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_added_button" />
     </LinearLayout>
 
     <Spinner

@@ -31,19 +31,19 @@ import java.util.Locale;
 public class ActivityWriter {
 
     private final SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-    private final SimpleDateFormat mFileFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
     private final FileWriter mFw;
-    private final String mSubject;
-    private final Context mContext;
 
-    public ActivityWriter(Context context, String subject) throws IOException {
-        mSubject = subject;
-        mContext = context;
 
-        String fname = mSubject + "_" + mFileFormat.format(new Date());
-        fname = fname.replaceAll("[/\\\\.(){}$|?<>]","_");
-        File f = new File(getAppDocumentsDir(mContext),  fname + ".csv");
+    public ActivityWriter(Context context, String username, String subject) throws IOException {
+
+        username = username.replaceAll("\\W","_");
+
+
+        SimpleDateFormat fileFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String fname = username + " " + subject + " " + fileFormat.format(new Date());
+        fname = fname.replaceAll("[/\\\\.(){}$*|?<>\\[\\]]"," ");
+        File f = new File(getAppDocumentsDir(context),  fname + ".csv");
         boolean newfile = !f.exists();
         mFw = new FileWriter(f, true);
         if (newfile) {

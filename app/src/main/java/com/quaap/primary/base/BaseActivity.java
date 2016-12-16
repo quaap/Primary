@@ -3,9 +3,11 @@ package com.quaap.primary.base;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.quaap.primary.Levels;
 import com.quaap.primary.R;
 
 import java.io.IOException;
@@ -54,6 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected int correctInARow = 0;
 
     protected String subject;
+    private int subjectId;
     private int statusId;
 
     public Level getLevel(int leveln) {
@@ -70,6 +74,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected Level[] levels;
 
+    protected int layoutId;
+
+    protected String username;
+
+    protected BaseActivity(String levelSetName, int subjectId, int layoutIdtxt, int statusTxtId) {
+
+        this.subjectId = subjectId;
+        levels = Levels.getLevels(levelSetName);
+        statusId = statusTxtId;
+        layoutId = layoutIdtxt;
+    }
 
     private void showProb() {
         showProbImpl();
@@ -85,17 +100,25 @@ public abstract class BaseActivity extends AppCompatActivity {
         return true;
     }
 
-    public static SharedPreferences getSharedPreferences(Context context, String subject) {
-        return context.getSharedPreferences("scores:"+subject, MODE_PRIVATE);
+    public static SharedPreferences getSharedPreferences(Context context, String username, String subject) {
+        return context.getSharedPreferences("scores:" + username + ":" + subject, MODE_PRIVATE);
     }
 
-    protected void OnCreateCommon(int layoutId, int statusTxtId) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        subject = getString(subjectId);
+
         ActionBar actionBar = getSupportActionBar();
         if (actionBar!=null) {
             actionBar.setTitle(getString(R.string.app_name) + ": " + subject);
         }
-        statusId = statusTxtId;
-        mPrefs = getSharedPreferences(this, subject);
+
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
+
+        mPrefs = getSharedPreferences(this, username, subject);
 
         levelnum = getIntent().getIntExtra(LEVELNAME, -1);
 
@@ -111,6 +134,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         tscore = mPrefs.getInt("tscore", tscore);
 
         setContentView(layoutId);
+
+        TextView sideusername = (TextView)findViewById(R.id.sideusername);
+        sideusername.setText(username);
 
         int orientation = getResources().getConfiguration().orientation;
         if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
@@ -203,7 +229,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onResume();
         if (hasStorageAccess()) {
             try {
-                actwriter = new ActivityWriter(this, subject);
+                actwriter = new ActivityWriter(this, username, subject);
             } catch (IOException e) {
                 Log.e("Primary", "Could not write file. Not logging user.", e);
             }

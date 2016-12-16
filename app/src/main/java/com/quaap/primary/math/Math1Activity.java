@@ -31,20 +31,13 @@ public class Math1Activity extends BaseActivity {
 
 
     public Math1Activity() {
-        levels = Levels.getLevels(LevelSetName);
-
+       super(LevelSetName, R.string.subject_math1, R.layout.activity_math1, R.id.txtstatus);
     }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        subject = getString(R.string.subject_math1);
-        int layoutId=R.layout.activity_math1;
-        int statusId=R.id.txtstatus;
-
-        OnCreateCommon(layoutId, statusId);
 
     }
 
