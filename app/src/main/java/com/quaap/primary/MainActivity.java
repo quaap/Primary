@@ -90,11 +90,11 @@ public class MainActivity extends AppCompatActivity {
                 if (new_user_shown) {
                     newname = newname.trim();
                     if (newname.length()<2) {
-                        Toast.makeText(MainActivity.this,"Name too short",Toast.LENGTH_LONG);
+                        Toast.makeText(MainActivity.this,"Name too short",Toast.LENGTH_LONG).show();
                         return;
                     }
                     if (newname.length()>12) {
-                        Toast.makeText(MainActivity.this,"Name must be less than 12 characters long",Toast.LENGTH_LONG);
+                        Toast.makeText(MainActivity.this,"Name must be less than 12 characters long",Toast.LENGTH_LONG).show();
                         return;
                     }
                     User user = addUser(newname, (String)avatarspinner.getSelectedItem());
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                         LinearLayout new_user_area = (LinearLayout)findViewById(R.id.login_new_user_area);
                         new_user_area.setVisibility(View.GONE);
                     } else {
-                        Toast.makeText(MainActivity.this,"Name already in use!",Toast.LENGTH_LONG);
+                        Toast.makeText(MainActivity.this,"Name already in use!",Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Spinner avatarspinner = (Spinner)findViewById(R.id.user_avatar_spinner);
-        avatarspinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, avatarlist));
+        avatarspinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_item, avatarlist));
 
         ImageView newuserbutton = (ImageView)findViewById(R.id.add_user_button);
 
