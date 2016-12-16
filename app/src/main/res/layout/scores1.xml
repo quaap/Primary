@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:id="@+id/scoreboard2">
+    android:id="@+id/scoreboard1">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:background="#eeeeff"
         android:paddingStart="4dp"
@@ -39,18 +39,19 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:background="#eeeeff"
         android:paddingStart="4dp"
         android:paddingEnd="2dp">
 
         <TextView
-            android:text="Totals"
+            android:text="Total correct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView7"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:maxLines="2" />
 
         <TextView
             android:text="0"

@@ -54,7 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected int correctInARow = 0;
 
     protected String subject;
-
+    private int statusId;
 
     public Level getLevel(int leveln) {
         return levels[leveln];
@@ -89,12 +89,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         return context.getSharedPreferences("scores:"+subject, MODE_PRIVATE);
     }
 
-    protected void OnCreateCommon(int layoutId) {
+    protected void OnCreateCommon(int layoutId, int statusTxtId) {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar!=null) {
             actionBar.setTitle(getString(R.string.app_name) + ": " + subject);
         }
-
+        statusId = statusTxtId;
         mPrefs = getSharedPreferences(this, subject);
 
         levelnum = getIntent().getIntExtra(LEVELNAME, -1);
@@ -122,7 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void answerDone(boolean isright, int addscore, String problem, String answer, String useranser) {
-        final TextView status = (TextView)findViewById(R.id.txtstatus);
+        final TextView status = (TextView)findViewById(statusId);
         long timespent = System.currentTimeMillis() - starttime;
         if (isright) {
             correct++;

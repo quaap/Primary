@@ -42,8 +42,9 @@ public class Math1Activity extends BaseActivity {
 
         subject = getString(R.string.subject_math1);
         int layoutId=R.layout.activity_math1;
+        int statusId=R.id.txtstatus;
 
-        OnCreateCommon(layoutId);
+        OnCreateCommon(layoutId, statusId);
 
     }
 

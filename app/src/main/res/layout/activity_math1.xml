@@ -74,7 +74,6 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_columnSpan="2"
         android:gravity="right"
         android:layout_gravity="right"
         android:id="@+id/answer_area"
