@@ -13,10 +13,10 @@
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:columnCount="2"
+        android:id="@+id/problem_area"
         android:layout_alignParentTop="true"
-        android:id="@+id/problem_area">
+        android:layout_centerHorizontal="true">
 
         <Space
             android:layout_width="wrap_content"
@@ -69,63 +69,6 @@
 
     </GridLayout>
 
-    <TextView
-        android:text="Correct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/textView3"
-        android:textSize="18sp" />
-
-    <TextView
-        android:text="0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/correct"
-        android:textSize="24sp"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:text="Needed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView9"
-        android:layout_below="@+id/correct"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="25dp"
-        android:textSize="18sp" />
-
-    <TextView
-        android:text="0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/needed"
-        android:textSize="24sp"
-        android:layout_below="@+id/textView9"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:text="Score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView5"
-        android:layout_marginTop="31dp"
-        android:textSize="18sp"
-        android:layout_below="@+id/needed"
-        android:layout_alignStart="@+id/textView3" />
-
-    <TextView
-        android:text="0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/score"
-        android:textSize="14sp"
-        android:layout_below="@+id/textView5"
-        android:layout_alignStart="@+id/textView5"
-        android:layout_alignParentEnd="true"
-        android:gravity="end" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -154,63 +97,20 @@
         android:id="@+id/txtstatus"
         android:textSize="30sp" />
 
-    <TextView
-        android:text="Totals"
+    <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView7"
-        android:textSize="18sp"
-        android:layout_alignBaseline="@+id/textView5"
-        android:layout_alignBottom="@+id/textView5"
+        layout="@layout/scores2"
+        android:id="@+id/scoreboard"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:text="0"
+    <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/total_ratio"
-        android:textSize="14sp"
-        android:gravity="left"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/score" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/level"
-        android:text="0"
-        android:textSize="18sp"
-        android:lines="3"
-        android:gravity="left|center_vertical"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/bonuses"
-        android:layout_marginTop="8dp" />
-
-    <TextView
-        android:text="0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tscore"
-        android:textSize="28sp"
-        android:textColor="@android:color/holo_blue_bright"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/points_lab" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tscore"
-        android:layout_alignParentStart="true"
-        android:id="@+id/bonuses" />
-
-    <TextView
-        android:text="Points"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        layout="@layout/scores1"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/points_lab"
-        android:textSize="18sp" />
+        android:layout_alignParentEnd="true" />
+
 
 </RelativeLayout>

@@ -45,7 +45,7 @@ public class Math1Level extends Level {
     }
 
     @Override
-    public String getName() {
+    public String getDescription() {
         String ops = getOpsStr();
         return "Level " + mLevel + ": " + ops + " / Max " + mMaxNum ;
     }

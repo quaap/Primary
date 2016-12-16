@@ -107,7 +107,7 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
             levelrow.addView(levelbutt);
 
             TextView desc = new TextView(this);
-            desc.setText(level.getName());
+            desc.setText(level.getDescription());
             desc.setLayoutParams(lp);
             desc.setTextSize(16);
             levelrow.addView(desc);

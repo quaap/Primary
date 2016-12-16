@@ -239,18 +239,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void setLevelFields() {
         TextView leveltxt = (TextView)findViewById(R.id.level);
-        //leveltxt.setText(String.format("%d", level.ordinal()));
-        leveltxt.setText(getLevel(levelnum).toString());
+
+        leveltxt.setText("Level " + getLevel(levelnum).getLevelNum());
+
         TextView correcttxt = (TextView)findViewById(R.id.correct);
-        correcttxt.setText(String.format(Locale.getDefault(), "%d", correct));
 
-        TextView neededtxt = (TextView)findViewById(R.id.needed);
-        neededtxt.setText(String.format(Locale.getDefault(), "%d", getLevel(levelnum).getRounds()));
+        correcttxt.setText(String.format(Locale.getDefault(), "%d", getLevel(levelnum).getRounds() - correct));
 
-        if (correct + incorrect>0) {
-            TextView scoretxt = (TextView) findViewById(R.id.score);
-            scoretxt.setText(getCurrentPercent());
-        }
+
+
+        TextView scoretxt = (TextView) findViewById(R.id.score);
+        scoretxt.setText(getCurrentPercent());
+
 
         TextView total_ratio = (TextView)findViewById(R.id.total_ratio);
         total_ratio.setText(String.format(Locale.getDefault(), "%d / %d", totalCorrect, totalCorrect + totalIncorrect));
@@ -275,7 +275,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private String getCurrentPercent() {
-        return String.format(Locale.getDefault(), "%3.1f%%", getCurrentPercentFloat());
+        float per = getCurrentPercentFloat();
+        if ((int)per == per) {
+            return String.format(Locale.getDefault(), "%3.0f%%", per);
+        } else {
+            return String.format(Locale.getDefault(), "%3.1f%%", per);
+        }
     }
 
     public int getRand(int upper) {

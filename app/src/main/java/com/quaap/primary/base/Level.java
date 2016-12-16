@@ -27,7 +27,7 @@ public abstract class Level {
 
     public abstract String toString();
 
-    public abstract String getName();
+    public abstract String getDescription();
 
     public int getLevelNum() {
         return mLevel;
