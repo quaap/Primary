@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Primary</string>
     <string name="subject_math1">Math 1</string>
+    <string name="defaultUserName">Default</string>
 
     <string-array name="subjects">
         <item>Math 1</item>

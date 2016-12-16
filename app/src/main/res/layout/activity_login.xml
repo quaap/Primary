@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,51 +10,59 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:layout_width="wrap_content" />
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
 
-        <LinearLayout
-            android:orientation="horizontal"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <HorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/user_avatar_list_view">
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="6">
 
-
-
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/user_avatar_list_view">
         </LinearLayout>
-    </HorizontalScrollView>
+        </HorizontalScrollView>
 
-    <TextView
-        android:text=" OR "
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:id="@+id/add_user_button"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:padding="4dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:layout_gravity="center" />
 
-    <CheckBox
-        android:text="Create new user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/new_user_checkBox" />
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/login_new_user_area"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:background="#f5f5f5">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Name"
+            android:inputType="textCapWords|textPersonName"
             android:ems="10"
             android:id="@+id/username_input"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:hint="Name" />
 
         <Spinner
             android:layout_width="match_parent"

@@ -3,8 +3,7 @@ package com.quaap.primary;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
+
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,8 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quaap.primary.base.User;
-import com.quaap.primary.math.Math1MenuActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private Map<String,View> userlist = new HashMap<>();
     private String selected_user;
     private SharedPreferences prefs;
+    private boolean new_user_shown = false;
 
     public MainActivity() {
         avatars = new String[avatarhex.length];
@@ -62,17 +60,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         prefs = getSharedPreferences("app", MODE_PRIVATE);
 
-        addUser("default", avatars[0]);
+        String defaultusername = getString(R.string.defaultUserName);
+        addUser(defaultusername, avatars[0]);
+
         createUserList();
 
+        selectUser(prefs.getString("lastselecteduser", defaultusername));
+
         createNewUserArea();
-       //
+
 
 
         Button goButton = (Button)findViewById(R.id.login_button);
@@ -80,16 +83,27 @@ public class MainActivity extends AppCompatActivity {
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CheckBox new_user = (CheckBox)findViewById(R.id.new_user_checkBox);
+
                 Spinner avatarspinner = (Spinner)findViewById(R.id.user_avatar_spinner);
                 EditText newnamebox = (EditText)findViewById(R.id.username_input);
                 String newname = newnamebox.getText().toString();
-                if (new_user.isChecked()) {
-
-                    if (addUser(newname, (String)avatarspinner.getSelectedItem())){
-
+                if (new_user_shown) {
+                    newname = newname.trim();
+                    if (newname.length()<2) {
+                        Toast.makeText(MainActivity.this,"Name too short",Toast.LENGTH_LONG);
+                        return;
+                    }
+                    if (newname.length()>12) {
+                        Toast.makeText(MainActivity.this,"Name must be less than 12 characters long",Toast.LENGTH_LONG);
+                        return;
+                    }
+                    User user = addUser(newname, (String)avatarspinner.getSelectedItem());
+                    if (user!=null){
+                        addUserToUserList(user);
                         selectUser(newname);
-
+                        new_user_shown = false;
+                        LinearLayout new_user_area = (LinearLayout)findViewById(R.id.login_new_user_area);
+                        new_user_area.setVisibility(View.GONE);
                     } else {
                         Toast.makeText(MainActivity.this,"Name already in use!",Toast.LENGTH_LONG);
                         return;
@@ -130,16 +144,16 @@ public class MainActivity extends AppCompatActivity {
         Spinner avatarspinner = (Spinner)findViewById(R.id.user_avatar_spinner);
         avatarspinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, avatarlist));
 
-        final LinearLayout userview = (LinearLayout)findViewById(R.id.user_avatar_list_view);
-        final LinearLayout new_user_area = (LinearLayout)findViewById(R.id.login_new_user_area);
-        final CheckBox new_user = (CheckBox)findViewById(R.id.new_user_checkBox);
-        new_user.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        ImageView newuserbutton = (ImageView)findViewById(R.id.add_user_button);
+
+
+        newuserbutton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                new_user_area.setVisibility(b? View.VISIBLE:View.GONE);
-                userview.setVisibility(b?View.GONE:View.VISIBLE);
+            public void onClick(View view) {
+                showNewUserArea(true);
             }
         });
+
     }
 
     public List<User> getUserList() {
@@ -158,11 +172,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public boolean addUser(String username, String avatar) {
+    public User addUser(String username, String avatar) {
         Set<String> usernames = new TreeSet<>();
 
         usernames = prefs.getStringSet("users", usernames);
-
+        User user = null;
         if (!usernames.contains(username)){
             usernames.add(username);
             SharedPreferences.Editor ed = prefs.edit();
@@ -170,11 +184,13 @@ public class MainActivity extends AppCompatActivity {
             ed.putString(username+":avatar", avatar);
             ed.putBoolean("avatar:" + avatar, true);
             ed.apply();
-        } else {
-            return false;
+            user = new User();
+            user.username = username;
+            user.avatar = avatar;
+
         }
 
-        return true;
+        return user;
     }
 
 
@@ -194,22 +210,8 @@ public class MainActivity extends AppCompatActivity {
         List<User> users = getUserList();
 
         for (User user: users) {
-            View child = addUserToUserList(user);
+            addUserToUserList(user);
 
-            final TextView user_name = (TextView)child.findViewById(R.id.username_avatar);
-            TextView user_image = (TextView)child.findViewById(R.id.userimage_avatar);
-
-            user_name.setText(user.username);
-
-            user_image.setText(user.avatar);
-
-            child.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    selectUser((String)view.getTag());
-                }
-            });
         }
     }
 
@@ -223,10 +225,27 @@ public class MainActivity extends AppCompatActivity {
             old_selected.setBackgroundColor(normalColor);
         }
         selected_user = username;
-        View new_selected = userlist.get(selected_user);
-        new_selected.setBackgroundColor(selectedColor);
+        if (selected_user!=null) {
+            View new_selected = userlist.get(selected_user);
+            new_selected.setBackgroundColor(selectedColor);
+
+            SharedPreferences.Editor ed = prefs.edit();
+            ed.putString("lastselecteduser", selected_user);
+            ed.apply();
+        }
     }
 
+    private void showNewUserArea(boolean show) {
+        LinearLayout new_user_area = (LinearLayout)findViewById(R.id.login_new_user_area);
+        if (show) {
+            new_user_area.setVisibility(View.VISIBLE);
+            new_user_shown = true;
+            selectUser(null);
+        } else {
+            new_user_area.setVisibility(View.GONE);
+            new_user_shown = false;
+        }
+    }
     @NonNull
     private View addUserToUserList(User user) {
         LinearLayout userview = (LinearLayout)findViewById(R.id.user_avatar_list_view);
@@ -241,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
         child.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                showNewUserArea(false);
                 selectUser((String)view.getTag());
             }
         });

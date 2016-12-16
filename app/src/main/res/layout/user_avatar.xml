@@ -3,18 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:id="@+id/user_avatar_wrap">
+    android:id="@+id/user_avatar_wrap"
+    android:gravity="center_horizontal"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp">
 
     <TextView
         android:text=":)"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/userimage_avatar"
         android:textSize="36sp" />
 
     <TextView
         android:text="Your name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/username_avatar" />
 </LinearLayout>
