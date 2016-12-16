@@ -23,7 +23,7 @@ public enum MathOp {
     Times("\u00D7"),
     Divide("\u00F7");
 
-    private String mDisplay;
+    private final String mDisplay;
     MathOp(String display) {
         mDisplay = display;
     }
@@ -43,7 +43,7 @@ public enum MathOp {
         return randomEnum(MathOp.class, start, upto);
     }
 
-    public static <T extends Enum<?>> T randomEnum(Class<T> clazz, T start, T upto){
+    private static <T extends Enum<?>> T randomEnum(Class<T> clazz, T start, T upto){
 
         int max = upto.ordinal();
         int min = start.ordinal();

@@ -2,6 +2,25 @@
     <string name="app_name">Primary</string>
     <string name="subject_math1">Math 1</string>
     <string name="defaultUserName">Default</string>
+    <string name="choose_user">Choose user</string>
+    <string name="points">Points</string>
+    <string name="resume_game">Resume Game</string>
+    <string name="remaining">Remaining</string>
+    <string name="clear_progress">Clear Progress</string>
+    <string name="total_correct">Tot. correct</string>
+    <string name="level_grade">Level %</string>
+    <string name="name">Name</string>
+    <string name="add">Add</string>
+    <string name="go">Go!</string>
+    <string name="correct">Correct!</string>
+    <string name="levels_done">You\'ve completed all the levels!</string>
+    <string name="level_complete">Level complete!</string>
+    <string name="do_next_level">Go to the next level?</string>
+    <string name="next_level">Next level</string>
+    <string name="repeat_level">Repeat this level</string>
+    <string name="try_again">Try again!</string>
+    <string name="level">"Level %d"</string>
+    <string name="add_user">Add User</string>
 
     <string-array name="subjects">
         <item>Math 1</item>
@@ -11,37 +30,37 @@
         <item>com.quaap.primary.math.Math1MenuActivity</item>
     </string-array>
 
-    <string-array name="password1">
-        <item> - </item>
-        <item>Tiny</item>
-        <item>Small</item>
-        <item>Medium</item>
-        <item>Large</item>
-        <item>Giant</item>
-    </string-array>
-    <string-array name="password2">
-        <item> - </item>
-        <item>Red</item>
-        <item>Orange</item>
-        <item>Yellow</item>
-        <item>Green</item>
-        <item>Blue</item>
-        <item>Violet</item>
-        <item>Pink</item>
-        <item>White</item>
-        <item>Black</item>
-    </string-array>
-    <string-array name="password3">
-        <item> - </item>
-        <item>Dog</item>
-        <item>Cat</item>
-        <item>Pony</item>
-        <item>Cow</item>
-        <item>Mouse</item>
-        <item>Elephant</item>
-        <item>Monkey</item>
-        <item>Whale</item>
-        <item>Bear</item>
-        <item>Tiger</item>
-    </string-array>
+    <!--<string-array name="password1">-->
+        <!--<item> - </item>-->
+        <!--<item>Tiny</item>-->
+        <!--<item>Small</item>-->
+        <!--<item>Medium</item>-->
+        <!--<item>Large</item>-->
+        <!--<item>Giant</item>-->
+    <!--</string-array>-->
+    <!--<string-array name="password2">-->
+        <!--<item> - </item>-->
+        <!--<item>Red</item>-->
+        <!--<item>Orange</item>-->
+        <!--<item>Yellow</item>-->
+        <!--<item>Green</item>-->
+        <!--<item>Blue</item>-->
+        <!--<item>Violet</item>-->
+        <!--<item>Pink</item>-->
+        <!--<item>White</item>-->
+        <!--<item>Black</item>-->
+    <!--</string-array>-->
+    <!--<string-array name="password3">-->
+        <!--<item> - </item>-->
+        <!--<item>Dog</item>-->
+        <!--<item>Cat</item>-->
+        <!--<item>Pony</item>-->
+        <!--<item>Cow</item>-->
+        <!--<item>Mouse</item>-->
+        <!--<item>Elephant</item>-->
+        <!--<item>Monkey</item>-->
+        <!--<item>Whale</item>-->
+        <!--<item>Bear</item>-->
+        <!--<item>Tiger</item>-->
+    <!--</string-array>-->
 </resources>

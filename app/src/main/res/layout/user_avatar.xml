@@ -9,14 +9,14 @@
     android:paddingEnd="8dp">
 
     <TextView
-        android:text=":)"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/userimage_avatar"
         android:textSize="36sp" />
 
     <TextView
-        android:text="Your name"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/username_avatar" />

@@ -19,9 +19,9 @@ import com.quaap.primary.base.Level;
  */
 public class Math1Level extends Level {
 
-    private MathOp mMaxMathOp;
-    private MathOp mMinMathOp;
-    private int mMaxNum;
+    private final MathOp mMaxMathOp;
+    private final MathOp mMinMathOp;
+    private final int mMaxNum;
 
 
     public Math1Level(MathOp maxMathOp, int maxNum, int rounds) {

@@ -28,11 +28,11 @@
                 android:layout_width="wrap_content"
             android:layout_height="wrap_content"
                 android:id="@+id/resume_button"
-                android:text="Resume Game"
+                android:text="@string/resume_game"
                 android:layout_gravity="left" />
 
             <Space
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/clear_button"
-                android:text="Clear Progress"
+                android:text="@string/clear_progress"
                 android:layout_gravity="right" />
 
         </LinearLayout>

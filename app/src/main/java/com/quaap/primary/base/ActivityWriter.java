@@ -57,13 +57,10 @@ public class ActivityWriter {
 
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
+        return Environment.MEDIA_MOUNTED.equals(state);
     }
 
-    public File getAppDocumentsDir(Context context) {
+    private File getAppDocumentsDir(Context context) {
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS), context.getString(R.string.app_name));
         if (!file.exists() && !file.mkdirs()) {
@@ -72,7 +69,7 @@ public class ActivityWriter {
         return file;
     }
 
-    public static String csvEscape(String value) {
+    private static String csvEscape(String value) {
 
         if (value==null) {
             return "";

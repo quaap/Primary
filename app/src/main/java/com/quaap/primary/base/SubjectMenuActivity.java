@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.quaap.primary.Levels;
 import com.quaap.primary.R;
-import com.quaap.primary.math.Math1Activity;
 
 /**
  * Created by tom on 12/15/16.
@@ -39,13 +38,13 @@ import com.quaap.primary.math.Math1Activity;
  */
 public abstract class SubjectMenuActivity extends AppCompatActivity implements Button.OnClickListener {
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 121;
-    protected String subject;
-    protected SharedPreferences mPrefs;
+    private String subject;
+    private SharedPreferences mPrefs;
 
     private Class mTargetActivity;
 
     private String mLevelSetName;
-    protected String username;
+    private String username;
 
     protected void OnCreateCommon(int subjectResId, String levelSetName, Class targetActivity) {
         subject = getString(subjectResId);
@@ -105,7 +104,7 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
 
             Button levelbutt = new Button(this);
             levelbutt.setLayoutParams(lp);
-            levelbutt.setText("Level " + level.getLevelNum());
+            levelbutt.setText(getString(R.string.level, level.getLevelNum()));
             levelbutt.setTag(level.getLevelNum() - 1);
             levelbutt.setOnClickListener(this);
             levelrow.addView(levelbutt);
@@ -167,14 +166,12 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
         startActivity(intent);
     }
 
-    private boolean checkStorageAccess() {
+    private void checkStorageAccess() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_WRITE_EXTERNAL_STORAGE);
-            return false;
         }
-        return true;
     }
 
     @Override

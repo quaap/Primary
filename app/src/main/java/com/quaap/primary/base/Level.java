@@ -18,10 +18,10 @@ package com.quaap.primary.base;
 public abstract class Level {
     protected static final Object nextlevelsync = new Object();
     protected static int nextlevelnum = 1;
-    protected int mRounds;
+    private final int mRounds;
     protected int mLevel;
 
-    public Level(int rounds) {
+    protected Level(int rounds) {
         mRounds = rounds;
     }
 

@@ -14,7 +14,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,25 +43,25 @@ public abstract class BaseActivity extends AppCompatActivity {
     //protected Math1Level[] levels;
 
     final protected Handler handler = new Handler();
-    protected SharedPreferences mPrefs;
+    private SharedPreferences mPrefs;
     protected int correct=0;
-    protected int incorrect=0;
+    private int incorrect=0;
     protected int levelnum = 0;
-    protected int highestLevelnum = 0;
-    protected int totalCorrect=0;
-    protected int totalIncorrect=0;
-    protected int tscore = 0;
-    protected long starttime = System.currentTimeMillis();
-    protected ActivityWriter actwriter;
-    protected int correctInARow = 0;
+    private int highestLevelnum = 0;
+    private int totalCorrect=0;
+    private int totalIncorrect=0;
+    private int tscore = 0;
+    private long starttime = System.currentTimeMillis();
+    private ActivityWriter actwriter;
+    private int correctInARow = 0;
 
-    protected String subject;
-    private int subjectId;
-    private int statusId;
+    private String subject;
+    private final int subjectId;
+    private final int statusId;
 
-    public Level getLevel(int leveln) {
+    private Level getLevel(int leveln) {
         return levels[leveln];
-    };
+    }
 
     public Level[] getLevels() {
         return levels;
@@ -74,9 +73,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected Level[] levels;
 
-    protected int layoutId;
+    private final int layoutId;
 
-    protected String username;
+    private String username;
 
     protected BaseActivity(String levelSetName, int subjectId, int layoutIdtxt, int statusTxtId) {
 
@@ -94,10 +93,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void showProbImpl();
 
     private boolean hasStorageAccess() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            return false;
-        }
-        return true;
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
     public static SharedPreferences getSharedPreferences(Context context, String username, String subject) {
@@ -161,11 +157,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
 
             if (correct>=levels[levelnum].getRounds()) {
-                status.setText("Correct!");
+                status.setText(R.string.correct);
                 correct = 0;
                 incorrect = 0;
                 if (levelnum+1>=levels.length) {
-                    status.setText("You've completed all the levels!");
+                    status.setText(R.string.levels_done);
                     return;
                 } else {
                     if (highestLevelnum<levelnum+1) {
@@ -173,9 +169,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                     }
                     new AlertDialog.Builder(this)
                             .setIcon(android.R.drawable.ic_dialog_info)
-                            .setTitle("Level complete!")
-                            .setMessage("Go to the next level?")
-                            .setPositiveButton("Next level", new DialogInterface.OnClickListener()  {
+                            .setTitle(R.string.level_complete)
+                            .setMessage(R.string.do_next_level)
+                            .setPositiveButton(R.string.next_level, new DialogInterface.OnClickListener()  {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     levelnum++;
@@ -184,7 +180,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 }
 
                             })
-                            .setNegativeButton("Repeat this level", new DialogInterface.OnClickListener()  {
+                            .setNegativeButton(R.string.repeat_level, new DialogInterface.OnClickListener()  {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     correct = 0;
@@ -198,7 +194,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     //status.setText("Correct! On to " + levelnum);
                 }
             } else {
-                status.setText("Correct!");
+                status.setText(getString(R.string.correct));
             }
             final int corrects = correct;
             final int incorrects = incorrect;
@@ -215,7 +211,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             incorrect++;
             correctInARow = 0;
             totalIncorrect++;
-            status.setText("Try again!");
+            status.setText(R.string.try_again);
             if (actwriter !=null) {
                 actwriter.log(levelnum+1, problem, answer, useranser, isright, timespent, getCurrentPercentFloat());
             }
@@ -263,7 +259,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void setLevelFields() {
+    private void setLevelFields() {
         TextView leveltxt = (TextView)findViewById(R.id.level);
 
         leveltxt.setText("Level " + getLevel(levelnum).getLevelNum());
@@ -293,7 +289,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected float getCurrentPercentFloat() {
+    private float getCurrentPercentFloat() {
         if (correct + incorrect == 0) {
             return 0;
         }
@@ -309,11 +305,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public int getRand(int upper) {
+    protected int getRand(int upper) {
         return getRand(0,upper);
     }
 
-    public int getRand(int lower, int upper) {
+    protected int getRand(int lower, int upper) {
         return (int) (Math.random() * (upper + 1 - lower)) + lower;
     }
 }

@@ -1,6 +1,7 @@
 package com.quaap.primary.math;
 
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 
 import android.os.Bundle;
@@ -11,13 +12,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.quaap.primary.Levels;
 import com.quaap.primary.R;
 import com.quaap.primary.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class Math1Activity extends BaseActivity {
 
@@ -43,7 +44,7 @@ public class Math1Activity extends BaseActivity {
 
 
 
-    private List<Button> answerbuttons = new ArrayList<>();
+    private final List<Button> answerbuttons = new ArrayList<>();
 
     @Override
     protected void showProbImpl() {
@@ -54,8 +55,8 @@ public class Math1Activity extends BaseActivity {
 
         makeRandomProblem();
 
-        num1txt.setText(Integer.toString(num1));
-        num2txt.setText(Integer.toString(num2));
+        num1txt.setText(String.format(Locale.getDefault(),"%d",num1));
+        num2txt.setText(String.format(Locale.getDefault(),"%d",num2));
         optxt.setText(op.toString());
         answer = getAnswer(num1, num2, op);
 
@@ -85,7 +86,7 @@ public class Math1Activity extends BaseActivity {
         answerDone(isright, (Math.abs(num1)+Math.abs(num2)) * (op.ordinal()+1),
                 num1 + op.toString() + num2, answer+"", ans+"");
 
-        final TextView status = (TextView)findViewById(R.id.txtstatus);
+
         if (!isright) {
             handler.postDelayed(new Runnable() {
                 @Override
@@ -141,10 +142,11 @@ public class Math1Activity extends BaseActivity {
         return answers;
     }
 
+    @SuppressLint("RtlHardcoded")
     private void makeAnswerButton(int tmpans, LinearLayout answerarea, float fontsize) {
         Button ansbutt = new Button(this);
         ansbutt.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontsize);
-        ansbutt.setText(tmpans+"");
+        ansbutt.setText(String.format(Locale.getDefault(),"%d",tmpans));
         ansbutt.setTag(tmpans);
         ansbutt.setOnClickListener(new View.OnClickListener() {
             @Override

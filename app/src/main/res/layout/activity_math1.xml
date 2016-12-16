@@ -33,7 +33,8 @@
             android:layout_columnWeight="1"
             android:textStyle="bold"
             android:layout_marginRight="10sp"
-            android:textSize="32sp" />
+            android:textSize="32sp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:text="+"
@@ -44,7 +45,8 @@
             android:gravity="right"
             android:layout_columnWeight="1"
             android:textStyle="bold"
-            android:textSize="32sp" />
+            android:textSize="32sp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:text="1"
@@ -56,7 +58,8 @@
             android:layout_columnWeight="1"
             android:textStyle="bold"
             android:layout_marginRight="10sp"
-            android:textSize="32sp" />
+            android:textSize="32sp"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:text="_______________"
@@ -65,7 +68,8 @@
             android:id="@+id/textView6"
             android:layout_columnSpan="2"
             android:textStyle="bold"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
 
     </GridLayout>
 
@@ -85,7 +89,8 @@
             android:text=" "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView4" />
+            android:id="@+id/textView4"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
     <TextView

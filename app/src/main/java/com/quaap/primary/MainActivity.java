@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.quaap.primary.base.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +32,7 @@ import java.util.TreeSet;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int[] avatarhex = {
+    private static final int[] AVATARHEX = {
             0x1F332, 0x1F333, 0x1F34B, 0x1F350, 0x1F37C, 0x1F3C7, 0x1F3C9, 0x1F3E4,
             0x1F400, 0x1F401, 0x1F402, 0x1F403, 0x1F404, 0x1F405, 0x1F406, 0x1F407,
             0x1F408, 0x1F409, 0x1F40A, 0x1F40B, 0x1F40F, 0x1F410, 0x1F413, 0x1F415,
@@ -57,15 +56,15 @@ public class MainActivity extends AppCompatActivity {
 
     private final String [] avatars;
 
-    private Map<String,View> userlist = new HashMap<>();
+    private final Map<String,View> userlist = new HashMap<>();
     private String selected_user;
     private SharedPreferences prefs;
     private boolean new_user_shown = false;
 
     public MainActivity() {
-        avatars = new String[avatarhex.length];
-        for (int i=0; i<avatarhex.length; i++) {
-            avatars[i] = new String(Character.toChars(avatarhex[i]));
+        avatars = new String[AVATARHEX.length];
+        for (int i = 0; i< AVATARHEX.length; i++) {
+            avatars[i] = new String(Character.toChars(AVATARHEX[i]));
         }
     }
 
@@ -175,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public List<User> getUserList() {
+    private List<User> getUserList() {
         Set<String> usernames = new TreeSet<>();
         usernames = prefs.getStringSet("users", usernames);
 
@@ -191,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public User addUser(String username, String avatar) {
+    private User addUser(String username, String avatar) {
         Set<String> usernames = new TreeSet<>();
 
         usernames = prefs.getStringSet("users", usernames);
@@ -213,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public User getUser(String username) {
+    private User getUser(String username) {
         String avatar = prefs.getString(username+":avatar", null);
         User user = null;
         if (avatar!=null) {
@@ -265,8 +264,8 @@ public class MainActivity extends AppCompatActivity {
             new_user_shown = false;
         }
     }
-    @NonNull
-    private View addUserToUserList(User user) {
+
+    private void addUserToUserList(User user) {
         LinearLayout userview = (LinearLayout)findViewById(R.id.user_avatar_list_view);
         View child = LayoutInflater.from(this).inflate(R.layout.user_avatar, null);
 
@@ -286,6 +285,6 @@ public class MainActivity extends AppCompatActivity {
         userview.addView(child);
         userlist.put(user.username,child);
         child.setTag(user.username);
-        return child;
+
     }
 }
