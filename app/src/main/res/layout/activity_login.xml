@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+    <TextView
+        android:text="Choose user"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content" />
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/user_avatar_list_view">
+
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:text=" OR "
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content" />
+
+    <CheckBox
+        android:text="Create new user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_user_checkBox" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_new_user_area"
+        android:visibility="gone">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/username_input"
+            android:layout_marginTop="16dp" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:id="@+id/user_avatar_spinner"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+
+    <Spinner
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/subject_spinner"
+        android:entries="@array/subjects"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:text="Go!"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_button"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
