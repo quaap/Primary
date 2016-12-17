@@ -30,7 +30,7 @@
     <string name="change_avatar">Change Avatar</string>
     <string name="delete_user">Delete User</string>
     <string name="update_avatar">Update</string>
-    <string name="today_points">Today\'s Points</string>
+    <string name="today_points">Today\'s points</string>
 
     <string-array name="subjects">
         <item>Math 1</item>
