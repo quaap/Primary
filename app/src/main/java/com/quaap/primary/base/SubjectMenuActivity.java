@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -67,6 +68,11 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
 
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar!=null) {
+            actionBar.setTitle(getString(R.string.app_name) + ": " + subject + " (" + username + ")");
+        }
 
         mPrefs = BaseActivity.getSharedPreferences(this, username, subject);
 
