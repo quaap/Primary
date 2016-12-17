@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quaap.primary.Levels;
+import com.quaap.primary.MainActivity;
 import com.quaap.primary.R;
 
 import java.io.IOException;
@@ -112,7 +113,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         Intent intent = getIntent();
-        username = intent.getStringExtra("username");
+        username = intent.getStringExtra(MainActivity.USERNAME);
 
         mPrefs = getSharedPreferences(this, username, subject);
 

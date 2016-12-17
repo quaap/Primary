@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quaap.primary.Levels;
+import com.quaap.primary.MainActivity;
 import com.quaap.primary.R;
 
 /**
@@ -66,7 +67,7 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
 
         setContentView(R.layout.activity_subject_menu);
         Intent intent = getIntent();
-        username = intent.getStringExtra("username");
+        username = intent.getStringExtra(MainActivity.USERNAME);
 
 
         ActionBar actionBar = getSupportActionBar();
@@ -180,7 +181,7 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
     public void onClick(View view) {
         Intent intent = new Intent(this, mTargetActivity);
         intent.putExtra(BaseActivity.LEVELNAME, (int)view.getTag());
-        intent.putExtra("username", username);
+        intent.putExtra(MainActivity.USERNAME, username);
         startActivity(intent);
     }
 

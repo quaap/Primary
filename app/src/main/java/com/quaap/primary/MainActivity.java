@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String AVATAR_PRE = "avatar:";
     public static final String AVATAR_POST = ":avatar";
     public static final String USERS_KEY = "users";
+    public static final String USERNAME = "username";
 
     private final String [] avatars;
 
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     String [] classes = getResources().getStringArray(R.array.subjectsActivity);
                     try {
                         Intent intent = new Intent(MainActivity.this, Class.forName(classes[subjectId]));
-                        intent.putExtra("username", selected_user);
+                        intent.putExtra(USERNAME, selected_user);
                         startActivity(intent);
                     } catch (ClassNotFoundException e) {
                         Log.e("Primary", "Can't load " + subject + " " + subjectId);
