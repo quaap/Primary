@@ -1,10 +1,12 @@
 package com.quaap.primary;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.quaap.primary.base.SubjectMenuActivity;
 import com.quaap.primary.base.User;
 
 import java.util.ArrayList;
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private String selected_user;
     private SharedPreferences prefs;
     private boolean new_user_shown = false;
+    private String defaultusername;
 
     public MainActivity() {
         avatars = new String[AVATARHEX.length];
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         prefs = getSharedPreferences("app", MODE_PRIVATE);
 
-        String defaultusername = getString(R.string.defaultUserName);
+        defaultusername = getString(R.string.defaultUserName);
         addUser(defaultusername, avatars[0]);
 
         createUserList();
@@ -86,6 +90,26 @@ public class MainActivity extends AppCompatActivity {
 
         createNewUserArea();
 
+        View edit_user_l = findViewById(R.id.edit_user_link);
+        View delete_user_l = findViewById(R.id.delete_user_link);
+        delete_user_l.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Delete")
+                        .setMessage("Are you sure you want to delete the user?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()  {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteUser();
+                            }
+
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        });
 
 
         Button goButton = (Button)findViewById(R.id.login_button);
@@ -213,6 +237,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void deleteUser() {
+        String username = selected_user;
+        User user = getUser(username);
+
+        if (user!=null) {
+            Set<String> usernames = new TreeSet<>();
+            usernames = prefs.getStringSet("users", usernames);
+
+            if (usernames.contains(username)){
+                usernames.remove(username);
+                SharedPreferences.Editor ed = prefs.edit();
+                ed.putStringSet("users", usernames);
+                ed.remove(user.username+":avatar");
+                ed.remove("avatar:" + user.avatar);
+                ed.apply();
+            }
+            LinearLayout user_controls_area = (LinearLayout)findViewById(R.id.user_controls_area);
+            View old_selected = userlist.get(username);
+            user_controls_area.removeView(old_selected);
+            old_selected.setVisibility(View.GONE);
+            selectUser(null);
+        }
+    }
+
     private User getUser(String username) {
         String avatar = prefs.getString(username+":avatar", null);
         User user = null;
@@ -241,16 +289,31 @@ public class MainActivity extends AppCompatActivity {
 
         if (selected_user!=null) {
             View old_selected = userlist.get(selected_user);
-            old_selected.setBackgroundColor(normalColor);
+            if (old_selected!=null) {
+                old_selected.setBackgroundColor(normalColor);
+            }
         }
         selected_user = username;
+        View user_controls_area = findViewById(R.id.user_controls_area);
         if (selected_user!=null) {
             View new_selected = userlist.get(selected_user);
-            new_selected.setBackgroundColor(selectedColor);
+            if (new_selected!=null) {
+                new_selected.setBackgroundColor(selectedColor);
+                if (selected_user.equals(defaultusername)) {
+                    user_controls_area.setVisibility(View.GONE);
+                } else {
+                    user_controls_area.setVisibility(View.VISIBLE);
+                }
 
+                SharedPreferences.Editor ed = prefs.edit();
+                ed.putString("lastselecteduser", selected_user);
+                ed.apply();
+            }
+        } else {
             SharedPreferences.Editor ed = prefs.edit();
-            ed.putString("lastselecteduser", selected_user);
+            ed.remove("lastselecteduser");
             ed.apply();
+            user_controls_area.setVisibility(View.GONE);
         }
     }
 
