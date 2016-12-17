@@ -2,13 +2,20 @@ package com.quaap.primary.math;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,6 +37,10 @@ public class Math1Activity extends BaseActivity {
     public static final String LevelSetName = "Math1Levels";
 
 
+    public enum Mode {Buttons, Input}
+
+    public Mode mode = Mode.Buttons;
+    //Mode.Input doesn't work yet.
 
     public Math1Activity() {
        super(LevelSetName, R.string.subject_math1, R.layout.activity_math1, R.id.txtstatus);
@@ -44,7 +55,6 @@ public class Math1Activity extends BaseActivity {
 
 
 
-    private final List<Button> answerbuttons = new ArrayList<>();
 
     @Override
     protected void showProbImpl() {
@@ -61,49 +71,43 @@ public class Math1Activity extends BaseActivity {
         answer = getAnswer(num1, num2, op);
 
         LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
-        answerarea.removeAllViews();
-        answerbuttons.clear();
-
-        int numans = 4;
-        List<Integer> answers = getAnswerChoices(numans);
-
         float fontsize = num1txt.getTextSize();
-        for (int i=0; i<answers.size(); i++) {
-            int tmpans = answers.get(i);
-            makeAnswerButton(tmpans, answerarea, fontsize);
+
+        if (mode==Mode.Buttons) {
+            makeAnswerButtons(answerarea, fontsize);
+        } else if (mode==Mode.Input) {
+            makeAnswerBox(answerarea, fontsize);
         }
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                for (Button ab: answerbuttons) {
-                    ab.setEnabled(true);
-                }
-            }
-        }, 200);
 
     }
 
-    private void answerGiven(int ans) {
 
-        for (Button ab: answerbuttons) {
-            ab.setEnabled(false);
+    private int getAnswer(int n1, int n2, MathOp op) {
+        switch (op) {
+            case Plus:
+                return n1 + n2;
+            case Minus:
+                return n1 - n2;
+            case Times:
+                return n1 * n2;
+            case Divide:
+                return n1 / n2;
+            default:
+                throw new IllegalArgumentException("Unknown operator: " + op);
         }
+    }
+
+
+
+    private boolean answerGiven(int ans) {
+
         boolean isright = ans == answer;
 
         answerDone(isright, (Math.abs(num1)+Math.abs(num2)) * (op.ordinal()+1),
                 num1 + op.toString() + num2, answer+"", ans+"");
 
 
-        if (!isright) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    for (Button ab: answerbuttons) {
-                        ab.setEnabled(true);
-                    }
-                }
-            }, 1500);
-        }
+        return isright;
 
     }
 
@@ -141,6 +145,45 @@ public class Math1Activity extends BaseActivity {
         } while (tries++<50 && last1==num1 && last2==num2 && lastOp==op);
     }
 
+    //Mode.Input impl:
+
+    private EditText answerBox;
+    private void makeAnswerBox(LinearLayout answerarea, float fontsize) {
+        //answerarea.removeAllViews();
+        if (answerBox==null) {
+            answerBox = new EditText(this);
+            answerBox.setTextSize(fontsize);
+            answerBox.setEms(1);
+            answerBox.setInputType(InputType.TYPE_CLASS_NUMBER);
+            answerarea.addView(answerBox);
+            answerBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if(actionId== EditorInfo.IME_ACTION_DONE){
+                        answerGiven(Integer.parseInt(answerBox.getText().toString()));
+                    }
+                    return false;
+                }
+            });
+            answerBox.setGravity(Gravity.RIGHT);
+//            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+//            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+        }
+        showSoftKeyboard(answerBox);
+
+//        answerBox.requestFocus();
+
+    }
+
+    private void showSoftKeyboard(View view) {
+        if (view.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+    //Mode.Buttons impl:
     @NonNull
     private List<Integer> getAnswerChoices(int numans) {
         List<Integer> answers = new ArrayList<>();
@@ -156,6 +199,29 @@ public class Math1Activity extends BaseActivity {
         return answers;
     }
 
+    private final List<Button> answerbuttons = new ArrayList<>();
+
+    private void makeAnswerButtons(LinearLayout answerarea, float fontsize) {
+        answerarea.removeAllViews();
+        answerbuttons.clear();
+
+        int numans = 4;
+        List<Integer> answers = getAnswerChoices(numans);
+
+        for (int i=0; i<answers.size(); i++) {
+            int tmpans = answers.get(i);
+            makeAnswerButton(tmpans, answerarea, fontsize);
+        }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (Button ab: answerbuttons) {
+                    ab.setEnabled(true);
+                }
+            }
+        }, 200);
+    }
+
     @SuppressLint("RtlHardcoded")
     private void makeAnswerButton(int tmpans, LinearLayout answerarea, float fontsize) {
         Button ansbutt = new Button(this);
@@ -166,7 +232,22 @@ public class Math1Activity extends BaseActivity {
         ansbutt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                answerGiven((int)view.getTag());
+                for (Button ab: answerbuttons) {
+                    ab.setEnabled(false);
+                }
+
+                boolean isright = answerGiven((int)view.getTag());
+
+                if (!isright) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (Button ab: answerbuttons) {
+                                ab.setEnabled(true);
+                            }
+                        }
+                    }, 1500);
+                }
             }
         });
         ansbutt.setGravity(Gravity.RIGHT);
@@ -177,22 +258,6 @@ public class Math1Activity extends BaseActivity {
         answerbuttons.add(ansbutt);
     }
 
-
-
-    private int getAnswer(int n1, int n2, MathOp op) {
-        switch (op) {
-            case Plus:
-                return n1 + n2;
-            case Minus:
-                return n1 - n2;
-            case Times:
-                return n1 * n2;
-            case Divide:
-                return n1 / n2;
-            default:
-                throw new IllegalArgumentException("Unknown operator: " + op);
-        }
-    }
 
 
 }
