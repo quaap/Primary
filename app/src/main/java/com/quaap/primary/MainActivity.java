@@ -147,16 +147,8 @@ public class MainActivity extends AppCompatActivity {
 
     List<String> avatarlist = new ArrayList<>();
     private void createNewUserArea() {
-        avatarlist = new ArrayList<>();
-        for (String avatar: avatars) {
-            if (!prefs.getBoolean("avatar:" + avatar, false)) {
-                avatarlist.add(avatar);
-            }
-        }
-        Collections.sort(avatarlist);
 
-        Spinner avatarspinner = (Spinner)findViewById(R.id.user_avatar_spinner);
-        avatarspinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_item, avatarlist));
+        populateAvatarSpinner();
 
         ImageView newuserbutton = (ImageView)findViewById(R.id.add_user_button);
 
@@ -235,6 +227,24 @@ public class MainActivity extends AppCompatActivity {
         return users;
     }
 
+    private void populateAvatarSpinner() {
+        populateAvatarSpinner(null);
+    }
+    private void populateAvatarSpinner(String additional) {
+        avatarlist = new ArrayList<>();
+        for (String avatar: avatars) {
+            if (!prefs.getBoolean("avatar:" + avatar, false)) {
+                avatarlist.add(avatar);
+            }
+        }
+        if (additional!=null) avatarlist.add(additional);
+        Collections.sort(avatarlist);
+
+        Spinner avatarspinner = (Spinner)findViewById(R.id.user_avatar_spinner);
+        avatarspinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_item, avatarlist));
+
+    }
+
     private void setUserAvatar(String username, String avatar) {
         String oldavatar = prefs.getString(username+":avatar", null);
         SharedPreferences.Editor ed = prefs.edit();
@@ -244,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
         ed.putString(username+":avatar", avatar);
         ed.putBoolean("avatar:" + avatar, true);
         ed.apply();
+        populateAvatarSpinner();
     }
 
     private User addUser(String username, String avatar) {
@@ -260,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
             user = new User();
             user.username = username;
             user.avatar = avatar;
-
+            populateAvatarSpinner();
         }
 
         return user;
@@ -285,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
             }
             removeUserFromUserList(username);
             selectUser(null);
+            populateAvatarSpinner();
         }
     }
 
@@ -322,6 +334,7 @@ public class MainActivity extends AppCompatActivity {
         }
         selected_user = username;
         View user_controls_area = findViewById(R.id.user_controls_area);
+        Button goButton = (Button)findViewById(R.id.login_button);
         if (selected_user!=null) {
             View new_selected = userlist.get(selected_user);
             if (new_selected!=null) {
@@ -335,12 +348,14 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor ed = prefs.edit();
                 ed.putString("lastselecteduser", selected_user);
                 ed.apply();
+                goButton.setEnabled(true);
             }
         } else {
             SharedPreferences.Editor ed = prefs.edit();
             ed.remove("lastselecteduser");
             ed.apply();
             user_controls_area.setVisibility(View.GONE);
+            goButton.setEnabled(false);
         }
     }
 
@@ -361,11 +376,14 @@ public class MainActivity extends AppCompatActivity {
             user_change_button.setVisibility(View.VISIBLE);
             User user = getUser(selected_user);
             if (user!=null) {
+                populateAvatarSpinner(user.avatar);
                 nametxt.setText(user.username);
-                avatarspinner.setSelection(avatarlist.indexOf(user.avatar));
+                int aindex = avatarlist.indexOf(user.avatar);
+                avatarspinner.setSelection(aindex);
             }
 
         } else {
+            avatarspinner.setSelection((int)(Math.random()*avatarlist.size()));
             nametxt.setText("");
             user_added_button.setVisibility(View.VISIBLE);
             user_change_button.setVisibility(View.GONE);
