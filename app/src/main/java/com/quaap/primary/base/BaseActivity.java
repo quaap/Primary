@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -139,6 +140,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         if (todaylast.equals(today)) {
             todaysScore = mPrefs.getInt("todaysScore", todaysScore);
+        } else {
+            todaysScore = 0;
         }
 
         setContentView(layoutId);
@@ -150,6 +153,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         setLevelFields();
         showProb();
+        View todayview = (View)findViewById(R.id.todays_area);
+        todayview.setVisibility(todaysScore==tscore ? View.GONE : View.VISIBLE);
     }
 
     protected void answerDone(boolean isright, int addscore, String problem, String answer, String useranser) {
@@ -172,6 +177,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 correct = 0;
                 incorrect = 0;
                 if (levelnum+1>=levels.length) {
+                    saveState();
                     status.setText(R.string.levels_done);
                     return;
                 } else {
@@ -186,6 +192,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     levelnum++;
+                                    saveState();
                                     showProb();
                                     setLevelFields();
                                 }
@@ -194,6 +201,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                             .setNegativeButton(R.string.repeat_level, new DialogInterface.OnClickListener()  {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    saveState();
                                     correct = 0;
                                     incorrect = 0;
                                     showProb();
@@ -249,6 +257,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
+        saveState();
+
+        try {
+            if (actwriter !=null) actwriter.close();
+            actwriter = null;
+        } catch (IOException e) {
+            Log.e("Primary", "Error closing activity file.",e);
+        }
+    }
+
+    private void saveState() {
         SharedPreferences.Editor ed = mPrefs.edit();
 
         ed.putInt("levelnum", levelnum);
@@ -262,13 +281,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         ed.putInt("todaysScore", todaysScore);
         ed.putString("today",new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
         ed.apply();
-
-        try {
-            if (actwriter !=null) actwriter.close();
-            actwriter = null;
-        } catch (IOException e) {
-            Log.e("Primary", "Error closing activity file.",e);
-        }
     }
 
     private void setLevelFields() {

@@ -136,6 +136,10 @@ public class Math1Activity extends BaseActivity {
                     num2 = tmp;
                 }
                 if (op == MathOp.Divide) {
+                    if (num2 == 0) {
+                        num2=getRand(1, max);
+                        if (num1<num2) num1=getRand(num2, max);
+                    }
                     if (num1 % num2 != 0) {
                         num1 = num1 * num2;
                     }
@@ -195,7 +199,7 @@ public class Math1Activity extends BaseActivity {
             } while (answers.contains(tmpans));
             answers.add(tmpans);
         }
-        Collections.shuffle(answers);
+       // Collections.shuffle(answers);
         return answers;
     }
 
