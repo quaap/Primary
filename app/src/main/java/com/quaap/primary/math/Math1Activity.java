@@ -101,30 +101,37 @@ public class Math1Activity extends BaseActivity {
     }
 
     private void makeRandomProblem() {
-        int max = ((Math1Level)levels[levelnum]).getMaxNum();
-        if (correct>levels[levelnum].getRounds()/2) {
-            num1 = getRand(max / 2, max);
-        } else {
-            num1 = getRand(max);
-        }
-        num2 = getRand(max);
-        if (num2==0 && Math.random()>.3) num2 = getRand(1, max);
-        if (num2==1 && Math.random()>.3) num2 = getRand(2, max);
-
-        op = MathOp.random(((Math1Level)levels[levelnum]).getMinMathOp(), ((Math1Level)levels[levelnum]).getMaxMathOp());
-
-        if (op == MathOp.Minus || op == MathOp.Divide) {
-            if (num1<num2) {
-                int tmp = num1;
-                num1 = num2;
-                num2 = tmp;
+        int last1 = num1;
+        int last2 = num2;
+        MathOp lastOp = op;
+        int tries = 0;
+        do {
+            int max = ((Math1Level) levels[levelnum]).getMaxNum();
+            if (correct > levels[levelnum].getRounds() / 2) {
+                num1 = getRand(max / 2, max);
+            } else {
+                num1 = getRand(max);
             }
-            if (op == MathOp.Divide) {
-                if (num1%num2 != 0) {
-                    num1 = num1*num2;
+            num2 = getRand(max);
+            if (num2 == 0 && Math.random() > .3) num2 = getRand(1, max);
+            if (num2 == 1 && Math.random() > .3) num2 = getRand(2, max);
+
+            op = MathOp.random(((Math1Level) levels[levelnum]).getMinMathOp(), ((Math1Level) levels[levelnum]).getMaxMathOp());
+
+            if (op == MathOp.Minus || op == MathOp.Divide) {
+                if (num1 < num2) {
+                    int tmp = num1;
+                    num1 = num2;
+                    num2 = tmp;
+                }
+                if (op == MathOp.Divide) {
+                    if (num1 % num2 != 0) {
+                        num1 = num1 * num2;
+                    }
                 }
             }
-        }
+            //prevent 2 identical problems in a row
+        } while (tries++<50 && last1==num1 && last2==num2 && lastOp==op);
     }
 
     @NonNull
