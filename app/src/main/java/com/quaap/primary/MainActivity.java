@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.quaap.primary.base.SubjectMenuActivity;
 import com.quaap.primary.base.User;
 
 import java.util.ArrayList;
@@ -179,12 +177,12 @@ public class MainActivity extends AppCompatActivity {
                 String newname = newnamebox.getText().toString();
                 if (new_user_shown) {
                     newname = newname.trim();
-                    if (newname.length()<2) {
-                        Toast.makeText(MainActivity.this,"Name too short",Toast.LENGTH_LONG).show();
+                    if (newname.length()<1) {
+                        Toast.makeText(MainActivity.this, R.string.name_short,Toast.LENGTH_LONG).show();
                         return;
                     }
-                    if (newname.length()>12) {
-                        Toast.makeText(MainActivity.this,"Name must be less than 12 characters long",Toast.LENGTH_LONG).show();
+                    if (newname.length()>10) {
+                        Toast.makeText(MainActivity.this, R.string.name_long,Toast.LENGTH_LONG).show();
                         return;
                     }
                     User user = addUser(newname, (String)avatarspinner.getSelectedItem());
@@ -195,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                         LinearLayout new_user_area = (LinearLayout)findViewById(R.id.login_new_user_area);
                         new_user_area.setVisibility(View.GONE);
                     } else {
-                        Toast.makeText(MainActivity.this,"Name already in use!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, R.string.name_in_use,Toast.LENGTH_LONG).show();
                         return;
                     }
                 }

@@ -24,6 +24,12 @@
     <string name="go">Go!</string>
     <string name="start_lab">3. Start</string>
     <string name="avatar">Avatar:</string>
+    <string name="name_short">Name too short</string>
+    <string name="name_long">Name must be less than 10 characters long</string>
+    <string name="name_in_use">Name already in use!</string>
+    <string name="change_avatar">Change Avatar</string>
+    <string name="delete_user">Delete User</string>
+    <string name="update_avatar">Update</string>
 
     <string-array name="subjects">
         <item>Math 1</item>

@@ -67,7 +67,7 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:text="Change Avatar"
+                android:text="@string/change_avatar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/edit_user_link"
@@ -79,7 +79,7 @@
                 android:layout_marginStart="8dp" />
 
             <TextView
-                android:text="Delete User"
+                android:text="@string/delete_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/delete_user_link"
@@ -140,7 +140,7 @@
                 android:layout_weight="1" />
 
             <Button
-                android:text="Update"
+                android:text="@string/update_avatar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/user_change_button"
