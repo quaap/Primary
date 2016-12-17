@@ -211,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView txtavatar = (TextView)userview.findViewById(R.id.userimage_avatar);
                 txtavatar.setText(avatar);
                 showNewUserArea(false);
+                selectUser(username);
             }
         });
 
@@ -327,7 +328,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectUser(String username) {
-
         final int normalColor = Color.TRANSPARENT;
         final int selectedColor = Color.CYAN;
 
@@ -341,6 +341,8 @@ public class MainActivity extends AppCompatActivity {
         View user_controls_area = findViewById(R.id.user_controls_area);
         Button goButton = (Button)findViewById(R.id.login_button);
         if (selected_user!=null) {
+            showSteps2and3(true);
+
             View new_selected = userlist.get(selected_user);
             if (new_selected!=null) {
                 new_selected.setBackgroundColor(selectedColor);
@@ -356,12 +358,19 @@ public class MainActivity extends AppCompatActivity {
                 goButton.setEnabled(true);
             }
         } else {
+            showSteps2and3(false);
+
             SharedPreferences.Editor ed = prefs.edit();
             ed.remove(LASTSELECTEDUSER);
             ed.apply();
             user_controls_area.setVisibility(View.GONE);
             goButton.setEnabled(false);
         }
+    }
+
+    private void showSteps2and3(boolean show) {
+        LinearLayout steps2and3 = (LinearLayout)findViewById(R.id.steps2and3);
+        steps2and3.setVisibility(show?View.VISIBLE:View.GONE);
     }
 
     private void showNewUserArea(boolean show) {
@@ -374,6 +383,8 @@ public class MainActivity extends AppCompatActivity {
         Spinner avatarspinner = (Spinner)findViewById(R.id.user_avatar_spinner);
         Button user_change_button = (Button)findViewById(R.id.user_change_button);
         Button user_added_button = (Button)findViewById(R.id.user_added_button);
+
+
 
         nametxt.setEnabled(!edit);
         if (edit) {
@@ -403,6 +414,7 @@ public class MainActivity extends AppCompatActivity {
             new_user_area.setVisibility(View.GONE);
             new_user_shown = false;
         }
+        showSteps2and3(false);
     }
 
 
