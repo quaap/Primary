@@ -47,7 +47,7 @@ public class ActivityWriter {
         boolean newfile = !f.exists();
         mFw = new FileWriter(f, true);
         if (newfile) {
-            writeRow("Time", "Level", "Problem", "Answer", "User answer", "Correct", "Time spent", "Running Percent");
+            writeRow("Time", "Level", "Problem", "Answer", "User answer", "Correct", "Time spent", "Running Percent", "Today's Points");
         }
     }
 
@@ -85,7 +85,7 @@ public class ActivityWriter {
     }
 
 
-    public synchronized void log(int level, String problem, String answer, String useranswer, boolean correct, long millis, float runningpercent) {
+    public synchronized void log(int level, String problem, String answer, String useranswer, boolean correct, long millis, float runningpercent, int todayspoints) {
         writeRow(mDateFormat.format(new Date()), level, problem, answer, useranswer, correct,
                 millis, String.format(Locale.getDefault(),"%4.1f",runningpercent) );
     }

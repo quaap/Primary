@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Primary</string>
     <string name="subject_math1">Math 1</string>
-    <string name="points">Points</string>
+    <string name="points">Total Points</string>
     <string name="resume_game">Resume Game</string>
     <string name="remaining">Remaining</string>
     <string name="clear_progress">Clear Progress</string>

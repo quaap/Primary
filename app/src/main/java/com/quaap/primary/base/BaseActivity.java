@@ -22,6 +22,8 @@ import com.quaap.primary.MainActivity;
 import com.quaap.primary.R;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -52,6 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private int totalCorrect=0;
     private int totalIncorrect=0;
     private int tscore = 0;
+    private int todaysScore = 0;
     private long starttime = System.currentTimeMillis();
     private ActivityWriter actwriter;
     private int correctInARow = 0;
@@ -130,6 +133,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         highestLevelnum = mPrefs.getInt("highestLevelnum", highestLevelnum);
         tscore = mPrefs.getInt("tscore", tscore);
 
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+        String todaylast = mPrefs.getString("today","0");
+
+        if (todaylast.equals(today)) {
+            todaysScore = mPrefs.getInt("todaysScore", todaysScore);
+        }
+
         setContentView(layoutId);
 
         TextView sideusername = (TextView)findViewById(R.id.sideusername);
@@ -151,10 +162,12 @@ public abstract class BaseActivity extends AppCompatActivity {
             correct++;
             correctInARow++;
             totalCorrect++;
-            tscore += addscore * ((correctInARow+1)/2);
+            int points = addscore * ((correctInARow+1)/2);
+            tscore += points;
+            todaysScore += points;
 
             if (actwriter !=null) {
-                actwriter.log(levelnum+1, problem, answer, useranser, isright, timespent, getCurrentPercentFloat());
+                actwriter.log(levelnum+1, problem, answer, useranser, isright, timespent, getCurrentPercentFloat(), todaysScore);
             }
 
             if (correct>=levels[levelnum].getRounds()) {
@@ -214,7 +227,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             totalIncorrect++;
             status.setText(R.string.try_again);
             if (actwriter !=null) {
-                actwriter.log(levelnum+1, problem, answer, useranser, isright, timespent, getCurrentPercentFloat());
+                actwriter.log(levelnum+1, problem, answer, useranser, isright, timespent, getCurrentPercentFloat(), todaysScore);
             }
 
         }
@@ -249,8 +262,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         ed.putInt("highestLevelnum", highestLevelnum);
         ed.putInt("correctInARow", correctInARow);
         ed.putInt("tscore", tscore);
-
-        ed.commit();
+        ed.putInt("todaysScore", todaysScore);
+        ed.putString("today",new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
+        ed.apply();
 
         try {
             if (actwriter !=null) actwriter.close();
@@ -280,8 +294,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         TextView total_ratio = (TextView)findViewById(R.id.total_ratio);
         total_ratio.setText(String.format(Locale.getDefault(), "%d / %d", totalCorrect, totalCorrect + totalIncorrect));
 
+        TextView todayscore_txt = (TextView)findViewById(R.id.todayscore);
+        todayscore_txt.setText(String.format(Locale.getDefault(), "%d", todaysScore));
+
         TextView tscore_txt = (TextView)findViewById(R.id.tscore);
         tscore_txt.setText(String.format(Locale.getDefault(), "%d", tscore));
+
 
         TextView bonuses = (TextView) findViewById(R.id.bonuses);
         if (correctInARow>2) {
