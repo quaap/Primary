@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
 
         createNewUserArea();
 
-        View edit_user_l = findViewById(R.id.edit_user_link);
         View delete_user_l = findViewById(R.id.delete_user_link);
         delete_user_l.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +107,14 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("No", null)
                         .show();
+            }
+        });
+
+        View edit_user_l = findViewById(R.id.edit_user_link);
+        edit_user_l.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showNewUserArea(true, true);
             }
         });
 
@@ -140,9 +147,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    List<String> avatarlist = new ArrayList<>();
     private void createNewUserArea() {
-        List<String> avatarlist = new ArrayList<>();
+        avatarlist = new ArrayList<>();
         for (String avatar: avatars) {
             if (!prefs.getBoolean("avatar:" + avatar, false)) {
                 avatarlist.add(avatar);
@@ -195,6 +202,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button user_changed = (Button)findViewById(R.id.user_change_button);
+        user_changed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText namebox = (EditText)findViewById(R.id.username_input);
+                String username = namebox.getText().toString();
+                Spinner avatarspinner = (Spinner)findViewById(R.id.user_avatar_spinner);
+
+                String avatar = (String)avatarspinner.getSelectedItem();
+                setUserAvatar(username, (String)avatarspinner.getSelectedItem());
+                View userview = userlist.get(username);
+                TextView txtavatar = (TextView)userview.findViewById(R.id.userimage_avatar);
+                txtavatar.setText(avatar);
+                showNewUserArea(false);
+            }
+        });
+
 
 
     }
@@ -213,7 +237,16 @@ public class MainActivity extends AppCompatActivity {
         return users;
     }
 
-
+    private void setUserAvatar(String username, String avatar) {
+        String oldavatar = prefs.getString(username+":avatar", null);
+        SharedPreferences.Editor ed = prefs.edit();
+        if (oldavatar!=null) {
+            ed.remove("avatar:" + oldavatar);
+        }
+        ed.putString(username+":avatar", avatar);
+        ed.putBoolean("avatar:" + avatar, true);
+        ed.apply();
+    }
 
     private User addUser(String username, String avatar) {
         Set<String> usernames = new TreeSet<>();
@@ -224,9 +257,8 @@ public class MainActivity extends AppCompatActivity {
             usernames.add(username);
             SharedPreferences.Editor ed = prefs.edit();
             ed.putStringSet("users", usernames);
-            ed.putString(username+":avatar", avatar);
-            ed.putBoolean("avatar:" + avatar, true);
             ed.apply();
+            setUserAvatar(username, avatar);
             user = new User();
             user.username = username;
             user.avatar = avatar;
@@ -253,10 +285,7 @@ public class MainActivity extends AppCompatActivity {
                 ed.remove("avatar:" + user.avatar);
                 ed.apply();
             }
-            LinearLayout user_controls_area = (LinearLayout)findViewById(R.id.user_controls_area);
-            View old_selected = userlist.get(username);
-            user_controls_area.removeView(old_selected);
-            old_selected.setVisibility(View.GONE);
+            removeUserFromUserList(username);
             selectUser(null);
         }
     }
@@ -318,7 +347,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showNewUserArea(boolean show) {
+        showNewUserArea(show, false);
+    }
+
+    private void showNewUserArea(boolean show, boolean edit) {
         LinearLayout new_user_area = (LinearLayout)findViewById(R.id.login_new_user_area);
+        TextView nametxt = (TextView)findViewById(R.id.username_input);
+        Spinner avatarspinner = (Spinner)findViewById(R.id.user_avatar_spinner);
+        Button user_change_button = (Button)findViewById(R.id.user_change_button);
+        Button user_added_button = (Button)findViewById(R.id.user_added_button);
+
+        nametxt.setEnabled(!edit);
+        if (edit) {
+            user_added_button.setVisibility(View.GONE);
+            user_change_button.setVisibility(View.VISIBLE);
+            User user = getUser(selected_user);
+            if (user!=null) {
+                nametxt.setText(user.username);
+                avatarspinner.setSelection(avatarlist.indexOf(user.avatar));
+            }
+
+        } else {
+            nametxt.setText("");
+            user_added_button.setVisibility(View.VISIBLE);
+            user_change_button.setVisibility(View.GONE);
+
+        }
+
         if (show) {
             new_user_area.setVisibility(View.VISIBLE);
             new_user_shown = true;
@@ -327,6 +382,13 @@ public class MainActivity extends AppCompatActivity {
             new_user_area.setVisibility(View.GONE);
             new_user_shown = false;
         }
+    }
+
+
+    private void removeUserFromUserList(String username) {
+        LinearLayout userview = (LinearLayout)findViewById(R.id.user_avatar_list_view);
+        View old_selected = userlist.get(username);
+        userview.removeView(old_selected);
     }
 
     private void addUserToUserList(User user) {

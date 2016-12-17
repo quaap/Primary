@@ -139,6 +139,13 @@
                 android:id="@+id/user_added_button"
                 android:layout_weight="1" />
 
+            <Button
+                android:text="Update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/user_change_button"
+                android:visibility="gone" />
+
         </LinearLayout>
 
         <TextView
