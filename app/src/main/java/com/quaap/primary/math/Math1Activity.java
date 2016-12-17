@@ -72,7 +72,14 @@ public class Math1Activity extends BaseActivity {
             int tmpans = answers.get(i);
             makeAnswerButton(tmpans, answerarea, fontsize);
         }
-
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (Button ab: answerbuttons) {
+                    ab.setEnabled(true);
+                }
+            }
+        }, 200);
 
     }
 
@@ -152,6 +159,7 @@ public class Math1Activity extends BaseActivity {
     @SuppressLint("RtlHardcoded")
     private void makeAnswerButton(int tmpans, LinearLayout answerarea, float fontsize) {
         Button ansbutt = new Button(this);
+        ansbutt.setEnabled(false);
         ansbutt.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontsize);
         ansbutt.setText(String.format(Locale.getDefault(),"%d",tmpans));
         ansbutt.setTag(tmpans);
