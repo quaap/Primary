@@ -24,7 +24,7 @@ import com.quaap.primary.R;
 /**
  * Created by tom on 12/15/16.
  * <p>
- * Copyright (C) 2016  tom
+ * Copyright (C) 2016   Tom Kliethermes
  * <p>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,6 +36,18 @@ import com.quaap.primary.R;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+
+/*
+Future Subjects:
+Math 1, but typed answers.
+Spelling.
+Reading/vocabulary.
+New big words.
+Goofy math word problems.
+
+
+*/
+
 public abstract class SubjectMenuActivity extends AppCompatActivity implements Button.OnClickListener {
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 121;
     private String subject;

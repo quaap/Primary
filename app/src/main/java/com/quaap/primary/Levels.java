@@ -7,7 +7,7 @@ import com.quaap.primary.math.MathOp;
 /**
  * Created by tom on 12/15/16.
  * <p>
- * Copyright (C) 2016  tom
+ * Copyright (C) 2016   Tom Kliethermes
  * <p>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
