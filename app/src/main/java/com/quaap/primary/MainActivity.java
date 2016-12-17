@@ -55,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
             0x1F383, 0x1F384, 0x1F385, 0x1F386, 0x1F387, 0x1F388, 0x1F389, 0x1F38A, 0x1F38B,
             0x1F38C, 0x1F38D, 0x1F38E, 0x1F38F, 0x1F390, 0x1F391, 0x1F392, 0x1F393
     };
+    public static final String LASTSELECTEDUSER = "lastselecteduser";
+    public static final String AVATAR_PRE = "avatar:";
+    public static final String AVATAR_POST = ":avatar";
+    public static final String USERS_KEY = "users";
 
     private final String [] avatars;
 
@@ -84,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         createUserList();
 
-        selectUser(prefs.getString("lastselecteduser", defaultusername));
+        selectUser(prefs.getString(LASTSELECTEDUSER, defaultusername));
 
         createNewUserArea();
 
@@ -215,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<User> getUserList() {
         Set<String> usernames = new TreeSet<>();
-        usernames = prefs.getStringSet("users", usernames);
+        usernames = prefs.getStringSet(USERS_KEY, usernames);
 
         List<User> users = new ArrayList<>();
         for (String username: usernames) {
@@ -233,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
     private void populateAvatarSpinner(String additional) {
         avatarlist = new ArrayList<>();
         for (String avatar: avatars) {
-            if (!prefs.getBoolean("avatar:" + avatar, false)) {
+            if (!prefs.getBoolean(AVATAR_PRE + avatar, false)) {
                 avatarlist.add(avatar);
             }
         }
@@ -246,13 +250,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUserAvatar(String username, String avatar) {
-        String oldavatar = prefs.getString(username+":avatar", null);
+        String oldavatar = prefs.getString(username+ AVATAR_POST, null);
         SharedPreferences.Editor ed = prefs.edit();
         if (oldavatar!=null) {
-            ed.remove("avatar:" + oldavatar);
+            ed.remove(AVATAR_PRE + oldavatar);
         }
-        ed.putString(username+":avatar", avatar);
-        ed.putBoolean("avatar:" + avatar, true);
+        ed.putString(username+ AVATAR_POST, avatar);
+        ed.putBoolean(AVATAR_PRE + avatar, true);
         ed.apply();
         populateAvatarSpinner();
     }
@@ -260,12 +264,12 @@ public class MainActivity extends AppCompatActivity {
     private User addUser(String username, String avatar) {
         Set<String> usernames = new TreeSet<>();
 
-        usernames = prefs.getStringSet("users", usernames);
+        usernames = prefs.getStringSet(USERS_KEY, usernames);
         User user = null;
         if (!usernames.contains(username)){
             usernames.add(username);
             SharedPreferences.Editor ed = prefs.edit();
-            ed.putStringSet("users", usernames);
+            ed.putStringSet(USERS_KEY, usernames);
             ed.apply();
             setUserAvatar(username, avatar);
             user = new User();
@@ -284,14 +288,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (user!=null) {
             Set<String> usernames = new TreeSet<>();
-            usernames = prefs.getStringSet("users", usernames);
+            usernames = prefs.getStringSet(USERS_KEY, usernames);
 
             if (usernames.contains(username)){
                 usernames.remove(username);
                 SharedPreferences.Editor ed = prefs.edit();
-                ed.putStringSet("users", usernames);
-                ed.remove(user.username+":avatar");
-                ed.remove("avatar:" + user.avatar);
+                ed.putStringSet(USERS_KEY, usernames);
+                ed.remove(user.username+ AVATAR_POST);
+                ed.remove(AVATAR_PRE + user.avatar);
                 ed.apply();
             }
             removeUserFromUserList(username);
@@ -301,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private User getUser(String username) {
-        String avatar = prefs.getString(username+":avatar", null);
+        String avatar = prefs.getString(username+ AVATAR_POST, null);
         User user = null;
         if (avatar!=null) {
             user = new User();
@@ -346,13 +350,13 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 SharedPreferences.Editor ed = prefs.edit();
-                ed.putString("lastselecteduser", selected_user);
+                ed.putString(LASTSELECTEDUSER, selected_user);
                 ed.apply();
                 goButton.setEnabled(true);
             }
         } else {
             SharedPreferences.Editor ed = prefs.edit();
-            ed.remove("lastselecteduser");
+            ed.remove(LASTSELECTEDUSER);
             ed.apply();
             user_controls_area.setVisibility(View.GONE);
             goButton.setEnabled(false);
