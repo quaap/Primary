@@ -15,37 +15,6 @@
         android:paddingEnd="2dp">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/today_points"
-            android:textSize="14sp" />
-
-        <TextView
-            android:text="0"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/todayscore"
-            android:textSize="28sp"
-            android:textColor="@android:color/holo_blue_bright"
-            android:minEms="3"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bonuses" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="#eeeeff"
-        android:paddingStart="4dp"
-        android:paddingEnd="2dp">
-
-        <TextView
             android:text="@string/points"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +28,40 @@
             android:layout_height="wrap_content"
             android:id="@+id/tscore"
             android:textSize="24sp"
-            android:textColor="@android:color/holo_blue_light"
+            android:textColor="@android:color/holo_blue_bright"
+            android:minEms="3"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bonuses" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="#eeeeff"
+        android:paddingStart="4dp"
+        android:paddingEnd="2dp"
+        android:id="@+id/todays_area">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/today_points"
+            android:textSize="14sp" />
+
+        <TextView
+            android:text="0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/todayscore"
+            android:textSize="20sp"
+            android:textColor="@android:color/holo_blue_dark"
             android:minEms="3"
             tools:ignore="HardcodedText" />
 
