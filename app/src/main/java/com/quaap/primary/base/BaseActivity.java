@@ -108,15 +108,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Intent intent = getIntent();
+        username = intent.getStringExtra(MainActivity.USERNAME);
         subject = getString(subjectId);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar!=null) {
-            actionBar.setTitle(getString(R.string.app_name) + ": " + subject);
+            actionBar.setTitle(getString(R.string.app_name) + ": " + subject + " ("+username+")");
         }
 
-        Intent intent = getIntent();
-        username = intent.getStringExtra(MainActivity.USERNAME);
 
         mPrefs = getSharedPreferences(this, username, subject);
 
@@ -142,9 +142,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         setContentView(layoutId);
-
-        TextView sideusername = (TextView)findViewById(R.id.sideusername);
-        sideusername.setText(username);
 
         int orientation = getResources().getConfiguration().orientation;
         if (orientation== Configuration.ORIENTATION_LANDSCAPE) {

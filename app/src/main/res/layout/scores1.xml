@@ -17,7 +17,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Today's Points" />
+            android:text="@string/today_points"
+            android:textSize="14sp" />
 
         <TextView
             android:text="0"
@@ -78,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView7"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:maxLines="2" />
 
         <TextView

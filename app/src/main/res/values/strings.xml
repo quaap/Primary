@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Primary</string>
     <string name="subject_math1">Math 1</string>
-    <string name="points">Total Points</string>
+    <string name="points">Total points</string>
     <string name="resume_game">Resume Game</string>
     <string name="remaining">Remaining</string>
     <string name="clear_progress">Clear Progress</string>
-    <string name="total_correct">Tot. correct</string>
+    <string name="total_correct">Total correct</string>
     <string name="level_grade">Level %</string>
     <string name="name">Name</string>
     <string name="add">Add</string>
@@ -30,6 +30,7 @@
     <string name="change_avatar">Change Avatar</string>
     <string name="delete_user">Delete User</string>
     <string name="update_avatar">Update</string>
+    <string name="today_points">Today\'s Points</string>
 
     <string-array name="subjects">
         <item>Math 1</item>
