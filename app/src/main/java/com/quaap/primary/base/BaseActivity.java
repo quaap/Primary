@@ -262,8 +262,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void setLevelFields() {
         TextView leveltxt = (TextView)findViewById(R.id.level);
-
         leveltxt.setText("Level " + getLevel(levelnum).getLevelNum());
+
+        TextView leveldesc = (TextView)findViewById(R.id.level_desc);
+        leveldesc.setText(getLevel(levelnum).getShortDescription());
 
         TextView correcttxt = (TextView)findViewById(R.id.correct);
 

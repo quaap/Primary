@@ -50,11 +50,33 @@ public class Math1Level extends Level {
         return "Level " + mLevel + ": " + ops + " / Max " + mMaxNum ;
     }
 
+    @Override
+    public String getShortDescription() {
+        String ops = getOpsSymStr();
+        if (mMaxMathOp == mMinMathOp) {
+            ops = mMaxMathOp.name();
+        }
+        return "Mx" + mMaxNum + ". " + ops;
+    }
+
     private String getOpsStr() {
         String ops = "";
         for (MathOp m: MathOp.values()) {
             if (m.ordinal()>=mMinMathOp.ordinal() && m.ordinal()<=mMaxMathOp.ordinal()) {
                 ops += m.name();
+                if (m.ordinal()<mMaxMathOp.ordinal()) {
+                    ops += ", ";
+                }
+            }
+        }
+        return ops;
+    }
+
+    private String getOpsSymStr() {
+        String ops = "";
+        for (MathOp m: MathOp.values()) {
+            if (m.ordinal()>=mMinMathOp.ordinal() && m.ordinal()<=mMaxMathOp.ordinal()) {
+                ops += m.toString();
                 if (m.ordinal()<mMaxMathOp.ordinal()) {
                     ops += ", ";
                 }
