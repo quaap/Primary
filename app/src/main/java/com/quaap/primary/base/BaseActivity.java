@@ -211,6 +211,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                             })
                             .show();
                     //status.setText("Correct! On to " + levelnum);
+                    return;
                 }
             } else {
                 status.setText(getString(R.string.correct));

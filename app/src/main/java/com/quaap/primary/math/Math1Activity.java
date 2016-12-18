@@ -103,8 +103,8 @@ public class Math1Activity extends BaseActivity {
 
         boolean isright = ans == answer;
 
-        answerDone(isright, (Math.abs(num1)+Math.abs(num2)) * (op.ordinal()+1),
-                num1 + op.toString() + num2, answer+"", ans+"");
+        int points = 1 + (Math.abs(num1)+Math.abs(num2)) * (op.ordinal()+1);
+        answerDone(isright, points, num1 + op.toString() + num2, answer+"", ans+"");
 
 
         return isright;
