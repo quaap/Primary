@@ -223,7 +223,7 @@ public class Math1Activity extends BaseActivity {
                     ab.setEnabled(true);
                 }
             }
-        }, 200);
+        }, 120);
     }
 
     @SuppressLint("RtlHardcoded")

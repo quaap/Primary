@@ -59,6 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private long starttime = System.currentTimeMillis();
     private ActivityWriter actwriter;
     private int correctInARow = 0;
+    private String bonuses;
 
     private String subject;
     private final int subjectId;
@@ -157,19 +158,27 @@ public abstract class BaseActivity extends AppCompatActivity {
         todayview.setVisibility(todaysScore==tscore ? View.GONE : View.VISIBLE);
     }
 
-    protected void answerDone(boolean isright, int addscore, String problem, String answer, String useranser) {
-        final TextView status = (TextView)findViewById(statusId);
+    protected void answerDone(boolean isright, int addscore, String problem, String answer, String useranswer) {
         long timespent = System.currentTimeMillis() - starttime;
+        final TextView status = (TextView)findViewById(statusId);
+        bonuses = null;
         if (isright) {
             correct++;
             correctInARow++;
             totalCorrect++;
-            int points = addscore * ((correctInARow+1)/2);
+            int points = addscore * (int)Math.sqrt(correctInARow+1);
+            if (timespent<1000) {
+                bonuses = getString(R.string.superfast);
+                points *= 2;
+            } else if (timespent<2000) {
+                bonuses = getString(R.string.fast);
+                points *= 1.5;
+            }
             tscore += points;
             todaysScore += points;
 
             if (actwriter !=null) {
-                actwriter.log(levelnum+1, problem, answer, useranser, isright, timespent, getCurrentPercentFloat(), todaysScore);
+                actwriter.log(levelnum+1, problem, answer, useranswer, isright, timespent, getCurrentPercentFloat(), todaysScore);
             }
 
             if (correct>=levels[levelnum].getRounds()) {
@@ -184,6 +193,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     if (highestLevelnum<levelnum+1) {
                         highestLevelnum = levelnum+1;
                     }
+                    status.setText("");
                     new AlertDialog.Builder(this)
                             .setIcon(android.R.drawable.ic_dialog_info)
                             .setTitle(R.string.level_complete)
@@ -210,7 +220,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
                             })
                             .show();
-                    //status.setText("Correct! On to " + levelnum);
+                    setLevelFields();
                     return;
                 }
             } else {
@@ -233,7 +243,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             totalIncorrect++;
             status.setText(R.string.try_again);
             if (actwriter !=null) {
-                actwriter.log(levelnum+1, problem, answer, useranser, isright, timespent, getCurrentPercentFloat(), todaysScore);
+                actwriter.log(levelnum+1, problem, answer, useranswer, isright, timespent, getCurrentPercentFloat(), todaysScore);
             }
 
         }
@@ -286,7 +296,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void setLevelFields() {
         TextView leveltxt = (TextView)findViewById(R.id.level);
-        leveltxt.setText("Level " + getLevel(levelnum).getLevelNum());
+        leveltxt.setText(getString(R.string.level, getLevel(levelnum).getLevelNum()));
 
         TextView leveldesc = (TextView)findViewById(R.id.level_desc);
         leveldesc.setText(getLevel(levelnum).getShortDescription());
@@ -311,13 +321,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         tscore_txt.setText(String.format(Locale.getDefault(), "%d", tscore));
 
 
-        TextView bonuses = (TextView) findViewById(R.id.bonuses);
+        String btext = null;
         if (correctInARow>2) {
-            String btext = correctInARow + " in a row!";
-            bonuses.setText(btext);
-        } else {
-            bonuses.setText(" ");
+            btext = correctInARow + " in a row!";
         }
+        if (bonuses!=null) {
+            if (btext!=null) btext +="\n"; else btext = "";
+            btext += bonuses;
+        }
+        TextView bonusestxt = (TextView) findViewById(R.id.bonuses);
+        bonusestxt.setText(btext);
     }
 
     private float getCurrentPercentFloat() {

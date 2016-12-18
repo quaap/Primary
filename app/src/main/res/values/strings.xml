@@ -31,6 +31,8 @@
     <string name="delete_user">Delete User</string>
     <string name="update_avatar">Update</string>
     <string name="today_points">Today\'s points</string>
+    <string name="superfast">SuperFast!</string>
+    <string name="fast">Fast!</string>
 
     <string-array name="subjects">
         <item>Math 1</item>
