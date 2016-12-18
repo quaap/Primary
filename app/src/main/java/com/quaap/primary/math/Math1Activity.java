@@ -199,7 +199,7 @@ public class Math1Activity extends BaseActivity {
             } while (answers.contains(tmpans));
             answers.add(tmpans);
         }
-        Collections.shuffle(answers);
+       // Collections.shuffle(answers);
         return answers;
     }
 

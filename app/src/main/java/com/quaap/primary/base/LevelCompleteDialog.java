@@ -71,6 +71,7 @@ public class LevelCompleteDialog extends DialogFragment {
                     }
 
                 });
+
         return builder.create();
     }
 

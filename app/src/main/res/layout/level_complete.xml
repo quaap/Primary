@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical|center_horizontal"
+    android:id="@+id/level_complete_layout"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="400dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:background="#eeeeee"
+        android:layout_height="100dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="48dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:id="@+id/repeatlevel_button"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_marginEnd="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_height="wrap_content"
+                app:srcCompat="@raw/repeat_level"
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content" />
+
+            <TextView
+                android:text="@string/repeat_level"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:id="@+id/nextlevel_button"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_marginEnd="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_height="wrap_content"
+                app:srcCompat="@raw/next_level"
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content" />
+
+            <TextView
+                android:text="@string/next_level"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

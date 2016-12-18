@@ -1,22 +1,26 @@
 package com.quaap.primary.base;
 
 import android.Manifest;
-import android.app.DialogFragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.quaap.primary.Levels;
@@ -43,7 +47,7 @@ import java.util.Locale;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-public abstract class BaseActivity extends AppCompatActivity implements LevelCompleteDialog.LevelCompleteDialogListener {
+public abstract class BaseActivity extends AppCompatActivity  {
     public static final String LEVELNAME = "levelnum";
     //protected Math1Level[] levels;
 
@@ -83,6 +87,7 @@ public abstract class BaseActivity extends AppCompatActivity implements LevelCom
     private final int layoutId;
 
     private String username;
+    private PopupWindow levelCompletePopup;
 
     protected BaseActivity(String levelSetName, int subjectId, int layoutIdtxt, int statusTxtId) {
 
@@ -155,7 +160,7 @@ public abstract class BaseActivity extends AppCompatActivity implements LevelCom
         }
         setLevelFields();
         showProb();
-        View todayview = (View)findViewById(R.id.todays_area);
+        View todayview = findViewById(R.id.todays_area);
         todayview.setVisibility(todaysScore==tscore ? View.GONE : View.VISIBLE);
     }
 
@@ -189,7 +194,7 @@ public abstract class BaseActivity extends AppCompatActivity implements LevelCom
                         highestLevelnum = levelnum+1;
                     }
                     status.setText("");
-                    LevelCompleteDialog dialog = LevelCompleteDialog.show(this);
+                    showLevelCompletePopup();
 
                     setLevelFields();
                     return;
@@ -221,8 +226,57 @@ public abstract class BaseActivity extends AppCompatActivity implements LevelCom
         setLevelFields();
     }
 
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
+
+    private void showLevelCompletePopup() {
+        LinearLayout levelcompleteView = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.level_complete, null);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+        //int width = 400;
+        //int height = 300;
+
+
+       // levelCompletePopup = new PopupWindow(levelcompleteView, levelcompleteView.getWidth(), levelcompleteView.getHeight());
+        levelCompletePopup = new PopupWindow(levelcompleteView, width, height, true);
+
+
+        View nextlevel_button = levelcompleteView.findViewById(R.id.nextlevel_button);
+        View repeatlevel_button = levelcompleteView.findViewById(R.id.repeatlevel_button);
+
+        repeatlevel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                repeatLevel();
+                levelCompletePopup.dismiss();
+                levelCompletePopup = null;
+
+            }
+        });
+
+        nextlevel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nextLevel();
+                levelCompletePopup.dismiss();
+                levelCompletePopup = null;
+
+            }
+        });
+
+
+//        int width = wwidth - wwidth/6;
+//        int height = width/2;
+
+        levelCompletePopup.showAsDropDown(levelcompleteView, Gravity.CENTER, 0,0);
+
+
+    }
+
+    public void repeatLevel() {
         saveState();
         correct = 0;
         incorrect = 0;
@@ -230,8 +284,8 @@ public abstract class BaseActivity extends AppCompatActivity implements LevelCom
         setLevelFields();
     }
 
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
+
+    public void nextLevel() {
         levelnum++;
         saveState();
         showProb();
@@ -289,6 +343,8 @@ public abstract class BaseActivity extends AppCompatActivity implements LevelCom
         } catch (IOException e) {
             Log.e("Primary", "Error closing activity file.",e);
         }
+        if (levelCompletePopup!=null) levelCompletePopup.dismiss();
+        levelCompletePopup = null;
     }
 
     private void saveState() {
