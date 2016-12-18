@@ -1,6 +1,7 @@
 package com.quaap.primary.base;
 
 import android.Manifest;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,7 +43,7 @@ import java.util.Locale;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements LevelCompleteDialog.LevelCompleteDialogListener {
     public static final String LEVELNAME = "levelnum";
     //protected Math1Level[] levels;
 
@@ -188,32 +189,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                         highestLevelnum = levelnum+1;
                     }
                     status.setText("");
-                    new AlertDialog.Builder(this)
-                            .setIcon(android.R.drawable.ic_dialog_info)
-                            .setTitle(R.string.level_complete)
-                            .setMessage(R.string.do_next_level)
-                            .setPositiveButton(R.string.next_level, new DialogInterface.OnClickListener()  {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    levelnum++;
-                                    saveState();
-                                    showProb();
-                                    setLevelFields();
-                                }
+                    LevelCompleteDialog dialog = LevelCompleteDialog.show(this);
 
-                            })
-                            .setNegativeButton(R.string.repeat_level, new DialogInterface.OnClickListener()  {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    saveState();
-                                    correct = 0;
-                                    incorrect = 0;
-                                    showProb();
-                                    setLevelFields();
-                                }
-
-                            })
-                            .show();
                     setLevelFields();
                     return;
                 }
@@ -241,6 +218,23 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
 
         }
+        setLevelFields();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        saveState();
+        correct = 0;
+        incorrect = 0;
+        showProb();
+        setLevelFields();
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        levelnum++;
+        saveState();
+        showProb();
         setLevelFields();
     }
 
