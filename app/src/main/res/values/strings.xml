@@ -33,6 +33,8 @@
     <string name="today_points">Today\'s points</string>
     <string name="superfast">SuperFast!</string>
     <string name="fast">Fast!</string>
+    <string name="quick">Quick!</string>
+    <string name="numbonus">%s bonus!</string>
 
     <string-array name="subjects">
         <item>Math 1</item>

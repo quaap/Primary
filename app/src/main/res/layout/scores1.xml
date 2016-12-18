@@ -35,7 +35,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/bonuses" />
+            android:id="@+id/bonuses"
+            android:textColor="@android:color/holo_green_dark" />
 
     </LinearLayout>
 

@@ -166,14 +166,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             correct++;
             correctInARow++;
             totalCorrect++;
-            int points = addscore * (int)Math.sqrt(correctInARow+1);
-            if (timespent<1000) {
-                bonuses = getString(R.string.superfast);
-                points *= 2;
-            } else if (timespent<2000) {
-                bonuses = getString(R.string.fast);
-                points *= 1.5;
-            }
+
+            int points = getBonuses(addscore, timespent);
             tscore += points;
             todaysScore += points;
 
@@ -250,6 +244,31 @@ public abstract class BaseActivity extends AppCompatActivity {
         setLevelFields();
     }
 
+    private int getBonuses(int addscore, long timespent) {
+        int points = addscore;
+
+        if (timespent<1000) {
+            bonuses = getString(R.string.superfast) + " ×3";
+            points *= 3;
+        } else if (timespent<1800) {
+            bonuses = getString(R.string.fast) + " ×2";
+            points *= 2;
+        } else if (timespent<3000) {
+            bonuses = getString(R.string.quick) + " +50%";
+            points *= 1.5;
+        }
+
+        int crbonus = (int)Math.sqrt(correctInARow);
+        if (crbonus>1) {
+            if (bonuses==null) bonuses = "\n"; else bonuses += "\n";
+            bonuses += correctInARow + " in a row! ×" + crbonus;
+
+            points *= crbonus;
+        }
+
+        return points;
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -321,16 +340,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         tscore_txt.setText(String.format(Locale.getDefault(), "%d", tscore));
 
 
-        String btext = null;
-        if (correctInARow>2) {
-            btext = correctInARow + " in a row!";
-        }
-        if (bonuses!=null) {
-            if (btext!=null) btext +="\n"; else btext = "";
-            btext += bonuses;
-        }
+//        String btext = null;
+//        if (correctInARow>2) {
+//            btext = correctInARow + " in a row!";
+//        }
+//        if (bonuses!=null) {
+//            if (btext!=null) btext +="\n"; else btext = "";
+//            btext += bonuses;
+//        }
         TextView bonusestxt = (TextView) findViewById(R.id.bonuses);
-        bonusestxt.setText(btext);
+        bonusestxt.setText(bonuses);
     }
 
     private float getCurrentPercentFloat() {
