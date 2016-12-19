@@ -1,5 +1,7 @@
 package com.quaap.primary.base;
 
+import android.content.Context;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +22,7 @@ import java.util.Map;
  */
 public abstract class Level {
 
-    private static Map<String,Integer> nextlevelnum = new HashMap<>();
+    private final static Map<String,Integer> nextlevelnum = new HashMap<>();
     private String mSubjectkey;
 
     private final int mRounds;
@@ -38,9 +40,9 @@ public abstract class Level {
         }
     }
 
-    public abstract String getDescription();
+    public abstract String getDescription(Context context);
 
-    public abstract String getShortDescription();
+    public abstract String getShortDescription(Context context);
 
     public int getLevelNum() {
         return mLevel;

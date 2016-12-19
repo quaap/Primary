@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -129,7 +128,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
 
     protected void setStatus(int resid) {
-        final TextView status = (TextView)findViewById(R.id.txtstatus);
         setStatus(getString(resid));
     }
 
@@ -401,7 +399,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
         leveltxt.setText(getString(R.string.level, getLevel(levelnum).getLevelNum()));
 
         TextView leveldesc = (TextView)findViewById(R.id.level_desc);
-        leveldesc.setText(getLevel(levelnum).getShortDescription());
+        leveldesc.setText(getLevel(levelnum).getShortDescription(this));
 
         TextView correcttxt = (TextView)findViewById(R.id.correct);
 

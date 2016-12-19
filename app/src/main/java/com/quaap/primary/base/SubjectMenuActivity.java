@@ -137,7 +137,7 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
             levelrow.addView(levelbutt);
 
             TextView desc = new TextView(this);
-            desc.setText(level.getDescription());
+            desc.setText(level.getDescription(this));
             desc.setLayoutParams(lp);
             desc.setTextSize(16);
             levelrow.addView(desc);
@@ -151,7 +151,7 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
     private void clearProgress() {
         SharedPreferences.Editor ed = mPrefs.edit();
         ed.clear();
-        ed.commit();
+        ed.apply();
 
         show_hide_gip();
         showLevelButtons();

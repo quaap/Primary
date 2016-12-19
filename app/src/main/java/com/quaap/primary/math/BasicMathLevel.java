@@ -1,5 +1,8 @@
 package com.quaap.primary.math;
 
+import android.content.Context;
+
+import com.quaap.primary.R;
 import com.quaap.primary.base.Level;
 
 public class BasicMathLevel extends Level {
@@ -29,27 +32,27 @@ public class BasicMathLevel extends Level {
     }
 
     @Override
-    public String getDescription() {
-        String ops = getOpsStr();
+    public String getDescription(Context context) {
+        String ops = getOpsStr(context);
         String max = (mNegatives!=Negatives.None?"\u00B1":"") + mMaxNum;
-        return "Level " + mLevel + ": " + ops + " / Max " + max ;
+        return context.getString(R.string.level, mLevel) + ": " + ops + " / " + context.getString(R.string.max, max) ;
     }
 
     @Override
-    public String getShortDescription() {
+    public String getShortDescription(Context context) {
         String ops = getOpsSymStr();
         if (mMaxMathOp == mMinMathOp) {
             ops = mMaxMathOp.name();
         }
         String max = (mNegatives!=Negatives.None?"\u00B1":"") + mMaxNum;
-        return "Mx" + max + ". " + ops;
+        return context.getString(R.string.max, max) + ". " + ops;
     }
 
-    private String getOpsStr() {
+    private String getOpsStr(Context context) {
         String ops = "";
         for (MathOp m: MathOp.values()) {
             if (m.ordinal()>=mMinMathOp.ordinal() && m.ordinal()<=mMaxMathOp.ordinal()) {
-                ops += m.name();
+                ops += context.getString(m.getResId());
                 if (m.ordinal()<mMaxMathOp.ordinal()) {
                     ops += ", ";
                 }

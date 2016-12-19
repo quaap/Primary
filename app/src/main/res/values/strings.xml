@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Primary</string>
-    <string name="subject_math1">Math 1</string>
     <string name="points">Total points</string>
     <string name="resume_game">Resume Game</string>
     <string name="remaining">Remaining</string>
@@ -12,11 +11,11 @@
     <string name="correct">Correct!</string>
     <string name="levels_done">You\'ve completed all the levels in this subject!</string>
     <string name="level_complete">Level %d complete!</string>
-    <string name="do_next_level">Go to the next level?</string>
     <string name="next_level">Next level</string>
     <string name="repeat_level">Repeat this level</string>
     <string name="try_again">Try again!</string>
     <string name="level">"Level %d"</string>
+    <string name="max">"Max %s"</string>
     <string name="defaultUserName">Default</string>
     <string name="add_user">Add User</string>
     <string name="choose_user">1. Choose user</string>
@@ -34,7 +33,12 @@
     <string name="superfast">SuperFast!</string>
     <string name="fast">Fast!</string>
     <string name="quick">Quick!</string>
-    <string name="numbonus">%s bonus!</string>
+
+    <string name="plus">Plus</string>
+    <string name="minus">Minus</string>
+    <string name="times">Times</string>
+    <string name="divide">Divide</string>
+
 
     <string-array name="subjects">
         <item>Math 1</item>

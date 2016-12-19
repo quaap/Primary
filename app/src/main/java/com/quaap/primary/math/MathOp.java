@@ -1,5 +1,7 @@
 package com.quaap.primary.math;
 
+import com.quaap.primary.R;
+
 import java.security.SecureRandom;
 
 /**
@@ -18,14 +20,17 @@ import java.security.SecureRandom;
  * GNU General Public License for more details.
  */
 public enum MathOp {
-    Plus("+"),
-    Minus("-"),
-    Times("\u00D7"),
-    Divide("\u00F7");
+    Plus("+", R.string.plus),
+    Minus("-", R.string.minus),
+    Times("\u00D7", R.string.times),
+    Divide("\u00F7", R.string.divide);
 
     private final String mDisplay;
-    MathOp(String display) {
+    private final int mResid;
+
+    MathOp(String display, int resid) {
         mDisplay = display;
+        mResid = resid;
     }
 
     @Override
@@ -33,6 +38,9 @@ public enum MathOp {
         return mDisplay;
     }
 
+    public int getResId() {
+        return mResid;
+    }
 
 
     public static MathOp random(MathOp upto) {
