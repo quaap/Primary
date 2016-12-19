@@ -129,6 +129,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
 
     private void setStatus(String text, int timeout) {
+        setStatus(text);
         final int corrects = correct;
         final int incorrects = incorrect;
         handler.postDelayed(new Runnable() {
@@ -142,7 +143,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
     }
 
     private void setStatus(int resid, int timeout) {
-        setStatus(getString(resid));
+        setStatus(getString(resid), timeout);
     }
     final protected Handler handler = new Handler();
 
