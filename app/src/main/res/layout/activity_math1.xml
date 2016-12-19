@@ -83,7 +83,8 @@
         android:id="@+id/answer_area"
         android:layout_below="@+id/problem_area"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="8dp"
+        android:minWidth="0dp">
 
         <TextView
             android:text=" "

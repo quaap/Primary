@@ -3,6 +3,7 @@ package com.quaap.primary;
 import com.quaap.primary.base.Level;
 import com.quaap.primary.math.Math1Level;
 import com.quaap.primary.math.MathOp;
+import com.quaap.primary.math.Negatives;
 
 /**
  * Created by tom on 12/15/16.
@@ -40,30 +41,68 @@ public class Levels {
      {
             //Math1Levels
             {
-                    new Math1Level(MathOp.Plus, MathOp.Plus, 5, 10),
-                    new Math1Level(MathOp.Minus, MathOp.Minus, 5, 10),
 
-                    new Math1Level(MathOp.Plus, MathOp.Plus, 10, 20),
-                    new Math1Level(MathOp.Minus, MathOp.Minus, 10, 20),
+                    new Math1Level(MathOp.Plus, 5, 10),
+                    new Math1Level(MathOp.Minus, 5, 10),
 
-                    new Math1Level(MathOp.Plus, MathOp.Plus, 15, 20),
-                    new Math1Level(MathOp.Minus, MathOp.Minus, 15, 20),
+                    new Math1Level(MathOp.Plus, 10, 20),
+                    new Math1Level(MathOp.Minus, 10, 20),
 
-                    new Math1Level(MathOp.Plus, MathOp.Plus, 25, 10),
-                    new Math1Level(MathOp.Minus, MathOp.Minus, 25, 10),
+                    new Math1Level(MathOp.Plus, 15, 20),
+                    new Math1Level(MathOp.Minus, 15, 20),
 
-                    new Math1Level(MathOp.Times, MathOp.Times, 5, 10),
-                    new Math1Level(MathOp.Divide, MathOp.Divide, 5, 10),
+                    new Math1Level(MathOp.Plus, 25, 10),
+                    new Math1Level(MathOp.Minus, 25, 10),
 
-                    new Math1Level(MathOp.Times, MathOp.Times, 10, 10),
-                    new Math1Level(MathOp.Divide, MathOp.Divide, 10, 10),
+                    new Math1Level(MathOp.Minus, MathOp.Plus, 25, 20),
 
-                    new Math1Level(MathOp.Times, MathOp.Times, 12, 10),
-                    new Math1Level(MathOp.Divide, MathOp.Divide, 12, 10),
+                    //
 
-                    new Math1Level(MathOp.Divide, MathOp.Times, 12, 30),
+                    new Math1Level(MathOp.Times, 5, 10),
+                    new Math1Level(MathOp.Divide, 5, 10),
 
-                    new Math1Level(MathOp.Divide, MathOp.Plus, 12, 200)
+                    new Math1Level(MathOp.Times, 10, 10),
+                    new Math1Level(MathOp.Divide, 10, 10),
+
+                    new Math1Level(MathOp.Times, 12, 10),
+                    new Math1Level(MathOp.Divide, 12, 10),
+
+                    new Math1Level(MathOp.Divide, MathOp.Times, 12, 10),
+
+                    new Math1Level(MathOp.Divide, MathOp.Plus, 12, 20),
+
+//  Same levels, but now with negatives
+
+                    new Math1Level(MathOp.Plus, 5, Negatives.Required, 10),
+                    new Math1Level(MathOp.Minus, 5, Negatives.Required, 10),
+
+                    new Math1Level(MathOp.Plus, 10, Negatives.Required, 20),
+                    new Math1Level(MathOp.Minus, 10, Negatives.Required, 20),
+
+                    new Math1Level(MathOp.Plus, 15, Negatives.Required, 20),
+                    new Math1Level(MathOp.Minus, 15, Negatives.Required, 20),
+
+                    new Math1Level(MathOp.Plus, 25, Negatives.Required, 10),
+                    new Math1Level(MathOp.Minus, 25, Negatives.Required, 10),
+
+                    new Math1Level(MathOp.Minus, MathOp.Plus, 25, Negatives.Required, 20),
+
+                    //
+
+                    new Math1Level(MathOp.Times, 5, Negatives.Required, 10),
+                    new Math1Level(MathOp.Divide, 5, Negatives.Required, 10),
+
+                    new Math1Level(MathOp.Times, 10, Negatives.Required, 10),
+                    new Math1Level(MathOp.Divide, 10, Negatives.Required, 10),
+
+                    new Math1Level(MathOp.Times, 12, Negatives.Required, 10),
+                    new Math1Level(MathOp.Divide, 12, Negatives.Required, 10),
+
+
+                    new Math1Level(MathOp.Divide, MathOp.Times, 12, Negatives.Allowed, 10),
+
+
+                    new Math1Level(MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 50)
             }
     };
 }

@@ -1,7 +1,7 @@
-package com.quaap.primary.base;
+package com.quaap.primary.math;
 
 /**
- * Created by tom on 12/15/16.
+ * Created by tom on 12/14/16.
  * <p>
  * Copyright (C) 2016   Tom Kliethermes
  * <p>
@@ -15,25 +15,4 @@ package com.quaap.primary.base;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-public abstract class Level {
-    protected static final Object nextlevelsync = new Object();
-    protected static int nextlevelnum = 1;
-    private final int mRounds;
-    protected int mLevel;
-
-    protected Level(int rounds) {
-        mRounds = rounds;
-    }
-
-    public abstract String getDescription();
-
-    public abstract String getShortDescription();
-
-    public int getLevelNum() {
-        return mLevel;
-    }
-
-    public int getRounds() {
-        return mRounds;
-    }
-}
+public enum Negatives {None, Allowed, Required}

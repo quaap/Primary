@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Space;
 import android.widget.TextView;
 
 import com.quaap.primary.R;
@@ -117,18 +118,27 @@ public class Math1Activity extends BaseActivity {
         int last2 = num2;
         MathOp lastOp = op;
         int tries = 0;
+        Math1Level level = (Math1Level) levels[levelnum];
         do {
-            int max = ((Math1Level) levels[levelnum]).getMaxNum();
-            if (correct > levels[levelnum].getRounds() / 2) {
+            int min = 0;
+            int max = level.getMaxNum();
+            if (level.getNegatives() != Negatives.None) {
+                min = -max;
+            }
+            if (correct > level.getRounds() / 2) { //increase difficulty in second half of level
                 num1 = getRand(max / 2, max);
             } else {
-                num1 = getRand(max/2);
+                num1 = getRand(min/2, max/2);
             }
-            num2 = getRand(max);
-            if (num2 == 0 && Math.random() > .3) num2 = getRand(1, max);
-            if (num2 == 1 && Math.random() > .3) num2 = getRand(2, max);
+            num2 = getRand(min, max);
+            if ((num2 == 0 || num2 == 1) && Math.random() > .3) num2=2; //reduce number of x+0 and x+1
 
-            op = MathOp.random(((Math1Level) levels[levelnum]).getMinMathOp(), ((Math1Level) levels[levelnum]).getMaxMathOp());
+            if (level.getNegatives() == Negatives.Required && num1>=0 && num2>=0) { //force a negative value
+                num1 = -getRand(1, max);
+            }
+
+
+            op = MathOp.random(level.getMinMathOp(), level.getMaxMathOp());
 
             if (op == MathOp.Minus || op == MathOp.Divide) {
                 if (num1 < num2) {
@@ -220,6 +230,7 @@ public class Math1Activity extends BaseActivity {
             int tmpans = answers.get(i);
             makeAnswerButton(tmpans, answerarea, fontsize);
         }
+        answerarea.addView(new Space(this));
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -235,6 +246,7 @@ public class Math1Activity extends BaseActivity {
         Button ansbutt = new Button(this);
         ansbutt.setEnabled(false);
         ansbutt.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontsize);
+
         ansbutt.setText(String.format(Locale.getDefault(),"%d",tmpans));
         ansbutt.setTag(tmpans);
         ansbutt.setOnClickListener(new View.OnClickListener() {
@@ -261,6 +273,7 @@ public class Math1Activity extends BaseActivity {
         ansbutt.setGravity(Gravity.RIGHT);
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lparams.gravity = Gravity.RIGHT;
+        lparams.weight = 1;
         ansbutt.setLayoutParams(lparams);
         answerarea.addView(ansbutt);
         answerbuttons.add(ansbutt);
