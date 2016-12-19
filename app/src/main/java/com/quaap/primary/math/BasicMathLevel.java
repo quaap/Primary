@@ -11,13 +11,13 @@ public class BasicMathLevel extends Level {
 
 
     public BasicMathLevel(String subjectkey, MathOp maxMathOp, int maxNum, int rounds) {
-        this(subjectkey, maxMathOp, MathOp.Plus, maxNum, rounds);
+        this(subjectkey, maxMathOp, maxMathOp, maxNum, rounds);
     }
     public BasicMathLevel(String subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, int rounds) {
         this(subjectkey, maxMathOp, minMathOp, maxNum, Negatives.None, rounds);
     }
     public BasicMathLevel(String subjectkey, MathOp maxMathOp, int maxNum, Negatives negatives, int rounds) {
-        this(subjectkey, maxMathOp, MathOp.Plus, maxNum, negatives, rounds);
+        this(subjectkey, maxMathOp, maxMathOp, maxNum, negatives, rounds);
     }
     public BasicMathLevel(String subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, Negatives negatives, int rounds) {
         super(subjectkey, rounds);

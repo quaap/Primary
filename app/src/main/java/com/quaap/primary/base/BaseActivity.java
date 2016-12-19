@@ -17,8 +17,6 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -155,14 +153,14 @@ public abstract class BaseActivity extends AppCompatActivity  {
                 incorrect = 0;
                 if (levelnum+1>=levels.length) {
                     saveState();
-                    status.setText(R.string.levels_done);
+                    showLevelCompletePopup(true);
                     return;
                 } else {
                     if (highestLevelnum<levelnum+1) {
                         highestLevelnum = levelnum+1;
                     }
                     status.setText("");
-                    showLevelCompletePopup();
+                    showLevelCompletePopup(false);
 
                     setLevelFields();
                     return;
@@ -195,7 +193,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
     }
 
 
-    private void showLevelCompletePopup() {
+    private void showLevelCompletePopup(boolean alldone) {
         final LinearLayout levelcompleteView = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.level_complete, null);
 
         TextView lc = (TextView)levelcompleteView.findViewById(R.id.level_complete_text);
@@ -213,6 +211,9 @@ public abstract class BaseActivity extends AppCompatActivity  {
        // levelCompletePopup = new PopupWindow(levelcompleteView, levelcompleteView.getWidth(), levelcompleteView.getHeight());
         levelCompletePopup = new PopupWindow(levelcompleteView, width, height, true);
 
+        View no_more_levels_txt = levelcompleteView.findViewById(R.id.no_more_levels_txt);
+
+
 
         View nextlevel_button = levelcompleteView.findViewById(R.id.nextlevel_button);
         View repeatlevel_button = levelcompleteView.findViewById(R.id.repeatlevel_button);
@@ -227,15 +228,29 @@ public abstract class BaseActivity extends AppCompatActivity  {
             }
         });
 
-        nextlevel_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                nextLevel();
-                levelCompletePopup.dismiss();
-                levelCompletePopup = null;
+        if (!alldone) {
+            no_more_levels_txt.setVisibility(View.GONE);
+            nextlevel_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    nextLevel();
+                    levelCompletePopup.dismiss();
+                    levelCompletePopup = null;
 
-            }
-        });
+                }
+            });
+        } else {
+            no_more_levels_txt.setVisibility(View.VISIBLE);
+
+            nextlevel_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    levelCompletePopup.dismiss();
+                    levelCompletePopup = null;
+                    goBackToMain();
+                }
+            });
+        }
 
 
 //        int width = wwidth - wwidth/6;
@@ -264,6 +279,11 @@ public abstract class BaseActivity extends AppCompatActivity  {
         saveState();
         showProb();
         setLevelFields();
+    }
+
+    public void goBackToMain() {
+        setResult(SubjectMenuActivity.SUBMENU_RESULT_CLOSE);
+        finish();
     }
 
     private int getBonuses(int addscore, long timespent) {
@@ -376,7 +396,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
         todayview.setVisibility(todaysScore==tscore ? View.GONE : View.VISIBLE);
         setLevelFields();
         if (showpopup) {
-            showLevelCompletePopup();
+            showLevelCompletePopup(false);
         }
         showProb();
     }
