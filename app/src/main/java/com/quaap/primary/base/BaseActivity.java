@@ -224,6 +224,8 @@ public abstract class BaseActivity extends AppCompatActivity  {
     private void showLevelCompletePopup() {
         LinearLayout levelcompleteView = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.level_complete, null);
 
+        TextView lc = (TextView)levelcompleteView.findViewById(R.id.level_complete_text);
+        lc.setText(getString(R.string.level_complete, getLevel(levelnum).getLevelNum()));
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
