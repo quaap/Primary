@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Primary</string>
-    <string name="subject_math1">Math 1</string>
     <string name="points">Total points</string>
     <string name="resume_game">Resume Game</string>
     <string name="remaining">Remaining</string>
@@ -36,13 +35,19 @@
     <string name="quick">Quick!</string>
     <string name="numbonus">%s bonus!</string>
 
+
+    <string name="subject_math1">Math 1</string>
+    <string name="subject_spelling1">Spelling 1</string>
+
     <string-array name="subjects">
         <item>Math 1</item>
+        <item>Spelling 1</item>
         <item>(More to come!)</item>
     </string-array>
 
     <string-array name="subjectsActivity">
         <item>com.quaap.primary.math.Math1MenuActivity</item>
+        <item>com.quaap.primary.math.Spelling1MenuActivity</item>
         <item>com.quaap.primary.math.Math1MenuActivity</item>
     </string-array>
 
