@@ -155,7 +155,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/steps2and3">
 
@@ -173,6 +173,14 @@
                 android:id="@+id/subject_spinner"
                 android:entries="@array/subjects"
                 tools:listitem="@layout/spinner_item" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/subject_desc"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp" />
 
             <TextView
                 android:text="@string/start_lab"

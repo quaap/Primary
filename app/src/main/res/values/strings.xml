@@ -10,7 +10,7 @@
     <string name="name">Name</string>
     <string name="add">Add</string>
     <string name="correct">Correct!</string>
-    <string name="levels_done">You\'ve completed all the levels!</string>
+    <string name="levels_done">You\'ve completed all the levels in this subject!</string>
     <string name="level_complete">Level %d complete!</string>
     <string name="do_next_level">Go to the next level?</string>
     <string name="next_level">Next level</string>
@@ -45,13 +45,22 @@
         <item>(More to come!)</item>
     </string-array>
 
+    <string-array name="subjectDescs">
+        <item>Plus and Minus. Numbers up to 25.</item>
+        <item>Times and Divide. Numbers up to 12.</item>
+        <item>Plus and Minus. Numbers -25 to 25.</item>
+        <item>Times and Divide. Numbers -12 to 12.</item>
+        <item>Everything!</item>
+        <item>(More to come!)</item>
+    </string-array>
+
     <string-array name="subjectsActivity">
-        <item>com.quaap.primary.math.Math1MenuActivity</item>
-        <item>com.quaap.primary.math.Math1MenuActivity</item>
-        <item>com.quaap.primary.math.Math1MenuActivity</item>
-        <item>com.quaap.primary.math.Math1MenuActivity</item>
-        <item>com.quaap.primary.math.Math1MenuActivity</item>
-        <item>com.quaap.primary.math.Math1MenuActivity</item>
+        <item>com.quaap.primary.math.BasicMathMenuActivity</item>
+        <item>com.quaap.primary.math.BasicMathMenuActivity</item>
+        <item>com.quaap.primary.math.BasicMathMenuActivity</item>
+        <item>com.quaap.primary.math.BasicMathMenuActivity</item>
+        <item>com.quaap.primary.math.BasicMathMenuActivity</item>
+        <item>com.quaap.primary.math.BasicMathMenuActivity</item>
     </string-array>
 
     <string-array name="subjectsLevelset">

@@ -11,7 +11,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -28,7 +27,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-public class Math1Activity extends BaseActivity {
+public class BasicMathActivity extends BaseActivity {
 
     private int num1;
     private int num2;
@@ -43,7 +42,7 @@ public class Math1Activity extends BaseActivity {
     public Mode mode = Mode.Buttons;
     //Mode.Input doesn't work yet.
 
-    public Math1Activity() {
+    public BasicMathActivity() {
        super(R.layout.activity_math1, R.id.txtstatus);
         setFasttimes(900, 1800, 3000);
     }
@@ -118,7 +117,7 @@ public class Math1Activity extends BaseActivity {
         int last2 = num2;
         MathOp lastOp = op;
         int tries = 0;
-        Math1Level level = (Math1Level) levels[levelnum];
+        BasicMathLevel level = (BasicMathLevel) levels[levelnum];
         do {
             int min = 0;
             int max = level.getMaxNum();

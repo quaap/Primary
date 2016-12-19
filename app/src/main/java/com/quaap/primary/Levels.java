@@ -1,7 +1,7 @@
 package com.quaap.primary;
 
 import com.quaap.primary.base.Level;
-import com.quaap.primary.math.Math1Level;
+import com.quaap.primary.math.BasicMathLevel;
 import com.quaap.primary.math.MathOp;
 import com.quaap.primary.math.Negatives;
 
@@ -46,35 +46,35 @@ public class Levels {
             //Math1Levels
              {
 
-                     new Math1Level("m1", MathOp.Plus, 5, 10),
-                     new Math1Level("m1", MathOp.Minus, 5, 10),
+                     new BasicMathLevel("m1", MathOp.Plus, 5, 10),
+                     new BasicMathLevel("m1", MathOp.Minus, 5, 10),
 
-                     new Math1Level("m1", MathOp.Plus, 10, 20),
-                     new Math1Level("m1", MathOp.Minus, 10, 20),
+                     new BasicMathLevel("m1", MathOp.Plus, 10, 20),
+                     new BasicMathLevel("m1", MathOp.Minus, 10, 20),
 
-                     new Math1Level("m1", MathOp.Plus, 15, 20),
-                     new Math1Level("m1", MathOp.Minus, 15, 20),
+                     new BasicMathLevel("m1", MathOp.Plus, 15, 20),
+                     new BasicMathLevel("m1", MathOp.Minus, 15, 20),
 
-                     new Math1Level("m1", MathOp.Plus, 25, 10),
-                     new Math1Level("m1", MathOp.Minus, 25, 10),
+                     new BasicMathLevel("m1", MathOp.Plus, 25, 10),
+                     new BasicMathLevel("m1", MathOp.Minus, 25, 10),
 
-                     new Math1Level("m1", MathOp.Minus, MathOp.Plus, 25, 20),
+                     new BasicMathLevel("m1", MathOp.Minus, MathOp.Plus, 25, 20),
              },
 
              //Math2Levels
              {
-                    new Math1Level("m2", MathOp.Times, 5, 10),
-                    new Math1Level("m2", MathOp.Divide, 5, 10),
+                    new BasicMathLevel("m2", MathOp.Times, 5, 10),
+                    new BasicMathLevel("m2", MathOp.Divide, 5, 10),
 
-                    new Math1Level("m2", MathOp.Times, 10, 10),
-                    new Math1Level("m2", MathOp.Divide, 10, 10),
+                    new BasicMathLevel("m2", MathOp.Times, 10, 10),
+                    new BasicMathLevel("m2", MathOp.Divide, 10, 10),
 
-                    new Math1Level("m2", MathOp.Times, 12, 10),
-                    new Math1Level("m2", MathOp.Divide, 12, 10),
+                    new BasicMathLevel("m2", MathOp.Times, 12, 10),
+                    new BasicMathLevel("m2", MathOp.Divide, 12, 10),
 
-                    new Math1Level("m2", MathOp.Divide, MathOp.Times, 12, 10),
+                    new BasicMathLevel("m2", MathOp.Divide, MathOp.Times, 12, 10),
 
-                    new Math1Level("m2", MathOp.Divide, MathOp.Plus, 12, 20),
+                    new BasicMathLevel("m2", MathOp.Divide, MathOp.Plus, 12, 20),
 
              },
 
@@ -82,36 +82,36 @@ public class Levels {
              {
 //  Same levels, but now with negatives
 
-                    new Math1Level("m3", MathOp.Plus, 5, Negatives.Required, 10),
-                    new Math1Level("m3", MathOp.Minus, 5, Negatives.Required, 10),
+                    new BasicMathLevel("m3", MathOp.Plus, 5, Negatives.Required, 10),
+                    new BasicMathLevel("m3", MathOp.Minus, 5, Negatives.Required, 10),
 
-                    new Math1Level("m3", MathOp.Plus, 10, Negatives.Required, 20),
-                    new Math1Level("m3", MathOp.Minus, 10, Negatives.Required, 20),
+                    new BasicMathLevel("m3", MathOp.Plus, 10, Negatives.Required, 20),
+                    new BasicMathLevel("m3", MathOp.Minus, 10, Negatives.Required, 20),
 
-                    new Math1Level("m3", MathOp.Plus, 15, Negatives.Required, 20),
-                    new Math1Level("m3", MathOp.Minus, 15, Negatives.Required, 20),
+                    new BasicMathLevel("m3", MathOp.Plus, 15, Negatives.Required, 20),
+                    new BasicMathLevel("m3", MathOp.Minus, 15, Negatives.Required, 20),
 
-                    new Math1Level("m3", MathOp.Plus, 25, Negatives.Required, 10),
-                    new Math1Level("m3", MathOp.Minus, 25, Negatives.Required, 10),
+                    new BasicMathLevel("m3", MathOp.Plus, 25, Negatives.Required, 10),
+                    new BasicMathLevel("m3", MathOp.Minus, 25, Negatives.Required, 10),
 
-                    new Math1Level("m3", MathOp.Minus, MathOp.Plus, 25, Negatives.Allowed, 20),
+                    new BasicMathLevel("m3", MathOp.Minus, MathOp.Plus, 25, Negatives.Allowed, 20),
 
              },
 
              //Math4Levels
              {
 
-                    new Math1Level("m4", MathOp.Times, 5, Negatives.Required, 10),
-                    new Math1Level("m4", MathOp.Divide, 5, Negatives.Required, 10),
+                    new BasicMathLevel("m4", MathOp.Times, 5, Negatives.Required, 10),
+                    new BasicMathLevel("m4", MathOp.Divide, 5, Negatives.Required, 10),
 
-                    new Math1Level("m4", MathOp.Times, 10, Negatives.Required, 10),
-                    new Math1Level("m4", MathOp.Divide, 10, Negatives.Required, 10),
+                    new BasicMathLevel("m4", MathOp.Times, 10, Negatives.Required, 10),
+                    new BasicMathLevel("m4", MathOp.Divide, 10, Negatives.Required, 10),
 
-                    new Math1Level("m4", MathOp.Times, 12, Negatives.Required, 10),
-                    new Math1Level("m4", MathOp.Divide, 12, Negatives.Required, 10),
+                    new BasicMathLevel("m4", MathOp.Times, 12, Negatives.Required, 10),
+                    new BasicMathLevel("m4", MathOp.Divide, 12, Negatives.Required, 10),
 
 
-                    new Math1Level("m4", MathOp.Divide, MathOp.Times, 12, Negatives.Allowed, 10),
+                    new BasicMathLevel("m4", MathOp.Divide, MathOp.Times, 12, Negatives.Allowed, 10),
 
 
              },
@@ -119,7 +119,7 @@ public class Levels {
              //Math5Levels
              {
 
-                     new Math1Level("m5",  MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 200)
+                     new BasicMathLevel("m5",  MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 200)
              }
     };
 }

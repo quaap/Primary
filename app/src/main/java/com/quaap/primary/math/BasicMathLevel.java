@@ -2,7 +2,7 @@ package com.quaap.primary.math;
 
 import com.quaap.primary.base.Level;
 
-public class Math1Level extends Level {
+public class BasicMathLevel extends Level {
 
     private final MathOp mMaxMathOp;
     private final MathOp mMinMathOp;
@@ -10,16 +10,16 @@ public class Math1Level extends Level {
     private final Negatives mNegatives;
 
 
-    public Math1Level(String subjectkey, MathOp maxMathOp, int maxNum, int rounds) {
+    public BasicMathLevel(String subjectkey, MathOp maxMathOp, int maxNum, int rounds) {
         this(subjectkey, maxMathOp, MathOp.Plus, maxNum, rounds);
     }
-    public Math1Level(String subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, int rounds) {
+    public BasicMathLevel(String subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, int rounds) {
         this(subjectkey, maxMathOp, minMathOp, maxNum, Negatives.None, rounds);
     }
-    public Math1Level(String subjectkey, MathOp maxMathOp, int maxNum, Negatives negatives, int rounds) {
+    public BasicMathLevel(String subjectkey, MathOp maxMathOp, int maxNum, Negatives negatives, int rounds) {
         this(subjectkey, maxMathOp, MathOp.Plus, maxNum, negatives, rounds);
     }
-    public Math1Level(String subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, Negatives negatives, int rounds) {
+    public BasicMathLevel(String subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, Negatives negatives, int rounds) {
         super(subjectkey, rounds);
 
         mMaxMathOp = maxMathOp;

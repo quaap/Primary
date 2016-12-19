@@ -20,11 +20,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".math.Math1MenuActivity"
+            android:name=".math.BasicMathMenuActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".math.Math1Activity"
-            android:parentActivityName=".math.Math1MenuActivity" />
+            android:name=".math.BasicMathActivity"
+            android:parentActivityName=".math.BasicMathMenuActivity" />
 
     </application>
 

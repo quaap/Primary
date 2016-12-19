@@ -49,7 +49,7 @@ import java.util.Locale;
  */
 public abstract class BaseActivity extends AppCompatActivity  {
     public static final String LEVELNAME = "levelnum";
-    //protected Math1Level[] levels;
+    //protected BasicMathLevel[] levels;
 
     final protected Handler handler = new Handler();
     private SharedPreferences mPrefs;

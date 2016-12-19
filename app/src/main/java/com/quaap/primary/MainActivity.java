@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
@@ -152,7 +153,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Spinner subjectspinner = (Spinner)findViewById(R.id.subject_spinner);
+        subjectspinner.setSelection(0);
+        setSubjectDesc(0);
+        subjectspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                setSubjectDesc(i);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+    }
+
+    private void setSubjectDesc(int i) {
+        TextView subject_desc = (TextView)findViewById(R.id.subject_desc);
+        subject_desc.setText(getResources().getStringArray(R.array.subjectDescs)[i]);
     }
 
 
