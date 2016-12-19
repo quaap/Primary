@@ -33,76 +33,93 @@ public class Levels {
 
 
     public static final String[] LevelSetNames = {
-            "Math1Levels"
+            "Math1Levels",
+            "Math2Levels",
+            "Math3Levels",
+            "Math4Levels",
+            "Math5Levels",
     };
 
 
     public static final Level[][] LevelSets =
      {
             //Math1Levels
-            {
+             {
 
-                    new Math1Level(MathOp.Plus, 5, 10),
-                    new Math1Level(MathOp.Minus, 5, 10),
+                     new Math1Level("m1", MathOp.Plus, 5, 10),
+                     new Math1Level("m1", MathOp.Minus, 5, 10),
 
-                    new Math1Level(MathOp.Plus, 10, 20),
-                    new Math1Level(MathOp.Minus, 10, 20),
+                     new Math1Level("m1", MathOp.Plus, 10, 20),
+                     new Math1Level("m1", MathOp.Minus, 10, 20),
 
-                    new Math1Level(MathOp.Plus, 15, 20),
-                    new Math1Level(MathOp.Minus, 15, 20),
+                     new Math1Level("m1", MathOp.Plus, 15, 20),
+                     new Math1Level("m1", MathOp.Minus, 15, 20),
 
-                    new Math1Level(MathOp.Plus, 25, 10),
-                    new Math1Level(MathOp.Minus, 25, 10),
+                     new Math1Level("m1", MathOp.Plus, 25, 10),
+                     new Math1Level("m1", MathOp.Minus, 25, 10),
 
-                    new Math1Level(MathOp.Minus, MathOp.Plus, 25, 20),
+                     new Math1Level("m1", MathOp.Minus, MathOp.Plus, 25, 20),
+             },
 
-                    //
+             //Math2Levels
+             {
+                    new Math1Level("m2", MathOp.Times, 5, 10),
+                    new Math1Level("m2", MathOp.Divide, 5, 10),
 
-                    new Math1Level(MathOp.Times, 5, 10),
-                    new Math1Level(MathOp.Divide, 5, 10),
+                    new Math1Level("m2", MathOp.Times, 10, 10),
+                    new Math1Level("m2", MathOp.Divide, 10, 10),
 
-                    new Math1Level(MathOp.Times, 10, 10),
-                    new Math1Level(MathOp.Divide, 10, 10),
+                    new Math1Level("m2", MathOp.Times, 12, 10),
+                    new Math1Level("m2", MathOp.Divide, 12, 10),
 
-                    new Math1Level(MathOp.Times, 12, 10),
-                    new Math1Level(MathOp.Divide, 12, 10),
+                    new Math1Level("m2", MathOp.Divide, MathOp.Times, 12, 10),
 
-                    new Math1Level(MathOp.Divide, MathOp.Times, 12, 10),
+                    new Math1Level("m2", MathOp.Divide, MathOp.Plus, 12, 20),
 
-                    new Math1Level(MathOp.Divide, MathOp.Plus, 12, 20),
+             },
 
+             //Math3Levels
+             {
 //  Same levels, but now with negatives
 
-                    new Math1Level(MathOp.Plus, 5, Negatives.Required, 10),
-                    new Math1Level(MathOp.Minus, 5, Negatives.Required, 10),
+                    new Math1Level("m3", MathOp.Plus, 5, Negatives.Required, 10),
+                    new Math1Level("m3", MathOp.Minus, 5, Negatives.Required, 10),
 
-                    new Math1Level(MathOp.Plus, 10, Negatives.Required, 20),
-                    new Math1Level(MathOp.Minus, 10, Negatives.Required, 20),
+                    new Math1Level("m3", MathOp.Plus, 10, Negatives.Required, 20),
+                    new Math1Level("m3", MathOp.Minus, 10, Negatives.Required, 20),
 
-                    new Math1Level(MathOp.Plus, 15, Negatives.Required, 20),
-                    new Math1Level(MathOp.Minus, 15, Negatives.Required, 20),
+                    new Math1Level("m3", MathOp.Plus, 15, Negatives.Required, 20),
+                    new Math1Level("m3", MathOp.Minus, 15, Negatives.Required, 20),
 
-                    new Math1Level(MathOp.Plus, 25, Negatives.Required, 10),
-                    new Math1Level(MathOp.Minus, 25, Negatives.Required, 10),
+                    new Math1Level("m3", MathOp.Plus, 25, Negatives.Required, 10),
+                    new Math1Level("m3", MathOp.Minus, 25, Negatives.Required, 10),
 
-                    new Math1Level(MathOp.Minus, MathOp.Plus, 25, Negatives.Required, 20),
+                    new Math1Level("m3", MathOp.Minus, MathOp.Plus, 25, Negatives.Allowed, 20),
 
-                    //
+             },
 
-                    new Math1Level(MathOp.Times, 5, Negatives.Required, 10),
-                    new Math1Level(MathOp.Divide, 5, Negatives.Required, 10),
+             //Math4Levels
+             {
 
-                    new Math1Level(MathOp.Times, 10, Negatives.Required, 10),
-                    new Math1Level(MathOp.Divide, 10, Negatives.Required, 10),
+                    new Math1Level("m4", MathOp.Times, 5, Negatives.Required, 10),
+                    new Math1Level("m4", MathOp.Divide, 5, Negatives.Required, 10),
 
-                    new Math1Level(MathOp.Times, 12, Negatives.Required, 10),
-                    new Math1Level(MathOp.Divide, 12, Negatives.Required, 10),
+                    new Math1Level("m4", MathOp.Times, 10, Negatives.Required, 10),
+                    new Math1Level("m4", MathOp.Divide, 10, Negatives.Required, 10),
+
+                    new Math1Level("m4", MathOp.Times, 12, Negatives.Required, 10),
+                    new Math1Level("m4", MathOp.Divide, 12, Negatives.Required, 10),
 
 
-                    new Math1Level(MathOp.Divide, MathOp.Times, 12, Negatives.Allowed, 10),
+                    new Math1Level("m4", MathOp.Divide, MathOp.Times, 12, Negatives.Allowed, 10),
 
 
-                    new Math1Level(MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 50)
-            }
+             },
+
+             //Math5Levels
+             {
+
+                     new Math1Level("m5",  MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 200)
+             }
     };
 }

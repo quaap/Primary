@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String AVATAR_POST = ":avatar";
     public static final String USERS_KEY = "users";
     public static final String USERNAME = "username";
+    public static final String SUBJECT = "subject";
+    public static final String LEVELSET = "levelset";
 
     private final String [] avatars;
 
@@ -134,9 +136,13 @@ public class MainActivity extends AppCompatActivity {
                     int subjectId = subjectspinner.getSelectedItemPosition();
 
                     String [] classes = getResources().getStringArray(R.array.subjectsActivity);
+                    String [] levelsets = getResources().getStringArray(R.array.subjectsLevelset);
                     try {
                         Intent intent = new Intent(MainActivity.this, Class.forName(classes[subjectId]));
+                        intent.putExtra(LEVELSET, levelsets[subjectId]);
+                        intent.putExtra(SUBJECT, subject);
                         intent.putExtra(USERNAME, selected_user);
+
                         startActivity(intent);
                     } catch (ClassNotFoundException e) {
                         Log.e("Primary", "Can't load " + subject + " " + subjectId);

@@ -38,12 +38,29 @@
 
     <string-array name="subjects">
         <item>Math 1</item>
+        <item>Math 2</item>
+        <item>Math 3</item>
+        <item>Math 4</item>
+        <item>Math 5</item>
         <item>(More to come!)</item>
     </string-array>
 
     <string-array name="subjectsActivity">
         <item>com.quaap.primary.math.Math1MenuActivity</item>
         <item>com.quaap.primary.math.Math1MenuActivity</item>
+        <item>com.quaap.primary.math.Math1MenuActivity</item>
+        <item>com.quaap.primary.math.Math1MenuActivity</item>
+        <item>com.quaap.primary.math.Math1MenuActivity</item>
+        <item>com.quaap.primary.math.Math1MenuActivity</item>
+    </string-array>
+
+    <string-array name="subjectsLevelset">
+        <item>Math1Levels</item>
+        <item>Math2Levels</item>
+        <item>Math3Levels</item>
+        <item>Math4Levels</item>
+        <item>Math5Levels</item>
+        <item>Math5Levels</item>
     </string-array>
 
     <!--<string-array name="password1">-->

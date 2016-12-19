@@ -13,9 +13,8 @@ public class Math1MenuActivity extends SubjectMenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        int subjectResId = R.string.subject_math1;
+        setTargetActivity(Math1Activity.class);
 
-        OnCreateCommon(subjectResId, Math1Activity.LevelSetName, Math1Activity.class);
     }
 
 

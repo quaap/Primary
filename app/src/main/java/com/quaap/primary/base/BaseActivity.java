@@ -67,7 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
     private String bonuses;
 
     private String subject;
-    private final int subjectId;
+
     private final int statusId;
 
     private Level getLevel(int leveln) {
@@ -83,10 +83,10 @@ public abstract class BaseActivity extends AppCompatActivity  {
     private String username;
     private PopupWindow levelCompletePopup;
 
-    protected BaseActivity(String levelSetName, int subjectId, int layoutIdtxt, int statusTxtId) {
+    protected BaseActivity(int layoutIdtxt, int statusTxtId) {
 
-        this.subjectId = subjectId;
-        levels = Levels.getLevels(levelSetName);
+       // this.subjectId = subjectId;
+       // levels = Levels.getLevels(levelSetName);
         statusId = statusTxtId;
         layoutId = layoutIdtxt;
     }
@@ -112,7 +112,10 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
         Intent intent = getIntent();
         username = intent.getStringExtra(MainActivity.USERNAME);
-        subject = getString(subjectId);
+        subject = intent.getStringExtra(MainActivity.SUBJECT);
+
+        levels = Levels.getLevels(intent.getStringExtra(MainActivity.LEVELSET));
+
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar!=null) {

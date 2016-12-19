@@ -1,5 +1,8 @@
 package com.quaap.primary.base;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by tom on 12/15/16.
  * <p>
@@ -16,13 +19,23 @@ package com.quaap.primary.base;
  * GNU General Public License for more details.
  */
 public abstract class Level {
-    protected static final Object nextlevelsync = new Object();
-    protected static int nextlevelnum = 1;
+
+    private static Map<String,Integer> nextlevelnum = new HashMap<>();
+    private String mSubjectkey;
+
     private final int mRounds;
     protected int mLevel;
 
-    protected Level(int rounds) {
+    protected Level(String subjectkey, int rounds) {
+        mSubjectkey = subjectkey;
         mRounds = rounds;
+        synchronized (nextlevelnum) {
+            Integer lnum = nextlevelnum.get(mSubjectkey);
+            if (lnum==null) lnum = 0;
+            lnum++;
+            nextlevelnum.put(mSubjectkey, lnum);
+            mLevel = lnum;
+        }
     }
 
     public abstract String getDescription();

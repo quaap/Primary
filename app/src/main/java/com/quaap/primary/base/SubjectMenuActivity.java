@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -52,30 +53,37 @@ Goofy math word problems.
 
 public abstract class SubjectMenuActivity extends AppCompatActivity implements Button.OnClickListener {
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 121;
-    private String subject;
     private SharedPreferences mPrefs;
-
+    private String mSubject;
     private Class mTargetActivity;
 
     private String mLevelSetName;
     private String username;
 
-    protected void OnCreateCommon(int subjectResId, String levelSetName, Class targetActivity) {
-        subject = getString(subjectResId);
+    protected void setTargetActivity(Class targetActivity) {
         mTargetActivity = targetActivity;
-        mLevelSetName = levelSetName;
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        mSubject = intent.getStringExtra(MainActivity.SUBJECT);
+        mLevelSetName = intent.getStringExtra(MainActivity.LEVELSET);
+        username = intent.getStringExtra(MainActivity.USERNAME);
+
 
         setContentView(R.layout.activity_subject_menu);
-        Intent intent = getIntent();
-        username = intent.getStringExtra(MainActivity.USERNAME);
 
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar!=null) {
-            actionBar.setTitle(getString(R.string.app_name) + ": " + subject + " (" + username + ")");
+            actionBar.setTitle(getString(R.string.app_name) + ": " + mSubject + " (" + username + ")");
         }
 
-        mPrefs = BaseActivity.getSharedPreferences(this, username, subject);
+        mPrefs = BaseActivity.getSharedPreferences(this, username, mSubject);
 
         Button resume_button = (Button)findViewById(R.id.resume_button);
         resume_button.setTag(-1);
@@ -182,6 +190,8 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
         Intent intent = new Intent(this, mTargetActivity);
         intent.putExtra(BaseActivity.LEVELNAME, (int)view.getTag());
         intent.putExtra(MainActivity.USERNAME, username);
+        intent.putExtra(MainActivity.LEVELSET, mLevelSetName);
+        intent.putExtra(MainActivity.SUBJECT, mSubject);
         startActivity(intent);
     }
 
