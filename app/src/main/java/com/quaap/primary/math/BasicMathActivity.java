@@ -83,25 +83,13 @@ public class BasicMathActivity extends BaseActivity {
 
     }
 
-    final protected Handler handler = new Handler();
 
     @Override
     protected void setStatus(String text) {
         final TextView status = (TextView)findViewById(R.id.txtstatus);
         status.setText(text);
-        final int corrects = correct;
-        final int incorrects = incorrect;
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (corrects == correct && incorrects == incorrect) {
-                    setStatus("");
-                }
-            }
-        }, 1000);
+
     }
-
-
 
 
     private int getAnswer(int n1, int n2, MathOp op) {

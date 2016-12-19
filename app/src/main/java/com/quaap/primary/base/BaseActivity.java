@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -127,10 +128,23 @@ public abstract class BaseActivity extends AppCompatActivity  {
     protected abstract void setStatus(String text);
 
 
-    protected void setStatus(int resid) {
-        setStatus(getString(resid));
+    private void setStatus(String text, int timeout) {
+        final int corrects = correct;
+        final int incorrects = incorrect;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (corrects == correct && incorrects == incorrect) {
+                    setStatus("");
+                }
+            }
+        }, timeout);
     }
 
+    private void setStatus(int resid, int timeout) {
+        setStatus(getString(resid));
+    }
+    final protected Handler handler = new Handler();
 
     protected void answerDone(boolean isright, int addscore, String problem, String answer, String useranswer) {
         long timespent = System.currentTimeMillis() - starttime;
@@ -150,7 +164,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
             }
 
             if (correct>=levels[levelnum].getRounds()) {
-                setStatus(R.string.correct);
+                setStatus(R.string.correct, 1200);
                 correct = 0;
                 incorrect = 0;
                 if (levelnum+1>=levels.length) {
@@ -161,21 +175,21 @@ public abstract class BaseActivity extends AppCompatActivity  {
                     if (highestLevelnum<levelnum+1) {
                         highestLevelnum = levelnum+1;
                     }
-                    setStatus("");
+
                     showLevelCompletePopup(false);
 
                     setLevelFields();
                     return;
                 }
             } else {
-                setStatus(getString(R.string.correct));
+                setStatus(getString(R.string.correct), 1200);
             }
             showProb();
         } else {
             incorrect++;
             correctInARow = 0;
             totalIncorrect++;
-            setStatus(R.string.try_again);
+            setStatus(R.string.try_again, 1200);
             if (actwriter !=null) {
                 actwriter.log(levelnum+1, problem, answer, useranswer, isright, timespent, getCurrentPercentFloat(), todaysScore);
             }
