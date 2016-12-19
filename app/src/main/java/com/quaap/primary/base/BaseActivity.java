@@ -164,9 +164,9 @@ public abstract class BaseActivity extends AppCompatActivity  {
             }
 
             if (correct>=levels[levelnum].getRounds()) {
-                setStatus(R.string.correct, 1200);
                 correct = 0;
                 incorrect = 0;
+                setStatus(R.string.correct, 1200);
                 if (levelnum+1>=levels.length) {
                     saveState();
                     showLevelCompletePopup(true);
@@ -278,6 +278,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
         incorrect = 0;
         showProb();
         setLevelFields();
+        setStatus("");
     }
 
 
@@ -286,6 +287,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
         saveState();
         showProb();
         setLevelFields();
+        setStatus("");
     }
 
     public void goBackToMain() {
