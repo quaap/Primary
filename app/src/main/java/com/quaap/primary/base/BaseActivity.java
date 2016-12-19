@@ -74,13 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
         return levels[leveln];
     }
 
-    public Level[] getLevels() {
-        return levels;
-    }
-
-    protected void setLevels(Level[] levels) {
-        this.levels = levels;
-    }
+    private int[] fasttimes = {1000, 2000, 3000};
 
     protected Level[] levels;
 
@@ -295,13 +289,13 @@ public abstract class BaseActivity extends AppCompatActivity  {
     private int getBonuses(int addscore, long timespent) {
         int points = addscore;
 
-        if (timespent<1000) {
+        if (timespent<fasttimes[0]) {
             bonuses = getString(R.string.superfast) + " ×3";
             points *= 3;
-        } else if (timespent<1800) {
+        } else if (timespent<fasttimes[1]) {
             bonuses = getString(R.string.fast) + " ×2";
             points *= 2;
-        } else if (timespent<3000) {
+        } else if (timespent<fasttimes[2]) {
             bonuses = getString(R.string.quick) + " +50%";
             points *= 1.5;
         }
@@ -424,5 +418,17 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     protected int getRand(int lower, int upper) {
         return (int) (Math.random() * (upper + 1 - lower)) + lower;
+    }
+
+    protected void setFasttimes(int superfast, int fast, int quick) {
+        if (superfast >= fast || fast >= quick) {
+            throw new IllegalArgumentException(
+                    "'superfast' should be less than 'fast', and 'fast' should be less than 'quick'. " +
+                            "Actual values:" + superfast +"," + fast + "," + quick);
+        }
+        fasttimes[0] = superfast;
+        fasttimes[1] = fast;
+        fasttimes[2] = quick;
+
     }
 }

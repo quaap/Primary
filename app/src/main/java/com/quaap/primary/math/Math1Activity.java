@@ -44,6 +44,7 @@ public class Math1Activity extends BaseActivity {
 
     public Math1Activity() {
        super(LevelSetName, R.string.subject_math1, R.layout.activity_math1, R.id.txtstatus);
+        setFasttimes(900, 1800, 3000);
     }
 
 
