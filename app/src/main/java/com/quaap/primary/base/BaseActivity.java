@@ -119,43 +119,14 @@ public abstract class BaseActivity extends AppCompatActivity  {
             actionBar.setTitle(getString(R.string.app_name) + ": " + subject + " ("+username+")");
         }
 
-
         mPrefs = getSharedPreferences(this, username, subject);
 
         levelnum = getIntent().getIntExtra(LEVELNAME, -1);
-
-        if (levelnum==-1) {
-            levelnum = mPrefs.getInt("levelnum", levelnum);
-            correct = mPrefs.getInt("correct", correct);
-            incorrect = mPrefs.getInt("incorrect", incorrect);
-            correctInARow = mPrefs.getInt("correctInARow", correctInARow);
-        }
-        totalCorrect = mPrefs.getInt("totalCorrect", totalCorrect);
-        totalIncorrect = mPrefs.getInt("totalIncorrect", totalIncorrect);
-        highestLevelnum = mPrefs.getInt("highestLevelnum", highestLevelnum);
-        tscore = mPrefs.getInt("tscore", tscore);
-
-        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-
-        String todaylast = mPrefs.getString("today","0");
-
-        if (todaylast.equals(today)) {
-            todaysScore = mPrefs.getInt("todaysScore", todaysScore);
-        } else {
-            todaysScore = 0;
-        }
+        getIntent().removeExtra(LEVELNAME);
 
         setContentView(layoutId);
 
-        int orientation = getResources().getConfiguration().orientation;
-        if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
-            LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
-            answerarea.setOrientation(LinearLayout.HORIZONTAL);
-        }
-        setLevelFields();
-        showProb();
-        View todayview = findViewById(R.id.todays_area);
-        todayview.setVisibility(todaysScore==tscore ? View.GONE : View.VISIBLE);
+
     }
 
     protected void answerDone(boolean isright, int addscore, String problem, String answer, String useranswer) {
@@ -325,11 +296,17 @@ public abstract class BaseActivity extends AppCompatActivity  {
         } else {
             actwriter = null;
         }
+        restoreState();
     }
 
     @Override
     protected void onPause() {
-        super.onPause();
+
+        if (levelCompletePopup!=null) {
+            levelCompletePopup.dismiss();
+            levelnum++;
+        }
+        levelCompletePopup = null;
 
         saveState();
 
@@ -339,8 +316,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
         } catch (IOException e) {
             Log.e("Primary", "Error closing activity file.",e);
         }
-        if (levelCompletePopup!=null) levelCompletePopup.dismiss();
-        levelCompletePopup = null;
+        super.onPause();
     }
 
     private void saveState() {
@@ -357,6 +333,38 @@ public abstract class BaseActivity extends AppCompatActivity  {
         ed.putInt("todaysScore", todaysScore);
         ed.putString("today",new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
         ed.apply();
+    }
+
+    private void restoreState() {
+        if (levelnum==-1) {
+            levelnum = mPrefs.getInt("levelnum", levelnum);
+            correct = mPrefs.getInt("correct", correct);
+            incorrect = mPrefs.getInt("incorrect", incorrect);
+            correctInARow = mPrefs.getInt("correctInARow", correctInARow);
+        }
+        totalCorrect = mPrefs.getInt("totalCorrect", totalCorrect);
+        totalIncorrect = mPrefs.getInt("totalIncorrect", totalIncorrect);
+        highestLevelnum = mPrefs.getInt("highestLevelnum", highestLevelnum);
+        tscore = mPrefs.getInt("tscore", tscore);
+
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+        String todaylast = mPrefs.getString("today","0");
+
+        if (todaylast.equals(today)) {
+            todaysScore = mPrefs.getInt("todaysScore", todaysScore);
+        } else {
+            todaysScore = 0;
+        }
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
+            LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
+            answerarea.setOrientation(LinearLayout.HORIZONTAL);
+        }
+        setLevelFields();
+        showProb();
+        View todayview = findViewById(R.id.todays_area);
+        todayview.setVisibility(todaysScore==tscore ? View.GONE : View.VISIBLE);
     }
 
     private void setLevelFields() {
