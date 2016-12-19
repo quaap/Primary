@@ -193,7 +193,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
 
     private void showLevelCompletePopup() {
-        LinearLayout levelcompleteView = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.level_complete, null);
+        final LinearLayout levelcompleteView = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.level_complete, null);
 
         TextView lc = (TextView)levelcompleteView.findViewById(R.id.level_complete_text);
         lc.setText(getString(R.string.level_complete, getLevel(levelnum).getLevelNum()));
@@ -238,7 +238,11 @@ public abstract class BaseActivity extends AppCompatActivity  {
 //        int width = wwidth - wwidth/6;
 //        int height = width/2;
 
-        levelCompletePopup.showAsDropDown(levelcompleteView, Gravity.CENTER, 0,0);
+        levelcompleteView.post(new Runnable() {
+            public void run() {
+                levelCompletePopup.showAsDropDown(levelcompleteView, Gravity.CENTER, 0, 0);
+            }
+        });
 
 
     }
@@ -297,19 +301,20 @@ public abstract class BaseActivity extends AppCompatActivity  {
             actwriter = null;
         }
         restoreState();
+
     }
+
 
     @Override
     protected void onPause() {
 
-        if (levelCompletePopup!=null) {
-            levelCompletePopup.dismiss();
-            levelnum++;
-        }
-        levelCompletePopup = null;
-
         saveState();
 
+        if (levelCompletePopup!=null) {
+            levelCompletePopup.dismiss();
+         //   levelnum++;
+            levelCompletePopup = null;
+        }
         try {
             if (actwriter !=null) actwriter.close();
             actwriter = null;
@@ -332,15 +337,18 @@ public abstract class BaseActivity extends AppCompatActivity  {
         ed.putInt("tscore", tscore);
         ed.putInt("todaysScore", todaysScore);
         ed.putString("today",new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
+        ed.putBoolean("levelCompletePopup", levelCompletePopup!=null);
         ed.apply();
     }
 
     private void restoreState() {
+        boolean showpopup = false;
         if (levelnum==-1) {
             levelnum = mPrefs.getInt("levelnum", levelnum);
             correct = mPrefs.getInt("correct", correct);
             incorrect = mPrefs.getInt("incorrect", incorrect);
             correctInARow = mPrefs.getInt("correctInARow", correctInARow);
+            showpopup = mPrefs.getBoolean("levelCompletePopup", false);
         }
         totalCorrect = mPrefs.getInt("totalCorrect", totalCorrect);
         totalIncorrect = mPrefs.getInt("totalIncorrect", totalIncorrect);
@@ -361,10 +369,13 @@ public abstract class BaseActivity extends AppCompatActivity  {
             LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
             answerarea.setOrientation(LinearLayout.HORIZONTAL);
         }
-        setLevelFields();
-        showProb();
         View todayview = findViewById(R.id.todays_area);
         todayview.setVisibility(todaysScore==tscore ? View.GONE : View.VISIBLE);
+        setLevelFields();
+        if (showpopup) {
+            showLevelCompletePopup();
+        }
+        showProb();
     }
 
     private void setLevelFields() {
