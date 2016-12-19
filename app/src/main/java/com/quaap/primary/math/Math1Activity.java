@@ -121,7 +121,7 @@ public class Math1Activity extends BaseActivity {
             if (correct > levels[levelnum].getRounds() / 2) {
                 num1 = getRand(max / 2, max);
             } else {
-                num1 = getRand(max);
+                num1 = getRand(max/2);
             }
             num2 = getRand(max);
             if (num2 == 0 && Math.random() > .3) num2 = getRand(1, max);
@@ -135,6 +135,9 @@ public class Math1Activity extends BaseActivity {
                     num1 = num2;
                     num2 = tmp;
                 }
+//                if (op == MathOp.Minus) {
+//                    if (getRand(0,10)>5) num1 = num1 + num2;
+//                }
                 if (op == MathOp.Divide) {
                     if (num2 == 0) {
                         num2=getRand(1, max);
