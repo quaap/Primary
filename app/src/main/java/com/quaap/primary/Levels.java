@@ -40,9 +40,9 @@ public class Levels {
             "Math5Levels",
     };
 
-
+    //could probably read all these from a xml file.
     public static final Level[][] LevelSets =
-     {
+    {
             //Math1Levels
              {
 
@@ -66,16 +66,13 @@ public class Levels {
                     new BasicMathLevel("m2", MathOp.Times, 5, 10),
                     new BasicMathLevel("m2", MathOp.Divide, 5, 10),
 
-                    new BasicMathLevel("m2", MathOp.Times, 10, 10),
-                    new BasicMathLevel("m2", MathOp.Divide, 10, 10),
+                    new BasicMathLevel("m2", MathOp.Times, 10, 20),
+                    new BasicMathLevel("m2", MathOp.Divide, 10, 20),
 
                     new BasicMathLevel("m2", MathOp.Times, 12, 10),
                     new BasicMathLevel("m2", MathOp.Divide, 12, 10),
 
-                    new BasicMathLevel("m2", MathOp.Divide, MathOp.Times, 12, 10),
-
-                    new BasicMathLevel("m2", MathOp.Divide, MathOp.Plus, 12, 20),
-
+                    new BasicMathLevel("m2", MathOp.Divide, MathOp.Times, 12, 20),
              },
 
              //Math3Levels
@@ -104,14 +101,14 @@ public class Levels {
                     new BasicMathLevel("m4", MathOp.Times, 5, Negatives.Required, 10),
                     new BasicMathLevel("m4", MathOp.Divide, 5, Negatives.Required, 10),
 
-                    new BasicMathLevel("m4", MathOp.Times, 10, Negatives.Required, 10),
-                    new BasicMathLevel("m4", MathOp.Divide, 10, Negatives.Required, 10),
+                    new BasicMathLevel("m4", MathOp.Times, 10, Negatives.Required, 20),
+                    new BasicMathLevel("m4", MathOp.Divide, 10, Negatives.Required, 20),
 
                     new BasicMathLevel("m4", MathOp.Times, 12, Negatives.Required, 10),
                     new BasicMathLevel("m4", MathOp.Divide, 12, Negatives.Required, 10),
 
 
-                    new BasicMathLevel("m4", MathOp.Divide, MathOp.Times, 12, Negatives.Allowed, 10),
+                    new BasicMathLevel("m4", MathOp.Divide, MathOp.Times, 12, Negatives.Allowed, 20),
 
 
              },
