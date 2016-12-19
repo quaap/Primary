@@ -3,6 +3,7 @@ package com.quaap.primary.math;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import android.os.Bundle;
@@ -43,7 +44,7 @@ public class BasicMathActivity extends BaseActivity {
     //Mode.Input doesn't work yet.
 
     public BasicMathActivity() {
-       super(R.layout.activity_math1, R.id.txtstatus);
+       super(R.layout.activity_math1);
         setFasttimes(900, 1800, 3000);
     }
 
@@ -81,6 +82,26 @@ public class BasicMathActivity extends BaseActivity {
         }
 
     }
+
+    final protected Handler handler = new Handler();
+
+    @Override
+    protected void setStatus(String text) {
+        final TextView status = (TextView)findViewById(R.id.txtstatus);
+        status.setText(text);
+        final int corrects = correct;
+        final int incorrects = incorrect;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (corrects == correct && incorrects == incorrect) {
+                    setStatus("");
+                }
+            }
+        }, 1000);
+    }
+
+
 
 
     private int getAnswer(int n1, int n2, MathOp op) {

@@ -10,13 +10,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.quaap.primary.math.BasicMathActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/txtstatus"
+        android:textSize="24sp"
+        android:textColor="@android:color/holo_green_light"
+        android:layout_alignParentTop="true" />
+
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:columnCount="2"
         android:id="@+id/problem_area"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txtstatus">
 
         <Space
             android:layout_width="wrap_content"
@@ -93,15 +104,6 @@
             android:id="@+id/textView4"
             tools:ignore="HardcodedText" />
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/txtstatus"
-        android:textSize="30sp"
-        android:textColor="@android:color/holo_blue_bright" />
 
     <include
         android:layout_width="wrap_content"

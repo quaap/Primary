@@ -49,10 +49,9 @@ public abstract class BaseActivity extends AppCompatActivity  {
     public static final String LEVELNAME = "levelnum";
     //protected BasicMathLevel[] levels;
 
-    final protected Handler handler = new Handler();
     private SharedPreferences mPrefs;
     protected int correct=0;
-    private int incorrect=0;
+    protected int incorrect=0;
     protected int levelnum = 0;
     private int highestLevelnum = 0;
     private int totalCorrect=0;
@@ -66,7 +65,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     private String subject;
 
-    private final int statusId;
 
     private Level getLevel(int leveln) {
         return levels[leveln];
@@ -81,11 +79,8 @@ public abstract class BaseActivity extends AppCompatActivity  {
     private String username;
     private PopupWindow levelCompletePopup;
 
-    protected BaseActivity(int layoutIdtxt, int statusTxtId) {
+    protected BaseActivity(int layoutIdtxt) {
 
-       // this.subjectId = subjectId;
-       // levels = Levels.getLevels(levelSetName);
-        statusId = statusTxtId;
         layoutId = layoutIdtxt;
     }
 
@@ -130,9 +125,18 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     }
 
+    protected abstract void setStatus(String text);
+
+
+    protected void setStatus(int resid) {
+        final TextView status = (TextView)findViewById(R.id.txtstatus);
+        setStatus(getString(resid));
+    }
+
+
     protected void answerDone(boolean isright, int addscore, String problem, String answer, String useranswer) {
         long timespent = System.currentTimeMillis() - starttime;
-        final TextView status = (TextView)findViewById(statusId);
+
         bonuses = null;
         if (isright) {
             correct++;
@@ -148,7 +152,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
             }
 
             if (correct>=levels[levelnum].getRounds()) {
-                status.setText(R.string.correct);
+                setStatus(R.string.correct);
                 correct = 0;
                 incorrect = 0;
                 if (levelnum+1>=levels.length) {
@@ -159,37 +163,28 @@ public abstract class BaseActivity extends AppCompatActivity  {
                     if (highestLevelnum<levelnum+1) {
                         highestLevelnum = levelnum+1;
                     }
-                    status.setText("");
+                    setStatus("");
                     showLevelCompletePopup(false);
 
                     setLevelFields();
                     return;
                 }
             } else {
-                status.setText(getString(R.string.correct));
+                setStatus(getString(R.string.correct));
             }
-            final int corrects = correct;
-            final int incorrects = incorrect;
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (corrects == correct && incorrects == incorrect) {
-                        status.setText(" ");
-                    }
-                }
-            }, status.getText().length() * 300);
             showProb();
         } else {
             incorrect++;
             correctInARow = 0;
             totalIncorrect++;
-            status.setText(R.string.try_again);
+            setStatus(R.string.try_again);
             if (actwriter !=null) {
                 actwriter.log(levelnum+1, problem, answer, useranswer, isright, timespent, getCurrentPercentFloat(), todaysScore);
             }
 
         }
         setLevelFields();
+
     }
 
 
