@@ -38,7 +38,7 @@ public class AppData {
 
     private Context mContext;
 
-    public AppData(Context context) {
+    private AppData(Context context) {
         mContext = context;
         mPrefs = mContext.getSharedPreferences("app", MODE_PRIVATE);
     }

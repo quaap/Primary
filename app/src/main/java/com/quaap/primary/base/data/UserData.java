@@ -96,6 +96,14 @@ public class UserData {
             mSubjectPrefs = mAppdata.getContext().getSharedPreferences("user:" + mUsername + ":subject:" + mSubject, MODE_PRIVATE);
         }
 
+        public boolean getSubjectCompleted() {
+            return getIntField("subjectCompleted", 0)==1;
+        }
+
+        public void setSubjectCompleted(boolean subjectCompleted) {
+            setIntField("subjectCompleted", subjectCompleted?1:0);
+        }
+
         public int getLevelNum() {
             return getIntField("levelnum", -1);
         }
@@ -173,10 +181,11 @@ public class UserData {
         }
 
         public boolean getPopUpShown() {
-            return mSubjectPrefs.getBoolean("popUpShown", false);
+            return getIntField("popUpShown", 0)==1;
         }
         public void setPopUpShown(boolean popUpShown) {
-            mSubjectPrefs.edit().putBoolean("popUpShown", popUpShown).apply();
+            setIntField("popUpShown", popUpShown?1:0);
+
         }
 
 

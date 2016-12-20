@@ -178,6 +178,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
                         highestLevelnum = levelnum+1;
                     }
 
+                    mSubjectData.setSubjectCompleted(true);
                     showLevelCompletePopup(false);
 
                     setLevelFields();
@@ -293,7 +294,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
     }
 
     public void goBackToMain() {
-        setResult(SubjectMenuActivity.RESULTCODE_SETDONE);
         finish();
     }
 
