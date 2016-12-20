@@ -185,7 +185,7 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
     }
 
     private final static int SUBMENU_REQUEST = 1;
-    public final static int SUBMENU_RESULT_CLOSE = 103;
+    public final static int RESULTCODE_SETDONE = 103;
 
     @Override
     public void onClick(View view) {
@@ -206,9 +206,10 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==SUBMENU_REQUEST && resultCode==SUBMENU_RESULT_CLOSE) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+        if (requestCode==SUBMENU_REQUEST && resultCode== RESULTCODE_SETDONE) {
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+            setResult(MainActivity.RESULTCODE_SETDONE);
             finish();
         }
     }

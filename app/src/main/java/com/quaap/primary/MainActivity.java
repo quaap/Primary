@@ -9,7 +9,7 @@ package com.quaap.primary;
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -143,32 +143,14 @@ public class MainActivity extends AppCompatActivity {
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (selected_user!=null) {
-                    Spinner subjectspinner = (Spinner)findViewById(R.id.subject_spinner);
-                    String subject = (String)subjectspinner.getSelectedItem();
-                    int subjectId = subjectspinner.getSelectedItemPosition();
-
-                    String [] classes = getResources().getStringArray(R.array.subjectsActivity);
-                    String [] levelsets = getResources().getStringArray(R.array.subjectsLevelset);
-                    try {
-                        Intent intent = new Intent(MainActivity.this, Class.forName(classes[subjectId]));
-                        intent.putExtra(LEVELSET, levelsets[subjectId]);
-                        intent.putExtra(SUBJECT, subject);
-                        intent.putExtra(USERNAME, selected_user);
-
-                        startActivity(intent);
-                    } catch (ClassNotFoundException e) {
-                        Log.e("Primary", "Can't load " + subject + " " + subjectId);
-                    }
-                }
-
+                startSelectedSubject();
             }
         });
 
         Spinner subjectspinner = (Spinner)findViewById(R.id.subject_spinner);
-        subjectspinner.setSelection(0);
-        setSubjectDesc(0);
+        int sub = getLatestUserSubject(selected_user);
+        subjectspinner.setSelection(sub);
+        setSubjectDesc(sub);
         subjectspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -180,8 +162,48 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private static final int REQUESTCODE = 120;
+    public static final int RESULTCODE_SETDONE = 134;
+    public static final int RESULTCODE_NOTDONE = 0;
 
+    private void startSelectedSubject() {
+        if (selected_user!=null) {
+            Spinner subjectspinner = (Spinner)findViewById(R.id.subject_spinner);
+            String subject = (String)subjectspinner.getSelectedItem();
+            int subjectId = subjectspinner.getSelectedItemPosition();
+
+            setLatestUserSubject(selected_user, subjectId);
+            String [] classes = getResources().getStringArray(R.array.subjectsActivity);
+            String [] levelsets = getResources().getStringArray(R.array.subjectsLevelset);
+            try {
+                Intent intent = new Intent(MainActivity.this, Class.forName(classes[subjectId]));
+                intent.putExtra(LEVELSET, levelsets[subjectId]);
+                intent.putExtra(SUBJECT, subject);
+                intent.putExtra(USERNAME, selected_user);
+
+                startActivityForResult(intent, REQUESTCODE);
+            } catch (ClassNotFoundException e) {
+                Log.e("Primary", "Can't load " + subject + " " + subjectId);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (REQUESTCODE==requestCode && resultCode==RESULTCODE_SETDONE) {
+            int sub = getLatestUserSubject(selected_user);
+            TextView latest_completed_txt = (TextView)findViewById(R.id.latest_completed_txt);
+            latest_completed_txt.setText("Completed "+ (getResources().getStringArray(R.array.subjects)[sub]));
+            Spinner subjectspinner = (Spinner)findViewById(R.id.subject_spinner);
+            if (sub < subjectspinner.getAdapter().getCount()-1) {
+                setLatestUserSubject(selected_user, sub+1);
+                setUserDid(selected_user, sub);
+                subjectspinner.setSelection(sub+1);
+            }
+        }
     }
 
     private void setSubjectDesc(int i) {
@@ -189,6 +211,26 @@ public class MainActivity extends AppCompatActivity {
         subject_desc.setText(getResources().getStringArray(R.array.subjectDescs)[i]);
     }
 
+    private void setLatestUserSubject(String username, int subjectid) {
+        SharedPreferences.Editor ed = prefs.edit();
+        ed.putBoolean("subject:"+username + ":" + subjectid, true);
+        ed.putInt("lastsubject:"+username, subjectid);
+        ed.apply();
+    }
+
+    private int getLatestUserSubject(String username) {
+        return prefs.getInt("lastsubject:"+username, 0);
+    }
+
+    private void setUserDid(String username, int subjectid) {
+        SharedPreferences.Editor ed = prefs.edit();
+        ed.putBoolean("subject:"+username + ":" + subjectid, true);
+        ed.apply();
+    }
+
+    private boolean getUserDid(String username, int subjectid) {
+        return prefs.getBoolean("subject:"+username + ":" + subjectid, false);
+    }
 
     List<String> avatarlist = new ArrayList<>();
     private void createNewUserArea() {
@@ -290,6 +332,8 @@ public class MainActivity extends AppCompatActivity {
         avatarspinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_item, avatarlist));
 
     }
+
+
 
     private void setUserAvatar(String username, String avatar) {
         String oldavatar = prefs.getString(username+ AVATAR_POST, null);

@@ -292,7 +292,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
     }
 
     public void goBackToMain() {
-        setResult(SubjectMenuActivity.SUBMENU_RESULT_CLOSE);
+        setResult(SubjectMenuActivity.RESULTCODE_SETDONE);
         finish();
     }
 
