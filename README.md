@@ -11,5 +11,5 @@ other math levels (ideas: word problems, easier and harder math, etc) subjects a
 Features:
 * Progressive levels.
 * Supports multiple users.
-* Can keep a log of answers in external csv files for record-keeping  purposes.
+* Can keep a log of answers in external csv files for record-keeping  purposes (eg homeschooling).
 
