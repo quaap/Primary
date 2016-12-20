@@ -36,15 +36,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.quaap.primary.base.User;
+import com.quaap.primary.base.data.AppData;
+import com.quaap.primary.base.data.UserData;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -81,9 +80,11 @@ public class MainActivity extends AppCompatActivity {
 
     private final Map<String,View> userlist = new HashMap<>();
     private String selected_user;
-    private SharedPreferences prefs;
+    //private SharedPreferences prefs;
     private boolean new_user_shown = false;
     private String defaultusername;
+
+    private AppData appdata;
 
     public MainActivity() {
         avatars = new String[AVATARHEX.length];
@@ -98,14 +99,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        prefs = getSharedPreferences("app", MODE_PRIVATE);
+        //prefs = getSharedPreferences("app", MODE_PRIVATE);
+        appdata = AppData.getAppData(this);
 
         defaultusername = getString(R.string.defaultUserName);
         addUser(defaultusername, avatars[0]);
 
         createUserList();
 
-        selectUser(prefs.getString(LASTSELECTEDUSER, defaultusername));
+        selectUser(appdata.getLastSelectedUser(defaultusername));
 
         createNewUserArea();
 
@@ -120,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener()  {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                deleteUser();
+                                deleteUser(selected_user);
                             }
 
                         })
@@ -148,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Spinner subjectspinner = (Spinner)findViewById(R.id.subject_spinner);
-        int sub = getLatestUserSubject(selected_user);
+        int sub = appdata.getUser(selected_user).getLatestSubject();
         subjectspinner.setSelection(sub);
         setSubjectDesc(sub);
         subjectspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -174,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             String subject = (String)subjectspinner.getSelectedItem();
             int subjectId = subjectspinner.getSelectedItemPosition();
 
-            setLatestUserSubject(selected_user, subjectId);
+            appdata.getUser(selected_user).setLatestSubject(subjectId);
             String [] classes = getResources().getStringArray(R.array.subjectsActivity);
             String [] levelsets = getResources().getStringArray(R.array.subjectsLevelset);
             try {
@@ -194,13 +196,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (REQUESTCODE==requestCode && resultCode==RESULTCODE_SETDONE) {
-            int sub = getLatestUserSubject(selected_user);
+            int sub = appdata.getUser(selected_user).getLatestSubject();
             TextView latest_completed_txt = (TextView)findViewById(R.id.latest_completed_txt);
             latest_completed_txt.setText("Completed "+ (getResources().getStringArray(R.array.subjects)[sub]));
             Spinner subjectspinner = (Spinner)findViewById(R.id.subject_spinner);
             if (sub < subjectspinner.getAdapter().getCount()-1) {
-                setLatestUserSubject(selected_user, sub+1);
-                setUserDid(selected_user, sub);
+                appdata.getUser(selected_user).setLatestSubject(sub+1);
+
                 subjectspinner.setSelection(sub+1);
             }
         }
@@ -211,26 +213,30 @@ public class MainActivity extends AppCompatActivity {
         subject_desc.setText(getResources().getStringArray(R.array.subjectDescs)[i]);
     }
 
-    private void setLatestUserSubject(String username, int subjectid) {
-        SharedPreferences.Editor ed = prefs.edit();
-        ed.putBoolean("subject:"+username + ":" + subjectid, true);
-        ed.putInt("lastsubject:"+username, subjectid);
-        ed.apply();
-    }
 
-    private int getLatestUserSubject(String username) {
-        return prefs.getInt("lastsubject:"+username, 0);
-    }
-
-    private void setUserDid(String username, int subjectid) {
-        SharedPreferences.Editor ed = prefs.edit();
-        ed.putBoolean("subject:"+username + ":" + subjectid, true);
-        ed.apply();
-    }
-
-    private boolean getUserDid(String username, int subjectid) {
-        return prefs.getBoolean("subject:"+username + ":" + subjectid, false);
-    }
+//    //TODO
+//    private void setLatestUserSubject(String username, int subjectid) {
+////        appdata.getUser(username).addSubjectStarted();
+////        SharedPreferences.Editor ed = prefs.edit();
+////        ed.putBoolean("subject:"+username + ":" + subjectid, true);
+////        ed.putInt("lastsubject:"+username, subjectid);
+////        ed.apply();
+//    }
+//
+//    //TODO
+//    private int getLatestUserSubject(String username) {
+//        return prefs.getInt("lastsubject:"+username, 0);
+//    }
+//
+//    private void setUserDid(String username, int subjectid) {
+//        SharedPreferences.Editor ed = prefs.edit();
+//        ed.putBoolean("subject:"+username + ":" + subjectid, true);
+//        ed.apply();
+//    }
+//
+//    private boolean getUserDid(String username, int subjectid) {
+//        return prefs.getBoolean("subject:"+username + ":" + subjectid, false);
+//    }
 
     List<String> avatarlist = new ArrayList<>();
     private void createNewUserArea() {
@@ -264,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, R.string.name_long,Toast.LENGTH_LONG).show();
                         return;
                     }
-                    User user = addUser(newname, (String)avatarspinner.getSelectedItem());
+                    UserData user = addUser(newname, (String)avatarspinner.getSelectedItem());
                     if (user!=null){
                         addUserToUserList(user);
                         selectUser(newname);
@@ -301,32 +307,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private List<User> getUserList() {
-        Set<String> usernames = new TreeSet<>();
-        usernames = prefs.getStringSet(USERS_KEY, usernames);
-
-        List<User> users = new ArrayList<>();
-        for (String username: usernames) {
-            User user = getUser(username);
-            if (user!=null) {
-                users.add(user);
-            }
-        }
-        return users;
-    }
 
     private void populateAvatarSpinner() {
         populateAvatarSpinner(null);
     }
     private void populateAvatarSpinner(String additional) {
-        avatarlist = new ArrayList<>();
-        for (String avatar: avatars) {
-            if (!prefs.getBoolean(AVATAR_PRE + avatar, false)) {
-                avatarlist.add(avatar);
-            }
-        }
-        if (additional!=null) avatarlist.add(additional);
-        Collections.sort(avatarlist);
+        avatarlist = appdata.getUnusedAvatars(additional);
 
         Spinner avatarspinner = (Spinner)findViewById(R.id.user_avatar_spinner);
         avatarspinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_item, avatarlist));
@@ -336,77 +322,42 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setUserAvatar(String username, String avatar) {
-        String oldavatar = prefs.getString(username+ AVATAR_POST, null);
-        SharedPreferences.Editor ed = prefs.edit();
-        if (oldavatar!=null) {
-            ed.remove(AVATAR_PRE + oldavatar);
-        }
-        ed.putString(username+ AVATAR_POST, avatar);
-        ed.putBoolean(AVATAR_PRE + avatar, true);
-        ed.apply();
+
+        appdata.getUser(username).setAvatar(avatar);
         populateAvatarSpinner();
     }
 
-    private User addUser(String username, String avatar) {
-        Set<String> usernames = new TreeSet<>();
+    private UserData addUser(String username, String avatar) {
 
-        usernames = prefs.getStringSet(USERS_KEY, usernames);
-        User user = null;
-        if (!usernames.contains(username)){
-            usernames.add(username);
-            SharedPreferences.Editor ed = prefs.edit();
-            ed.putStringSet(USERS_KEY, usernames);
-            ed.apply();
-            setUserAvatar(username, avatar);
-            user = new User();
-            user.username = username;
-            user.avatar = avatar;
+        UserData user = appdata.addUser(username, avatar);
+        if (user!=null) {
             populateAvatarSpinner();
+            //addUserToUserList(user);
         }
-
         return user;
     }
 
 
-    private void deleteUser() {
-        String username = selected_user;
-        User user = getUser(username);
+    private void deleteUser(String username) {
 
-        if (user!=null) {
-            Set<String> usernames = new TreeSet<>();
-            usernames = prefs.getStringSet(USERS_KEY, usernames);
+        if (username!=null) {
+            appdata.deleteUser(username);
 
-            if (usernames.contains(username)){
-                usernames.remove(username);
-                SharedPreferences.Editor ed = prefs.edit();
-                ed.putStringSet(USERS_KEY, usernames);
-                ed.remove(user.username+ AVATAR_POST);
-                ed.remove(AVATAR_PRE + user.avatar);
-                ed.apply();
-            }
             removeUserFromUserList(username);
             selectUser(null);
             populateAvatarSpinner();
         }
+
     }
 
-    private User getUser(String username) {
-        String avatar = prefs.getString(username+ AVATAR_POST, null);
-        User user = null;
-        if (avatar!=null) {
-            user = new User();
-            user.username = username;
-            user.avatar = avatar;
-        }
-        return user;
-    }
+
 
     private void createUserList() {
 
-        List<User> users = getUserList();
+        Set<String> usernames = appdata.listUsers();
 
-        for (User user: users) {
-            addUserToUserList(user);
+        for (String username: usernames) {
+            addUserToUserList(appdata.getUser(username));
 
         }
     }
@@ -436,20 +387,15 @@ public class MainActivity extends AppCompatActivity {
                     user_controls_area.setVisibility(View.VISIBLE);
                 }
 
-                SharedPreferences.Editor ed = prefs.edit();
-                ed.putString(LASTSELECTEDUSER, selected_user);
-                ed.apply();
                 goButton.setEnabled(true);
             }
         } else {
             showSteps2and3(false);
 
-            SharedPreferences.Editor ed = prefs.edit();
-            ed.remove(LASTSELECTEDUSER);
-            ed.apply();
             user_controls_area.setVisibility(View.GONE);
             goButton.setEnabled(false);
         }
+        appdata.setLastSelectedUser(selected_user);
     }
 
     private void showSteps2and3(boolean show) {
@@ -474,11 +420,11 @@ public class MainActivity extends AppCompatActivity {
         if (edit) {
             user_added_button.setVisibility(View.GONE);
             user_change_button.setVisibility(View.VISIBLE);
-            User user = getUser(selected_user);
+            UserData user = appdata.getUser(selected_user);
             if (user!=null) {
-                populateAvatarSpinner(user.avatar);
-                nametxt.setText(user.username);
-                int aindex = avatarlist.indexOf(user.avatar);
+                populateAvatarSpinner(user.getAvatar());
+                nametxt.setText(user.getUsername());
+                int aindex = avatarlist.indexOf(user.getAvatar());
                 avatarspinner.setSelection(aindex);
             }
 
@@ -508,15 +454,15 @@ public class MainActivity extends AppCompatActivity {
         userview.removeView(old_selected);
     }
 
-    private void addUserToUserList(User user) {
+    private void addUserToUserList(UserData user) {
         LinearLayout userview = (LinearLayout)findViewById(R.id.user_avatar_list_view);
         View child = LayoutInflater.from(this).inflate(R.layout.user_avatar, null);
 
         final TextView user_name = (TextView)child.findViewById(R.id.username_avatar);
         TextView user_image = (TextView)child.findViewById(R.id.userimage_avatar);
 
-        user_name.setText(user.username);
-        user_image.setText(user.avatar);
+        user_name.setText(user.getUsername());
+        user_image.setText(user.getAvatar());
 
         child.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -526,8 +472,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         userview.addView(child);
-        userlist.put(user.username,child);
-        child.setTag(user.username);
+        userlist.put(user.getUsername(),child);
+        child.setTag(user.getUsername());
 
     }
 }
