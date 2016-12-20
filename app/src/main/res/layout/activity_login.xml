@@ -19,45 +19,11 @@
             android:textSize="24sp"
             android:layout_marginTop="16dp" />
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp">
-
-
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="6"
-                android:scrollbarAlwaysDrawHorizontalTrack="false"
-                android:scrollIndicators="start|end">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/user_avatar_list_view">
-            </LinearLayout>
-            </HorizontalScrollView>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/add_user"
-                app:srcCompat="@android:drawable/ic_input_add"
-                android:id="@+id/add_user_button"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:padding="4dp"
-                android:scaleX="1.5"
-                android:scaleY="1.5"
-                android:layout_gravity="center" />
-
-        </LinearLayout>
+            layout="@layout/horz_list_view"
+            android:id="@+id/user_horz_list" />
 
         <LinearLayout
             android:orientation="horizontal"

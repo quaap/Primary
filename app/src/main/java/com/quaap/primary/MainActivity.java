@@ -219,7 +219,8 @@ public class MainActivity extends AppCompatActivity {
 
         populateAvatarSpinner();
 
-        ImageView newuserbutton = (ImageView)findViewById(R.id.add_user_button);
+        View user_horz_list = findViewById(R.id.user_horz_list);
+        ImageView newuserbutton = (ImageView)user_horz_list.findViewById(R.id.add_list_item_button);
 
         newuserbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -425,13 +426,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void removeUserFromUserList(String username) {
-        LinearLayout userview = (LinearLayout)findViewById(R.id.user_avatar_list_view);
+        View user_horz_list = findViewById(R.id.user_horz_list);
+
+        LinearLayout userview = (LinearLayout)user_horz_list.findViewById(R.id.items_list_area);
         View old_selected = userlist.get(username);
         userview.removeView(old_selected);
     }
 
     private void addUserToUserList(UserData user) {
-        LinearLayout userview = (LinearLayout)findViewById(R.id.user_avatar_list_view);
+        View user_horz_list = findViewById(R.id.user_horz_list);
+        LinearLayout userview = (LinearLayout)findViewById(R.id.items_list_area);
         View child = LayoutInflater.from(this).inflate(R.layout.user_avatar, null);
 
         final TextView user_name = (TextView)child.findViewById(R.id.username_avatar);
