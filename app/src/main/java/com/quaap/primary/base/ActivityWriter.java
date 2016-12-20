@@ -87,7 +87,7 @@ public class ActivityWriter {
 
     public synchronized void log(int level, String problem, String answer, String useranswer, boolean correct, long millis, float runningpercent, int todayspoints) {
         writeRow(mDateFormat.format(new Date()), level, problem, answer, useranswer, correct,
-                millis, String.format(Locale.getDefault(),"%4.1f",runningpercent) );
+                millis, String.format(Locale.getDefault(),"%4.1f",runningpercent, todayspoints) );
     }
 
 
