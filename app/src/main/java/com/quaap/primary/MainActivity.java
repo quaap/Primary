@@ -18,7 +18,7 @@ package com.quaap.primary;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final Map<String,View> userlist = new HashMap<>();
     private String selected_user;
-    //private SharedPreferences prefs;
+
     private boolean new_user_shown = false;
     private String defaultusername;
 
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //prefs = getSharedPreferences("app", MODE_PRIVATE);
+
         appdata = AppData.getAppData(this);
 
         defaultusername = getString(R.string.defaultUserName);
@@ -213,30 +213,6 @@ public class MainActivity extends AppCompatActivity {
         subject_desc.setText(getResources().getStringArray(R.array.subjectDescs)[i]);
     }
 
-
-//    //TODO
-//    private void setLatestUserSubject(String username, int subjectid) {
-////        appdata.getUser(username).addSubjectStarted();
-////        SharedPreferences.Editor ed = prefs.edit();
-////        ed.putBoolean("subject:"+username + ":" + subjectid, true);
-////        ed.putInt("lastsubject:"+username, subjectid);
-////        ed.apply();
-//    }
-//
-//    //TODO
-//    private int getLatestUserSubject(String username) {
-//        return prefs.getInt("lastsubject:"+username, 0);
-//    }
-//
-//    private void setUserDid(String username, int subjectid) {
-//        SharedPreferences.Editor ed = prefs.edit();
-//        ed.putBoolean("subject:"+username + ":" + subjectid, true);
-//        ed.apply();
-//    }
-//
-//    private boolean getUserDid(String username, int subjectid) {
-//        return prefs.getBoolean("subject:"+username + ":" + subjectid, false);
-//    }
 
     List<String> avatarlist = new ArrayList<>();
     private void createNewUserArea() {

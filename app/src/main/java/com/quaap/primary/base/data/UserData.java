@@ -30,7 +30,6 @@ public class UserData {
 
     private SharedPreferences mUserPrefs;
 
-    private Context mContext;
     private String mUsername;
     private AppData mAppdata;
 
@@ -94,7 +93,7 @@ public class UserData {
 
         private Subject(String subject) {
             mSubject = subject;
-            mSubjectPrefs = mContext.getSharedPreferences("user:" + mUsername + ":mSubject", MODE_PRIVATE);
+            mSubjectPrefs = mAppdata.getContext().getSharedPreferences("user:" + mUsername + ":subject:" + mSubject, MODE_PRIVATE);
         }
 
         public int getLevelNum() {
@@ -158,6 +157,34 @@ public class UserData {
             setIntField("todayPoints", todayPoints);
         }
 
+
+        public int getCorrectInARow() {
+            return getIntField("correctInArow", 0);
+        }
+        public void setCorrectInARow(int correctInArow) {
+            setIntField("correctInArow", correctInArow);
+        }
+
+        public String getToday() {
+            return mSubjectPrefs.getString("today", "");
+        }
+        public void setToday(String date) {
+            mSubjectPrefs.edit().putString("today", date).apply();
+        }
+
+        public boolean getPopUpShown() {
+            return mSubjectPrefs.getBoolean("popUpShown", false);
+        }
+        public void setPopUpShown(boolean popUpShown) {
+            mSubjectPrefs.edit().putBoolean("popUpShown", popUpShown).apply();
+        }
+
+
+
+
+        public void clearProgress() {
+            mSubjectPrefs.edit().clear().apply();
+        }
         
         private void setIntField(String field, int value) {
             mSubjectPrefs.edit().putInt(field, value).apply();

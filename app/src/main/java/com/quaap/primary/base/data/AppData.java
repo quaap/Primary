@@ -47,6 +47,10 @@ public class AppData {
         return mContext;
     }
 
+    public static UserData.Subject getSubjectForUser(Context context, String username, String subject) {
+        return AppData.getAppData(context).getUser(username).getSubjectForUser(subject);
+    }
+
     public void setLastSelectedUser(String username) {
         mPrefs.edit().putString("lastselecteduser", username).apply();
     }

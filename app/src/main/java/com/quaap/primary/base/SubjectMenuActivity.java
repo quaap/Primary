@@ -3,7 +3,7 @@ package com.quaap.primary.base;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.quaap.primary.Levels;
 import com.quaap.primary.MainActivity;
 import com.quaap.primary.R;
+import com.quaap.primary.base.data.AppData;
+import com.quaap.primary.base.data.UserData;
 
 /**
  * Created by tom on 12/15/16.
@@ -53,7 +55,10 @@ Goofy math word problems.
 
 public abstract class SubjectMenuActivity extends AppCompatActivity implements Button.OnClickListener {
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 121;
-    private SharedPreferences mPrefs;
+
+    private UserData mUserData;
+    private UserData.Subject mSubjectData;
+
     private String mSubject;
     private Class mTargetActivity;
 
@@ -83,7 +88,8 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
             actionBar.setTitle(getString(R.string.app_name) + ": " + mSubject + " (" + username + ")");
         }
 
-        mPrefs = BaseActivity.getSharedPreferences(this, username, mSubject);
+        mUserData = AppData.getAppData(this).getUser(username);
+        mSubjectData = mUserData.getSubjectForUser(mSubject);
 
         Button resume_button = (Button)findViewById(R.id.resume_button);
         resume_button.setTag(-1);
@@ -114,7 +120,7 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
     }
 
     private void showLevelButtons() {
-        int highest = mPrefs.getInt("highestLevelnum", 0);
+        int highest = mUserData.getSubjectForUser(mSubject).getHighestLevelNum();
 
         LinearLayout button_layout = (LinearLayout)findViewById(R.id.button_layout);
 
@@ -149,9 +155,7 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
     }
 
     private void clearProgress() {
-        SharedPreferences.Editor ed = mPrefs.edit();
-        ed.clear();
-        ed.apply();
+        mSubjectData.clearProgress();
 
         show_hide_gip();
         showLevelButtons();
@@ -160,15 +164,15 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
     private void show_hide_gip() {
         LinearLayout gip_layout = (LinearLayout)findViewById(R.id.gip_layout);
         TextView score_overview = (TextView)findViewById(R.id.score_overview);
-        if (mPrefs.getInt("levelnum", -1)==-1) {
+        if (mSubjectData.getLevelNum()==-1) {
             gip_layout.setVisibility(View.GONE);
             score_overview.setText(" ");
         } else {
             gip_layout.setVisibility(View.VISIBLE);
-            int correct = mPrefs.getInt("totalCorrect", 0);
-            int incorrect = mPrefs.getInt("totalIncorrect", 0);
-            int highest = mPrefs.getInt("highestLevelnum", 0)+1;
-            int tscore = mPrefs.getInt("tscore", 0);
+            int correct = mSubjectData.getTotalCorrect();
+            int incorrect = mSubjectData.getTotalIncorrect();
+            int highest = mSubjectData.getHighestLevelNum() + 1;
+            int tscore = mSubjectData.getTodayPoints();
             if (correct+incorrect>0) {
                 String score = "Level: " + highest + ". Correct: " + correct + "/" + (correct + incorrect) + ". Points: " + tscore;
                 score_overview.setText(score);

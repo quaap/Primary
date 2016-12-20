@@ -1,9 +1,9 @@
 package com.quaap.primary.base;
 
 import android.Manifest;
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Point;
@@ -24,6 +24,8 @@ import android.widget.TextView;
 import com.quaap.primary.Levels;
 import com.quaap.primary.MainActivity;
 import com.quaap.primary.R;
+import com.quaap.primary.base.data.AppData;
+import com.quaap.primary.base.data.UserData;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -49,7 +51,8 @@ public abstract class BaseActivity extends AppCompatActivity  {
     public static final String LEVELNAME = "levelnum";
     //protected BasicMathLevel[] levels;
 
-    private SharedPreferences mPrefs;
+    private UserData.Subject mSubjectData;
+
     protected int correct=0;
     protected int incorrect=0;
     protected int levelnum = 0;
@@ -95,9 +98,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
-    public static SharedPreferences getSharedPreferences(Context context, String username, String subject) {
-        return context.getSharedPreferences("scores:" + username + ":" + subject, MODE_PRIVATE);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +115,8 @@ public abstract class BaseActivity extends AppCompatActivity  {
             actionBar.setTitle(getString(R.string.app_name) + ": " + subject + " ("+username+")");
         }
 
-        mPrefs = getSharedPreferences(this, username, subject);
+        mSubjectData = AppData.getSubjectForUser(this, username, subject);
+
 
         levelnum = getIntent().getIntExtra(LEVELNAME, -1);
         getIntent().removeExtra(LEVELNAME);
@@ -358,42 +359,41 @@ public abstract class BaseActivity extends AppCompatActivity  {
     }
 
     private void saveState() {
-        SharedPreferences.Editor ed = mPrefs.edit();
 
-        ed.putInt("levelnum", levelnum);
-        ed.putInt("correct", correct);
-        ed.putInt("incorrect", incorrect);
-        ed.putInt("totalCorrect", totalCorrect);
-        ed.putInt("totalIncorrect", totalIncorrect);
-        ed.putInt("highestLevelnum", highestLevelnum);
-        ed.putInt("correctInARow", correctInARow);
-        ed.putInt("tscore", tscore);
-        ed.putInt("todaysScore", todaysScore);
-        ed.putString("today",new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
-        ed.putBoolean("levelCompletePopup", levelCompletePopup!=null);
-        ed.apply();
+        mSubjectData.setLevelNum(levelnum);
+        mSubjectData.setCorrect(correct);
+        mSubjectData.setIncorrect(incorrect);
+        mSubjectData.setTotalCorrect(totalCorrect);
+        mSubjectData.setTotalIncorrect(totalIncorrect);
+        mSubjectData.setHighestLevelNum(highestLevelnum);
+        mSubjectData.setCorrectInARow(correctInARow);
+        mSubjectData.setTotalPoints(tscore);
+        mSubjectData.setTodayPoints(todaysScore);
+        mSubjectData.setToday(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
+        mSubjectData.setPopUpShown(levelCompletePopup!=null);
+
     }
 
     private void restoreState() {
         boolean showpopup = false;
         if (levelnum==-1) {
-            levelnum = mPrefs.getInt("levelnum", levelnum);
-            correct = mPrefs.getInt("correct", correct);
-            incorrect = mPrefs.getInt("incorrect", incorrect);
-            correctInARow = mPrefs.getInt("correctInARow", correctInARow);
-            showpopup = mPrefs.getBoolean("levelCompletePopup", false);
+            levelnum = mSubjectData.getLevelNum();
+            correct =  mSubjectData.getCorrect();
+            incorrect = mSubjectData.getIncorrect();
+            correctInARow = mSubjectData.getCorrectInARow();
+            showpopup = mSubjectData.getPopUpShown();
         }
-        totalCorrect = mPrefs.getInt("totalCorrect", totalCorrect);
-        totalIncorrect = mPrefs.getInt("totalIncorrect", totalIncorrect);
-        highestLevelnum = mPrefs.getInt("highestLevelnum", highestLevelnum);
-        tscore = mPrefs.getInt("tscore", tscore);
+        totalCorrect = mSubjectData.getTotalCorrect();
+        totalIncorrect = mSubjectData.getTotalIncorrect();
+        highestLevelnum = mSubjectData.getHighestLevelNum();
+        tscore = mSubjectData.getTotalPoints();
 
         String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
-        String todaylast = mPrefs.getString("today","0");
+        String todaylast = mSubjectData.getToday();
 
         if (todaylast.equals(today)) {
-            todaysScore = mPrefs.getInt("todaysScore", todaysScore);
+            todaysScore = mSubjectData.getTodayPoints();
         } else {
             todaysScore = 0;
         }
