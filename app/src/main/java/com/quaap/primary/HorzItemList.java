@@ -3,10 +3,12 @@ package com.quaap.primary;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -87,7 +89,11 @@ public abstract class HorzItemList {
             return mListItems.get(key);
         }
         ViewGroup item = (ViewGroup)LayoutInflater.from(mParent).inflate(mItemLayoutId, (ViewGroup)null);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(10,10,10,10);
+        item.setLayoutParams(lp);
 
+        item.setBackgroundColor(normalColor);
 
         if (pos == -1) pos = mListItems.size();
         populateItem(key, item, pos);
@@ -108,6 +114,15 @@ public abstract class HorzItemList {
         return item;
     }
 
+    private void setBackground(View item, int drawableId){
+        if (Build.VERSION.SDK_INT>=21) {
+            item.setBackground(mParent.getResources().getDrawable(android.R.drawable.btn_default, mParent.getTheme()));
+        } else {
+            item.setBackground(mParent.getResources().getDrawable(android.R.drawable.btn_default));
+        }
+
+    }
+
     public void removeItem(String key) {
         if (!mListItems.containsKey(key)) {
             return;
@@ -123,6 +138,7 @@ public abstract class HorzItemList {
         mItemsListView.removeAllViews();
         mListItems.clear();
         mListItemsRev.clear();
+        selected = null;
     }
 
     public void setItemTextField(View item, int itemFieldId, String value) {
@@ -159,6 +175,11 @@ public abstract class HorzItemList {
 //
 //    protected abstract void populateItem(String key, ViewGroup item, int i);
 
+
+    public boolean hasSelected() {
+        return selected != null;
+    }
+
     public String getSelected() {
         return selected;
     }
@@ -167,9 +188,9 @@ public abstract class HorzItemList {
         setSelected(mListItemsRev.get((ViewGroup)item));
     }
 
+    private final int normalColor = Color.argb(64,200,200,200);
     public void setSelected(String key) {
 
-        final int normalColor = Color.TRANSPARENT;
         final int selectedColor = Color.CYAN;
 
         if (selected!=null) {
@@ -183,6 +204,8 @@ public abstract class HorzItemList {
             View new_selected = mListItems.get(selected);
             if (new_selected!=null) {
                 new_selected.setBackgroundColor(selectedColor);
+                HorizontalScrollView hsv = (HorizontalScrollView)mHorzList.findViewById(R.id.horz_list_scroller);
+                hsv.requestChildFocus(new_selected, new_selected);
             }
         }
     }

@@ -96,6 +96,9 @@ public class AppData {
 
     private Map<String, UserData> users = new HashMap<>();
     public UserData getUser(String username) {
+        if (username==null) {
+            return null;
+        }
         UserData data = users.get(username);
         if (data==null) {
             data = new UserData(this, username);
@@ -105,7 +108,9 @@ public class AppData {
     }
 
     public boolean deleteUser(String username) {
-
+        if (username==null) {
+            return false;
+        }
         users.remove(username);
 
         Set<String> usernames = listUsers();

@@ -171,6 +171,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
                 incorrect = 0;
                 setStatus(R.string.correct, 1200);
                 if (levelnum+1>=levels.length) {
+                    mSubjectData.setSubjectCompleted(true);
                     saveState();
                     showLevelCompletePopup(true);
                     return;
@@ -179,7 +180,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
                         highestLevelnum = levelnum+1;
                     }
 
-                    mSubjectData.setSubjectCompleted(true);
                     showLevelCompletePopup(false);
 
                     setLevelFields();

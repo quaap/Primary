@@ -153,31 +153,37 @@ public class MainActivity extends AppCompatActivity {
                     setItemTextField(item, R.id.subjectview_name, getResources().getStringArray(R.array.subjectsName)[i]);
 
                     String username = userlist.getSelected();
-                    UserData.Subject subject = AppData.getSubjectForUser(MainActivity.this, username, key);
-                    if (subject.getSubjectCompleted()) {
-                        setItemTextField(item, R.id.subjectview_status, "Done");
+                    if (username!=null) {
+                        UserData.Subject subject = AppData.getSubjectForUser(MainActivity.this, username, key);
+                        if (subject.getSubjectCompleted()) {
+                            setItemTextField(item, R.id.subjectview_status, getString(R.string.setcompleted));
+                        } else if (subject.getTotalPoints()!=0) {
+                            setItemTextField(item, R.id.subjectview_status, getString(R.string.level,subject.getLevelNum()));
+                        }
                     }
                 }
             };
             subjectlist.showAddButton(false);
         }
-        String sub = appdata.getUser(userlist.getSelected()).getLatestSubject();
-        if (sub==null) {
-            sub = subjects[0].code;
-        } else if (getIntent().getBooleanExtra(LEVELSETDONE,false)){
-            getIntent().removeExtra(LEVELSETDONE);
-            int pos = subjectMap.get(sub).pos;
-            if (pos+1 < subjects.length) {
-                sub = subjects[pos+1].code;
+        if (userlist.hasSelected()) {
+            String sub = appdata.getUser(userlist.getSelected()).getLatestSubject();
+            if (sub == null) {
+                sub = subjects[0].code;
+            } else if (getIntent().getBooleanExtra(LEVELSETDONE, false)) {
+                getIntent().removeExtra(LEVELSETDONE);
+                int pos = subjectMap.get(sub).pos;
+                if (pos + 1 < subjects.length) {
+                    sub = subjects[pos + 1].code;
+                }
             }
+            subjectlist.setSelected(sub);
+            setSubjectDesc(sub);
         }
-        subjectlist.setSelected(sub);
-        setSubjectDesc(sub);
     }
 
 
     private void startSelectedSubject() {
-        if (userlist.getSelected()!=null) {
+        if (userlist.hasSelected()) {
 
             String subject = subjectlist.getSelected();
             if (subject!=null) {
@@ -348,7 +354,7 @@ public class MainActivity extends AppCompatActivity {
 
         View user_controls_area = findViewById(R.id.user_controls_area);
         Button goButton = (Button)findViewById(R.id.login_button);
-        if (userlist.getSelected()!=null) {
+        if (userlist.hasSelected()) {
             showSteps2and3(true);
 
 
@@ -358,8 +364,10 @@ public class MainActivity extends AppCompatActivity {
                 user_controls_area.setVisibility(View.VISIBLE);
             }
 
-            goButton.setEnabled(true);
-
+            setSubjectList();
+            if (subjectlist.hasSelected()) {
+                goButton.setEnabled(true);
+            }
         } else {
             showSteps2and3(false);
 

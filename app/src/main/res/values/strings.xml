@@ -38,9 +38,10 @@
     <string name="minus">Minus</string>
     <string name="times">Times</string>
     <string name="divide">Divide</string>
+    <string name="setcompleted">Done</string>
 
 
-
+    <!-- The subject code. Should be 2 or 3 chars at most-->
     <string-array name="subjects">
         <item>M1</item>
         <item>M2</item>
@@ -49,14 +50,16 @@
         <item>M5</item>
     </string-array>
 
+    <!-- The subject name. Should be less than 12 chars-->
     <string-array name="subjectsName">
-        <item>Math 1</item>
-        <item>Math 2</item>
-        <item>Math 3</item>
-        <item>Math 4</item>
-        <item>Math 5</item>
+        <item>Math +-25</item>
+        <item>Math ×÷12</item>
+        <item>-Math +-3</item>
+        <item>-Math ×÷12</item>
+        <item>Math 1-4</item>
     </string-array>
 
+    <!-- The subject description. -->
     <string-array name="subjectDescs">
         <item>Plus and Minus. Numbers up to 25.</item>
         <item>Times and Divide. Numbers up to 12.</item>
@@ -81,37 +84,5 @@
         <item>Math5Levels</item>
     </string-array>
 
-    <!--<string-array name="password1">-->
-    <!--<item> - </item>-->
-    <!--<item>Tiny</item>-->
-    <!--<item>Small</item>-->
-    <!--<item>Medium</item>-->
-    <!--<item>Large</item>-->
-    <!--<item>Giant</item>-->
-    <!--</string-array>-->
-    <!--<string-array name="password2">-->
-    <!--<item> - </item>-->
-    <!--<item>Red</item>-->
-    <!--<item>Orange</item>-->
-    <!--<item>Yellow</item>-->
-    <!--<item>Green</item>-->
-    <!--<item>Blue</item>-->
-    <!--<item>Violet</item>-->
-    <!--<item>Pink</item>-->
-    <!--<item>White</item>-->
-    <!--<item>Black</item>-->
-    <!--</string-array>-->
-    <!--<string-array name="password3">-->
-    <!--<item> - </item>-->
-    <!--<item>Dog</item>-->
-    <!--<item>Cat</item>-->
-    <!--<item>Pony</item>-->
-    <!--<item>Cow</item>-->
-    <!--<item>Mouse</item>-->
-    <!--<item>Elephant</item>-->
-    <!--<item>Monkey</item>-->
-    <!--<item>Whale</item>-->
-    <!--<item>Bear</item>-->
-    <!--<item>Tiger</item>-->
-    <!--</string-array>-->
+
 </resources>
