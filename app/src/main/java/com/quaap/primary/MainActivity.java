@@ -16,6 +16,7 @@ package com.quaap.primary;
  * GNU General Public License for more details.
  */
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,7 +38,9 @@ import com.quaap.primary.base.data.AppData;
 import com.quaap.primary.base.data.UserData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppData appdata;
 
+    private Subject[] subjects;
+    private Map<String,Subject> subjectMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +69,14 @@ public class MainActivity extends AppCompatActivity {
 
         appdata = AppData.getAppData(this);
 
+        subjects = Subject.loadSubjects(this);
+        for(Subject subject: subjects) {
+            subjectMap.put(subject.code, subject);
+        }
+
         defaultusername = getString(R.string.defaultUserName);
         addUser(defaultusername, UserData.avatars[0]);
+
 
 
         createUserList();
@@ -115,21 +126,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Spinner subjectspinner = (Spinner)findViewById(R.id.subject_spinner);
-        int sub = appdata.getUser(userlist.getSelected()).getLatestSubject();
-        subjectspinner.setSelection(sub);
-        setSubjectDesc(sub);
-        subjectspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                setSubjectDesc(i);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+        String sub = appdata.getUser(userlist.getSelected()).getLatestSubject();
+        if (sub!=null) {
+            subjectlist.setSelected(sub);
+            setSubjectDesc(sub);
+        }
 
-            }
-        });
     }
 
     private void setSubjectList() {
@@ -138,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             protected void onItemClicked(String key, ViewGroup item) {
-
+                setSubjectDesc(key);
             }
 
             @Override
@@ -163,22 +166,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void startSelectedSubject() {
         if (userlist.getSelected()!=null) {
-            Spinner subjectspinner = (Spinner)findViewById(R.id.subject_spinner);
-            String subject = (String)subjectspinner.getSelectedItem();
-            int subjectId = subjectspinner.getSelectedItemPosition();
 
-            appdata.getUser(userlist.getSelected()).setLatestSubject(subjectId);
-            String [] classes = getResources().getStringArray(R.array.subjectsActivity);
-            String [] levelsets = getResources().getStringArray(R.array.subjectsLevelset);
-            try {
-                Intent intent = new Intent(MainActivity.this, Class.forName(classes[subjectId]));
-                intent.putExtra(LEVELSET, levelsets[subjectId]);
-                intent.putExtra(SUBJECT, subject);
-                intent.putExtra(USERNAME, userlist.getSelected());
+            String subject = subjectlist.getSelected();
+            if (subject!=null) {
+                appdata.getUser(userlist.getSelected()).setLatestSubject(subject);
 
-                startActivityForResult(intent, REQUESTCODE);
-            } catch (ClassNotFoundException e) {
-                Log.e("Primary", "Can't load " + subject + " " + subjectId);
+
+                try {
+                    Intent intent = new Intent(MainActivity.this, Class.forName(subjectMap.get(subject).activityclass));
+                    intent.putExtra(LEVELSET, subjectMap.get(subject).levelset);
+                    intent.putExtra(SUBJECT, subject);
+                    intent.putExtra(USERNAME, userlist.getSelected());
+
+                    startActivityForResult(intent, REQUESTCODE);
+                } catch (ClassNotFoundException e) {
+                    Log.e("Primary", "Can't load " + subject + " " + subjectMap.get(subject).name);
+                }
             }
         }
     }
@@ -187,21 +190,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (REQUESTCODE==requestCode && resultCode==RESULTCODE_SETDONE) {
-            int sub = appdata.getUser(userlist.getSelected()).getLatestSubject();
-            TextView latest_completed_txt = (TextView)findViewById(R.id.latest_completed_txt);
-            latest_completed_txt.setText("Completed "+ (getResources().getStringArray(R.array.subjects)[sub]));
-            Spinner subjectspinner = (Spinner)findViewById(R.id.subject_spinner);
-            if (sub < subjectspinner.getAdapter().getCount()-1) {
-                appdata.getUser(userlist.getSelected()).setLatestSubject(sub+1);
 
-                subjectspinner.setSelection(sub+1);
-            }
+            //TODO: repopulate subject list to show which subjectsa have been completed
+
+
         }
     }
 
-    private void setSubjectDesc(int i) {
-        TextView subject_desc = (TextView)findViewById(R.id.subject_desc);
-        subject_desc.setText(getResources().getStringArray(R.array.subjectDescs)[i]);
+    private void setSubjectDesc(String code) {
+
+        TextView subject_desc = (TextView) findViewById(R.id.subject_desc);
+        subject_desc.setText(subjectMap.get(code).desc);
+
     }
 
 
@@ -412,6 +412,39 @@ public class MainActivity extends AppCompatActivity {
             new_user_shown = false;
         }
         showSteps2and3(false);
+    }
+
+
+
+    static class Subject {
+        int pos;
+        String code;
+        String name;
+        String desc;
+        String activityclass;
+        String levelset;
+
+        public Subject(Context context, int pos) {
+            this.pos = pos;
+            this.code = getString(context, R.array.subjects, pos);
+            this.name = getString(context, R.array.subjectsName, pos);
+            this.desc = getString(context, R.array.subjectDescs, pos);
+            this.activityclass = getString(context, R.array.subjectsActivity, pos);
+            this.levelset = getString(context, R.array.subjectsLevelset, pos);
+        }
+
+        private String getString(Context context, int id, int pos) {
+            return context.getResources().getStringArray(id)[pos];
+        }
+
+        public static Subject[] loadSubjects(Context context) {
+            String [] codes = context.getResources().getStringArray(R.array.subjects);
+            Subject[] subjects  = new Subject[codes.length];
+            for(int i=0; i<codes.length; i++) {
+                subjects[i] = new Subject(context, i);
+            }
+            return subjects;
+        }
     }
 
 

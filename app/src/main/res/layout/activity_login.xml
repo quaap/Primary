@@ -143,13 +143,6 @@
                 layout="@layout/horz_list_view"
                 android:id="@+id/subject_horz_list" />
 
-            <Spinner
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/subject_spinner"
-                android:entries="@array/subjects"
-                tools:listitem="@layout/spinner_item" />
-
             <TextView
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"

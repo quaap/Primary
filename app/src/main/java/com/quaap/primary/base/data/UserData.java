@@ -59,10 +59,10 @@ public class UserData {
         return mUsername;
     }
 
-    public void addSubjectStarted(int subject) {
+    public void addSubjectStarted(String subject) {
         Set<String> subjects = new TreeSet<>();
         subjects = mUserPrefs.getStringSet("subjects", subjects);
-        subjects.add(subject+"");
+        subjects.add(subject);
         mUserPrefs.edit().putStringSet("subjects", subjects).apply();
     }
 
@@ -72,13 +72,13 @@ public class UserData {
         return subjects;
     }
 
-    public void setLatestSubject(int subject) {
+    public void setLatestSubject(String subject) {
         addSubjectStarted(subject);
-        mUserPrefs.edit().putInt("latestSubject", subject).apply();
+        mUserPrefs.edit().putString("latestSubject", subject).apply();
     }
 
-    public int getLatestSubject() {
-        return mUserPrefs.getInt("latestSubject", 0);
+    public String getLatestSubject() {
+        return mUserPrefs.getString("latestSubject", null);
     }
 
 
