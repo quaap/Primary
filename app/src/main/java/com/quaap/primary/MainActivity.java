@@ -209,8 +209,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setSubjectDesc(String code) {
 
-        TextView subject_desc = (TextView) findViewById(R.id.subject_desc);
-        subject_desc.setText(subjectMap.get(code).desc);
+        if (subjectMap.get(code)!=null) {
+            TextView subject_desc = (TextView) findViewById(R.id.subject_desc);
+            subject_desc.setText(subjectMap.get(code).desc);
+        }
 
     }
 

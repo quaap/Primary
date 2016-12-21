@@ -41,7 +41,7 @@
     <string name="setcompleted">Done</string>
 
 
-    <!-- The subject code. Should be 2 or 3 chars at most-->
+    <!-- The subject code. Should be 4-6 chars at most-->
     <string-array name="subjects">
         <item>M1</item>
         <item>M2</item>
@@ -56,7 +56,7 @@
         <item>Math ×÷12</item>
         <item>-Math +-3</item>
         <item>-Math ×÷12</item>
-        <item>Math 1-4</item>
+        <item>Lotta math</item>
     </string-array>
 
     <!-- The subject description. -->
