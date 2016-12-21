@@ -106,13 +106,14 @@ public abstract class BaseActivity extends AppCompatActivity  {
         Intent intent = getIntent();
         username = intent.getStringExtra(MainActivity.USERNAME);
         subject = intent.getStringExtra(MainActivity.SUBJECT);
+        String subjectName = intent.getStringExtra(MainActivity.SUBJECTNAME);
 
         levels = Levels.getLevels(intent.getStringExtra(MainActivity.LEVELSET));
 
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar!=null) {
-            actionBar.setTitle(getString(R.string.app_name) + ": " + subject + " ("+username+")");
+            actionBar.setTitle(getString(R.string.app_name) + ": " + subjectName + " ("+username+")");
         }
 
         mSubjectData = AppData.getSubjectForUser(this, username, subject);

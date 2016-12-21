@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String USERNAME = "username";
     public static final String SUBJECT = "subject";
+    public static final String SUBJECTNAME = "subjectname";
     public static final String LEVELSET = "levelset";
     public static final String LEVELSETDONE = "levelsetdone";
 
@@ -187,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, Class.forName(subjectMap.get(subject).activityclass));
                     intent.putExtra(LEVELSET, subjectMap.get(subject).levelset);
                     intent.putExtra(SUBJECT, subject);
+                    intent.putExtra(SUBJECTNAME, subjectMap.get(subject).name);
                     intent.putExtra(USERNAME, userlist.getSelected());
 
                     startActivity(intent);
