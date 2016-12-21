@@ -40,13 +40,21 @@
     <string name="divide">Divide</string>
 
 
+
     <string-array name="subjects">
+        <item>M1</item>
+        <item>M2</item>
+        <item>M3</item>
+        <item>M4</item>
+        <item>M5</item>
+    </string-array>
+
+    <string-array name="subjectsName">
         <item>Math 1</item>
         <item>Math 2</item>
         <item>Math 3</item>
         <item>Math 4</item>
         <item>Math 5</item>
-        <item>(More to come!)</item>
     </string-array>
 
     <string-array name="subjectDescs">
@@ -55,11 +63,9 @@
         <item>Plus and Minus. Numbers -25 to 25.</item>
         <item>Times and Divide. Numbers -12 to 12.</item>
         <item>Everything!</item>
-        <item>(More to come!)</item>
     </string-array>
 
     <string-array name="subjectsActivity">
-        <item>com.quaap.primary.math.BasicMathMenuActivity</item>
         <item>com.quaap.primary.math.BasicMathMenuActivity</item>
         <item>com.quaap.primary.math.BasicMathMenuActivity</item>
         <item>com.quaap.primary.math.BasicMathMenuActivity</item>
@@ -72,7 +78,6 @@
         <item>Math2Levels</item>
         <item>Math3Levels</item>
         <item>Math4Levels</item>
-        <item>Math5Levels</item>
         <item>Math5Levels</item>
     </string-array>
 

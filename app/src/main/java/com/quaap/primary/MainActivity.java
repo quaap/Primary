@@ -23,6 +23,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -47,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private HorzItemList userlist;
-    //private final Map<String,View> userlist = new HashMap<>();
-    //private String selected_user;
+    private HorzItemList subjectlist;
+
 
     private boolean new_user_shown = false;
     private String defaultusername;
@@ -63,21 +64,9 @@ public class MainActivity extends AppCompatActivity {
 
         appdata = AppData.getAppData(this);
 
-        userlist = new HorzItemList(this, R.id.user_horz_list, R.layout.user_avatar) {
-            @Override
-            protected void onNewItemClicked() {
-                showNewUserArea(true);
-            }
-
-            @Override
-            protected void onItemClicked(String name, LinearLayout item) {
-                showNewUserArea(false);
-                selectUser(name);
-            }
-        };
-
         defaultusername = getString(R.string.defaultUserName);
         addUser(defaultusername, UserData.avatars[0]);
+
 
         createUserList();
 
@@ -114,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        setSubjectList();
+
+
         Button goButton = (Button)findViewById(R.id.login_button);
 
         goButton.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +130,31 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void setSubjectList() {
+
+        subjectlist = new HorzItemList(this, R.id.subject_horz_list, R.layout.subject_view, getResources().getStringArray(R.array.subjects)) {
+
+            @Override
+            protected void onItemClicked(String key, ViewGroup item) {
+
+            }
+
+            @Override
+            protected void populateItem(String key, ViewGroup item, int i) {
+                setItemTextField(item, R.id.subjectview_code, key);
+
+                setItemTextField(item, R.id.subjectview_name, getResources().getStringArray(R.array.subjectsName)[i]);
+
+                String username = userlist.getSelected();
+                UserData.Subject subject = AppData.getSubjectForUser(MainActivity.this, username, key);
+                if (subject.getSubjectCompleted()) {
+                    setItemTextField(item, R.id.subjectview_status, "Done");
+                }
+            }
+        };
+        subjectlist.showAddButton(false);
     }
 
     private static final int REQUESTCODE = 120;
@@ -189,20 +206,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     List<String> avatarlist = new ArrayList<>();
+
     private void createNewUserArea() {
 
         populateAvatarSpinner();
 
-
-//        View user_horz_list = findViewById(R.id.user_horz_list);
-//        ImageView newuserbutton = (ImageView)user_horz_list.findViewById(R.id.add_list_item_button);
-//
-//        newuserbutton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showNewUserArea(true);
-//            }
-//        });
 
         Button user_added = (Button)findViewById(R.id.user_added_button);
 
@@ -224,7 +232,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     UserData user = addUser(newname, (String)avatarspinner.getSelectedItem());
                     if (user!=null){
-                        addUserToUserList(user);
+                        userlist.addItem(newname);
+                        //addUserToUserList(user);
                         selectUser(newname);
                         new_user_shown = false;
                         LinearLayout new_user_area = (LinearLayout)findViewById(R.id.login_new_user_area);
@@ -295,8 +304,7 @@ public class MainActivity extends AppCompatActivity {
         if (username!=null) {
             appdata.deleteUser(username);
 
-            removeUserFromUserList(username);
-            //selectUser(null);
+            userlist.removeItem(username);
             populateAvatarSpinner();
         }
 
@@ -305,13 +313,29 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void createUserList() {
-
         Set<String> usernames = appdata.listUsers();
 
-        for (String username: usernames) {
-            addUserToUserList(appdata.getUser(username));
+        userlist = new HorzItemList(this, R.id.user_horz_list, R.layout.user_avatar, usernames.toArray(new String[0])) {
+            @Override
+            protected void onNewItemClicked() {
+                showNewUserArea(true);
+            }
 
-        }
+            @Override
+            protected void onItemClicked(String key, ViewGroup item) {
+                showNewUserArea(false);
+                selectUser(key);
+            }
+
+            @Override
+            protected void populateItem(String key, ViewGroup item, int i) {
+                UserData user = appdata.getUser(key);
+                setItemTextField(item, R.id.username_avatar, user.getUsername());
+                setItemTextField(item, R.id.userimage_avatar, user.getAvatar());
+            }
+        };
+
+
     }
 
     private void selectUser(String username) {
@@ -391,13 +415,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void removeUserFromUserList(String username) {
-        userlist.removeItem(username);
-    }
-
-    private void addUserToUserList(UserData user) {
-        View item = userlist.addItem(user.getUsername(),R.id.username_avatar);
-        userlist.setItemTextField(item, R.id.userimage_avatar, user.getAvatar());
-
-    }
 }

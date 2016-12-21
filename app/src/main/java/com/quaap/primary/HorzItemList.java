@@ -32,8 +32,8 @@ import java.util.Map;
  * GNU General Public License for more details.
  */
 public abstract class HorzItemList {
+    //This could be a custom view
 
-    private LinearLayout mBaseLayout;
 
     private Activity mParent;
 
@@ -42,17 +42,19 @@ public abstract class HorzItemList {
     private View mHorzList;
     private LinearLayout mItemsListView;
 
-    private Map<String, LinearLayout> mListItems = new HashMap<>();
-    private Map<LinearLayout, String> mListItemsRev = new HashMap<>();
+    private Map<String, ViewGroup> mListItems = new HashMap<>();
+    private Map<ViewGroup, String> mListItemsRev = new HashMap<>();
 
     private String selected;
 
     public HorzItemList(Activity parent, int includeID, int itemLayoutId) {
+        this(parent, includeID, itemLayoutId, null);
+    }
+
+    public HorzItemList(Activity parent, int includeID, int itemLayoutId, String[] itemkeys) {
         mParent = parent;
 
         mItemLayoutId = itemLayoutId;
-//        mBaseLayout = (LinearLayout)LayoutInflater.from(context).inflate(R.layout.horz_list_view, (ViewGroup)parent);
-
 
         mHorzList = parent.findViewById(includeID);
         mItemsListView = (LinearLayout)mHorzList.findViewById(R.id.items_list_area);
@@ -63,37 +65,54 @@ public abstract class HorzItemList {
                 onNewItemClicked();
             }
         });
+        if (itemkeys!=null) {
+            for (int i=0; i<itemkeys.length; i++) {
+                ViewGroup item = addItem(i, itemkeys[i]);
+            }
+        }
     }
 
-    public LinearLayout addItem(String name, int itemNameId) {
-        if (mListItems.containsKey(name)) {
-            return mListItems.get(name);
+
+    public void showAddButton(boolean show) {
+        mHorzList.findViewById(R.id.add_list_item_button).setVisibility(show?View.VISIBLE:View.GONE);
+    }
+    public ViewGroup addItem(String key) {
+        return addItem(-1, key);
+    }
+    public ViewGroup addItem(int pos, String key) {
+        if (mListItems.containsKey(key)) {
+            return mListItems.get(key);
         }
-        LinearLayout item = (LinearLayout)LayoutInflater.from(mParent).inflate(mItemLayoutId, (ViewGroup)null);
-        setItemTextField(item, itemNameId, name);
+        ViewGroup item = (ViewGroup)LayoutInflater.from(mParent).inflate(mItemLayoutId, (ViewGroup)null);
+        //if (itemNameId!=0) setItemTextField(item, itemNameId, key);
+
+        if (pos == -1) pos = mListItems.size();
+        populateItem(key, item, pos);
+
+
         item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setSelected(view);
-                onItemClicked(mListItemsRev.get(view), (LinearLayout)view);
+                onItemClicked(mListItemsRev.get((ViewGroup)view), (LinearLayout)view);
             }
         });
-        item.setTag(name);
+        item.setTag(key);
         mItemsListView.addView(item);
-        mListItems.put(name, item);
-        mListItemsRev.put(item, name);
+        mListItems.put(key, item);
+        mListItemsRev.put(item, key);
 
         return item;
     }
 
-    public void removeItem(String name) {
-        if (!mListItems.containsKey(name)) {
+    public void removeItem(String key) {
+        if (!mListItems.containsKey(key)) {
             return;
         }
-        LinearLayout item = mListItems.get(name);
+        ViewGroup item = mListItems.get(key);
         mItemsListView.removeView(item);
         mListItemsRev.remove(item);
-        mListItems.remove(name);
+        mListItems.remove(key);
 
     }
 
@@ -107,23 +126,39 @@ public abstract class HorzItemList {
         return Collections.unmodifiableSet(mListItems.keySet());
     }
 
-    public LinearLayout getItem(String name) {
-        return mListItems.get(name);
+    public ViewGroup getItem(String key) {
+        return mListItems.get(key);
     }
 
-    protected abstract void onNewItemClicked();
 
-    protected abstract void onItemClicked(String name, LinearLayout item);
+    protected void onNewItemClicked() {
+
+    }
+
+
+    protected void onItemClicked(String key, ViewGroup item) {
+
+    }
+
+
+    protected void populateItem(String key, ViewGroup item, int i) {
+
+    }
+//    protected abstract void onNewItemClicked();
+//
+//    protected abstract void onItemClicked(String key, ViewGroup item);
+//
+//    protected abstract void populateItem(String key, ViewGroup item, int i);
 
     public String getSelected() {
         return selected;
     }
 
     private void setSelected(View item) {
-        setSelected(mListItemsRev.get(item));
+        setSelected(mListItemsRev.get((ViewGroup)item));
     }
 
-    public void setSelected(String name) {
+    public void setSelected(String key) {
 
         final int normalColor = Color.TRANSPARENT;
         final int selectedColor = Color.CYAN;
@@ -134,7 +169,7 @@ public abstract class HorzItemList {
                 old_selected.setBackgroundColor(normalColor);
             }
         }
-        selected = name;
+        selected = key;
         if (selected!=null) {
             View new_selected = mListItems.get(selected);
             if (new_selected!=null) {
