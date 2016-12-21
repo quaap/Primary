@@ -188,9 +188,6 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
         showLevelButtons();
     }
 
-    private final static int SUBMENU_REQUEST = 1;
-    public final static int RESULTCODE_SETDONE = 103;
-
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(this, mTargetActivity);
@@ -198,25 +195,10 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
         intent.putExtra(MainActivity.USERNAME, username);
         intent.putExtra(MainActivity.LEVELSET, mLevelSetName);
         intent.putExtra(MainActivity.SUBJECT, mSubject);
-        startActivityForResult(intent, SUBMENU_REQUEST);
+        startActivity(intent);
     }
 
-    /**
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==SUBMENU_REQUEST && resultCode== RESULTCODE_SETDONE) {
-//            Intent intent = new Intent(this, MainActivity.class);
-//            startActivity(intent);
-            setResult(MainActivity.RESULTCODE_SETDONE);
-            finish();
-        }
-    }
+
 
     private void checkStorageAccess() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {

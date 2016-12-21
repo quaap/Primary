@@ -294,6 +294,9 @@ public abstract class BaseActivity extends AppCompatActivity  {
     }
 
     public void goBackToMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(MainActivity.LEVELSETDONE, true);
+        startActivity(intent);
         finish();
     }
 

@@ -65,13 +65,16 @@ public abstract class HorzItemList {
                 onNewItemClicked();
             }
         });
+        populate(itemkeys);
+    }
+
+    public void populate(String[] itemkeys) {
         if (itemkeys!=null) {
             for (int i=0; i<itemkeys.length; i++) {
-                ViewGroup item = addItem(i, itemkeys[i]);
+                addItem(i, itemkeys[i]);
             }
         }
     }
-
 
     public void showAddButton(boolean show) {
         mHorzList.findViewById(R.id.add_list_item_button).setVisibility(show?View.VISIBLE:View.GONE);
@@ -84,7 +87,7 @@ public abstract class HorzItemList {
             return mListItems.get(key);
         }
         ViewGroup item = (ViewGroup)LayoutInflater.from(mParent).inflate(mItemLayoutId, (ViewGroup)null);
-        //if (itemNameId!=0) setItemTextField(item, itemNameId, key);
+
 
         if (pos == -1) pos = mListItems.size();
         populateItem(key, item, pos);
@@ -116,13 +119,19 @@ public abstract class HorzItemList {
 
     }
 
+    public void clear() {
+        mItemsListView.removeAllViews();
+        mListItems.clear();
+        mListItemsRev.clear();
+    }
+
     public void setItemTextField(View item, int itemFieldId, String value) {
         TextView itemfield = (TextView)item.findViewById(itemFieldId);
         itemfield.setText(value);
 
     }
 
-    public Collection<String> getNames() {
+    public Collection<String> getKeys() {
         return Collections.unmodifiableSet(mListItems.keySet());
     }
 

@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String USERNAME = "username";
     public static final String SUBJECT = "subject";
     public static final String LEVELSET = "levelset";
+    public static final String LEVELSETDONE = "levelsetdone";
 
 
     private HorzItemList userlist;
@@ -113,10 +114,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        setSubjectList();
-
-
         Button goButton = (Button)findViewById(R.id.login_button);
 
         goButton.setOnClickListener(new View.OnClickListener() {
@@ -126,43 +123,57 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
 
-        String sub = appdata.getUser(userlist.getSelected()).getLatestSubject();
-        if (sub!=null) {
-            subjectlist.setSelected(sub);
-            setSubjectDesc(sub);
-        }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setSubjectList();
     }
 
     private void setSubjectList() {
+        if (subjectlist!=null) {
+            subjectlist.clear();
+            subjectlist.populate(Subject.getArray(this, R.array.subjects));
+        } else {
 
-        subjectlist = new HorzItemList(this, R.id.subject_horz_list, R.layout.subject_view, getResources().getStringArray(R.array.subjects)) {
+            subjectlist = new HorzItemList(this, R.id.subject_horz_list, R.layout.subject_view, Subject.getArray(this, R.array.subjects)) {
 
-            @Override
-            protected void onItemClicked(String key, ViewGroup item) {
-                setSubjectDesc(key);
-            }
-
-            @Override
-            protected void populateItem(String key, ViewGroup item, int i) {
-                setItemTextField(item, R.id.subjectview_code, key);
-
-                setItemTextField(item, R.id.subjectview_name, getResources().getStringArray(R.array.subjectsName)[i]);
-
-                String username = userlist.getSelected();
-                UserData.Subject subject = AppData.getSubjectForUser(MainActivity.this, username, key);
-                if (subject.getSubjectCompleted()) {
-                    setItemTextField(item, R.id.subjectview_status, "Done");
+                @Override
+                protected void onItemClicked(String key, ViewGroup item) {
+                    setSubjectDesc(key);
                 }
+
+                @Override
+                protected void populateItem(String key, ViewGroup item, int i) {
+                    setItemTextField(item, R.id.subjectview_code, key);
+
+                    setItemTextField(item, R.id.subjectview_name, getResources().getStringArray(R.array.subjectsName)[i]);
+
+                    String username = userlist.getSelected();
+                    UserData.Subject subject = AppData.getSubjectForUser(MainActivity.this, username, key);
+                    if (subject.getSubjectCompleted()) {
+                        setItemTextField(item, R.id.subjectview_status, "Done");
+                    }
+                }
+            };
+            subjectlist.showAddButton(false);
+        }
+        String sub = appdata.getUser(userlist.getSelected()).getLatestSubject();
+        if (sub==null) {
+            sub = subjects[0].code;
+        } else if (getIntent().getBooleanExtra(LEVELSETDONE,false)){
+            getIntent().removeExtra(LEVELSETDONE);
+            int pos = subjectMap.get(sub).pos;
+            if (pos+1 < subjects.length) {
+                sub = subjects[pos+1].code;
             }
-        };
-        subjectlist.showAddButton(false);
+        }
+        subjectlist.setSelected(sub);
+        setSubjectDesc(sub);
     }
 
-    private static final int REQUESTCODE = 120;
-    public static final int RESULTCODE_SETDONE = 134;
-    public static final int RESULTCODE_NOTDONE = 0;
 
     private void startSelectedSubject() {
         if (userlist.getSelected()!=null) {
@@ -178,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra(SUBJECT, subject);
                     intent.putExtra(USERNAME, userlist.getSelected());
 
-                    startActivityForResult(intent, REQUESTCODE);
+                    startActivity(intent);
                 } catch (ClassNotFoundException e) {
                     Log.e("Primary", "Can't load " + subject + " " + subjectMap.get(subject).name);
                 }
@@ -186,16 +197,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (REQUESTCODE==requestCode && resultCode==RESULTCODE_SETDONE) {
 
-            //TODO: repopulate subject list to show which subjectsa have been completed
-
-
-        }
-    }
 
     private void setSubjectDesc(String code) {
 
@@ -434,11 +436,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private String getString(Context context, int id, int pos) {
-            return context.getResources().getStringArray(id)[pos];
+            return getArray(context,id)[pos];
+        }
+
+        public static String[] getArray(Context context, int arrayid) {
+            return context.getResources().getStringArray(arrayid);
         }
 
         public static Subject[] loadSubjects(Context context) {
-            String [] codes = context.getResources().getStringArray(R.array.subjects);
+            String [] codes = getArray(context,R.array.subjects);
             Subject[] subjects  = new Subject[codes.length];
             for(int i=0; i<codes.length; i++) {
                 subjects[i] = new Subject(context, i);
