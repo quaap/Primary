@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                         if (subject.getSubjectCompleted()) {
                             setItemTextField(item, R.id.subjectview_status, getString(R.string.setcompleted));
                         } else if (subject.getTotalPoints()!=0) {
-                            setItemTextField(item, R.id.subjectview_status, getString(R.string.level,subject.getLevelNum()));
+                            setItemTextField(item, R.id.subjectview_status, getString(R.string.level,subject.getLevelNum()+1));
                         }
                     }
                 }
