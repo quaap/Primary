@@ -120,10 +120,13 @@ public class BasicMathActivity extends BaseActivity {
 
     }
 
+
+    int maxseensize = 20;
+
+    List<SeenProb> seenProbs = new ArrayList<>();
+
     private void makeRandomProblem() {
-        int last1 = num1;
-        int last2 = num2;
-        MathOp lastOp = op;
+
         int tries = 0;
         BasicMathLevel level = (BasicMathLevel) levels[levelnum];
         do {
@@ -138,23 +141,19 @@ public class BasicMathActivity extends BaseActivity {
                 num1 = getRand(min/2, max/2);
             }
             num2 = getRand(min, max);
-            if ((num2 == 0 || num2 == 1) && Math.random() > .3) num2=2; //reduce number of x+0 and x+1
+            if ((num2 == 0 || num2 == 1) && Math.random() > .3) num2=getRand(2, max); //reduce number of x+0 and x+1
 
             if (level.getNegatives() == Negatives.Required && num1>=0 && num2>=0) { //force a negative value
                 num1 = -getRand(1, max);
             }
 
-
             op = MathOp.random(level.getMinMathOp(), level.getMaxMathOp());
 
-            if (op == MathOp.Minus || op == MathOp.Divide) {
+            if ((op == MathOp.Minus && level.getNegatives() == Negatives.None) || op == MathOp.Divide) {
                 if (num1 < num2) {
                     int tmp = num1;
                     num1 = num2;
                     num2 = tmp;
-                }
-                if (op == MathOp.Minus) {
-                    if (getRand(0,10)>5) num1 = num1 + num2;
                 }
                 if (op == MathOp.Divide) {
                     if (num2 == 0) {
@@ -166,8 +165,16 @@ public class BasicMathActivity extends BaseActivity {
                     }
                 }
             }
+            if (op == MathOp.Minus) {
+                if (getRand(0,10)>5) num1 = num1 + num2;
+            }
             //prevent 2 identical problems in a row
-        } while (tries++<50 && last1==num1 && last2==num2 && lastOp==op);
+        } while (tries++<50 && seenProbs.contains(SeenProb.get(num1, num2, op)));
+
+        seenProbs.add(SeenProb.get(num1, num2, op));
+        if (seenProbs.size()>maxseensize) {
+            seenProbs.remove(0);
+        }
     }
 
     //Mode.Input impl:
@@ -216,7 +223,12 @@ public class BasicMathActivity extends BaseActivity {
         for (int i=1; i<numans; i++) {
             int tmpans;
             do {
-                tmpans = answer + getRand(-Math.min(answer*2/3, 7), 6);
+                int range = Math.abs(answer/10) + 6;
+                int min = -Math.min(answer*2/3, range); // <-- prevent negatives
+                if (((BasicMathLevel) levels[levelnum]).getNegatives()!=Negatives.None) {
+                    min = -range;
+                }
+                tmpans = answer + getRand(min, range);
             } while (answers.contains(tmpans));
             answers.add(tmpans);
         }
@@ -287,6 +299,37 @@ public class BasicMathActivity extends BaseActivity {
     }
 
 
+    static class SeenProb {
 
+        public static SeenProb get(int num1, int num2, MathOp op) {
+            return new SeenProb(num1, num2, op);
+        }
+        SeenProb(int num1, int num2, MathOp op) {
+            this.num1 = num1;
+            this.num2 = num2;
+            this.op = op;
+        }
+
+        int num1;
+        int num2;
+        MathOp op;
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj instanceof SeenProb) {
+                SeenProb o = (SeenProb)obj;
+                return  o.num1==this.num1 && o.num2==this.num2 && o.op==this.op;
+            }
+            return super.equals(obj);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = num1;
+            result = 31 * result + num2;
+            result = 31 * result + op.hashCode();
+            return result;
+        }
+    }
 }
 
