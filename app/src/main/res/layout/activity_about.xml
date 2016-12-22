@@ -23,11 +23,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="59dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/txtAbout"
-        android:maxLines="15"
-        android:lines="6"
-        android:minLines="5"
         android:layout_below="@+id/txtappname"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
