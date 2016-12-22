@@ -318,6 +318,7 @@ public class MainActivity extends AppCompatActivity {
 
             userlist.removeItem(username);
             populateAvatarSpinner();
+            setSubjectList();
         }
 
     }

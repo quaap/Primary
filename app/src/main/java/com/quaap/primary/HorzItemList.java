@@ -131,6 +131,9 @@ public abstract class HorzItemList {
         mItemsListView.removeView(item);
         mListItemsRev.remove(item);
         mListItems.remove(key);
+        if (key.equals(selected)) {
+            setSelected((String)null);
+        }
 
     }
 
