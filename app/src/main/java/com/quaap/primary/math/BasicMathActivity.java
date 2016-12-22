@@ -216,20 +216,69 @@ public class BasicMathActivity extends BaseActivity {
         }
     }
     //Mode.Buttons impl:
-    @NonNull
+//    @NonNull
+//    private List<Integer> getAnswerChoices2(int numans) {
+//        List<Integer> answers = new ArrayList<>();
+//        answers.add(answer);
+//
+//        for (int i=1; i<numans; i++) {
+//            int tmpans;
+//            do {
+//                int range = Math.abs(answer/10) + 6;
+//                int min = -Math.min(answer*2/3, range); // <-- prevent negatives
+//                if (((BasicMathLevel) levels[levelnum]).getNegatives()!=Negatives.None) {
+//                    min = -range;
+//                }
+//                tmpans = answer + getRand(min, range);
+//            } while (answers.contains(tmpans));
+//            answers.add(tmpans);
+//        }
+//        Collections.shuffle(answers);
+//        return answers;
+//    }
+
     private List<Integer> getAnswerChoices(int numans) {
         List<Integer> answers = new ArrayList<>();
         answers.add(answer);
+
+        boolean allownegs = ((BasicMathLevel) levels[levelnum]).getNegatives()!=Negatives.None;
+        int range = Math.abs(answer/10);
         for (int i=1; i<numans; i++) {
             int tmpans;
             do {
-                int range = Math.abs(answer/10) + 6;
-                int min = -Math.min(answer*2/3, range); // <-- prevent negatives
-                if (((BasicMathLevel) levels[levelnum]).getNegatives()!=Negatives.None) {
-                    min = -range;
+
+                if (allownegs) {
+
+                    if (getRand(10)>8) {
+                        tmpans = Math.abs(num1) + Math.abs(num2);
+                    } else if (getRand(10)>5) {
+                        tmpans = -answer;
+                    } else {
+                        tmpans = answer + getRand(-3 - range, 3 + range);
+                    }
+
+                } else if (getRand(10)>3) {
+                    tmpans = answer + getRand(-3 - range, 3 + range); //normal random
+                } else {
+                    //tricky answers
+                    switch (op) {
+                        case Plus:
+                            tmpans = Math.max(num1, num2) - Math.min(num1, num2);
+                            break;
+                        case Times:
+                            tmpans = num1 * (num2 + getRand(1,2));
+                            break;
+                        case Divide:
+                            tmpans = num1 - num2;
+                            break;
+                        case Minus:
+                        default:
+                            tmpans = num1 + num2;
+                            break;
+                    }
                 }
-                tmpans = answer + getRand(min, range);
-            } while (answers.contains(tmpans));
+
+            } while (answers.contains(tmpans) || (!allownegs && tmpans<0) );
             answers.add(tmpans);
         }
         Collections.shuffle(answers);
