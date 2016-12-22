@@ -266,7 +266,10 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(this, mTargetActivity);
-        intent.putExtra(BaseActivity.LEVELNAME, (int)view.getTag());
+        if ((int) view.getTag() != -1) {
+            intent.putExtra(BaseActivity.START_AT_ZERO, true);
+            intent.putExtra(BaseActivity.LEVELNUM, (int) view.getTag());
+        }
         intent.putExtra(MainActivity.USERNAME, username);
         intent.putExtra(MainActivity.LEVELSET, mLevelSetName);
         intent.putExtra(MainActivity.SUBJECT, mSubject);

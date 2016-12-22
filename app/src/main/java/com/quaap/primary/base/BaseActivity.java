@@ -51,7 +51,8 @@ import java.util.Locale;
  * GNU General Public License for more details.
  */
 public abstract class BaseActivity extends AppCompatActivity  {
-    public static final String LEVELNAME = "levelnum";
+    public static final String LEVELNUM = "levelnum";
+    public static final String START_AT_ZERO = "startover";
     //protected BasicMathLevel[] levels;
 
     private UserData.Subject mSubjectData;
@@ -70,7 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
     private String bonuses;
 
     private String subject;
-
+    private String subjectName;
 
     private Level getLevel(int leveln) {
         return levels[leveln];
@@ -83,6 +84,10 @@ public abstract class BaseActivity extends AppCompatActivity  {
     private final int layoutId;
 
     private String username;
+    private String levelsetname;
+
+    private boolean startover;
+
     private PopupWindow levelCompletePopup;
 
     protected BaseActivity(int layoutIdtxt) {
@@ -105,13 +110,27 @@ public abstract class BaseActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("base", "onCreate savedInstanceState=" + (savedInstanceState==null?"null":"notnull"));
+        if (savedInstanceState==null) {
+            Intent intent = getIntent();
+            levelnum = intent.getIntExtra(LEVELNUM, 0);
+            Log.d("base", "intent says levelnum=" + levelnum);
+            username = intent.getStringExtra(MainActivity.USERNAME);
+            subject = intent.getStringExtra(MainActivity.SUBJECT);
+            levelsetname = intent.getStringExtra(MainActivity.LEVELSET);
+            subjectName = intent.getStringExtra(MainActivity.SUBJECTNAME);
+            startover = intent.getBooleanExtra(START_AT_ZERO, false);
 
-        Intent intent = getIntent();
-        username = intent.getStringExtra(MainActivity.USERNAME);
-        subject = intent.getStringExtra(MainActivity.SUBJECT);
-        String subjectName = intent.getStringExtra(MainActivity.SUBJECTNAME);
+        } else {
+            levelnum = savedInstanceState.getInt(LEVELNUM, 0);
+            Log.d("base", "savedInstanceState says levelnum=" + levelnum);
+            username = savedInstanceState.getString(MainActivity.USERNAME);
+            subject = savedInstanceState.getString(MainActivity.SUBJECT);
+            levelsetname = savedInstanceState.getString(MainActivity.LEVELSET);
+            subjectName = savedInstanceState.getString(MainActivity.SUBJECTNAME);
 
-        levels = Levels.getLevels(intent.getStringExtra(MainActivity.LEVELSET));
+        }
+        levels = Levels.getLevels(levelsetname);
 
 
         ActionBar actionBar = getSupportActionBar();
@@ -121,14 +140,121 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
         mSubjectData = AppData.getSubjectForUser(this, username, subject);
 
-
-        levelnum = getIntent().getIntExtra(LEVELNAME, -1);
-        getIntent().removeExtra(LEVELNAME);
-
         setContentView(layoutId);
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Log.d("base", "onSaveInstanceState called! levelnum=" + levelnum);
+
+        outState.putInt(LEVELNUM, levelnum);
+        outState.putString(MainActivity.SUBJECT, subject);
+        outState.putString(MainActivity.LEVELSET, levelsetname);
+        outState.putString(MainActivity.USERNAME, username);
+        outState.putString(MainActivity.SUBJECTNAME, subjectName);
+
+        super.onSaveInstanceState(outState);
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        Log.d("base", "onResume1. levelnum=" + levelnum);
+        super.onResume();
+        if (hasStorageAccess()) {
+            try {
+                actwriter = new ActivityWriter(this, username, subject);
+            } catch (IOException e) {
+                Log.e("Primary", "Could not write file. Not logging user.", e);
+            }
+        } else {
+            actwriter = null;
+        }
+        restoreGameData();
+        Log.d("base", "onResume2. levelnum=" + levelnum);
 
     }
+
+
+    @Override
+    protected void onPause() {
+
+        Log.d("base", "onPause. levelnum=" + levelnum);
+        saveGameData();
+
+        if (levelCompletePopup!=null) {
+            levelCompletePopup.dismiss();
+            //   levelnum++;
+            levelCompletePopup = null;
+        }
+        try {
+            if (actwriter !=null) actwriter.close();
+            actwriter = null;
+        } catch (IOException e) {
+            Log.e("Primary", "Error closing activity file.",e);
+        }
+        super.onPause();
+    }
+
+    private void saveGameData() {
+        Log.d("base", "saveGameData. levelnum=" + levelnum);
+
+        mSubjectData.setLevelNum(levelnum);
+        mSubjectData.setCorrect(correct);
+        mSubjectData.setIncorrect(incorrect);
+        mSubjectData.setTotalCorrect(totalCorrect);
+        mSubjectData.setTotalIncorrect(totalIncorrect);
+        mSubjectData.setHighestLevelNum(highestLevelnum);
+        mSubjectData.setCorrectInARow(correctInARow);
+        mSubjectData.setTotalPoints(tscore);
+        mSubjectData.setTodayPoints(todaysScore);
+        mSubjectData.setToday(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
+        mSubjectData.setPopUpShown(levelCompletePopup!=null);
+
+    }
+
+    private void restoreGameData() {
+        boolean showpopup = false;
+        Log.d("base", "restoreGameData. levelnum=" + levelnum);
+
+        if (!startover) {
+            levelnum = mSubjectData.getLevelNum();
+            correct =  mSubjectData.getCorrect();
+            incorrect = mSubjectData.getIncorrect();
+            correctInARow = mSubjectData.getCorrectInARow();
+            showpopup = mSubjectData.getPopUpShown();
+        }
+        Log.d("base", "restoreGameData2. levelnum=" + levelnum);
+
+        totalCorrect = mSubjectData.getTotalCorrect();
+        totalIncorrect = mSubjectData.getTotalIncorrect();
+        highestLevelnum = mSubjectData.getHighestLevelNum();
+        tscore = mSubjectData.getTotalPoints();
+
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
+        String todaylast = mSubjectData.getToday();
+
+        if (todaylast.equals(today)) {
+            todaysScore = mSubjectData.getTodayPoints();
+        } else {
+            todaysScore = 0;
+        }
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
+            LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
+            answerarea.setOrientation(LinearLayout.HORIZONTAL);
+        }
+        View todayview = findViewById(R.id.todays_area);
+        todayview.setVisibility(todaysScore==tscore ? View.GONE : View.VISIBLE);
+        setLevelFields();
+        if (showpopup) {
+            showLevelCompletePopup(false);
+        }
+        showProb();
+    }
+
 
     protected abstract void setStatus(String text);
 
@@ -175,7 +301,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
                 setStatus(R.string.correct, 1200);
                 if (levelnum+1>=levels.length) {
                     mSubjectData.setSubjectCompleted(true);
-                    saveState();
+                    saveGameData();
                     showLevelCompletePopup(true);
                     return;
                 } else {
@@ -280,7 +406,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
     }
 
     public void repeatLevel() {
-        saveState();
+        saveGameData();
         correct = 0;
         incorrect = 0;
         showProb();
@@ -291,7 +417,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     public void nextLevel() {
         levelnum++;
-        saveState();
+        saveGameData();
         showProb();
         setLevelFields();
         setStatus("");
@@ -329,94 +455,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
         return points;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (hasStorageAccess()) {
-            try {
-                actwriter = new ActivityWriter(this, username, subject);
-            } catch (IOException e) {
-                Log.e("Primary", "Could not write file. Not logging user.", e);
-            }
-        } else {
-            actwriter = null;
-        }
-        restoreState();
-
-    }
-
-
-    @Override
-    protected void onPause() {
-
-        saveState();
-
-        if (levelCompletePopup!=null) {
-            levelCompletePopup.dismiss();
-         //   levelnum++;
-            levelCompletePopup = null;
-        }
-        try {
-            if (actwriter !=null) actwriter.close();
-            actwriter = null;
-        } catch (IOException e) {
-            Log.e("Primary", "Error closing activity file.",e);
-        }
-        super.onPause();
-    }
-
-    private void saveState() {
-
-        mSubjectData.setLevelNum(levelnum);
-        mSubjectData.setCorrect(correct);
-        mSubjectData.setIncorrect(incorrect);
-        mSubjectData.setTotalCorrect(totalCorrect);
-        mSubjectData.setTotalIncorrect(totalIncorrect);
-        mSubjectData.setHighestLevelNum(highestLevelnum);
-        mSubjectData.setCorrectInARow(correctInARow);
-        mSubjectData.setTotalPoints(tscore);
-        mSubjectData.setTodayPoints(todaysScore);
-        mSubjectData.setToday(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
-        mSubjectData.setPopUpShown(levelCompletePopup!=null);
-
-    }
-
-    private void restoreState() {
-        boolean showpopup = false;
-        if (levelnum==-1) {
-            levelnum = mSubjectData.getLevelNum();
-            correct =  mSubjectData.getCorrect();
-            incorrect = mSubjectData.getIncorrect();
-            correctInARow = mSubjectData.getCorrectInARow();
-            showpopup = mSubjectData.getPopUpShown();
-        }
-        totalCorrect = mSubjectData.getTotalCorrect();
-        totalIncorrect = mSubjectData.getTotalIncorrect();
-        highestLevelnum = mSubjectData.getHighestLevelNum();
-        tscore = mSubjectData.getTotalPoints();
-
-        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-
-        String todaylast = mSubjectData.getToday();
-
-        if (todaylast.equals(today)) {
-            todaysScore = mSubjectData.getTodayPoints();
-        } else {
-            todaysScore = 0;
-        }
-        int orientation = getResources().getConfiguration().orientation;
-        if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
-            LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
-            answerarea.setOrientation(LinearLayout.HORIZONTAL);
-        }
-        View todayview = findViewById(R.id.todays_area);
-        todayview.setVisibility(todaysScore==tscore ? View.GONE : View.VISIBLE);
-        setLevelFields();
-        if (showpopup) {
-            showLevelCompletePopup(false);
-        }
-        showProb();
-    }
 
     private void setLevelFields() {
         TextView leveltxt = (TextView)findViewById(R.id.level);
