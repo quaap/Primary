@@ -52,7 +52,7 @@
     <string name="csv_correct">Correct</string>
     <string name="csv_tspent">Time spent</string>
     <string name="csv_run_percent">Running Percent</string>
-    <string name="csv_todayspoints">Today\'s Points</string>
+    <string name="csv_points">Points</string>
     <string name="sure_clear_progress">Are you sure you want to clear your progress?</string>
     <string name="clear">Clear</string>
     <string name="write_perms_granted">Will record activity in csv file.</string>

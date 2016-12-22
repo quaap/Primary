@@ -51,7 +51,7 @@ public class ActivityWriter {
                     context.getString(R.string.csv_problem), context.getString(R.string.csv_answer), 
                     context.getString(R.string.csv_useranswer), context.getString(R.string.csv_correct), 
                     context.getString(R.string.csv_tspent), context.getString(R.string.csv_run_percent), 
-                    context.getString(R.string.csv_todayspoints));
+                    context.getString(R.string.csv_points));
         }
     }
 
@@ -89,9 +89,9 @@ public class ActivityWriter {
     }
 
 
-    public synchronized void log(int level, String problem, String answer, String useranswer, boolean correct, long millis, float runningpercent, int todayspoints) {
+    public synchronized void log(int level, String problem, String answer, String useranswer, boolean correct, long millis, float runningpercent, int points) {
         writeRow(mDateFormat.format(new Date()), level, problem, answer, useranswer, correct,
-                millis, String.format(Locale.getDefault(),"%4.1f",runningpercent), todayspoints );
+                millis, String.format(Locale.getDefault(),"%4.1f",runningpercent), points );
     }
 
 

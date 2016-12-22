@@ -128,16 +128,21 @@ public class BasicMathActivity extends BaseActivity {
 
         int tries = 0;
         BasicMathLevel level = (BasicMathLevel) levels[levelnum];
+        boolean negsallowed = level.getNegatives() != Negatives.None;
         do {
             int min = 0;
             int max = level.getMaxNum();
-            if (level.getNegatives() != Negatives.None) {
+            if (negsallowed) {
                 min = -max;
             }
             if (correct > level.getRounds() / 2) { //increase difficulty in second half of level
-                num1 = getRand(max / 2, max);
+                if (negsallowed) {
+                    num1 = Math.random()>5? getRand(max/2-1, max) : getRand(min, min/2+1);
+                } else {
+                    num1 = getRand(max/2-1, max);
+                }
             } else {
-                num1 = getRand(min/2, max/2);
+                num1 = getRand(min/2, max/2 + 1);
             }
             num2 = getRand(min, max);
             if ((num2 == 0 || num2 == 1) && Math.random() > .3) num2=getRand(2, max); //reduce number of x+0 and x+1

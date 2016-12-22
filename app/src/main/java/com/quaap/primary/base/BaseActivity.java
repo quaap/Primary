@@ -163,7 +163,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
             todaysScore += points;
 
             if (actwriter !=null) {
-                actwriter.log(levelnum+1, problem, answer, useranswer, isright, timespent, getCurrentPercentFloat(), todaysScore);
+                actwriter.log(levelnum+1, problem, answer, useranswer, isright, timespent, getCurrentPercentFloat(), points);
             }
 
             if (correct>=levels[levelnum].getRounds()) {
@@ -195,7 +195,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
             totalIncorrect++;
             setStatus(R.string.try_again, 1200);
             if (actwriter !=null) {
-                actwriter.log(levelnum+1, problem, answer, useranswer, isright, timespent, getCurrentPercentFloat(), todaysScore);
+                actwriter.log(levelnum+1, problem, answer, useranswer, isright, timespent, getCurrentPercentFloat(), 0);
             }
 
         }
