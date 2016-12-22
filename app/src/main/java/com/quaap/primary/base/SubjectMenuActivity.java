@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -79,13 +80,39 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = getIntent();
-        mSubject = intent.getStringExtra(MainActivity.SUBJECT);
-        mSubjectName = intent.getStringExtra(MainActivity.SUBJECTNAME);
-        mLevelSetName = intent.getStringExtra(MainActivity.LEVELSET);
-        username = intent.getStringExtra(MainActivity.USERNAME);
+        //Log.d("onCreate", "onCreate savedInstanceState=" + (savedInstanceState==null?"null":"notnull"));
+        if (savedInstanceState==null) {
 
+            Intent intent = getIntent();
+            mSubject = intent.getStringExtra(MainActivity.SUBJECT);
+            mSubjectName = intent.getStringExtra(MainActivity.SUBJECTNAME);
+            mLevelSetName = intent.getStringExtra(MainActivity.LEVELSET);
+            username = intent.getStringExtra(MainActivity.USERNAME);
 
+        } else {
+            mSubject = savedInstanceState.getString("mSubject", mSubject);
+            mSubjectName = savedInstanceState.getString("mSubjectName", mSubjectName);
+            mLevelSetName = savedInstanceState.getString("mLevelSetName", mLevelSetName);
+            username = savedInstanceState.getString("username", username);
+        }
+        //Log.d("onCreate", "onCreate username=" + username);
+
+        if (mSubject==null || username==null) {
+            SharedPreferences state = getSharedPreferences(this.getClass().getName(), MODE_PRIVATE);
+            mSubject = state.getString("mSubject", mSubject);
+            mSubjectName = state.getString("mSubjectName",mSubjectName);
+            mLevelSetName = state.getString("mLevelSetName", mLevelSetName);
+            username = state.getString("username", username);
+        }
+        //Log.d("onCreate", "onCreate username=" + username);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar!=null) {
+            actionBar.setTitle(getString(R.string.app_name) + ": " + mSubjectName + " (" + username + ")");
+        }
+
+        mUserData = AppData.getAppData(this).getUser(username);
+        mSubjectData = mUserData.getSubjectForUser(mSubject);
         setContentView(R.layout.activity_subject_menu);
 
 
@@ -119,30 +146,25 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //Log.d("subjectmenu", "onSaveInstanceState called! username=" + username);
+        outState.putString("mSubject", mSubject);
+        outState.putString("mSubjectName", mSubjectName);
+        outState.putString("mLevelSetName", mLevelSetName);
+        outState.putString("username", username);
+        super.onSaveInstanceState(outState);
+
+    }
+    @Override
     protected void onResume() {
         super.onResume();
+        //Log.d("subjectmenu", "onResume called! username=" + username);
 
-        SharedPreferences prefs = getSharedPreferences(this.getClass().getName(), MODE_PRIVATE);
-        if (getIntent().getStringExtra(MainActivity.LEVELSET)==null) {
-            mSubject = prefs.getString("mSubject", mSubject);
-            mSubjectName = prefs.getString("mSubjectName", mSubjectName);
-            mLevelSetName = prefs.getString("mLevelSetName", mLevelSetName);
-            username = prefs.getString("username", username);
-        } else {
-            prefs.edit().clear().apply();
-        }
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar!=null) {
-            actionBar.setTitle(getString(R.string.app_name) + ": " + mSubjectName + " (" + username + ")");
-        }
-
-        mUserData = AppData.getAppData(this).getUser(username);
-        mSubjectData = mUserData.getSubjectForUser(mSubject);
 
         show_hide_gip();
         showLevelButtons();
-        savestate = true;
+
     }
 
     /**
@@ -150,25 +172,24 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
      */
     @Override
     protected void onPause() {
-        SharedPreferences prefs = getSharedPreferences(this.getClass().getName(), MODE_PRIVATE);
+        SharedPreferences state = getSharedPreferences(this.getClass().getName(), MODE_PRIVATE);
 
-        if (savestate) {
-            SharedPreferences.Editor ed = prefs.edit();
-            ed.putString("mSubject", mSubject);
-            ed.putString("mSubjectName", mSubjectName);
-            ed.putString("mLevelSetName", mLevelSetName);
-            ed.putString("username", username);
-            ed.apply();
-        } else {
-            prefs.edit().clear().apply();
-        }
+        state.edit()
+                .putString("mSubject", mSubject)
+                .putString("mSubjectName", mSubjectName)
+                .putString("mLevelSetName", mLevelSetName)
+                .putString("username", username)
+                .apply();
+
         super.onPause();
+        //Log.d("subjectmenu", "onPause called! username=" + username);
+
     }
 
-    private boolean savestate = true;
+
     @Override
     public void onBackPressed() {
-        savestate = false;
+
         super.onBackPressed();
         finish();
     }
@@ -176,12 +197,8 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
 
-
         switch (menuItem.getItemId()) {
-            case android.R.id.home:
-                savestate = false;
-                finish();
-                break;
+
             case R.id.menu_about:
                 Intent intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
@@ -280,7 +297,8 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
 
 
     private void checkStorageAccess() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        boolean beendenied = getSharedPreferences(this.getClass().getName(),MODE_PRIVATE).getBoolean("denied", false);
+        if (!beendenied && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_WRITE_EXTERNAL_STORAGE);
@@ -298,6 +316,7 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
                     Toast.makeText(this, R.string.write_perms_granted, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, R.string.write_perms_denied, Toast.LENGTH_LONG).show();
+                    getSharedPreferences(this.getClass().getName(),MODE_PRIVATE).edit().putBoolean("denied", true).apply();
                 }
             }
         }

@@ -110,11 +110,11 @@ public abstract class BaseActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("base", "onCreate savedInstanceState=" + (savedInstanceState==null?"null":"notnull"));
+        //Log.d("base", "onCreate savedInstanceState=" + (savedInstanceState==null?"null":"notnull"));
         if (savedInstanceState==null) {
             Intent intent = getIntent();
             levelnum = intent.getIntExtra(LEVELNUM, 0);
-            Log.d("base", "intent says levelnum=" + levelnum);
+            //Log.d("base", "intent says levelnum=" + levelnum);
             username = intent.getStringExtra(MainActivity.USERNAME);
             subject = intent.getStringExtra(MainActivity.SUBJECT);
             levelsetname = intent.getStringExtra(MainActivity.LEVELSET);
@@ -123,7 +123,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
         } else {
             levelnum = savedInstanceState.getInt(LEVELNUM, 0);
-            Log.d("base", "savedInstanceState says levelnum=" + levelnum);
+            //Log.d("base", "savedInstanceState says levelnum=" + levelnum);
             username = savedInstanceState.getString(MainActivity.USERNAME);
             subject = savedInstanceState.getString(MainActivity.SUBJECT);
             levelsetname = savedInstanceState.getString(MainActivity.LEVELSET);
@@ -145,7 +145,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        Log.d("base", "onSaveInstanceState called! levelnum=" + levelnum);
+        //Log.d("base", "onSaveInstanceState called! levelnum=" + levelnum);
 
         outState.putInt(LEVELNUM, levelnum);
         outState.putString(MainActivity.SUBJECT, subject);
@@ -160,7 +160,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     @Override
     protected void onResume() {
-        Log.d("base", "onResume1. levelnum=" + levelnum);
+        //Log.d("base", "onResume1. levelnum=" + levelnum);
         super.onResume();
         if (hasStorageAccess()) {
             try {
@@ -172,7 +172,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
             actwriter = null;
         }
         restoreGameData();
-        Log.d("base", "onResume2. levelnum=" + levelnum);
+        //Log.d("base", "onResume2. levelnum=" + levelnum);
 
     }
 
@@ -180,7 +180,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
     @Override
     protected void onPause() {
 
-        Log.d("base", "onPause. levelnum=" + levelnum);
+        //Log.d("base", "onPause. levelnum=" + levelnum);
         saveGameData();
 
         if (levelCompletePopup!=null) {
@@ -198,7 +198,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
     }
 
     private void saveGameData() {
-        Log.d("base", "saveGameData. levelnum=" + levelnum);
+        //Log.d("base", "saveGameData. levelnum=" + levelnum);
 
         mSubjectData.setLevelNum(levelnum);
         mSubjectData.setCorrect(correct);
@@ -216,7 +216,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     private void restoreGameData() {
         boolean showpopup = false;
-        Log.d("base", "restoreGameData. levelnum=" + levelnum);
+        //Log.d("base", "restoreGameData. levelnum=" + levelnum);
 
         if (!startover) {
             levelnum = mSubjectData.getLevelNum();
@@ -225,7 +225,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
             correctInARow = mSubjectData.getCorrectInARow();
             showpopup = mSubjectData.getPopUpShown();
         }
-        Log.d("base", "restoreGameData2. levelnum=" + levelnum);
+        //Log.d("base", "restoreGameData2. levelnum=" + levelnum);
 
         totalCorrect = mSubjectData.getTotalCorrect();
         totalIncorrect = mSubjectData.getTotalIncorrect();
