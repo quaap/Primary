@@ -1,6 +1,5 @@
 package com.quaap.primary.base.data;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.Set;

@@ -29,7 +29,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:contentDescription="Add Item"
+        android:contentDescription="@string/add_item"
         app:srcCompat="@android:drawable/ic_input_add"
         android:id="@+id/add_list_item_button"
         android:layout_weight="1"

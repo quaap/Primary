@@ -3,7 +3,6 @@ package com.quaap.primary.math;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import android.os.Bundle;
 import android.text.InputType;

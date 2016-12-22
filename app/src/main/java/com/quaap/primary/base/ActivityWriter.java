@@ -47,7 +47,11 @@ public class ActivityWriter {
         boolean newfile = !f.exists();
         mFw = new FileWriter(f, true);
         if (newfile) {
-            writeRow("Time", "Level", "Problem", "Answer", "User answer", "Correct", "Time spent", "Running Percent", "Today's Points");
+            writeRow(context.getString(R.string.csv_time), context.getString(R.string.csv_level), 
+                    context.getString(R.string.csv_problem), context.getString(R.string.csv_answer), 
+                    context.getString(R.string.csv_useranswer), context.getString(R.string.csv_correct), 
+                    context.getString(R.string.csv_tspent), context.getString(R.string.csv_run_percent), 
+                    context.getString(R.string.csv_todayspoints));
         }
     }
 
@@ -87,7 +91,7 @@ public class ActivityWriter {
 
     public synchronized void log(int level, String problem, String answer, String useranswer, boolean correct, long millis, float runningpercent, int todayspoints) {
         writeRow(mDateFormat.format(new Date()), level, problem, answer, useranswer, correct,
-                millis, String.format(Locale.getDefault(),"%4.1f",runningpercent, todayspoints) );
+                millis, String.format(Locale.getDefault(),"%4.1f",runningpercent), todayspoints );
     }
 
 

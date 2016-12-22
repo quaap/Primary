@@ -25,7 +25,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -93,16 +92,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 new AlertDialog.Builder(MainActivity.this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Delete")
-                        .setMessage("Are you sure you want to delete the user?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()  {
+                        .setTitle(getString(R.string.delete_user))
+                        .setMessage(R.string.sure_delete_user)
+                        .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener()  {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 deleteUser(userlist.getSelected());
                             }
 
                         })
-                        .setNegativeButton("No", null)
+                        .setNegativeButton(R.string.cancel, null)
                         .show();
             }
         });

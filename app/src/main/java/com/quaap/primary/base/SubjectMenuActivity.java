@@ -98,16 +98,16 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
             public void onClick(View view) {
                 new AlertDialog.Builder(SubjectMenuActivity.this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Clear progress")
-                        .setMessage("Are you sure you want to clear your progress?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()  {
+                        .setTitle(getString(R.string.clear_progress))
+                        .setMessage(R.string.sure_clear_progress)
+                        .setPositiveButton(R.string.clear, new DialogInterface.OnClickListener()  {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 clearProgress();
                             }
 
                         })
-                        .setNegativeButton("No", null)
+                        .setNegativeButton(getString(R.string.cancel), null)
                         .show();
 
 
@@ -237,7 +237,7 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
             int highest = mSubjectData.getHighestLevelNum() + 1;
             int tscore = mSubjectData.getTodayPoints();
             if (correct+incorrect>0) {
-                String score = "Level: " + highest + ". Correct: " + correct + "/" + (correct + incorrect) + ". Points: " + tscore;
+                String score = getString(R.string.score_overview, highest, correct, (correct + incorrect), tscore);
                 score_overview.setText(score);
             }
         }
@@ -273,9 +273,9 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(this, "Yay!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.write_perms_granted, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Boo!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.write_perms_denied, Toast.LENGTH_LONG).show();
                 }
             }
         }
