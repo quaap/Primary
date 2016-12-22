@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.quaap.primary.AboutActivity;
 import com.quaap.primary.Levels;
 import com.quaap.primary.MainActivity;
 import com.quaap.primary.R;
@@ -173,14 +175,31 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
+
+
         switch (menuItem.getItemId()) {
-            case android.R.id.home: {
+            case android.R.id.home:
                 savestate = false;
                 finish();
-            }
+                break;
+            case R.id.menu_about:
+                Intent intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
+                break;
+
         }
         return (super.onOptionsItemSelected(menuItem));
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        return true;
+    }
+
 
     private void showLevelButtons() {
         int highest = mUserData.getSubjectForUser(mSubject).getHighestLevelNum();
@@ -280,4 +299,7 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
             }
         }
     }
+
+
+
 }
