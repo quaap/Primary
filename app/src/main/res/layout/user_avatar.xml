@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:paddingStart="8dp"
-    android:paddingEnd="8dp">
+    android:paddingEnd="8dp"
+    android:minWidth="85dp">
 
     <TextView
         android:text=""
@@ -18,5 +19,13 @@
         android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/username_avatar" />
+        android:id="@+id/username_avatar"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/userscore_avatar"
+        android:textSize="10sp"
+        android:minEms="30" />
 </LinearLayout>

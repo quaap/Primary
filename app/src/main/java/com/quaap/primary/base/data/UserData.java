@@ -2,6 +2,9 @@ package com.quaap.primary.base.data;
 
 import android.content.SharedPreferences;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -23,7 +26,7 @@ import static android.content.Context.MODE_PRIVATE;
  * GNU General Public License for more details.
  */
 public class UserData {
-
+    //Will probably convert this to sqlite someday.
 
 
 
@@ -74,6 +77,23 @@ public class UserData {
     public void setLatestSubject(String subject) {
         addSubjectStarted(subject);
         mUserPrefs.edit().putString("latestSubject", subject).apply();
+    }
+
+
+    public int getTotalPoints() {
+        int totalpoints = 0;
+        for (String sub: getSubjectsStarted()) {
+            totalpoints += getSubjectForUser(sub).getTotalPoints();
+        }
+        return totalpoints;
+    }
+
+    public int getTodayPoints() {
+        int totalpoints = 0;
+        for (String sub: getSubjectsStarted()) {
+            totalpoints += getSubjectForUser(sub).getTodayPoints();
+        }
+        return totalpoints;
     }
 
     public String getLatestSubject() {
@@ -157,11 +177,25 @@ public class UserData {
             setIntField("totalPoints", totalPoints);
         }
 
-        public int getTodayPoints() {
-            return getIntField("todayPoints", 0);
+        public void addTotalPoints(int totalPoints) {
+            setTotalPoints(totalPoints + getTotalPoints());
         }
+
+
+        private String getToday() {
+            return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        }
+
+        public int getTodayPoints() {
+            return getIntField("day"+getToday(), 0);
+        }
+
         public void setTodayPoints(int todayPoints) {
-            setIntField("todayPoints", todayPoints);
+            setIntField("day"+getToday(), todayPoints);
+        }
+
+        public void addTodayPoints(int todayPoints) {
+            setTodayPoints(todayPoints + getTodayPoints());
         }
 
 
@@ -172,12 +206,6 @@ public class UserData {
             setIntField("correctInArow", correctInArow);
         }
 
-        public String getToday() {
-            return mSubjectPrefs.getString("today", "");
-        }
-        public void setToday(String date) {
-            mSubjectPrefs.edit().putString("today", date).apply();
-        }
 
         public boolean getPopUpShown() {
             return getIntField("popUpShown", 0)==1;

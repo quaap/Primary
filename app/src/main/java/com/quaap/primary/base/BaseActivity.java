@@ -209,7 +209,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
         mSubjectData.setCorrectInARow(correctInARow);
         mSubjectData.setTotalPoints(tscore);
         mSubjectData.setTodayPoints(todaysScore);
-        mSubjectData.setToday(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
+        //mSubjectData.setToday(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
         mSubjectData.setPopUpShown(levelCompletePopup!=null);
 
     }
@@ -232,15 +232,8 @@ public abstract class BaseActivity extends AppCompatActivity  {
         highestLevelnum = mSubjectData.getHighestLevelNum();
         tscore = mSubjectData.getTotalPoints();
 
-        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        todaysScore = mSubjectData.getTodayPoints();
 
-        String todaylast = mSubjectData.getToday();
-
-        if (todaylast.equals(today)) {
-            todaysScore = mSubjectData.getTodayPoints();
-        } else {
-            todaysScore = 0;
-        }
         int orientation = getResources().getConfiguration().orientation;
         if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
             LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);

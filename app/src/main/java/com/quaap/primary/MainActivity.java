@@ -81,11 +81,6 @@ public class MainActivity extends AppCompatActivity {
         addUser(defaultusername, UserData.avatars[0]);
 
 
-
-        createUserList();
-
-        selectUser(appdata.getLastSelectedUser(defaultusername));
-
         createNewUserArea();
 
         View delete_user_l = findViewById(R.id.delete_user_link);
@@ -131,10 +126,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setSubjectList();
+
+        updateUserList();
+        selectUser(appdata.getLastSelectedUser(defaultusername));
+
+        updateSubjectList();
+
     }
 
-    private void setSubjectList() {
+    private void updateSubjectList() {
         if (subjectlist!=null) {
             subjectlist.clear();
             subjectlist.populate(Subject.getArray(this, R.array.subjects));
@@ -319,35 +319,60 @@ public class MainActivity extends AppCompatActivity {
 
             userlist.removeItem(username);
             populateAvatarSpinner();
-            setSubjectList();
+            updateSubjectList();
         }
 
     }
 
 
 
-    private void createUserList() {
+    private void updateUserList() {
         Set<String> usernames = appdata.listUsers();
 
-        userlist = new HorzItemList(this, R.id.user_horz_list, R.layout.user_avatar, usernames.toArray(new String[0])) {
-            @Override
-            protected void onNewItemClicked() {
-                showNewUserArea(true);
-            }
+        if (userlist!=null) {
+            userlist.clear();
+            userlist.populate(usernames.toArray(new String[0]));
+        } else {
 
-            @Override
-            protected void onItemClicked(String key, ViewGroup item) {
-                showNewUserArea(false);
-                selectUser(key);
-            }
+            userlist = new HorzItemList(this, R.id.user_horz_list, R.layout.user_avatar, usernames.toArray(new String[0])) {
+                @Override
+                protected void onNewItemClicked() {
+                    showNewUserArea(true);
+                }
 
-            @Override
-            protected void populateItem(String key, ViewGroup item, int i) {
-                UserData user = appdata.getUser(key);
-                setItemTextField(item, R.id.username_avatar, user.getUsername());
-                setItemTextField(item, R.id.userimage_avatar, user.getAvatar());
-            }
-        };
+                @Override
+                protected void onItemClicked(String key, ViewGroup item) {
+                    showNewUserArea(false);
+                    selectUser(key);
+                }
+
+                @Override
+                protected void populateItem(String key, ViewGroup item, int i) {
+                    UserData user = appdata.getUser(key);
+                    setItemTextField(item, R.id.username_avatar, user.getUsername());
+                    setItemTextField(item, R.id.userimage_avatar, user.getAvatar());
+
+                    int utot = user.getTotalPoints();
+                    int utod = user.getTodayPoints();
+
+                    String uscore;
+                    if (utod != 0) {
+                        uscore = String.format("Today: %d", utod);
+                    } else {
+                        uscore = "";
+                    }
+                    uscore += "\n";
+
+                    if (utot != 0) {
+                        uscore += String.format("Total: %d", utot);
+                    }
+
+
+                    setItemTextField(item, R.id.userscore_avatar, uscore);
+
+                }
+            };
+        }
 
 
     }
@@ -368,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
                 user_controls_area.setVisibility(View.VISIBLE);
             }
 
-            setSubjectList();
+            updateSubjectList();
             if (subjectlist.hasSelected()) {
                 goButton.setEnabled(true);
             }
