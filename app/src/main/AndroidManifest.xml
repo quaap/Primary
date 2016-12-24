@@ -25,7 +25,8 @@
         <activity
             android:name=".math.BasicMathActivity"
             android:parentActivityName=".math.BasicMathMenuActivity" />
-        <activity android:name=".AboutActivity"/>
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".ScoresActivity"></activity>
     </application>
 
 </manifest>

@@ -5,8 +5,12 @@ import android.content.SharedPreferences;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -181,6 +185,17 @@ public class UserData {
             setTotalPoints(totalPoints + getTotalPoints());
         }
 
+        public Map<String,Integer> getTodayPointHistory() {
+            Map<String,Integer> res = new TreeMap<>();
+            Pattern treg = Pattern.compile("^day(\\d{4}-\\d{2}-\\d{2})");
+            for (String entry:  mSubjectPrefs.getAll().keySet()) {
+                Matcher m = treg.matcher(entry);
+                if (m.find()) {
+                    res.put(m.group(1), mSubjectPrefs.getInt(entry,0));
+                }
+            }
+            return res;
+        }
 
         private String getToday() {
             return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());

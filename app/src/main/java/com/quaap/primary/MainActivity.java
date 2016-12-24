@@ -505,9 +505,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-
-        if (id==R.id.menu_about) {
-            Intent intent = new Intent(this, AboutActivity.class);
+        Intent intent = null;
+        switch(id){
+            case R.id.menu_about:
+                intent = new Intent(this, AboutActivity.class);
+                break;
+            case R.id.menu_scores:
+                intent = new Intent(this, ScoresActivity.class);
+                break;
+        }
+        if (intent!=null) {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
