@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +62,11 @@ public class AppData {
 
     private static final String USERS_KEY = "users";
 
-    public Set<String> listUsers() {
+    public List<String> listUsers() {
+        return sort(getUsersSet());
+    }
+
+    private Set<String> getUsersSet() {
 
         Set<String> usernames = new TreeSet<>();
         usernames = mPrefs.getStringSet(USERS_KEY, usernames);
@@ -70,7 +75,7 @@ public class AppData {
 
     public UserData addUser(String username, String avatar) {
 
-        Set<String> usernames = listUsers();
+        Set<String> usernames = getUsersSet();
         if (usernames.contains(username)) {
             return null;
         }
@@ -95,6 +100,7 @@ public class AppData {
 
 
     private Map<String, UserData> users = new HashMap<>();
+
     public UserData getUser(String username) {
         if (username==null) {
             return null;
@@ -113,9 +119,10 @@ public class AppData {
         }
         users.remove(username);
 
-        Set<String> usernames = listUsers();
+        Set<String> usernames = getUsersSet();
         if (usernames.contains(username)) {
             usernames.remove(username);
+            mPrefs.edit().putStringSet(USERS_KEY, usernames).apply();
             return true;
         }
         return false;
@@ -135,5 +142,12 @@ public class AppData {
         if (additional != null) avatarlist.add(additional);
         Collections.sort(avatarlist);
         return avatarlist;
+    }
+
+    public static <T extends Comparable> List<T> sort(Collection<T> collection) {
+        List<T> list = new ArrayList<>(collection);
+
+        Collections.sort(list);
+        return list;
     }
 }

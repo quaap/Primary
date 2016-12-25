@@ -49,9 +49,11 @@ public class ScoresActivity extends AppCompatActivity {
             subname.setText(sctext);
             list.addView(subname);
 
-            for (Map.Entry<String,Integer> entry: subject.getTodayPointHistory().entrySet()) {
+            Map<String,Integer> thist= subject.getTodayPointHistory();
+
+            for (String day: AppData.sort(thist.keySet())) {
                 TextView ent = new TextView(this);
-                String text = entry.getKey() + ": " +entry.getValue();
+                String text = day + ": " + thist.get(day);
                 ent.setText(text);
                 ent.setPadding(16,2,2,2);
                 list.addView(ent);

@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -72,10 +73,10 @@ public class UserData {
         mUserPrefs.edit().putStringSet("subjects", subjects).apply();
     }
 
-    public Set<String> getSubjectsStarted() {
+    public List<String> getSubjectsStarted() {
         Set<String> subjects = new TreeSet<>();
         subjects = mUserPrefs.getStringSet("subjects", subjects);
-        return subjects;
+        return AppData.sort(subjects);
     }
 
     public void setLatestSubject(String subject) {

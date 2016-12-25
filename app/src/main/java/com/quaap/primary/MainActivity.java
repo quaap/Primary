@@ -327,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void updateUserList() {
-        Set<String> usernames = appdata.listUsers();
+        List<String> usernames = appdata.listUsers();
 
         if (userlist!=null) {
             userlist.clear();
