@@ -16,7 +16,6 @@ package com.quaap.primary;
  * GNU General Public License for more details.
  */
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,13 +35,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quaap.primary.base.data.AppData;
+import com.quaap.primary.base.data.Subjects;
 import com.quaap.primary.base.data.UserData;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String LEVELSET = "levelset";
     public static final String LEVELSETDONE = "levelsetdone";
 
-
     private HorzItemList userlist;
     private HorzItemList subjectlist;
 
@@ -61,9 +59,8 @@ public class MainActivity extends AppCompatActivity {
     private String defaultusername;
 
     private AppData appdata;
+    private Subjects subjectDescs;
 
-    private Subject[] subjects;
-    private Map<String,Subject> subjectMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +68,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         appdata = AppData.getAppData(this);
-
-        subjects = Subject.loadSubjects(this);
-        for(Subject subject: subjects) {
-            subjectMap.put(subject.code, subject);
-        }
+        subjectDescs = Subjects.getInstance(this);
 
         defaultusername = getString(R.string.defaultUserName);
         addUser(defaultusername, UserData.avatars[0]);
@@ -135,12 +128,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateSubjectList() {
+        String [] subcodes = subjectDescs.getCodes().toArray(new String[0]);
         if (subjectlist!=null) {
             subjectlist.clear();
-            subjectlist.populate(Subject.getArray(this, R.array.subjects));
+            subjectlist.populate(subcodes);
         } else {
 
-            subjectlist = new HorzItemList(this, R.id.subject_horz_list, R.layout.subject_view, Subject.getArray(this, R.array.subjects)) {
+            subjectlist = new HorzItemList(this, R.id.subject_horz_list, R.layout.subject_view, subcodes) {
 
                 @Override
                 protected void onItemClicked(String key, ViewGroup item) {
@@ -169,12 +163,12 @@ public class MainActivity extends AppCompatActivity {
         if (userlist.hasSelected()) {
             String sub = appdata.getUser(userlist.getSelected()).getLatestSubject();
             if (sub == null) {
-                sub = subjects[0].code;
+                sub = subjectDescs.get(0).getCode();
             } else if (getIntent().getBooleanExtra(LEVELSETDONE, false)) {
                 getIntent().removeExtra(LEVELSETDONE);
-                int pos = subjectMap.get(sub).pos;
-                if (pos + 1 < subjects.length) {
-                    sub = subjects[pos + 1].code;
+                int pos = subjectDescs.get(sub).getPos();
+                if (pos + 1 < subjectDescs.getCount()) {
+                    sub = subjectDescs.get(pos + 1).getCode();
                 }
             }
             subjectlist.setSelected(sub);
@@ -186,21 +180,22 @@ public class MainActivity extends AppCompatActivity {
     private void startSelectedSubject() {
         if (userlist.hasSelected()) {
 
-            String subject = subjectlist.getSelected();
-            if (subject!=null) {
-                appdata.getUser(userlist.getSelected()).setLatestSubject(subject);
+            String code = subjectlist.getSelected();
+            if (code!=null) {
+                appdata.getUser(userlist.getSelected()).setLatestSubject(code);
 
 
+                Subjects.Desc subject = subjectDescs.get(code);
                 try {
-                    Intent intent = new Intent(MainActivity.this, Class.forName(subjectMap.get(subject).activityclass));
-                    intent.putExtra(LEVELSET, subjectMap.get(subject).levelset);
-                    intent.putExtra(SUBJECT, subject);
-                    intent.putExtra(SUBJECTNAME, subjectMap.get(subject).name);
+                    Intent intent = new Intent(MainActivity.this, Class.forName(subject.getActivityclass()));
+                    intent.putExtra(LEVELSET, subject.getLevelset());
+                    intent.putExtra(SUBJECT, code);
+                    intent.putExtra(SUBJECTNAME, subject.getName());
                     intent.putExtra(USERNAME, userlist.getSelected());
 
                     startActivity(intent);
                 } catch (ClassNotFoundException e) {
-                    Log.e("Primary", "Can't load " + subject + " " + subjectMap.get(subject).name);
+                    Log.e("Primary", "Can't load " + code + " " + subject.getName());
                 }
             }
         }
@@ -210,9 +205,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setSubjectDesc(String code) {
 
-        if (subjectMap.get(code)!=null) {
+        if (subjectDescs.get(code)!=null) {
             TextView subject_desc = (TextView) findViewById(R.id.subject_desc);
-            subject_desc.setText(subjectMap.get(code).desc);
+            subject_desc.setText(subjectDescs.get(code).getDesc());
         }
 
     }
@@ -457,40 +452,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    static class Subject {
-        int pos;
-        String code;
-        String name;
-        String desc;
-        String activityclass;
-        String levelset;
-
-        public Subject(Context context, int pos) {
-            this.pos = pos;
-            this.code = getString(context, R.array.subjects, pos);
-            this.name = getString(context, R.array.subjectsName, pos);
-            this.desc = getString(context, R.array.subjectDescs, pos);
-            this.activityclass = getString(context, R.array.subjectsActivity, pos);
-            this.levelset = getString(context, R.array.subjectsLevelset, pos);
-        }
-
-        private String getString(Context context, int id, int pos) {
-            return getArray(context,id)[pos];
-        }
-
-        public static String[] getArray(Context context, int arrayid) {
-            return context.getResources().getStringArray(arrayid);
-        }
-
-        public static Subject[] loadSubjects(Context context) {
-            String [] codes = getArray(context,R.array.subjects);
-            Subject[] subjects  = new Subject[codes.length];
-            for(int i=0; i<codes.length; i++) {
-                subjects[i] = new Subject(context, i);
-            }
-            return subjects;
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -521,3 +482,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+

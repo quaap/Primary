@@ -42,13 +42,23 @@ public class ScoresActivity extends AppCompatActivity {
         uname.setTextSize(18);
         list.addView(uname);
 
+        LinearLayout userlayout = new LinearLayout(this);
+        userlayout.setOrientation(LinearLayout.VERTICAL);
+        userlayout.setPadding(16,4,4,16);
+        list.addView(userlayout);
+
         for (String sub: user.getSubjectsStarted()) {
             TextView subname = new TextView(this);
             UserData.Subject subject = user.getSubjectForUser(sub);
             String sctext = sub + ": " + subject.getTotalPoints();
             subname.setText(sctext);
-            list.addView(subname);
+            userlayout.addView(subname);
 
+            LinearLayout usersublayout = new LinearLayout(this);
+            usersublayout.setPadding(16,4,4,16);
+            usersublayout.setOrientation(LinearLayout.VERTICAL);
+            userlayout.addView(usersublayout);
+            
             Map<String,Integer> thist= subject.getTodayPointHistory();
 
             for (String day: AppData.sort(thist.keySet())) {
@@ -56,7 +66,7 @@ public class ScoresActivity extends AppCompatActivity {
                 String text = day + ": " + thist.get(day);
                 ent.setText(text);
                 ent.setPadding(16,2,2,2);
-                list.addView(ent);
+                usersublayout.addView(ent);
 
             }
 
