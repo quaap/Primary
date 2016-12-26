@@ -28,7 +28,7 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
     private boolean isInit = false;
 
     private float mPitch = .8f;
-    private float mSpeed = .4f;
+    private float mSpeed = .5f;
 
     public TextToVoice(Context context) {
         mContext = context;

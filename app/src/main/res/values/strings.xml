@@ -73,6 +73,9 @@
     <string name="all_scores">All Scores</string>
 
 
+
+    <!-- Subjects and menus below -->
+
     <!-- The subject code. Should be 4-6 chars at most-->
     <string-array name="subjects">
         <item>M1</item>

@@ -212,13 +212,7 @@ public class BasicMathActivity extends BaseActivity {
 
     }
 
-    private void showSoftKeyboard(View view) {
-        if (view.requestFocus()) {
-            InputMethodManager imm = (InputMethodManager)
-                    getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-        }
-    }
+
     //Mode.Buttons impl:
 //    @NonNull
 //    private List<Integer> getAnswerChoices2(int numans) {

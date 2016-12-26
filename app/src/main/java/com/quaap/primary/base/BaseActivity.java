@@ -2,6 +2,7 @@ package com.quaap.primary.base;
 
 import android.Manifest;
 
+import android.content.Context;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -88,6 +90,11 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     private PopupWindow levelCompletePopup;
 
+    private boolean readyForProblem = true;
+    private boolean resumeDone = false;
+
+
+
     protected BaseActivity(int layoutIdtxt) {
 
         layoutId = layoutIdtxt;
@@ -95,10 +102,14 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     private void showProb() {
         showProbImpl();
-        starttime = System.currentTimeMillis();
+        startTimer();
     }
 
     protected abstract void showProbImpl();
+
+    protected void startTimer() {
+        starttime = System.currentTimeMillis();
+    }
 
     private boolean hasStorageAccess() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
@@ -170,8 +181,11 @@ public abstract class BaseActivity extends AppCompatActivity  {
             actwriter = null;
         }
         restoreGameData();
+        resumeDone = true;
         //Log.d("base", "onResume2. levelnum=" + levelnum);
-
+        if (readyForProblem) {
+            showProb();
+        }
     }
 
 
@@ -243,9 +257,31 @@ public abstract class BaseActivity extends AppCompatActivity  {
         if (showpopup) {
             showLevelCompletePopup(false);
         }
-        showProb();
+
     }
 
+
+    protected void setReadyForProblem(boolean ready) {
+        readyForProblem = ready;
+        if (readyForProblem && resumeDone) {
+            showProb();
+        }
+    }
+
+    protected void showSoftKeyboard(final View view) {
+        view.clearFocus();
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (view.requestFocus()) {
+                    InputMethodManager imm = (InputMethodManager)
+                            getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+                }
+            }
+        }, 1);
+
+    }
 
     protected abstract void setStatus(String text);
 

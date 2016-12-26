@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spelling -->
+
+    <string-array name="spelling_words_1">
+        <item>hat</item>
+        <item>cat</item>
+        <item>bat</item>
+    </string-array>
+
+
+</resources>
