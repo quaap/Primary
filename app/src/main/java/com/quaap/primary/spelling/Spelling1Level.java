@@ -21,9 +21,13 @@ import com.quaap.primary.base.Level;
  */
 public class Spelling1Level extends Level {
 
+    private int mWordlistId;
+    private int mMaxwordlength;
 
-    public Spelling1Level(String subjectkey, int rounds) {
+    public Spelling1Level(String subjectkey, int wordlistid, int maxwordlength, int rounds) {
         super(subjectkey, rounds);
+        mWordlistId = wordlistid;
+        mMaxwordlength = maxwordlength;
     }
 
     @Override
@@ -34,5 +38,9 @@ public class Spelling1Level extends Level {
     @Override
     public String getShortDescription(Context context) {
         return null;
+    }
+
+    public int getmWordlistId() {
+        return mWordlistId;
     }
 }

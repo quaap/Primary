@@ -13,10 +13,16 @@ import android.widget.TextView;
 import com.quaap.primary.R;
 import com.quaap.primary.base.BaseActivity;
 
-public class Spelling1Activity extends BaseActivity implements TextToVoice.VoiceReadyListener {
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
-    private String[] words;
+public class Spelling1Activity extends BaseActivity implements TextToVoice.VoiceReadyListener {
+    private List<String> words;
     private int wordsIndex;
+
+    private String word;
 
     TextToVoice v;
     public Spelling1Activity() {
@@ -28,8 +34,7 @@ public class Spelling1Activity extends BaseActivity implements TextToVoice.Voice
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        words = getResources().getStringArray(R.array.spelling_words_1);
-        wordsIndex = 0;
+
 
         super.onCreate(savedInstanceState);
 
@@ -39,7 +44,7 @@ public class Spelling1Activity extends BaseActivity implements TextToVoice.Voice
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                v.speak(words[wordsIndex]);
+                v.speak(word);
             }
         });
 
@@ -82,6 +87,7 @@ public class Spelling1Activity extends BaseActivity implements TextToVoice.Voice
     protected void onResume() {
         setReadyForProblem(false);
         findViewById(R.id.spelling_problem_area).setVisibility(View.INVISIBLE);
+        findViewById(R.id.spell_loading).setVisibility(View.VISIBLE);
         v = new TextToVoice(this);
         v.setVoiceReadyListener(this);
 
@@ -90,8 +96,18 @@ public class Spelling1Activity extends BaseActivity implements TextToVoice.Voice
     }
 
     @Override
+    protected void onShowLevel() {
+        words = Arrays.asList(getResources().getStringArray(((Spelling1Level)levels[levelnum]).getmWordlistId()));
+    }
+
+    @Override
     protected void showProbImpl() {
-        String word = words[wordsIndex];
+
+        int tries=0;
+        do {
+            word = words.get(getRand(words.size()));
+        } while (tries++<50 && seenProblem(word));
+
         v.speak(word);
         uinput.setText("");
         showSoftKeyboard(uinput);
@@ -99,7 +115,7 @@ public class Spelling1Activity extends BaseActivity implements TextToVoice.Voice
 
 
     protected void answerReady(String answer) {
-        String word = words[wordsIndex].trim();
+
         int points = 0;
         boolean isright = answer.trim().equals(word);
         if (isright) {
@@ -107,6 +123,11 @@ public class Spelling1Activity extends BaseActivity implements TextToVoice.Voice
             wordsIndex++;
         }
         answerDone(isright, points, word, word, answer.trim());
+
+        if (!isright) {
+            uinput.setText("");
+            showSoftKeyboard(uinput);
+        }
 
     }
 
@@ -122,6 +143,7 @@ public class Spelling1Activity extends BaseActivity implements TextToVoice.Voice
             @Override
             public void run() {
                 findViewById(R.id.spelling_problem_area).setVisibility(View.VISIBLE);
+                findViewById(R.id.spell_loading).setVisibility(View.GONE);
                 setReadyForProblem(true);
             }
         });

@@ -33,6 +33,8 @@ import com.quaap.primary.base.data.AppData;
 import com.quaap.primary.base.data.UserData;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -93,6 +95,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
     private boolean readyForProblem = true;
     private boolean resumeDone = false;
 
+    private List<String> seenProblems = new ArrayList<>();
 
 
     protected BaseActivity(int layoutIdtxt) {
@@ -186,6 +189,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
         if (readyForProblem) {
             showProb();
         }
+        onShowLevel();
     }
 
 
@@ -246,11 +250,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
         todaysScore = mSubjectData.getTodayPoints();
 
-        int orientation = getResources().getConfiguration().orientation;
-        if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
-            LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
-            answerarea.setOrientation(LinearLayout.HORIZONTAL);
-        }
+
         View todayview = findViewById(R.id.todays_area);
         todayview.setVisibility(todaysScore==tscore ? View.GONE : View.VISIBLE);
         setLevelFields();
@@ -260,6 +260,8 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     }
 
+
+    protected abstract void onShowLevel();
 
     protected void setReadyForProblem(boolean ready) {
         readyForProblem = ready;
@@ -279,8 +281,25 @@ public abstract class BaseActivity extends AppCompatActivity  {
                     imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
                 }
             }
-        }, 1);
+        }, 10);
 
+    }
+
+
+    private int maxseensize = 20;
+    protected boolean seenProblem(Object ... parts) {
+        String key = "";
+        for (Object p: parts) {
+            key += "." + p.toString();
+        }
+        if (seenProblems.contains(key)) {
+            return true;
+        }
+        seenProblems.add(key);
+        if (seenProblems.size()>maxseensize) {
+            seenProblems.remove(0);
+        }
+        return false;
     }
 
     protected abstract void setStatus(String text);
@@ -436,18 +455,20 @@ public abstract class BaseActivity extends AppCompatActivity  {
         saveGameData();
         correct = 0;
         incorrect = 0;
-        showProb();
         setLevelFields();
         setStatus("");
+        showProb();
     }
 
 
     public void nextLevel() {
         levelnum++;
         saveGameData();
-        showProb();
         setLevelFields();
         setStatus("");
+        onShowLevel();
+        showProb();
+
     }
 
     public void goBackToMain() {

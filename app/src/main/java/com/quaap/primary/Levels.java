@@ -124,7 +124,9 @@ public class Levels {
 
             //Spelling1Levels
             {
-                    new Spelling1Level("sp1",10)
+                    new Spelling1Level("sp1",R.array.spelling_words_1a, 2, 10),
+                    new Spelling1Level("sp1",R.array.spelling_words_1b, 3, 20),
+                    new Spelling1Level("sp1",R.array.spelling_words_1c, 4, 20),
 
             }
 

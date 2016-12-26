@@ -4,6 +4,7 @@ package com.quaap.primary.math;
 import android.annotation.SuppressLint;
 import android.content.Context;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.TypedValue;
@@ -53,7 +54,25 @@ public class BasicMathActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
+            LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
+            answerarea.setOrientation(LinearLayout.HORIZONTAL);
+        }
+    }
+
+    @Override
+    protected void onShowLevel() {
+
+    }
 
 
     @Override
@@ -120,9 +139,6 @@ public class BasicMathActivity extends BaseActivity {
     }
 
 
-    int maxseensize = 20;
-
-    List<SeenProb> seenProbs = new ArrayList<>();
 
     private void makeRandomProblem() {
 
@@ -173,12 +189,9 @@ public class BasicMathActivity extends BaseActivity {
                 if (getRand(0,10)>5) num1 = num1 + num2;
             }
             //prevent 2 identical problems in a row
-        } while (tries++<50 && seenProbs.contains(SeenProb.get(num1, num2, op)));
+        } while (tries++<50 && seenProblem(num1, num2, op));
 
-        seenProbs.add(SeenProb.get(num1, num2, op));
-        if (seenProbs.size()>maxseensize) {
-            seenProbs.remove(0);
-        }
+
     }
 
     //Mode.Input impl:
@@ -345,38 +358,5 @@ public class BasicMathActivity extends BaseActivity {
         answerbuttons.add(ansbutt);
     }
 
-
-    static class SeenProb {
-
-        public static SeenProb get(int num1, int num2, MathOp op) {
-            return new SeenProb(num1, num2, op);
-        }
-        SeenProb(int num1, int num2, MathOp op) {
-            this.num1 = num1;
-            this.num2 = num2;
-            this.op = op;
-        }
-
-        int num1;
-        int num2;
-        MathOp op;
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj instanceof SeenProb) {
-                SeenProb o = (SeenProb)obj;
-                return  o.num1==this.num1 && o.num2==this.num2 && o.op==this.op;
-            }
-            return super.equals(obj);
-        }
-
-        @Override
-        public int hashCode() {
-            int result = num1;
-            result = 31 * result + num2;
-            result = 31 * result + op.hashCode();
-            return result;
-        }
-    }
 }
 
