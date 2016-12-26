@@ -26,7 +26,7 @@ public class Spelling1Activity extends BaseActivity implements TextToVoice.Voice
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                v.speak("Hello, World.");
+                v.speak("Utterance");
             }
         });
 
@@ -65,6 +65,16 @@ public class Spelling1Activity extends BaseActivity implements TextToVoice.Voice
 
     @Override
     public void onVoiceReady(TextToVoice ttv) {
+
+    }
+
+    @Override
+    public void onSpeakComplete(TextToVoice ttv) {
+
+    }
+
+    @Override
+    public void onError(TextToVoice ttv) {
 
     }
 }

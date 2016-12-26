@@ -46,16 +46,19 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
 
                 @Override
                 public void onDone(String s) {
-                    Log.d("TextToSpeech", "Done!" +  System.currentTimeMillis());
-                    if (!fullyInited && mFil!=null) {
-                        mFil.onVoiceReady(TextToVoice.this);
+                    //Log.d("TextToSpeech", "Done!" +  System.currentTimeMillis());
+                    if (!fullyInited) {
                         fullyInited = true;
+                        if (mFil!=null) mFil.onVoiceReady(TextToVoice.this);
+                    } else {
+                        if (mFil!=null) mFil.onSpeakComplete(TextToVoice.this);
                     }
                 }
 
                 @Override
                 public void onError(String s) {
                     Log.e("TextToSpeech", "Error with " + s);
+                    if (mFil!=null) mFil.onError(TextToVoice.this);
                 }
             });
 
@@ -142,5 +145,7 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
 
     public interface VoiceReadyListener {
         void onVoiceReady(TextToVoice ttv);
+        void onSpeakComplete(TextToVoice ttv);
+        void onError(TextToVoice ttv);
     }
 }
