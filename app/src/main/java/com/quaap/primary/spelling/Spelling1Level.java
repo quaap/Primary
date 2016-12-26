@@ -2,6 +2,7 @@ package com.quaap.primary.spelling;
 
 import android.content.Context;
 
+import com.quaap.primary.R;
 import com.quaap.primary.base.Level;
 
 /**
@@ -32,12 +33,12 @@ public class Spelling1Level extends Level {
 
     @Override
     public String getDescription(Context context) {
-        return null;
+        return context.getString(R.string.level, mLevel) + ": " + "Length: " + mMaxwordlength;
     }
 
     @Override
     public String getShortDescription(Context context) {
-        return null;
+        return "Wl: " + mMaxwordlength;
     }
 
     public int getmWordlistId() {

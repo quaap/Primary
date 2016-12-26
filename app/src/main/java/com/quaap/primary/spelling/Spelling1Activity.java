@@ -105,14 +105,26 @@ public class Spelling1Activity extends BaseActivity implements TextToVoice.Voice
 
         int tries=0;
         do {
-            word = words.get(getRand(words.size()));
+            word = words.get(getRand(words.size()-1));
         } while (tries++<50 && seenProblem(word));
 
+        Log.d("spell", word);
+
+        showHint();
         v.speak(word);
         uinput.setText("");
         showSoftKeyboard(uinput);
     }
 
+    private void showHint() {
+        TextView hint = (TextView)findViewById(R.id.txtHint);
+        String txt = "Hint: " + word.length() + " letters. ";
+        if (Character.isUpperCase(word.codePointAt(0))) {
+            txt += "Caps. ";
+        }
+
+        hint.setText(txt);
+    }
 
     protected void answerReady(String answer) {
 

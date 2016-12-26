@@ -48,7 +48,8 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/spell_loading">
+            android:id="@+id/spell_loading"
+            android:visibility="gone">
 
             <TextView
                 android:text="Loading..."
@@ -70,11 +71,24 @@
             android:layout_height="wrap_content"
             android:id="@+id/spelling_problem_area">
 
-            <Button
-                android:text="Repeat"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_repeat" />
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtHint"
+                    android:layout_weight="3"
+                    android:ems="15" />
+
+                <Button
+                    android:text="Repeat word"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_repeat" />
+            </LinearLayout>
 
             <EditText
                 android:layout_width="match_parent"
@@ -83,6 +97,7 @@
                 android:id="@+id/spelling_edit"
                 android:inputType="text|textNoSuggestions"
                 android:imeOptions="actionDone"
+                android:privateImeOptions="nm"
                 android:textSize="24sp"
                 android:layout_marginTop="6dp" />
 
