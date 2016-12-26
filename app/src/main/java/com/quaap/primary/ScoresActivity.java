@@ -3,10 +3,12 @@ package com.quaap.primary;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quaap.primary.base.data.AppData;
+import com.quaap.primary.base.data.Subjects;
 import com.quaap.primary.base.data.UserData;
 
 import java.util.Map;
@@ -14,6 +16,9 @@ import java.util.Map;
 public class ScoresActivity extends AppCompatActivity {
 
     private AppData mAppdata;
+
+    private Subjects subjects;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +28,7 @@ public class ScoresActivity extends AppCompatActivity {
 
         LinearLayout list = (LinearLayout) findViewById(R.id.scores_list);
 
-
+        subjects = Subjects.getInstance(this);
 
         mAppdata = AppData.getAppData(this);
 
@@ -39,38 +44,44 @@ public class ScoresActivity extends AppCompatActivity {
         TextView uname = new TextView(this);
         String avname = user.getAvatar() + " " + user.getUsername() + ": " + user.getTotalPoints();
         uname.setText(avname);
-        uname.setTextSize(18);
+        uname.setTextSize(24);
         list.addView(uname);
 
-        LinearLayout userlayout = new LinearLayout(this);
-        userlayout.setOrientation(LinearLayout.VERTICAL);
-        userlayout.setPadding(16,4,4,16);
+        GridLayout userlayout = new GridLayout(this);
+        //userlayout.setOrientation(GridLayout.VERTICAL);
+        userlayout.setColumnCount(2);
+        userlayout.setPadding(24,8,4,16);
         list.addView(userlayout);
 
         for (String sub: user.getSubjectsStarted()) {
-            TextView subname = new TextView(this);
-            UserData.Subject subject = user.getSubjectForUser(sub);
-            String sctext = sub + ": " + subject.getTotalPoints();
-            subname.setText(sctext);
-            userlayout.addView(subname);
 
-            LinearLayout usersublayout = new LinearLayout(this);
-            usersublayout.setPadding(16,4,4,16);
-            usersublayout.setOrientation(LinearLayout.VERTICAL);
-            userlayout.addView(usersublayout);
-            
+            UserData.Subject subject = user.getSubjectForUser(sub);
+
+            addTextView(userlayout, sub + " (" + subjects.get(sub).getName() + "): ", 20, 0);
+            addTextView(userlayout, subject.getTotalPoints()+"");
+
             Map<String,Integer> thist= subject.getTodayPointHistory();
 
             for (String day: AppData.sort(thist.keySet())) {
-                TextView ent = new TextView(this);
-                String text = day + ": " + thist.get(day);
-                ent.setText(text);
-                ent.setPadding(16,2,2,2);
-                usersublayout.addView(ent);
+                addTextView(userlayout, day, 18, 32);
+                addTextView(userlayout, thist.get(day)+"");
 
             }
 
         }
 
     }
+
+    private void addTextView(GridLayout viewg, String text) {
+        addTextView(viewg, text, 14, 0);
+    }
+
+    private void addTextView(GridLayout viewg, String text, float fsize, int lpadding) {
+        TextView tview = new TextView(this);
+        tview.setTextSize(fsize);
+        tview.setPadding(lpadding+16, 6, 6 , 6);
+        tview.setText(text);
+        viewg.addView(tview);
+    }
+
 }
