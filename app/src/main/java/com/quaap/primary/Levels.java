@@ -41,6 +41,9 @@ public class Levels {
             "Math5Levels",
 
             "Spelling1Levels",
+            "Spelling2Levels",
+            "Spelling3Levels",
+
     };
 
     //could probably read all these from a xml file.
@@ -119,7 +122,7 @@ public class Levels {
              //Math5Levels
              {
 
-                     new BasicMathLevel("m5",  MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 200)
+                     new BasicMathLevel("m5",  MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 100)
              },
 
             //Spelling1Levels
@@ -127,8 +130,21 @@ public class Levels {
                     new Spelling1Level("sp1",R.array.spelling_words_1a, 2, 10),
                     new Spelling1Level("sp1",R.array.spelling_words_1b, 3, 20),
                     new Spelling1Level("sp1",R.array.spelling_words_1c, 4, 20),
+            },
 
-            }
+            //Spelling2Levels
+            {
+                    new Spelling1Level("sp2",R.array.spelling_words_1d, 5, 20),
+                    new Spelling1Level("sp2",R.array.spelling_words_1e, 6, 20),
+                    new Spelling1Level("sp2",R.array.spelling_words_1f, 7, 20),
+            },
+
+            //Spelling3Levels
+            {
+                    new Spelling1Level("sp3",R.array.spelling_words_1g, 8, 20),
+                    new Spelling1Level("sp3",R.array.spelling_words_1h, 9, 20),
+                    new Spelling1Level("sp3",R.array.spelling_words_1i, 10, 20),
+            },
 
 
     };
