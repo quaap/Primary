@@ -14,13 +14,11 @@ import com.quaap.primary.R;
 import com.quaap.primary.base.BaseActivity;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
+
 import java.util.List;
 
 public class Spelling1Activity extends BaseActivity implements TextToVoice.VoiceReadyListener {
     private List<String> words;
-    private int wordsIndex;
 
     private String word;
 
@@ -132,7 +130,6 @@ public class Spelling1Activity extends BaseActivity implements TextToVoice.Voice
         boolean isright = answer.trim().equals(word);
         if (isright) {
             points = word.length() * (levelnum+1);
-            wordsIndex++;
         }
         answerDone(isright, points, word, word, answer.trim());
 
