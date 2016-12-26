@@ -5,11 +5,13 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="6dp"
         android:background="#eeeeff"
         android:paddingStart="4dp"
-        android:paddingEnd="2dp">
+        android:paddingEnd="2dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginStart="3dp">
 
         <TextView
             android:text="@string/points"
@@ -39,12 +41,14 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="6dp"
         android:background="#eeeeff"
         android:paddingStart="4dp"
         android:paddingEnd="2dp"
-        android:id="@+id/todays_area">
+        android:id="@+id/todays_area"
+        android:layout_marginEnd="3dp"
+        android:layout_marginStart="3dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -55,7 +59,7 @@
         <TextView
             android:text="0"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/todayscore"
             android:textSize="20sp"
             android:textColor="@android:color/holo_blue_dark"
@@ -67,11 +71,13 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="6dp"
         android:background="#eeeeff"
         android:paddingStart="4dp"
-        android:paddingEnd="2dp">
+        android:paddingEnd="2dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginStart="3dp">
 
         <TextView
             android:text="@string/total_correct"
@@ -83,7 +89,7 @@
         <TextView
             android:text="0"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/total_ratio"
             android:textSize="18sp"
             android:gravity="center_horizontal"
