@@ -31,8 +31,6 @@ import com.quaap.primary.base.data.AppData;
 import com.quaap.primary.base.data.UserData;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 /**

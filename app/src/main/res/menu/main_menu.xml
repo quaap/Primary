@@ -2,7 +2,7 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="All Scores"
+    <item android:title="@string/all_scores"
         android:id="@+id/menu_scores" />
     <item android:title="@string/about"
         android:id="@+id/menu_about" />
