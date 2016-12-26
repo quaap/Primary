@@ -18,12 +18,6 @@ public class Spelling1Activity extends BaseActivity {
 
     }
 
-
-    @Override
-    protected void showProbImpl() {
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +32,13 @@ public class Spelling1Activity extends BaseActivity {
         });
 
     }
+
+
+    @Override
+    protected void showProbImpl() {
+
+    }
+
 
     @Override
     protected void setStatus(String text) {
