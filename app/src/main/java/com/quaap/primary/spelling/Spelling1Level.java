@@ -1,5 +1,7 @@
 package com.quaap.primary.spelling;
 
+import android.content.Context;
+
 import com.quaap.primary.base.Level;
 
 /**
@@ -18,22 +20,19 @@ import com.quaap.primary.base.Level;
  * GNU General Public License for more details.
  */
 public class Spelling1Level extends Level {
-    protected Spelling1Level(int rounds) {
-        super(rounds);
+
+
+    public Spelling1Level(String subjectkey, int rounds) {
+        super(subjectkey, rounds);
     }
 
     @Override
-    public String toString() {
+    public String getDescription(Context context) {
         return null;
     }
 
     @Override
-    public String getDescription() {
-        return null;
-    }
-
-    @Override
-    public String getShortDescription() {
+    public String getShortDescription(Context context) {
         return null;
     }
 }

@@ -33,7 +33,7 @@ public class BasicMathActivity extends BaseActivity {
     private MathOp op;
     private int answer;
 
-    public static final String LevelSetName = "Math1Levels";
+    //public static final String LevelSetName = "Math1Levels";
 
 
     public enum Mode {Buttons, Input}

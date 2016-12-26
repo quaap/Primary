@@ -4,6 +4,7 @@ import com.quaap.primary.base.Level;
 import com.quaap.primary.math.BasicMathLevel;
 import com.quaap.primary.math.MathOp;
 import com.quaap.primary.math.Negatives;
+import com.quaap.primary.spelling.Spelling1Level;
 
 /**
  * Created by tom on 12/15/16.
@@ -38,6 +39,8 @@ public class Levels {
             "Math3Levels",
             "Math4Levels",
             "Math5Levels",
+
+            "Spelling1Levels",
     };
 
     //could probably read all these from a xml file.
@@ -117,6 +120,14 @@ public class Levels {
              {
 
                      new BasicMathLevel("m5",  MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 200)
-             }
+             },
+
+            //Spelling1Levels
+            {
+                    new Spelling1Level("sp1",10)
+
+            }
+
+
     };
 }

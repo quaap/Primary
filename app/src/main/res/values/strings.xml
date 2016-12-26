@@ -80,6 +80,7 @@
         <item>M3</item>
         <item>M4</item>
         <item>M5</item>
+        <item>Sp1</item>
     </string-array>
 
     <!-- The subject name. Should be less than 12 chars-->
@@ -89,6 +90,7 @@
         <item>-Math +-3</item>
         <item>-Math ×÷12</item>
         <item>Lotta math</item>
+        <item>Spelling</item>
     </string-array>
 
     <!-- The subject description. -->
@@ -98,6 +100,7 @@
         <item>Plus and Minus. Numbers -25 to 25.</item>
         <item>Times and Divide. Numbers -12 to 12.</item>
         <item>Everything!</item>
+        <item>Spelling</item>
     </string-array>
 
     <string-array name="subjectsActivity">
@@ -106,6 +109,7 @@
         <item>com.quaap.primary.math.BasicMathMenuActivity</item>
         <item>com.quaap.primary.math.BasicMathMenuActivity</item>
         <item>com.quaap.primary.math.BasicMathMenuActivity</item>
+        <item>com.quaap.primary.spelling.Spelling1MenuActivity</item>
     </string-array>
 
     <string-array name="subjectsLevelset">
@@ -114,6 +118,7 @@
         <item>Math3Levels</item>
         <item>Math4Levels</item>
         <item>Math5Levels</item>
+        <item>Spelling1Levels</item>
     </string-array>
 
 

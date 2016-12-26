@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
                     startActivity(intent);
                 } catch (ClassNotFoundException e) {
-                    Log.e("Primary", "Can't load " + code + " " + subject.getName());
+                    Log.e("Primary", "Can't load " + code + " " + subject.getName(), e);
                 }
             }
         }

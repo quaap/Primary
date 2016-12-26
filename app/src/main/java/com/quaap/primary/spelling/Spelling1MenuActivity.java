@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.quaap.primary.R;
 import com.quaap.primary.base.SubjectMenuActivity;
-import com.quaap.primary.math.Math1Activity;
+
 
 /**
  * Created by tom on 12/18/16.
@@ -27,9 +27,7 @@ public class Spelling1MenuActivity extends SubjectMenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        int subjectResId = R.string.subject_spelling1;
-
-        OnCreateCommon(subjectResId, Spelling1Activity.LevelSetName, Spelling1Activity.class);
+        setTargetActivity(Spelling1Activity.class);
     }
 
 }

@@ -25,6 +25,13 @@
         <activity
             android:name=".math.BasicMathActivity"
             android:parentActivityName=".math.BasicMathMenuActivity" />
+        <activity
+            android:name=".spelling.Spelling1MenuActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".spelling.Spelling1Activity"
+            android:parentActivityName=".spelling.Spelling1MenuActivity" />
+
         <activity android:name=".AboutActivity" />
         <activity android:name=".ScoresActivity"></activity>
     </application>

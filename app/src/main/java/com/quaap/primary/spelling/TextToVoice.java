@@ -33,10 +33,10 @@ public class TextToVoice {
 
     private List<String> errors = new ArrayList<>();
 
-    public void TextToVoice(Context context) {
+    public TextToVoice(Context context) {
         mContext = context;
         try {
-            mTts = new TextToSpeech(context, onInitListener);
+            mTts = new TextToSpeech(mContext, onInitListener);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,8 +53,9 @@ public class TextToVoice {
 
                     Log.e("error", "This Language is not supported");
                 }
+                Log.d("TextToSpeech", "Initialization Suceeded! " + status);
             } else {
-                Log.e("error", "Initialization Failed!");
+                Log.e("error", "Initialization Failed! " + status);
             }
         }
     };
