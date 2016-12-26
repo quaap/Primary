@@ -43,6 +43,7 @@ public class ScoresActivity extends AppCompatActivity {
 
         TextView uname = new TextView(this);
         String avname = user.getAvatar() + " " + user.getUsername() + ": " + user.getTotalPoints();
+        uname.setPadding(0,23,0,2);
         uname.setText(avname);
         uname.setTextSize(24);
         list.addView(uname);
