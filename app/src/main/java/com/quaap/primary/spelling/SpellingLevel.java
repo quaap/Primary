@@ -20,12 +20,12 @@ import com.quaap.primary.base.Level;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-public class Spelling1Level extends Level {
+public class SpellingLevel extends Level {
 
     private int mWordlistId;
     private int mMaxwordlength;
 
-    public Spelling1Level(String subjectkey, int wordlistid, int maxwordlength, int rounds) {
+    public SpellingLevel(String subjectkey, int wordlistid, int maxwordlength, int rounds) {
         super(subjectkey, rounds);
         mWordlistId = wordlistid;
         mMaxwordlength = maxwordlength;

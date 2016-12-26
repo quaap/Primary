@@ -26,11 +26,11 @@
             android:name=".math.BasicMathActivity"
             android:parentActivityName=".math.BasicMathMenuActivity" />
         <activity
-            android:name=".spelling.Spelling1MenuActivity"
+            android:name=".spelling.SpellingMenuActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".spelling.Spelling1Activity"
-            android:parentActivityName=".spelling.Spelling1MenuActivity" />
+            android:name=".spelling.SpellingActivity"
+            android:parentActivityName=".spelling.SpellingMenuActivity" />
 
         <activity android:name=".AboutActivity" />
         <activity android:name=".ScoresActivity"></activity>

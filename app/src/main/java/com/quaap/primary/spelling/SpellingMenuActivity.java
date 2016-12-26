@@ -2,7 +2,6 @@ package com.quaap.primary.spelling;
 
 import android.os.Bundle;
 
-import com.quaap.primary.R;
 import com.quaap.primary.base.SubjectMenuActivity;
 
 
@@ -21,13 +20,13 @@ import com.quaap.primary.base.SubjectMenuActivity;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-public class Spelling1MenuActivity extends SubjectMenuActivity {
+public class SpellingMenuActivity extends SubjectMenuActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTargetActivity(Spelling1Activity.class);
+        setTargetActivity(SpellingActivity.class);
     }
 
 }

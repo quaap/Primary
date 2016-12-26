@@ -118,9 +118,9 @@
         <item>com.quaap.primary.math.BasicMathMenuActivity</item>
         <item>com.quaap.primary.math.BasicMathMenuActivity</item>
         <item>com.quaap.primary.math.BasicMathMenuActivity</item>
-        <item>com.quaap.primary.spelling.Spelling1MenuActivity</item>
-        <item>com.quaap.primary.spelling.Spelling1MenuActivity</item>
-        <item>com.quaap.primary.spelling.Spelling1MenuActivity</item>
+        <item>com.quaap.primary.spelling.SpellingMenuActivity</item>
+        <item>com.quaap.primary.spelling.SpellingMenuActivity</item>
+        <item>com.quaap.primary.spelling.SpellingMenuActivity</item>
     </string-array>
 
     <string-array name="subjectsLevelset">

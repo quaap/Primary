@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.quaap.primary.spelling.Spelling1Activity"
+    tools:context="com.quaap.primary.spelling.SpellingActivity"
     android:gravity="center_horizontal">
 
 

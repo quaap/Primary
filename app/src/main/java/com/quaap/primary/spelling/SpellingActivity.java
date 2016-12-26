@@ -17,13 +17,13 @@ import java.util.Arrays;
 
 import java.util.List;
 
-public class Spelling1Activity extends BaseActivity implements TextToVoice.VoiceReadyListener {
+public class SpellingActivity extends BaseActivity implements TextToVoice.VoiceReadyListener {
     private List<String> words;
 
     private String word;
 
     TextToVoice v;
-    public Spelling1Activity() {
+    public SpellingActivity() {
         super(R.layout.activity_spelling1);
 
     }
@@ -95,7 +95,7 @@ public class Spelling1Activity extends BaseActivity implements TextToVoice.Voice
 
     @Override
     protected void onShowLevel() {
-        words = Arrays.asList(getResources().getStringArray(((Spelling1Level)levels[levelnum]).getmWordlistId()));
+        words = Arrays.asList(getResources().getStringArray(((SpellingLevel)levels[levelnum]).getmWordlistId()));
     }
 
     @Override

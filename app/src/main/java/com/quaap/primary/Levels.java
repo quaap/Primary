@@ -4,7 +4,7 @@ import com.quaap.primary.base.Level;
 import com.quaap.primary.math.BasicMathLevel;
 import com.quaap.primary.math.MathOp;
 import com.quaap.primary.math.Negatives;
-import com.quaap.primary.spelling.Spelling1Level;
+import com.quaap.primary.spelling.SpellingLevel;
 
 /**
  * Created by tom on 12/15/16.
@@ -127,23 +127,23 @@ public class Levels {
 
             //Spelling1Levels
             {
-                    new Spelling1Level("sp1",R.array.spelling_words_1a, 2, 10),
-                    new Spelling1Level("sp1",R.array.spelling_words_1b, 3, 20),
-                    new Spelling1Level("sp1",R.array.spelling_words_1c, 4, 20),
+                    new SpellingLevel("sp1",R.array.spelling_words_1a, 2, 10),
+                    new SpellingLevel("sp1",R.array.spelling_words_1b, 3, 20),
+                    new SpellingLevel("sp1",R.array.spelling_words_1c, 4, 20),
             },
 
             //Spelling2Levels
             {
-                    new Spelling1Level("sp2",R.array.spelling_words_1d, 5, 20),
-                    new Spelling1Level("sp2",R.array.spelling_words_1e, 6, 20),
-                    new Spelling1Level("sp2",R.array.spelling_words_1f, 7, 20),
+                    new SpellingLevel("sp2",R.array.spelling_words_1d, 5, 20),
+                    new SpellingLevel("sp2",R.array.spelling_words_1e, 6, 20),
+                    new SpellingLevel("sp2",R.array.spelling_words_1f, 7, 20),
             },
 
             //Spelling3Levels
             {
-                    new Spelling1Level("sp3",R.array.spelling_words_1g, 8, 20),
-                    new Spelling1Level("sp3",R.array.spelling_words_1h, 9, 20),
-                    new Spelling1Level("sp3",R.array.spelling_words_1i, 10, 20),
+                    new SpellingLevel("sp3",R.array.spelling_words_1g, 8, 20),
+                    new SpellingLevel("sp3",R.array.spelling_words_1h, 9, 20),
+                    new SpellingLevel("sp3",R.array.spelling_words_1i, 10, 20),
             },
 
 
