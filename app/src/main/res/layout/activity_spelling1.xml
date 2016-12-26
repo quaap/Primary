@@ -38,9 +38,18 @@
     </LinearLayout>
 
     <Button
-        android:text="Button"
+        android:text="Repeat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button" />
+        android:id="@+id/btn_repeat" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:inputType="text|textNoSuggestions"
+        android:imeOptions="actionDone"
+        android:textSize="24sp" />
 
 </LinearLayout>

@@ -1,11 +1,9 @@
 package com.quaap.primary.spelling;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
-
-import com.quaap.primary.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +24,7 @@ import java.util.Locale;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-public class TextToVoice {
+public class TextToVoice implements  TextToSpeech.OnInitListener {
     private TextToSpeech mTts = null;
     private Context mContext;
     private boolean isInit = false;
@@ -36,41 +34,70 @@ public class TextToVoice {
     public TextToVoice(Context context) {
         mContext = context;
         try {
-            mTts = new TextToSpeech(mContext, onInitListener);
+            Log.d("TextToVoice", "started " + System.currentTimeMillis());
+            mTts = new TextToSpeech(mContext, this);
+
+            mTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                @Override
+                public void onStart(String s) {
+
+                }
+
+                @Override
+                public void onDone(String s) {
+                    Log.d("TextToSpeech", "Done!" +  System.currentTimeMillis());
+                    if (!fullyInited && mFil!=null) {
+                        mFil.onVoiceFullyInitialized(TextToVoice.this);
+                        fullyInited = true;
+                    }
+                }
+
+                @Override
+                public void onError(String s) {
+                    Log.e("TextToSpeech", "Error with " + s);
+                }
+            });
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private TextToSpeech.OnInitListener onInitListener = new TextToSpeech.OnInitListener() {
-        @Override
-        public void onInit(int status) {
-            if (status == TextToSpeech.SUCCESS) {
-                int result = mTts.setLanguage(Locale.getDefault());
-                isInit = true;
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+            int result = mTts.setLanguage(Locale.getDefault());
+            isInit = true;
 
-                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
 
-                    Log.e("error", "This Language is not supported");
-                }
-                Log.d("TextToSpeech", "Initialization Suceeded! " + status);
-            } else {
-                Log.e("error", "Initialization Failed! " + status);
+                Log.e("error", "This Language is not supported");
             }
-        }
-    };
+            Log.d("TextToSpeech", "Initialization Suceeded! " +  System.currentTimeMillis());
 
-    public void shutDown() {
-        mTts.shutdown();
+            speak("Ready!");
+        } else {
+            Log.e("error", "Initialization Failed! " + status);
+        }
     }
 
-    int utterid = 0;
+    public void shutDown() {
+        isInit = false;
+        if (mTts!=null) {
+            mTts.shutdown();
+            mTts = null;
+        }
+    }
+
+    private int utterid = 0;
     public void speak(String text) {
+       // Log.d("TextToSpeech", text + " " +  System.currentTimeMillis());
         if (isInit) {
             if (Build.VERSION.SDK_INT>=21) {
-                mTts.speak(text, TextToSpeech.QUEUE_ADD, null, "utt" + utterid);
+                mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "utt" + utterid);
             } else {
-                mTts.speak(text, TextToSpeech.QUEUE_ADD, null);
+                mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
             }
             utterid++;
         } else {
@@ -78,4 +105,16 @@ public class TextToVoice {
         }
     }
 
+    private VoiceFullyInitializedListener mFil;
+
+    private boolean fullyInited;
+
+    public void setFullyInitializedListener(VoiceFullyInitializedListener fil) {
+        mFil = fil;
+    }
+
+
+    public interface VoiceFullyInitializedListener {
+        void onVoiceFullyInitialized(TextToVoice ttv);
+    }
 }
