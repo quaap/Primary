@@ -5,8 +5,6 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -29,7 +27,8 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
     private Context mContext;
     private boolean isInit = false;
 
-    private List<String> errors = new ArrayList<>();
+    private float mPitch = .8f;
+    private float mSpeed = .4f;
 
     public TextToVoice(Context context) {
         mContext = context;
@@ -37,6 +36,8 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
             Log.d("TextToVoice", "started " + System.currentTimeMillis());
             mTts = new TextToSpeech(mContext, this);
 
+            setPitch(mPitch);
+            setSpeed(mSpeed);
             mTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                 @Override
                 public void onStart(String s) {
@@ -47,7 +48,7 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
                 public void onDone(String s) {
                     Log.d("TextToSpeech", "Done!" +  System.currentTimeMillis());
                     if (!fullyInited && mFil!=null) {
-                        mFil.onVoiceFullyInitialized(TextToVoice.this);
+                        mFil.onVoiceReady(TextToVoice.this);
                         fullyInited = true;
                     }
                 }
@@ -84,6 +85,7 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
 
     public void shutDown() {
         isInit = false;
+        fullyInited = false;
         if (mTts!=null) {
             mTts.shutdown();
             mTts = null;
@@ -95,9 +97,9 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
        // Log.d("TextToSpeech", text + " " +  System.currentTimeMillis());
         if (isInit) {
             if (Build.VERSION.SDK_INT>=21) {
-                mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "utt" + utterid);
+                mTts.speak(text, TextToSpeech.QUEUE_ADD, null, "utt" + utterid);
             } else {
-                mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+                mTts.speak(text, TextToSpeech.QUEUE_ADD, null);
             }
             utterid++;
         } else {
@@ -105,16 +107,40 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
         }
     }
 
-    private VoiceFullyInitializedListener mFil;
+
+    public void setPitch(float pitch) {
+        mPitch = pitch;
+        mTts.setPitch(pitch);
+    }
+
+    public void setSpeed(float speed) {
+        mSpeed = speed;
+        mTts.setSpeechRate(speed);
+    }
+
+    public float getPitch() {
+        return mPitch;
+    }
+
+    public float getSpeed() {
+        return mSpeed;
+    }
+
+
+    public boolean isReady() {
+        return fullyInited;
+    }
+
+    private VoiceReadyListener mFil;
 
     private boolean fullyInited;
 
-    public void setFullyInitializedListener(VoiceFullyInitializedListener fil) {
+    public void setVoiceReadyListener(VoiceReadyListener fil) {
         mFil = fil;
     }
 
 
-    public interface VoiceFullyInitializedListener {
-        void onVoiceFullyInitialized(TextToVoice ttv);
+    public interface VoiceReadyListener {
+        void onVoiceReady(TextToVoice ttv);
     }
 }

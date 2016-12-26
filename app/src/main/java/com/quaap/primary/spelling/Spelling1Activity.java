@@ -7,7 +7,7 @@ import android.widget.Button;
 import com.quaap.primary.R;
 import com.quaap.primary.base.BaseActivity;
 
-public class Spelling1Activity extends BaseActivity implements TextToVoice.VoiceFullyInitializedListener {
+public class Spelling1Activity extends BaseActivity implements TextToVoice.VoiceReadyListener {
 
     public static final String LevelSetName = "Spelling1Levels";
 
@@ -47,7 +47,8 @@ public class Spelling1Activity extends BaseActivity implements TextToVoice.Voice
         super.onResume();
 
         v = new TextToVoice(this);
-        v.setFullyInitializedListener(this);
+        v.setVoiceReadyListener(this);
+
     }
 
     @Override
@@ -63,7 +64,7 @@ public class Spelling1Activity extends BaseActivity implements TextToVoice.Voice
 
 
     @Override
-    public void onVoiceFullyInitialized(TextToVoice ttv) {
+    public void onVoiceReady(TextToVoice ttv) {
 
     }
 }
