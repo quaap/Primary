@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,13 +13,16 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -268,6 +270,67 @@ public abstract class BaseActivity extends AppCompatActivity  {
         if (readyForProblem && resumeDone) {
             showProb();
         }
+    }
+
+
+    public interface AnswerGivenListener<T> {
+        boolean answerGiven(T answer);
+    }
+
+    protected <T> List<Button> makeChoiceButtons(
+                    ViewGroup answerlayout,
+                    List<T> choices,
+                    final AnswerGivenListener listener,
+                    float fontsize,
+                    ViewGroup.LayoutParams lparams,
+                    int gravity)
+    {
+        answerlayout.removeAllViews();
+
+        final List<Button> buttons = new ArrayList<>();
+        for (T choice: choices) {
+            Button ansbutt = new Button(this);
+            buttons.add(ansbutt);
+            ansbutt.setEnabled(false);
+            ansbutt.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontsize);
+
+            ansbutt.setText(choice.toString());
+            ansbutt.setTag(choice);
+            ansbutt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    for (Button ab: buttons) {
+                        ab.setEnabled(false);
+                    }
+                    boolean isright = listener.answerGiven((T)view.getTag());
+                    if (!isright) {
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                for (Button ab: buttons) {
+                                    ab.setEnabled(true);
+                                }
+                            }
+                        }, 1000);
+                    }
+                }
+            });
+            ansbutt.setGravity(gravity);
+            ansbutt.setLayoutParams(lparams);
+            answerlayout.addView(ansbutt);
+        }
+
+        //enable buttons ~1/10 of a second after display. prevents accidental clicks on new problem
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (Button ab: buttons) {
+                    ab.setEnabled(true);
+                }
+            }
+        }, 120);
+
+        return buttons;
     }
 
     protected void showSoftKeyboard(final View view) {
@@ -530,15 +593,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
         TextView tscore_txt = (TextView)findViewById(R.id.tscore);
         tscore_txt.setText(String.format(Locale.getDefault(), "%d", tscore));
 
-
-//        String btext = null;
-//        if (correctInARow>2) {
-//            btext = correctInARow + " in a row!";
-//        }
-//        if (bonuses!=null) {
-//            if (btext!=null) btext +="\n"; else btext = "";
-//            btext += bonuses;
-//        }
         TextView bonusestxt = (TextView) findViewById(R.id.bonuses);
         bonusestxt.setText(bonuses);
     }

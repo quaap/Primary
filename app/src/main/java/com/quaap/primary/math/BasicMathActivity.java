@@ -2,21 +2,14 @@ package com.quaap.primary.math;
 
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Space;
 import android.widget.TextView;
 
 import com.quaap.primary.R;
@@ -27,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-public class BasicMathActivity extends BaseActivity {
+public class BasicMathActivity extends BaseActivity implements BaseActivity.AnswerGivenListener<Integer> {
 
     private int num1;
     private int num2;
@@ -126,7 +119,7 @@ public class BasicMathActivity extends BaseActivity {
 
 
 
-    private boolean answerGiven(int ans) {
+    public boolean answerGiven(Integer ans) {
 
         boolean isright = ans == answer;
 
@@ -296,67 +289,22 @@ public class BasicMathActivity extends BaseActivity {
         return answers;
     }
 
-    private final List<Button> answerbuttons = new ArrayList<>();
-
-    private void makeAnswerButtons(LinearLayout answerarea, float fontsize) {
-        answerarea.removeAllViews();
-        answerbuttons.clear();
-
-        int numans = 4;
-        List<Integer> answers = getAnswerChoices(numans);
-
-        for (int i=0; i<answers.size(); i++) {
-            int tmpans = answers.get(i);
-            makeAnswerButton(tmpans, answerarea, fontsize);
-        }
-        answerarea.addView(new Space(this));
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                for (Button ab: answerbuttons) {
-                    ab.setEnabled(true);
-                }
-            }
-        }, 120);
-    }
 
     @SuppressLint("RtlHardcoded")
-    private void makeAnswerButton(int tmpans, LinearLayout answerarea, float fontsize) {
-        Button ansbutt = new Button(this);
-        ansbutt.setEnabled(false);
-        ansbutt.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontsize);
+    private void makeAnswerButtons(LinearLayout answerarea, float fontsize) {
 
-        ansbutt.setText(String.format(Locale.getDefault(),"%d",tmpans));
-        ansbutt.setTag(tmpans);
-        ansbutt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                for (Button ab: answerbuttons) {
-                    ab.setEnabled(false);
-                }
+        List<Integer> answers = getAnswerChoices(4);
 
-                boolean isright = answerGiven((int)view.getTag());
-
-                if (!isright) {
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            for (Button ab: answerbuttons) {
-                                ab.setEnabled(true);
-                            }
-                        }
-                    }, 1500);
-                }
-            }
-        });
-        ansbutt.setGravity(Gravity.RIGHT);
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lparams.gravity = Gravity.RIGHT;
         lparams.weight = 1;
-        ansbutt.setLayoutParams(lparams);
-        answerarea.addView(ansbutt);
-        answerbuttons.add(ansbutt);
+
+
+        makeChoiceButtons(answerarea, answers, this, fontsize, lparams, Gravity.RIGHT);
+
     }
+
+
 
 }
 
