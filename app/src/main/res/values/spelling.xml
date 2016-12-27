@@ -4643,5 +4643,85 @@
         <item>telecommunication</item>
     </string-array>
 
-
+    <!-- must be even number of elements:
+        regex => replacement,
+     -->
+    <string-array name="unspell">
+        <item>"[stc]ion$"</item> <item>"shun"</item>
+        <item>"sion$"</item> <item>"tion"</item>
+        <item>"tion$"</item> <item>"sion"</item>
+        <item>"ion$"</item> <item>"on"</item>
+        <item>"[ao]n$"</item> <item>"un"</item>
+        <item>"ant$"</item> <item>"ent"</item>
+        <item>"ely$"</item> <item>"ly"</item>
+        <item>"(.)\\1"</item> <item>"$1"</item>
+        <item>"(.)"</item> <item>"$1$1"</item>
+        <item>"a"</item> <item>"ay"</item>
+        <item>"mb"</item> <item>"m"</item>
+        <item>"ay"</item> <item>"a"</item>
+        <item>"as"</item> <item>"az"</item>
+        <item>"e"</item> <item>"ee"</item>
+        <item>"i"</item> <item>"ih"</item>
+        <item>"u"</item> <item>"ou"</item>
+        <item>"ou"</item> <item>"ow"</item>
+        <item>"y"</item> <item>"i"</item>
+        <item>"y"</item> <item>"ie"</item>
+        <item>"ie"</item> <item>"ei"</item>
+        <item>"ei"</item> <item>"ie"</item>
+        <item>"lv"</item> <item>"lf"</item>
+        <item>"ld"</item> <item>"d"</item>
+        <item>"e$"</item> <item>""</item>
+        <item>"e$"</item> <item>""</item>
+        <item>"$"</item> <item>"e"</item>
+        <item>"c"</item> <item>"s"</item>
+        <item>"c"</item> <item>"k"</item>
+        <item>"c"</item> <item>"k"</item>
+        <item>"k"</item> <item>"c"</item>
+        <item>"x"</item> <item>"cks"</item>
+        <item>"g"</item> <item>"j"</item>
+        <item>"j"</item> <item>"g"</item>
+        <item>"cks"</item> <item>"x"</item>
+        <item>"th"</item> <item>"th"</item>
+        <item>"tr"</item> <item>"chr"</item>
+        <item>"."</item> <item>""</item>
+        <item>"p"</item> <item>"b"</item>
+        <item>"ph"</item> <item>"f"</item>
+        <item>"f"</item> <item>"ph"</item>
+        <item>"gh"</item> <item>"g"</item>
+        <item>"gh"</item> <item>""</item>
+        <item>"gh"</item> <item>"e"</item>
+        <item>"ght"</item> <item>"t"</item>
+        <item>"l"</item> <item>"r"</item>
+        <item>"v"</item> <item>"b"</item>
+        <item>"br"</item> <item>"ber"</item>
+        <item>"z"</item> <item>"s"</item>
+        <item>"wh"</item> <item>"w"</item>
+        <item>"wr"</item> <item>"r"</item>
+        <item>"w$"</item> <item>""</item>
+        <item>"qu"</item> <item>"kw"</item>
+        <item>"o$"</item> <item>"oo"</item>
+        <item>"o$"</item> <item>"ow"</item>
+        <item>"ow"</item> <item>"u"</item>
+        <item>"ew"</item> <item>"o"</item>
+        <item>"ew"</item> <item>"u"</item>
+        <item>"q"</item> <item>"k"</item>
+        <item>"([aeiou])[aeiou]"</item> <item>"$1"</item>
+        <item>"[aeiou]([aeiou])"</item> <item>"$1"</item>
+        <item>"([aeiou])"</item> <item>"$1a"</item>
+        <item>"([aeiou])"</item> <item>"$1e"</item>
+        <item>"([aeiou])"</item> <item>"$1i"</item>
+        <item>"([aeiou])"</item> <item>"$1o"</item>
+        <item>"([aeiou])"</item> <item>"$1u"</item>
+        <item>"([aeiou])"</item> <item>"$1y"</item>
+        <item>"([aeiou])"</item> <item>"$1h"</item>
+        <item>"([eiou])"</item> <item>"a"</item>
+        <item>"([aiou])"</item> <item>"e"</item>
+        <item>"([aeou])"</item> <item>"i"</item>
+        <item>"([aeiu])"</item> <item>"o"</item>
+        <item>"([aeio])"</item> <item>"u"</item>
+        <item>"([aeiou])"</item> <item>"y"</item>
+        <item>"a([^aeiou])e$"</item> <item>"ay$1"</item>
+        <item>"o([^aeiou])e$"</item> <item>"oo$1"</item>
+        <item>"([^aeiou])e$"</item> <item>"$1"</item>
+    </string-array>
 </resources>

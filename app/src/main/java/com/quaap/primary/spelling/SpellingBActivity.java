@@ -3,11 +3,8 @@ package com.quaap.primary.spelling;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,13 +13,15 @@ import com.quaap.primary.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class SpellingBActivity extends BaseActivity implements TextToVoice.VoiceReadyListener {
     private List<String> words;
 
     private String word;
+
+    private String[] unspellMap;
 
     TextToVoice v;
     public SpellingBActivity() {
@@ -34,6 +33,11 @@ public class SpellingBActivity extends BaseActivity implements TextToVoice.Voice
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        unspellMap = getResources().getStringArray(R.array.unspell);
+
+        if (unspellMap.length%2!=0) {
+            throw new IllegalArgumentException("unspell array must have even number of arguments");
+        }
 
         super.onCreate(savedInstanceState);
 
@@ -45,7 +49,6 @@ public class SpellingBActivity extends BaseActivity implements TextToVoice.Voice
                 v.speak(word);
             }
         });
-
 
 
     }
@@ -102,18 +105,21 @@ public class SpellingBActivity extends BaseActivity implements TextToVoice.Voice
         List<String> answers = new ArrayList<>();
         answers.add(realanswer);
 
+        int maxtries = unspellMap.length;
         int tries = 0;
         do {
             String badspell;
             tries = 0;
             do {
                 badspell = unspell(word);
-            } while (tries++<50 && answers.contains(badspell));
-            if (tries<50) {
+            } while (tries++<maxtries && answers.contains(badspell));
+            if (tries<maxtries) {
                 answers.add(badspell);
             }
 
-        } while (answers.size()<numanswers && tries<50);
+        } while (answers.size()<numanswers && tries<maxtries);
+
+        Collections.shuffle(answers);
 
         for (String ans: answers) {
             Button but = new Button(this);
@@ -145,100 +151,15 @@ public class SpellingBActivity extends BaseActivity implements TextToVoice.Voice
         }
     }
 
-    private static String [][] misspellmap =
-            {       //en
-                    {
-                            "[stc]ion$", "shun",
-                            "sion$", "tion",
-                            "tion$", "sion",
-                            "ion$", "on",
-                            "on$", "un",
-                            "ant$", "ent",
-                            "ely$", "ly",
-                            "(.)\\1", "$1",
-                            "(.)", "$1$1",
-                            "a", "ay",
-                            "ay", "a",
-                            "as", "az",
-                            "a", "u",
-                            "a", "o",
-                            "e", "a",
-                            "e", "i",
-                            "e", "ee",
-                            "i", "ih",
-                            "i", "u",
-                            "i", "y",
-                            "o", "u",
-                            "u", "o",
-                            "u", "ou",
-                            "ou", "ow",
-                            "y", "i",
-                            "y", "ie",
-                            "ie", "ei",
-                            "ei", "ie",
-                            "lv", "lf",
-                            "ld", "d",
-                            "e$", "",
-                            "e$", "",
-                            "$", "e",
-                            "c", "s",
-                            "c", "k",
-                            "k", "c",
-                            "x", "cks",
-                            "g", "j",
-                            "j", "g",
-                            "cks", "x",
-                            "th", "th",
-                            "tr", "chr",
-                            ".", "",
-                            "p", "b",
-                            "ph", "f",
-                            "f", "ph",
-                            "gh", "",
-                            "l", "r",
-                            "v", "b",
-                            "br", "ber",
-                            "z", "s",
-                            "wh", "w",
-                            "qu", "kw",
-                            "ow", "u",
-                            "ew", "o",
-                            "ew", "u",
-                            "q", "k",
-                            "([aeiou])[aeiou]", "$1",
-                            "[aeiou]([aeiou])", "$1",
-                            "([aeiou])", "$1a",
-                            "([aeiou])", "$1e",
-                            "([aeiou])", "$1i",
-                            "([aeiou])", "$1o",
-                            "([aeiou])", "$1u",
-                            "([aeiou])", "$1y",
-                            "([aeiou])", "$1h",
-                            "([eiou])", "a",
-                            "([aiou])", "e",
-                            "([aeou])", "i",
-                            "([aeiu])", "o",
-                            "([aeio])", "u",
-                            "([aeiou])", "y",
-                            "(a([^aeiou])e$)", "ay$1",
 
 
-                    }
-            };
-
-    public static String unspell(String word) {
+    public String unspell(String word) {
         List<String> words = new ArrayList<>();
 
-        String[] mmap = misspellmap[0];
-
-        String lang = Locale.getDefault().getLanguage();
-        if ("en".equals(lang)) {
-            mmap = misspellmap[0];
-        }
 
         for (int j=0; j<1; j++) {
-            int i = ((int) (Math.random() * ((mmap.length-1) / 2 )) * 2);
-            word = word.replaceFirst(mmap[i], mmap[i + 1]);
+            int i = ((int) (Math.random() * ((unspellMap.length-1) / 2 )) * 2);
+            word = word.replaceFirst(unspellMap[i], unspellMap[i + 1]);
         }
         return word;
     }
