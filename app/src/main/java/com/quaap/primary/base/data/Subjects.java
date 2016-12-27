@@ -63,7 +63,7 @@ public class Subjects {
     }
 
     public Desc get(int num) {
-        return subjectMap.get(subjects[num]);
+        return subjects[num];
     }
 
     public static Desc[] loadSubjects(Context context) {
