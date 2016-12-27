@@ -41,6 +41,7 @@ import com.quaap.primary.base.data.UserData;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 startSelectedSubject();
             }
         });
-
+        //Log.d("spell", Locale.getDefault().getLanguage());
     }
 
 

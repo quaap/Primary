@@ -4,8 +4,6 @@
 
     <string-array name="spelling_words_1a">
 
-        <item>a</item>
-        <item>I</item>
         <item>am</item>
         <item>an</item>
         <item>as</item>
@@ -99,7 +97,6 @@
         <item>eat</item>
         <item>egg</item>
         <item>end</item>
-        <item>ewe</item>
         <item>eye</item>
         <item>fad</item>
         <item>fan</item>
@@ -139,9 +136,7 @@
         <item>hug</item>
         <item>hut</item>
         <item>ice</item>
-        <item>I\'d</item>
         <item>ill</item>
-        <item>I\'m</item>
         <item>ink</item>
         <item>inn</item>
         <item>its</item>

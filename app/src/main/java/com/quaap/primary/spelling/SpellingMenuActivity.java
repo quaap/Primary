@@ -26,7 +26,7 @@ public class SpellingMenuActivity extends SubjectMenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTargetActivity(SpellingActivity.class);
+        setTargetActivity(SpellingBActivity.class);
     }
 
 }

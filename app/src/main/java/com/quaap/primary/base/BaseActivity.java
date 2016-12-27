@@ -559,11 +559,11 @@ public abstract class BaseActivity extends AppCompatActivity  {
         }
     }
 
-    protected int getRand(int upper) {
+    protected static int getRand(int upper) {
         return getRand(0,upper);
     }
 
-    protected int getRand(int lower, int upper) {
+    protected static int getRand(int lower, int upper) {
         return (int) (Math.random() * (upper + 1 - lower)) + lower;
     }
 
