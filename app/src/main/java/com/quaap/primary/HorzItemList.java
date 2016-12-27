@@ -3,6 +3,7 @@ package com.quaap.primary;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -202,12 +203,35 @@ public abstract class HorzItemList {
         }
         selected = key;
         if (selected!=null) {
+            HorizontalScrollView hsv = (HorizontalScrollView)mHorzList.findViewById(R.id.horz_list_scroller);
             View new_selected = mListItems.get(selected);
+//            boolean nextone = false;
+//            for (String sk: mListItems.keySet()) {
+//                if (nextone) {
+//                    hsv.requestChildFocus(mListItems.get(sk), mListItems.get(sk));
+//                    break;
+//                }
+//                if (sk.equals(selected)) {
+//                    nextone = true;
+//                }
+//            }
             if (new_selected!=null) {
                 new_selected.setBackgroundColor(selectedColor);
-                HorizontalScrollView hsv = (HorizontalScrollView)mHorzList.findViewById(R.id.horz_list_scroller);
                 hsv.requestChildFocus(new_selected, new_selected);
+               // focusChild(hsv, new_selected);
             }
         }
     }
+
+//    private void focusChild(final HorizontalScrollView scroll, final View view) {
+//        new Handler().post(new Runnable() {
+//            @Override
+//            public void run() {
+//                int left = view.getLeft();
+//                int right = view.getRight();
+//                int width = scroll.getWidth();
+//                scroll.smoothScrollTo(((left + right - width) / 2), 0);
+//            }
+//        });
+//    }
 }
