@@ -277,6 +277,14 @@ public abstract class BaseActivity extends AppCompatActivity  {
         boolean answerGiven(T answer);
     }
 
+
+    protected <T> List<Button> makeChoiceButtons(
+            ViewGroup answerlayout,
+            List<T> choices,
+            final AnswerGivenListener listener) {
+        return makeChoiceButtons(answerlayout, choices, listener, 0, null, Gravity.CENTER);
+    }
+
     protected <T> List<Button> makeChoiceButtons(
                     ViewGroup answerlayout,
                     List<T> choices,
@@ -292,7 +300,9 @@ public abstract class BaseActivity extends AppCompatActivity  {
             Button ansbutt = new Button(this);
             buttons.add(ansbutt);
             ansbutt.setEnabled(false);
-            ansbutt.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontsize);
+            if (fontsize>0) {
+                ansbutt.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontsize);
+            }
 
             ansbutt.setText(choice.toString());
             ansbutt.setTag(choice);
@@ -316,7 +326,9 @@ public abstract class BaseActivity extends AppCompatActivity  {
                 }
             });
             ansbutt.setGravity(gravity);
-            ansbutt.setLayoutParams(lparams);
+            if (lparams!=null) {
+                ansbutt.setLayoutParams(lparams);
+            }
             answerlayout.addView(ansbutt);
         }
 

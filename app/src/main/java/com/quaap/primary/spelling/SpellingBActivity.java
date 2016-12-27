@@ -3,6 +3,7 @@ package com.quaap.primary.spelling;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -16,7 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class SpellingBActivity extends BaseActivity implements TextToVoice.VoiceReadyListener {
+public class SpellingBActivity extends BaseActivity implements TextToVoice.VoiceReadyListener,  BaseActivity.AnswerGivenListener<String> {
     private List<String> words;
 
     private String word;
@@ -95,16 +96,8 @@ public class SpellingBActivity extends BaseActivity implements TextToVoice.Voice
 
     }
 
-    private final int numanswers = 4;
-    protected void getAnswerButtons(String realanswer) {
-
-        LinearLayout answerarea = (LinearLayout)findViewById(R.id.spell_answer_area);
-
-        answerarea.removeAllViews();
-
+    protected List<String> getAnswerChoices(String realanswer) {
         List<String> answers = new ArrayList<>();
-        answers.add(realanswer);
-
         int maxtries = unspellMap.length;
         int tries = 0;
         do {
@@ -120,24 +113,24 @@ public class SpellingBActivity extends BaseActivity implements TextToVoice.Voice
         } while (answers.size()<numanswers && tries<maxtries);
 
         Collections.shuffle(answers);
+        return answers;
+    }
 
-        for (String ans: answers) {
-            Button but = new Button(this);
-            but.setText(ans);
-            but.setTag(ans);
-            but.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    answerReady((String)view.getTag());
-                }
-            });
-            answerarea.addView(but);
-        }
+    private final int numanswers = 4;
+    protected void getAnswerButtons(String realanswer) {
+
+        LinearLayout answerarea = (LinearLayout)findViewById(R.id.spell_answer_area);
+
+        List<String> answers = getAnswerChoices(realanswer);
+
+
+        makeChoiceButtons(answerarea, answers, this);
+
 
     }
 
 
-    protected void answerReady(String answer) {
+    public boolean answerGiven(String answer) {
 
         int points = 0;
         boolean isright = answer.trim().equals(word);
@@ -149,6 +142,7 @@ public class SpellingBActivity extends BaseActivity implements TextToVoice.Voice
         if (!isright) {
 
         }
+        return isright;
     }
 
 
