@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-public class BasicMathActivity extends BaseActivity implements BaseActivity.AnswerGivenListener<Integer> {
+public class BasicMathActivity extends BaseActivity implements BaseActivity.AnswerGivenListener<Integer>,BaseActivity.AnswerTypedListener {
 
     private int num1;
     private int num2;
@@ -28,9 +28,6 @@ public class BasicMathActivity extends BaseActivity implements BaseActivity.Answ
     private int answer;
 
     //public static final String LevelSetName = "Math1Levels";
-
-
-    public enum Mode {Buttons, Input}
 
     public Mode mode = Mode.Buttons;
     //Mode.Input doesn't work yet.
@@ -88,7 +85,7 @@ public class BasicMathActivity extends BaseActivity implements BaseActivity.Answ
         if (mode==Mode.Buttons) {
             makeAnswerButtons(answerarea, fontsize);
         } else if (mode==Mode.Input) {
-            makeAnswerBox(answerarea, fontsize);
+            makeInputBox(answerarea, this,INPUTTYPE_NUMBER,2);
         }
 
     }
@@ -118,7 +115,12 @@ public class BasicMathActivity extends BaseActivity implements BaseActivity.Answ
     }
 
 
+    @Override
+    public boolean answerTyped(String answer) {
+        return answerGiven(Integer.parseInt(answer));
+    }
 
+    @Override
     public boolean answerGiven(Integer ans) {
 
         boolean isright = ans == answer;
@@ -189,34 +191,34 @@ public class BasicMathActivity extends BaseActivity implements BaseActivity.Answ
 
     //Mode.Input impl:
 
-    private EditText answerBox;
-    private void makeAnswerBox(LinearLayout answerarea, float fontsize) {
-        //answerarea.removeAllViews();
-        if (answerBox==null) {
-            answerBox = new EditText(this);
-            answerBox.setTextSize(fontsize);
-            answerBox.setEms(1);
-            answerBox.setInputType(InputType.TYPE_CLASS_NUMBER);
-            answerarea.addView(answerBox);
-            answerBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if(actionId== EditorInfo.IME_ACTION_DONE){
-                        answerGiven(Integer.parseInt(answerBox.getText().toString()));
-                    }
-                    return false;
-                }
-            });
-            answerBox.setGravity(Gravity.RIGHT);
-//            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-//            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
-        }
-        showSoftKeyboard(answerBox);
-
-//        answerBox.requestFocus();
-
-    }
+//    private EditText answerBox;
+//    private void makeAnswerBox(LinearLayout answerarea, float fontsize) {
+//        //answerarea.removeAllViews();
+//        if (answerBox==null) {
+//            answerBox = new EditText(this);
+//            answerBox.setTextSize(fontsize);
+//            answerBox.setEms(1);
+//            answerBox.setInputType(InputType.TYPE_CLASS_NUMBER);
+//            answerarea.addView(answerBox);
+//            answerBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//                @Override
+//                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                    if(actionId== EditorInfo.IME_ACTION_DONE){
+//                        answerGiven(Integer.parseInt(answerBox.getText().toString()));
+//                    }
+//                    return false;
+//                }
+//            });
+//            answerBox.setGravity(Gravity.RIGHT);
+////            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+////            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+////            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+//        }
+//        showSoftKeyboard(answerBox);
+//
+////        answerBox.requestFocus();
+//
+//    }
 
 
     //Mode.Buttons impl:
@@ -303,7 +305,6 @@ public class BasicMathActivity extends BaseActivity implements BaseActivity.Answ
         makeChoiceButtons(answerarea, answers, this, fontsize, lparams, Gravity.RIGHT);
 
     }
-
 
 
 }

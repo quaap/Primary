@@ -12,17 +12,21 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -55,6 +59,9 @@ import java.util.Locale;
  * GNU General Public License for more details.
  */
 public abstract class BaseActivity extends AppCompatActivity  {
+
+    public enum Mode {Buttons, Input}
+
     public static final String LEVELNUM = "levelnum";
     public static final String START_AT_ZERO = "startover";
     //protected BasicMathLevel[] levels;
@@ -277,6 +284,72 @@ public abstract class BaseActivity extends AppCompatActivity  {
         boolean answerGiven(T answer);
     }
 
+    public interface AnswerTypedListener {
+        boolean answerTyped(String answer);
+    }
+
+
+    protected static int INPUTTYPE_TEXT = InputType.TYPE_CLASS_TEXT;
+    protected static int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED;
+
+    protected void makeInputBox(ViewGroup answerlayout, final AnswerTypedListener listener) {
+        makeInputBox(answerlayout, listener, INPUTTYPE_TEXT, 0);
+    }
+
+    protected void makeInputBox(ViewGroup answerlayout, final AnswerTypedListener listener, int inputttpe, int emwidth) {
+
+        answerlayout.removeAllViews();
+        ViewGroup type_area = (ViewGroup)LayoutInflater.from(this).inflate(R.layout.typed_input, answerlayout);
+
+        final EditText uinput = (EditText) type_area.findViewById(R.id.uinput_edit);
+
+        uinput.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | inputttpe);
+        if (emwidth!=0) {
+            uinput.setEms(emwidth);
+        }
+
+        uinput.setOnEditorActionListener(
+                new TextView.OnEditorActionListener() {
+                     @Override
+                     public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+                        Log.d("rrr", actionId + " " + event.toString());
+                         if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
+                                 || (actionId == EditorInfo.IME_ACTION_DONE)
+                                 || (actionId == EditorInfo.IME_ACTION_NEXT)
+                                 || (actionId == EditorInfo.IME_ACTION_GO)
+                                 ) {
+                             if (!listener.answerTyped(uinput.getText().toString())) {
+                                 showSoftKeyboard(uinput);
+                             }
+                         }
+                         return true;
+                     }
+                 });
+
+
+        Button clear = (Button)type_area.findViewById(R.id.uinput_clear);
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uinput.setText("");
+            }
+        });
+
+        Button done = (Button)type_area.findViewById(R.id.uinput_done);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!listener.answerTyped(uinput.getText().toString())) {
+                    showSoftKeyboard(uinput);
+                }
+            }
+        });
+        showSoftKeyboard(uinput);
+    }
+
+
+
+
 
     protected <T> List<Button> makeChoiceButtons(
             ViewGroup answerlayout,
@@ -356,7 +429,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
                     imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
                 }
             }
-        }, 10);
+        }, 100);
 
     }
 

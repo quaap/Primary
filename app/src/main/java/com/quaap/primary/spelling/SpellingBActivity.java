@@ -3,7 +3,6 @@ package com.quaap.primary.spelling;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -17,7 +16,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class SpellingBActivity extends BaseActivity implements TextToVoice.VoiceReadyListener,  BaseActivity.AnswerGivenListener<String> {
+public class SpellingBActivity extends BaseActivity
+        implements TextToVoice.VoiceReadyListener,
+        BaseActivity.AnswerGivenListener<String>,
+        BaseActivity.AnswerTypedListener{
+
+    public Mode mode = Mode.Buttons;
+
     private List<String> words;
 
     private String word;
@@ -91,45 +96,21 @@ public class SpellingBActivity extends BaseActivity implements TextToVoice.Voice
 
         Log.d("spell", word);
 
-        getAnswerButtons(word);
+        if (mode==Mode.Buttons) {
+            getAnswerButtons(word);
+        } else {
+            getAnswerInput(word);
+        }
         v.speak(word);
 
     }
 
-    protected List<String> getAnswerChoices(String realanswer) {
-        List<String> answers = new ArrayList<>();
-        int maxtries = unspellMap.length;
-        int tries = 0;
-        do {
-            String badspell;
-            tries = 0;
-            do {
-                badspell = unspell(word);
-            } while (tries++<maxtries && answers.contains(badspell));
-            if (tries<maxtries) {
-                answers.add(badspell);
-            }
-
-        } while (answers.size()<numanswers && tries<maxtries);
-
-        Collections.shuffle(answers);
-        return answers;
+    @Override
+    public boolean answerTyped(String answer) {
+        return answerGiven(answer);
     }
 
-    private final int numanswers = 4;
-    protected void getAnswerButtons(String realanswer) {
-
-        LinearLayout answerarea = (LinearLayout)findViewById(R.id.spell_answer_area);
-
-        List<String> answers = getAnswerChoices(realanswer);
-
-
-        makeChoiceButtons(answerarea, answers, this);
-
-
-    }
-
-
+    @Override
     public boolean answerGiven(String answer) {
 
         int points = 0;
@@ -145,18 +126,6 @@ public class SpellingBActivity extends BaseActivity implements TextToVoice.Voice
         return isright;
     }
 
-
-
-    public String unspell(String word) {
-        List<String> words = new ArrayList<>();
-
-
-        for (int j=0; j<1; j++) {
-            int i = ((int) (Math.random() * ((unspellMap.length-1) / 2 )) * 2);
-            word = word.replaceFirst(unspellMap[i], unspellMap[i + 1]);
-        }
-        return word;
-    }
 
     @Override
     protected void setStatus(String text) {
@@ -187,4 +156,58 @@ public class SpellingBActivity extends BaseActivity implements TextToVoice.Voice
     public void onError(TextToVoice ttv) {
 
     }
+
+
+    protected void getAnswerInput(String realanswer) {
+        LinearLayout answerarea = (LinearLayout)findViewById(R.id.spell_answer_area);
+        makeInputBox(answerarea, this);
+    }
+
+    private final int numanswers = 4;
+    protected void getAnswerButtons(String realanswer) {
+
+        LinearLayout answerarea = (LinearLayout)findViewById(R.id.spell_answer_area);
+
+        List<String> answers = getAnswerChoices(realanswer);
+
+        makeChoiceButtons(answerarea, answers, this);
+
+    }
+
+
+
+    protected List<String> getAnswerChoices(String realanswer) {
+        List<String> answers = new ArrayList<>();
+        int maxtries = unspellMap.length;
+        int tries = 0;
+        do {
+            String badspell;
+            tries = 0;
+            do {
+                badspell = unspell(word);
+            } while (tries++<maxtries && answers.contains(badspell));
+            if (tries<maxtries) {
+                answers.add(badspell);
+            }
+
+        } while (answers.size()<numanswers && tries<maxtries);
+
+        Collections.shuffle(answers);
+        return answers;
+    }
+
+
+
+    public String unspell(String word) {
+        List<String> words = new ArrayList<>();
+
+
+        for (int j=0; j<1; j++) {
+            int i = ((int) (Math.random() * ((unspellMap.length-1) / 2 )) * 2);
+            word = word.replaceFirst(unspellMap[i], unspellMap[i + 1]);
+        }
+        return word;
+    }
+
+
 }

@@ -13,11 +13,10 @@ import android.widget.TextView;
 import com.quaap.primary.R;
 import com.quaap.primary.base.BaseActivity;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import java.util.List;
-import java.util.Locale;
+
 
 public class SpellingActivity extends BaseActivity implements TextToVoice.VoiceReadyListener {
     private List<String> words;
@@ -109,7 +108,7 @@ public class SpellingActivity extends BaseActivity implements TextToVoice.VoiceR
         } while (tries++<50 && seenProblem(word));
 
         Log.d("spell", word);
-        unspell(word,3);
+
         showHint();
         v.speak(word);
         uinput.setText("");
@@ -141,56 +140,7 @@ public class SpellingActivity extends BaseActivity implements TextToVoice.VoiceR
         }
     }
 
-    private static String [][] misspellmap =
-            {       //en
-                    {
-                            "[st]ion$", "shun",
-                            "ant$", "ent",
-                            "ely$", "ly",
-                            "(.)\\1", "$1",
-                            "(.)", "$1$1",
-                            "a", "ay",
-                            "a", "u",
-                            "e", "a",
-                            "e", "ee",
-                            "i", "ih",
-                            "o", "u",
-                            "u", "o",
-                            "u", "ou",
-                            "ou", "ow",
-                            "([aeiou])[aeiou]", "$1",
-                            "[aeiou]([aeiou])", "$1",
-                            "y", "i",
-                            "y", "ie",
-                            "ie", "ei",
-                            "ei", "ie",
-                            "lv", "lf",
-                            "ld", "d",
-                            "e$", "",
-                            "$", "e",
 
-                    }
-            };
-
-    public static List<String> unspell(String word, int num) {
-        List<String> words = new ArrayList<>();
-
-        String[] mmap = misspellmap[0];
-
-        String lang = Locale.getDefault().getLanguage();
-        if ("en".equals(lang)) {
-            mmap = misspellmap[0];
-        }
-        String w1 = word;
-        do {
-            do {
-                int i = (int)(Math.random() * (mmap.length / 2) * 2);
-                w1 = w1.replaceFirst(mmap[i], mmap[i + 1]);
-            } while (words.contains(w1));
-            words.add(w1);
-        } while (words.size()<num);
-        return words;
-    }
 
     @Override
     protected void setStatus(String text) {
