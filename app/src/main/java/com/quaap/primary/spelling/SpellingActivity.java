@@ -112,7 +112,7 @@ public class SpellingActivity extends BaseActivity implements TextToVoice.VoiceR
         showHint();
         v.speak(word);
         uinput.setText("");
-        showSoftKeyboard(uinput);
+      //  showSoftKeyboard(uinput);
     }
 
     private void showHint() {
@@ -136,7 +136,7 @@ public class SpellingActivity extends BaseActivity implements TextToVoice.VoiceR
 
         if (!isright) {
             uinput.setText("");
-            showSoftKeyboard(uinput);
+            //showSoftKeyboard(uinput);
         }
     }
 

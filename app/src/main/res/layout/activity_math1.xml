@@ -10,91 +10,95 @@
     tools:context="com.quaap.primary.math.BasicMathActivity"
     android:id="@+id/math1_layout">
 
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/txtstatus"
-        android:textSize="24sp"
-        android:textColor="@android:color/holo_green_light"
-        android:layout_alignParentTop="true" />
-
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:id="@+id/problem_area"
-        android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/txtstatus">
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:id="@+id/centercol"
+        android:gravity="center_horizontal">
 
         <TextView
-            android:text="999"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/num1"
-            android:layout_columnSpan="1"
-            android:layout_gravity="right"
-            android:gravity="right"
-            android:layout_columnWeight="1"
-            android:textStyle="bold"
-            android:layout_marginRight="10sp"
-            android:textSize="32sp"
-            tools:ignore="HardcodedText" />
+            android:id="@+id/txtstatus"
+            android:textSize="24sp"
+            android:textColor="@android:color/holo_green_light"
+            android:ems="3" />
 
-        <TextView
-            android:text="+"
+        <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/op"
-            android:layout_gravity="right"
-            android:gravity="right"
-            android:layout_columnWeight="1"
-            android:textStyle="bold"
-            android:textSize="32sp"
-            tools:ignore="HardcodedText" />
+            android:columnCount="2"
+            android:id="@+id/problem_area">
 
-        <TextView
-            android:text="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/num2"
-            android:layout_gravity="right"
-            android:gravity="right"
-            android:layout_columnWeight="1"
-            android:textStyle="bold"
-            android:layout_marginRight="10sp"
-            android:textSize="32sp"
-            tools:ignore="HardcodedText" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        <TextView
-            android:text="_______________"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnSpan="2"
-            android:textStyle="bold"
-            android:textSize="12sp"
-            tools:ignore="HardcodedText" />
+            <TextView
+                android:text="999"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/num1"
+                android:layout_columnSpan="1"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:layout_marginRight="10sp"
+                android:textSize="30sp"
+                tools:ignore="HardcodedText" />
 
-    </GridLayout>
+            <TextView
+                android:text="+"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/op"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:text="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/num2"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:layout_marginRight="10sp"
+                android:textSize="30sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:text="_______________"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="2"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                tools:ignore="HardcodedText" />
+
+        </GridLayout>
+    </LinearLayout>
 
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="right"
         android:layout_gravity="right"
         android:id="@+id/answer_area"
-        android:layout_below="@+id/problem_area"
+        android:layout_below="@+id/centercol"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:minWidth="0dp">
+        android:layout_marginTop="2dp"
+        android:minWidth="0dp"
+        android:gravity="center_horizontal"
+        android:layout_alignEnd="@+id/centercol"
+        android:layout_alignParentBottom="false">
 
         <TextView
             android:text=" "
@@ -130,6 +134,16 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" />
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="false"
+        android:id="@+id/keypad_area"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true">
+
+    </FrameLayout>
 
 
 </RelativeLayout>

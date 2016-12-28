@@ -6,12 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.text.InputType;
 import android.util.Log;
 import android.util.TypedValue;
@@ -23,10 +26,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -39,6 +44,7 @@ import com.quaap.primary.base.data.AppData;
 import com.quaap.primary.base.data.UserData;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -290,13 +296,22 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
 
     protected static int INPUTTYPE_TEXT = InputType.TYPE_CLASS_TEXT;
-    protected static int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED;
+    protected static int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL;
 
     protected void makeInputBox(ViewGroup answerlayout, final AnswerTypedListener listener) {
-        makeInputBox(answerlayout, listener, INPUTTYPE_TEXT, 0);
+        makeInputBox(answerlayout, listener, INPUTTYPE_TEXT, 0, 18);
     }
 
-    protected void makeInputBox(ViewGroup answerlayout, final AnswerTypedListener listener, int inputttpe, int emwidth) {
+    protected void makeInputBox(ViewGroup answerlayout, final AnswerTypedListener listener, int emwidth) {
+        makeInputBox(answerlayout, listener, INPUTTYPE_TEXT, emwidth, 18);
+    }
+
+
+    protected void makeInputBox(final ViewGroup answerlayout, final AnswerTypedListener listener, int inputttpe, int emwidth, float fontsize) {
+        makeInputBox(answerlayout, null, listener, inputttpe, emwidth, fontsize);
+    }
+
+    protected void makeInputBox(final ViewGroup answerlayout, final ViewGroup keypadarea, final AnswerTypedListener listener, int inputttpe, int emwidth, float fontsize) {
 
         answerlayout.removeAllViews();
         ViewGroup type_area = (ViewGroup)LayoutInflater.from(this).inflate(R.layout.typed_input, answerlayout);
@@ -304,6 +319,11 @@ public abstract class BaseActivity extends AppCompatActivity  {
         final EditText uinput = (EditText) type_area.findViewById(R.id.uinput_edit);
 
         uinput.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | inputttpe);
+
+        if((inputttpe & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER) {
+            uinput.setGravity(Gravity.END);
+        }
+
         if (emwidth!=0) {
             uinput.setEms(emwidth);
         }
@@ -312,39 +332,59 @@ public abstract class BaseActivity extends AppCompatActivity  {
                 new TextView.OnEditorActionListener() {
                      @Override
                      public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-                        Log.d("rrr", actionId + " " + event.toString());
+                        Log.d("rrr", actionId + " " + event);
                          if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
                                  || (actionId == EditorInfo.IME_ACTION_DONE)
                                  || (actionId == EditorInfo.IME_ACTION_NEXT)
                                  || (actionId == EditorInfo.IME_ACTION_GO)
                                  ) {
                              if (!listener.answerTyped(uinput.getText().toString())) {
-                                 showSoftKeyboard(uinput);
+                                 showSoftKeyboard(uinput, keypadarea);
                              }
                          }
                          return true;
                      }
                  });
 
+        Button clear = (Button) type_area.findViewById(R.id.uinput_clear);
+        Button done = (Button) type_area.findViewById(R.id.uinput_done);
+        if (keypadarea==null) {
+            clear.setVisibility(View.VISIBLE);
+            done.setVisibility(View.VISIBLE);
+            clear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    uinput.setText("");
+                }
+            });
 
-        Button clear = (Button)type_area.findViewById(R.id.uinput_clear);
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                uinput.setText("");
-            }
-        });
-
-        Button done = (Button)type_area.findViewById(R.id.uinput_done);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!listener.answerTyped(uinput.getText().toString())) {
-                    showSoftKeyboard(uinput);
+            done.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!listener.answerTyped(uinput.getText().toString())) {
+                        showSoftKeyboard(uinput, keypadarea);
+                    }
+                }
+            });
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                uinput.setShowSoftInputOnFocus(false);
+            } else {
+                try {
+                    final Method method = EditText.class.getMethod(
+                            "setShowSoftInputOnFocus"
+                            , new Class[]{boolean.class});
+                    method.setAccessible(true);
+                    method.invoke(uinput, false);
+                } catch (Exception e) {
+                    // ignore
                 }
             }
-        });
-        showSoftKeyboard(uinput);
+            clear.setVisibility(View.GONE);
+            done.setVisibility(View.GONE);
+
+        }
+        showSoftKeyboard(uinput, keypadarea);
     }
 
 
@@ -418,19 +458,80 @@ public abstract class BaseActivity extends AppCompatActivity  {
         return buttons;
     }
 
-    protected void showSoftKeyboard(final View view) {
+    protected void showSoftKeyboard(final EditText view, ViewGroup keypadarea) {
         view.clearFocus();
-        view.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (view.requestFocus()) {
-                    InputMethodManager imm = (InputMethodManager)
-                            getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-                }
-            }
-        }, 100);
 
+
+        if ((view.getInputType() & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER && keypadarea!=null) {
+            showNumberpad(view, keypadarea);
+        } else {
+
+            view.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (view.requestFocus()) {
+                        InputMethodManager imm = (InputMethodManager)
+                                getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                }
+            }, 100);
+        }
+
+    }
+
+
+    protected void showNumberpad(final EditText editText, ViewGroup parentlayout) {
+        GridLayout glayout = new GridLayout(this);
+
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        int keysize = Math.min(size.y/8,size.x/8);
+        if (keysize>90) keysize=90;
+
+        System.out.println("size: " + size.x + ", " + size.y);
+        String keys = "0123456789BD";
+        glayout.setColumnCount(keys.length()/2);
+        for (String k: keys.split("(?!^)")) {
+            Button key = new Button(new ContextThemeWrapper(this, android.R.style.Widget_Button_Small), null, 0);
+
+            key.setTextSize((int)(keysize/3));
+            key.setMinimumWidth(0);
+            key.setMinimumHeight(0);
+            key.setHeight(keysize);
+            key.setWidth(keysize);
+
+            if (k.equals("B")) {
+                key.setText("\u2190");
+            } else if (k.equals("D")) {
+                key.setText("\u2713");
+            } else {
+                key.setText(k);
+            }
+            key.setTag(k);
+            key.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String k = (String)view.getTag();
+                    if (k.equals("B")) {
+                        editText.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
+                    } else if (k.equals("D")) {
+                        editText.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
+                    } else {
+                        editText.getText().insert(editText.getSelectionStart(),k);
+
+
+                    }
+
+                }
+            });
+            glayout.addView(key);
+        }
+
+        parentlayout.addView(glayout);
     }
 
 

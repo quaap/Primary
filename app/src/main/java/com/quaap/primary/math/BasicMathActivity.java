@@ -4,11 +4,8 @@ package com.quaap.primary.math;
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -56,8 +53,12 @@ public class BasicMathActivity extends BaseActivity implements BaseActivity.Answ
         if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
             LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
             answerarea.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout centercol = (LinearLayout)findViewById(R.id.centercol);
+            centercol.setOrientation(LinearLayout.HORIZONTAL);
         }
     }
+
+
 
     @Override
     protected void onShowLevel() {
@@ -85,7 +86,8 @@ public class BasicMathActivity extends BaseActivity implements BaseActivity.Answ
         if (mode==Mode.Buttons) {
             makeAnswerButtons(answerarea, fontsize);
         } else if (mode==Mode.Input) {
-            makeInputBox(answerarea, this,INPUTTYPE_NUMBER,2);
+            FrameLayout keypadarea = (FrameLayout)findViewById(R.id.keypad_area);
+            makeInputBox(answerarea, keypadarea, this, INPUTTYPE_NUMBER, 3, fontsize);
         }
 
     }

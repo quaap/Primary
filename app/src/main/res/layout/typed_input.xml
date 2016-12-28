@@ -3,12 +3,24 @@
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <EditText
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/uinput_edit"
-        android:imeOptions="actionDone"
-        android:textSize="24sp" />
+        android:layout_height="match_parent"
+        android:gravity="end">
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/uinput_edit"
+            android:imeOptions="actionDone"
+            android:textSize="24sp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp" />
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -20,13 +32,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/uinput_clear"
-            android:layout_gravity="start" />
+            android:layout_gravity="start"
+            style="@style/Widget.AppCompat.Button.Small" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <Button
             android:text="Done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/uinput_done"
-            android:layout_gravity="end" />
+            android:layout_gravity="end"
+            style="@style/Widget.AppCompat.Button.Small" />
     </LinearLayout>
 </LinearLayout>
