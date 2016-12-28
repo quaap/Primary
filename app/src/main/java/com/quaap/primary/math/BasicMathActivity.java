@@ -53,8 +53,17 @@ public class BasicMathActivity extends BaseActivity implements BaseActivity.Answ
         if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
             LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
             answerarea.setOrientation(LinearLayout.HORIZONTAL);
+
             LinearLayout centercol = (LinearLayout)findViewById(R.id.centercol);
             centercol.setOrientation(LinearLayout.HORIZONTAL);
+
+
+
+            LinearLayout scores_area = (LinearLayout)findViewById(R.id.scores_area);
+            scores_area.setOrientation(LinearLayout.HORIZONTAL);
+
+
+
         }
     }
 
@@ -300,7 +309,7 @@ public class BasicMathActivity extends BaseActivity implements BaseActivity.Answ
         List<Integer> answers = getAnswerChoices(4);
 
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lparams.gravity = Gravity.RIGHT;
+        //lparams.gravity = Gravity.RIGHT;
         lparams.weight = 1;
 
 
