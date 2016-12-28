@@ -2,7 +2,7 @@ package com.quaap.primary.math;
 
 
 import android.annotation.SuppressLint;
-import android.content.res.Configuration;
+
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.FrameLayout;
@@ -11,13 +11,14 @@ import android.widget.TextView;
 
 import com.quaap.primary.R;
 import com.quaap.primary.base.BaseActivity;
+import com.quaap.primary.base.StdGameActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-public class BasicMathActivity extends BaseActivity implements BaseActivity.AnswerGivenListener<Integer>,BaseActivity.AnswerTypedListener {
+public class BasicMathActivity extends StdGameActivity implements BaseActivity.AnswerGivenListener<Integer>,BaseActivity.AnswerTypedListener {
 
     private int num1;
     private int num2;
@@ -30,7 +31,7 @@ public class BasicMathActivity extends BaseActivity implements BaseActivity.Answ
     //Mode.Input doesn't work yet.
 
     public BasicMathActivity() {
-       super(R.layout.activity_math1);
+       super(R.layout.std_math_prob);
         setFasttimes(900, 1800, 3000);
     }
 
@@ -49,22 +50,6 @@ public class BasicMathActivity extends BaseActivity implements BaseActivity.Answ
     @Override
     protected void onResume() {
         super.onResume();
-        int orientation = getResources().getConfiguration().orientation;
-        if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
-            LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
-            answerarea.setOrientation(LinearLayout.HORIZONTAL);
-
-            LinearLayout centercol = (LinearLayout)findViewById(R.id.centercol);
-            centercol.setOrientation(LinearLayout.HORIZONTAL);
-
-
-
-            LinearLayout scores_area = (LinearLayout)findViewById(R.id.scores_area);
-            scores_area.setOrientation(LinearLayout.HORIZONTAL);
-
-
-
-        }
     }
 
 
@@ -98,14 +83,6 @@ public class BasicMathActivity extends BaseActivity implements BaseActivity.Answ
             FrameLayout keypadarea = (FrameLayout)findViewById(R.id.keypad_area);
             makeInputBox(answerarea, keypadarea, this, INPUTTYPE_NUMBER, 3, fontsize);
         }
-
-    }
-
-
-    @Override
-    protected void setStatus(String text) {
-        final TextView status = (TextView)findViewById(R.id.txtstatus);
-        status.setText(text);
 
     }
 
