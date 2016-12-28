@@ -10,13 +10,14 @@ import android.widget.TextView;
 
 import com.quaap.primary.R;
 import com.quaap.primary.base.BaseActivity;
+import com.quaap.primary.base.StdGameActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class SpellingBActivity extends BaseActivity
+public class SpellingBActivity extends StdGameActivity
         implements TextToVoice.VoiceReadyListener,
         BaseActivity.AnswerGivenListener<String>,
         BaseActivity.AnswerTypedListener{
@@ -31,7 +32,7 @@ public class SpellingBActivity extends BaseActivity
 
     TextToVoice v;
     public SpellingBActivity() {
-        super(R.layout.activity_spelling2);
+        super(R.layout.std_spelling_prob);
 
     }
 
@@ -55,8 +56,6 @@ public class SpellingBActivity extends BaseActivity
                 v.speak(word);
             }
         });
-
-
     }
 
     @Override
@@ -127,12 +126,6 @@ public class SpellingBActivity extends BaseActivity
     }
 
 
-    @Override
-    protected void setStatus(String text) {
-        TextView txtstatus = (TextView)findViewById(R.id.txtstatus);
-        txtstatus.setText(text);
-    }
-
     final protected Handler handler = new Handler();
     @Override
     public void onVoiceReady(TextToVoice ttv) {
@@ -159,18 +152,17 @@ public class SpellingBActivity extends BaseActivity
 
 
     protected void getAnswerInput(String realanswer) {
-        LinearLayout answerarea = (LinearLayout)findViewById(R.id.spell_answer_area);
-        makeInputBox(answerarea, this);
+
+        makeInputBox(getAnswerArea(), this);
     }
 
     private final int numanswers = 4;
     protected void getAnswerButtons(String realanswer) {
 
-        LinearLayout answerarea = (LinearLayout)findViewById(R.id.spell_answer_area);
 
         List<String> answers = getAnswerChoices(realanswer);
 
-        makeChoiceButtons(answerarea, answers, this);
+        makeChoiceButtons(getAnswerArea(), answers, this);
 
     }
 

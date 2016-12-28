@@ -47,7 +47,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:layout_below="@+id/linearLayout"
         android:layout_alignParentStart="false"
         android:layout_centerVertical="false"
         android:layout_alignParentTop="true"

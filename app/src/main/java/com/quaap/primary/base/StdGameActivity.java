@@ -47,6 +47,7 @@ public abstract class StdGameActivity extends BaseActivity {
         super.onResume();
         int orientation = getResources().getConfiguration().orientation;
         if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
+
             LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
             answerarea.setOrientation(LinearLayout.HORIZONTAL);
 
@@ -74,4 +75,7 @@ public abstract class StdGameActivity extends BaseActivity {
 
     }
 
+    protected LinearLayout getAnswerArea() {
+        return (LinearLayout)findViewById(R.id.answer_area);
+    }
 }

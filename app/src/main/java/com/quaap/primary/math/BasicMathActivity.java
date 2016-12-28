@@ -74,14 +74,14 @@ public class BasicMathActivity extends StdGameActivity implements BaseActivity.A
         optxt.setText(op.toString());
         answer = getAnswer(num1, num2, op);
 
-        LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
+       // LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
         float fontsize = num1txt.getTextSize();
 
         if (mode==Mode.Buttons) {
-            makeAnswerButtons(answerarea, fontsize);
+            makeAnswerButtons(getAnswerArea(), fontsize);
         } else if (mode==Mode.Input) {
             FrameLayout keypadarea = (FrameLayout)findViewById(R.id.keypad_area);
-            makeInputBox(answerarea, keypadarea, this, INPUTTYPE_NUMBER, 3, fontsize);
+            makeInputBox(getAnswerArea(), keypadarea, this, INPUTTYPE_NUMBER, 3, fontsize);
         }
 
     }
