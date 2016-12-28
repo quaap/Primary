@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class SpellingBActivity extends StdGameActivity
+public class SpellingActivity extends StdGameActivity
         implements TextToVoice.VoiceReadyListener,
         BaseActivity.AnswerGivenListener<String>,
         BaseActivity.AnswerTypedListener{
@@ -31,7 +31,7 @@ public class SpellingBActivity extends StdGameActivity
     private String[] unspellMap;
 
     TextToVoice v;
-    public SpellingBActivity() {
+    public SpellingActivity() {
         super(R.layout.std_spelling_prob);
 
     }

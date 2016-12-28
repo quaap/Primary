@@ -29,7 +29,7 @@
             android:name=".spelling.SpellingMenuActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".spelling.SpellingBActivity"
+            android:name=".spelling.SpellingActivity"
             android:parentActivityName=".spelling.SpellingMenuActivity" />
 
         <activity android:name=".AboutActivity" />
