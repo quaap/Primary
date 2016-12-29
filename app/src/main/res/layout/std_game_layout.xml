@@ -83,7 +83,8 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/scores_level">
 
             <include
                 android:layout_width="match_parent"

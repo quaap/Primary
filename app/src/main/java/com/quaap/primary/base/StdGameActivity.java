@@ -54,10 +54,11 @@ public abstract class StdGameActivity extends BaseActivity {
             LinearLayout centercol = (LinearLayout)findViewById(R.id.centercol);
             centercol.setOrientation(LinearLayout.HORIZONTAL);
 
-
-
             LinearLayout scores_area = (LinearLayout)findViewById(R.id.scores_area);
             scores_area.setOrientation(LinearLayout.HORIZONTAL);
+
+            LinearLayout scores_level = (LinearLayout)findViewById(R.id.scores_level);
+            scores_level.setOrientation(LinearLayout.HORIZONTAL);
 
         }
     }

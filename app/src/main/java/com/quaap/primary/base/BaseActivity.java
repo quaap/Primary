@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
@@ -509,6 +510,8 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
         parentlayout.removeAllViews();
         GridLayout glayout = new GridLayout(this);
+        glayout.setBackgroundColor(Color.WHITE);
+        glayout.setPadding(2,2,2,2);
 
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -519,9 +522,16 @@ public abstract class BaseActivity extends AppCompatActivity  {
         if (keys.length%2!=0) cols+=1;
         glayout.setColumnCount(cols);
 
+        float xfac = .95f;
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
+            xfac = .83f;
+        }
 
-        int keywidth = size.x/cols;
-        if (keywidth>90) keywidth=90;
+        int keywidth = (int)(size.x/cols * xfac);
+        int keyheight = (int)(keywidth*1.5);
+
+        if (keyheight>100) keyheight=100;
 
         System.out.println("size: " + size.x + ", " + size.y);
 
@@ -531,11 +541,11 @@ public abstract class BaseActivity extends AppCompatActivity  {
             key.setPadding(4, 4 ,4, 4);
             key.setGravity(Gravity.CENTER);
             key.setBackgroundResource(android.R.drawable.btn_default_small);
-            key.setTextSize((int)(keywidth/3.2));
+            key.setTextSize((int)(keyheight/3.5));
             key.setMinimumWidth(0);
             key.setMinimumHeight(0);
-            key.setHeight((int)(keywidth*1.2));
-            key.setWidth((int)(keywidth*.95));
+            key.setHeight(keyheight);
+            key.setWidth(keywidth);
 
             if (k.equals(KEY_BACKSP)) {
                 key.setText("\u2190");
