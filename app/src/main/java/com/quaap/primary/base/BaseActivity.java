@@ -284,18 +284,18 @@ public abstract class BaseActivity extends AppCompatActivity  {
     protected static int INPUTTYPE_TEXT = InputType.TYPE_CLASS_TEXT;
     protected static int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED;
 
-    protected void makeInputBox(ViewGroup answerlayout, final AnswerTypedListener listener) {
-        makeInputBox(answerlayout, listener, INPUTTYPE_TEXT, 0, 18);
-    }
-
-    protected void makeInputBox(ViewGroup answerlayout, final AnswerTypedListener listener, int emwidth) {
-        makeInputBox(answerlayout, listener, INPUTTYPE_TEXT, emwidth, 18);
-    }
-
-
-    protected void makeInputBox(final ViewGroup answerlayout, final AnswerTypedListener listener, int inputttpe, int emwidth, float fontsize) {
-        makeInputBox(answerlayout, null, listener, inputttpe, emwidth, fontsize);
-    }
+//    protected void makeInputBox(ViewGroup answerlayout, final AnswerTypedListener listener) {
+//        makeInputBox(answerlayout, listener, INPUTTYPE_TEXT, 0, 18);
+//    }
+//
+//    protected void makeInputBox(ViewGroup answerlayout, final AnswerTypedListener listener, int emwidth) {
+//        makeInputBox(answerlayout, listener, INPUTTYPE_TEXT, emwidth, 18);
+//    }
+//
+//
+//    protected void makeInputBox(final ViewGroup answerlayout, final AnswerTypedListener listener, int inputttpe, int emwidth, float fontsize) {
+//        makeInputBox(answerlayout, null, listener, inputttpe, emwidth, fontsize);
+//    }
 
     protected void makeInputBox(final ViewGroup answerlayout, final ViewGroup keypadarea, final AnswerTypedListener listener, int inputttpe, int emwidth, float fontsize) {
 
@@ -453,9 +453,9 @@ public abstract class BaseActivity extends AppCompatActivity  {
         boolean useourkeypad = getResources().getBoolean(R.bool.keypad_use);
 
         if (useourkeypad && ( (view.getInputType() & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER) && keypadarea!=null) {
-            showNumberpad(view, keypadarea);
+            Keyboard.showNumberpad(this, view, keypadarea);
         } else if (useourkeyboard && keypadarea!=null) {
-            showKeyboard(view, keypadarea);
+            Keyboard.showKeyboard(this, view, keypadarea);
         } else {
 
             view.postDelayed(new Runnable() {
@@ -470,106 +470,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
             }, 100);
         }
 
-    }
-
-
-    protected void hideKeys(ViewGroup parentlayout) {
-        parentlayout.removeAllViews();
-
-    }
-
-    private static String KEY_BACKSP = "\u0008";
-    private static String KEY_DONE = "\n";
-
-    protected void showKeyboard(final EditText editText, ViewGroup parentlayout) {
-        String [] keys = getResources().getStringArray(R.array.keyboard_keys);
-        int rows = getResources().getInteger(R.integer.keyboard_rows);
-
-        showKeys(editText, parentlayout, keys, rows);
-    }
-
-
-    protected void showNumberpad(final EditText editText, ViewGroup parentlayout) {
-        String [] keys = getResources().getStringArray(R.array.keypad_keys);
-        int rows = getResources().getInteger(R.integer.keypad_rows);
-
-        showKeys(editText, parentlayout, keys, rows);
-    }
-
-    protected void showKeys(final EditText editText, ViewGroup parentlayout, String[] keys, int rows) {
-
-        parentlayout.removeAllViews();
-        GridLayout glayout = new GridLayout(this);
-        glayout.setBackgroundColor(Color.WHITE);
-        glayout.setPadding(2,2,2,2);
-
-        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
-        int cols = keys.length/rows;
-        if (keys.length%2!=0) cols+=1;
-        glayout.setColumnCount(cols);
-
-        float xfac = .95f;
-        int orientation = getResources().getConfiguration().orientation;
-        if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
-            xfac = .83f;
-        }
-
-        int keywidth = (int)(size.x/cols * xfac);
-        int keyheight = (int)(keywidth*1.5);
-
-        if (keyheight>100) keyheight=100;
-
-        System.out.println("size: " + size.x + ", " + size.y);
-
-        for (String k: keys) {
-            TextView key = new TextView(this);
-            key.setClickable(true);
-            key.setPadding(4, 4 ,4, 4);
-            key.setGravity(Gravity.CENTER);
-            key.setBackgroundResource(android.R.drawable.btn_default_small);
-            key.setTextSize((int)(keyheight/3.5));
-            key.setMinimumWidth(0);
-            key.setMinimumHeight(0);
-            key.setHeight(keyheight);
-            key.setWidth(keywidth);
-
-            if (k.equals(KEY_BACKSP)) {
-                key.setText("\u2190");
-                //key.setWidth(keywidth+5);
-            } else if (k.equals(KEY_DONE)) {
-                key.setText("\u2713");
-                key.setTextColor(Color.rgb(0,160,0));
-                //key.setWidth(keywidth+5);
-            } else if (k.equals(" ")) {
-                key.setText("\u2423");
-            } else {
-                key.setText(k);
-            }
-            key.setTag(k);
-            key.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String k = (String)view.getTag();
-                    if (k.equals(KEY_BACKSP)) {
-                        editText.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
-                    } else if (k.equals(KEY_DONE)) {
-                        editText.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
-                    } else {
-                        editText.getText().insert(editText.getSelectionStart(),k);
-
-
-                    }
-
-                }
-            });
-            glayout.addView(key);
-        }
-
-        parentlayout.addView(glayout);
     }
 
 

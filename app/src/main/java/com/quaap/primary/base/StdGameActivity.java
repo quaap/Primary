@@ -73,7 +73,7 @@ public abstract class StdGameActivity extends BaseActivity {
 
     @Override
     protected void onShowLevel() {
-        hideKeys(getKeysArea());
+        Keyboard.hideKeys(getKeysArea());
     }
 
     protected ViewGroup getKeysArea() {
