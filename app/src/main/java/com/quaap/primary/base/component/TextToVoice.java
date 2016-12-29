@@ -5,6 +5,8 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
 
+import com.quaap.primary.R;
+
 import java.util.Locale;
 
 /**
@@ -80,7 +82,7 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
             }
             Log.d("TextToSpeech", "Initialization Suceeded! " +  System.currentTimeMillis());
 
-            speak("Ready?,");
+            speak(mContext.getString(R.string.voice_ready) + ",");
         } else {
             Log.e("error", "Initialization Failed! " + status);
         }

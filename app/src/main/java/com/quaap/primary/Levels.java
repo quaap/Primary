@@ -185,6 +185,7 @@ public class Levels {
                     new SpellingLevel("sp3",R.array.spelling_words_1h, 9, 10, InputMode.Input),
                     new SpellingLevel("sp3",R.array.spelling_words_1i, 10, 20, InputMode.Buttons),
                     new SpellingLevel("sp3",R.array.spelling_words_1i, 10, 10, InputMode.Input),
+                    new SpellingLevel("sp3",R.array.spelling_words_1j, 12, 30, InputMode.Buttons),
             },
 
 

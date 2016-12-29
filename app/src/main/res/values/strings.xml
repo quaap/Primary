@@ -71,8 +71,12 @@
     </string>
     <string name="about">About</string>
     <string name="all_scores">All Scores</string>
-
-
+    <string name="settings">Settings</string>
+    <string name="loading">Loading...</string>
+    <string name="clear_input">Clear</string>
+    <string name="repeat_word">Repeat word</string>
+    <string name="done">Done</string>
+    <string name="voice_ready">Ready?,</string>
 
 
 </resources>
