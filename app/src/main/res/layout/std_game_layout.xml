@@ -95,15 +95,17 @@
 
     </LinearLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="false"
         android:id="@+id/keypad_area"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true">
-
-    </FrameLayout>
+        android:layout_centerHorizontal="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+    </LinearLayout>
 
 
 </RelativeLayout>

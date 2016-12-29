@@ -464,6 +464,8 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
         if ((view.getInputType() & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER && keypadarea!=null) {
             showNumberpad(view, keypadarea);
+        } else if (keypadarea!=null) {
+            showKeyboard(view, keypadarea);
         } else {
 
             view.postDelayed(new Runnable() {
@@ -481,7 +483,25 @@ public abstract class BaseActivity extends AppCompatActivity  {
     }
 
 
+    private static String KEY_BACKSP = "\b";
+    private static String KEY_DONE = "\n";
+
+    protected void showKeyboard(final EditText editText, ViewGroup parentlayout) {
+        String keys = "qwertyuiopasdfghjkl"+KEY_BACKSP+" zxcvbnm'"+KEY_DONE;
+
+        showKeys(editText, parentlayout, keys, 3);
+    }
+
+
     protected void showNumberpad(final EditText editText, ViewGroup parentlayout) {
+        String keys = "01234"+KEY_BACKSP+"56789"+KEY_DONE;
+
+        showKeys(editText, parentlayout, keys, 2);
+    }
+
+    protected void showKeys(final EditText editText, ViewGroup parentlayout, String keys, int rows) {
+
+        parentlayout.removeAllViews();
         GridLayout glayout = new GridLayout(this);
 
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -489,25 +509,34 @@ public abstract class BaseActivity extends AppCompatActivity  {
         Point size = new Point();
         display.getSize(size);
 
-        int keysize = Math.min(size.y/8,size.x/8);
-        if (keysize>90) keysize=90;
+        int cols = keys.length()/rows;
+        if (keys.length()%2!=0) cols+=1;
+        glayout.setColumnCount(cols);
+
+
+        int keywidth = size.x/cols;
+        if (keywidth>90) keywidth=90;
 
         System.out.println("size: " + size.x + ", " + size.y);
-        String keys = "0123456789BD";
-        glayout.setColumnCount(keys.length()/2);
+
         for (String k: keys.split("(?!^)")) {
             Button key = new Button(new ContextThemeWrapper(this, android.R.style.Widget_Button_Small), null, 0);
 
-            key.setTextSize((int)(keysize/3));
+            key.setTextSize((int)(keywidth/3.2));
             key.setMinimumWidth(0);
             key.setMinimumHeight(0);
-            key.setHeight(keysize);
-            key.setWidth(keysize);
+            key.setHeight((int)(keywidth*1.2));
+            key.setWidth((int)(keywidth*.95));
 
-            if (k.equals("B")) {
+            if (k.equals(KEY_BACKSP)) {
                 key.setText("\u2190");
-            } else if (k.equals("D")) {
+                //key.setWidth(keywidth+5);
+            } else if (k.equals(KEY_DONE)) {
                 key.setText("\u2713");
+                key.setTextColor(Color.rgb(0,160,0));
+                //key.setWidth(keywidth+5);
+            } else if (k.equals(" ")) {
+                key.setText("\u2423");
             } else {
                 key.setText(k);
             }
@@ -516,9 +545,9 @@ public abstract class BaseActivity extends AppCompatActivity  {
                 @Override
                 public void onClick(View view) {
                     String k = (String)view.getTag();
-                    if (k.equals("B")) {
+                    if (k.equals(KEY_BACKSP)) {
                         editText.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
-                    } else if (k.equals("D")) {
+                    } else if (k.equals(KEY_DONE)) {
                         editText.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
                     } else {
                         editText.getText().insert(editText.getSelectionStart(),k);

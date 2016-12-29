@@ -4,9 +4,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.quaap.primary.R;
 import com.quaap.primary.base.BaseActivity;
@@ -22,7 +21,7 @@ public class SpellingActivity extends StdGameActivity
         BaseActivity.AnswerGivenListener<String>,
         BaseActivity.AnswerTypedListener{
 
-    public Mode mode = Mode.Buttons;
+    public Mode mode = Mode.Input;
 
     private List<String> words;
 
@@ -96,9 +95,14 @@ public class SpellingActivity extends StdGameActivity
         Log.d("spell", word);
 
         if (mode==Mode.Buttons) {
-            getAnswerButtons(word);
+            List<String> answers = getAnswerChoices(word);
+
+            makeChoiceButtons(getAnswerArea(), answers, this);
+
         } else {
-            getAnswerInput(word);
+           // makeInputBox(getAnswerArea(), this);
+            ViewGroup keypadarea = (ViewGroup)findViewById(R.id.keypad_area);
+            makeInputBox(getAnswerArea(), keypadarea, this, INPUTTYPE_TEXT, 0, 0);
         }
         v.speak(word);
 
@@ -151,20 +155,10 @@ public class SpellingActivity extends StdGameActivity
     }
 
 
-    protected void getAnswerInput(String realanswer) {
 
-        makeInputBox(getAnswerArea(), this);
-    }
 
     private final int numanswers = 4;
-    protected void getAnswerButtons(String realanswer) {
 
-
-        List<String> answers = getAnswerChoices(realanswer);
-
-        makeChoiceButtons(getAnswerArea(), answers, this);
-
-    }
 
 
 

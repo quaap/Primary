@@ -5,6 +5,8 @@ import android.annotation.SuppressLint;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,7 +29,7 @@ public class BasicMathActivity extends StdGameActivity implements BaseActivity.A
 
     //public static final String LevelSetName = "Math1Levels";
 
-    public Mode mode = Mode.Buttons;
+    public Mode mode = Mode.Input;
     //Mode.Input doesn't work yet.
 
     public BasicMathActivity() {
@@ -80,7 +82,7 @@ public class BasicMathActivity extends StdGameActivity implements BaseActivity.A
         if (mode==Mode.Buttons) {
             makeAnswerButtons(getAnswerArea(), fontsize);
         } else if (mode==Mode.Input) {
-            FrameLayout keypadarea = (FrameLayout)findViewById(R.id.keypad_area);
+            ViewGroup keypadarea = (ViewGroup)findViewById(R.id.keypad_area);
             makeInputBox(getAnswerArea(), keypadarea, this, INPUTTYPE_NUMBER, 3, fontsize);
         }
 
@@ -105,7 +107,13 @@ public class BasicMathActivity extends StdGameActivity implements BaseActivity.A
 
     @Override
     public boolean answerTyped(String answer) {
-        return answerGiven(Integer.parseInt(answer));
+        int ans;
+        try {
+            ans = Integer.parseInt(answer);
+        } catch (NumberFormatException ne) {
+            return false;
+        }
+        return answerGiven(ans);
     }
 
     @Override
