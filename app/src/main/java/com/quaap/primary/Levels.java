@@ -160,6 +160,7 @@ public class Levels {
             //Spelling1Levels
             {
                     new SpellingLevel("sp1",R.array.spelling_words_1a, 2, 10, InputMode.Buttons),
+                    new SpellingLevel("sp1",R.array.spelling_words_1a, 2, 10, InputMode.Input),
                     new SpellingLevel("sp1",R.array.spelling_words_1b, 3, 20, InputMode.Buttons),
                     new SpellingLevel("sp1",R.array.spelling_words_1b, 3, 10, InputMode.Input),
                     new SpellingLevel("sp1",R.array.spelling_words_1c, 4, 20, InputMode.Buttons),

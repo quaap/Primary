@@ -80,7 +80,7 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
             }
             Log.d("TextToSpeech", "Initialization Suceeded! " +  System.currentTimeMillis());
 
-            speak("Ready!");
+            speak("Ready?,");
         } else {
             Log.e("error", "Initialization Failed! " + status);
         }

@@ -1,11 +1,14 @@
 package com.quaap.primary.spelling;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.quaap.primary.R;
 import com.quaap.primary.base.BaseActivity;
@@ -16,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SpellingActivity extends StdGameActivity
         implements TextToVoice.VoiceReadyListener,
@@ -29,10 +34,14 @@ public class SpellingActivity extends StdGameActivity
 
     private String[] unspellMap;
 
+    private Timer timer;
+    private TimerTask hinttask;
+    private volatile int hintPos=0;
+
+
     TextToVoice v;
     public SpellingActivity() {
         super(R.layout.std_spelling_prob);
-
     }
 
 
@@ -46,6 +55,7 @@ public class SpellingActivity extends StdGameActivity
         }
 
         super.onCreate(savedInstanceState);
+
 
 
         Button b = (Button)findViewById(R.id.btn_repeat);
@@ -63,12 +73,22 @@ public class SpellingActivity extends StdGameActivity
             v.shutDown();
             v = null;
         }
+        cancelHint();
+
+        if (timer!=null) {
+            timer.cancel();
+            timer.purge();
+            timer=null;
+        }
         super.onPause();
     }
 
 
     @Override
     protected void onResume() {
+        timer = new Timer();
+
+
         setReadyForProblem(false);
         findViewById(R.id.spelling_problem_area).setVisibility(View.INVISIBLE);
         findViewById(R.id.spell_loading).setVisibility(View.VISIBLE);
@@ -77,12 +97,24 @@ public class SpellingActivity extends StdGameActivity
 
         super.onResume();
 
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            LinearLayout spelling_problem_area = (LinearLayout)findViewById(R.id.spelling_problem_area);
+            spelling_problem_area.setOrientation(LinearLayout.HORIZONTAL);
+        }
     }
 
     @Override
     protected void onShowLevel() {
         super.onShowLevel();
         words = Arrays.asList(getResources().getStringArray(((SpellingLevel)levels[levelnum]).getmWordlistId()));
+
+        if (((SpellingLevel)levels[levelnum]).getInputMode()==InputMode.Buttons) {
+            setFasttimes(800, 1600, 3000);
+        } else {
+            setFasttimes(1500, 2200, 5000);
+        }
+
     }
 
     @Override
@@ -104,11 +136,19 @@ public class SpellingActivity extends StdGameActivity
 
         } else if (level.getInputMode() == InputMode.Input) {
 
-            makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_TEXT, 0, 0);
+            makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_TEXT, 5, 0);
         } else {
             throw new IllegalArgumentException("Unknown inputMode! " + level.getInputMode());
         }
-        v.speak(word);
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                v.speak(word);
+            }
+        }, 500);
+        ((TextView)findViewById(R.id.spell_hint)).setText("");
+
 
     }
 
@@ -123,12 +163,12 @@ public class SpellingActivity extends StdGameActivity
         int points = 0;
         boolean isright = answer.toLowerCase().trim().equals(word.toLowerCase());
         if (isright) {
-            points = word.length() * (levelnum+1);
+            points = (int)(1 + word.length() * (levelnum+1) * (word.length() - (float)hintPos)/(word.length()));
         }
         answerDone(isright, points, word, word, answer.trim());
 
-        if (!isright) {
-
+        if (isright) {
+            cancelHint();
         }
         return isright;
     }
@@ -148,9 +188,48 @@ public class SpellingActivity extends StdGameActivity
         Log.d("sp1", "onVoiceReady called");
     }
 
+    private String wordStart;
+
     @Override
     public void onSpeakComplete(TextToVoice ttv) {
-        startTimer();
+        if (wordStart==null || !wordStart.equals(word)) {
+            startTimer();
+            startHint();
+            wordStart = word;
+        }
+    }
+
+    private void startHint() {
+        final TextView hint = (TextView)findViewById(R.id.spell_hint);
+
+        cancelHint();
+
+        hinttask = new TimerTask() {
+            @Override
+            public void run() {
+                if (hintPos<word.length()) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            hint.setText(word.substring(0,hintPos));
+                        }
+                    });
+                    hintPos++;
+                } else {
+                    cancelHint();
+                }
+            }
+        };
+
+        timer.scheduleAtFixedRate(hinttask,5000,3000);
+    }
+
+    private void cancelHint() {
+        if (hinttask!=null) {
+            hinttask.cancel();
+            hinttask = null;
+            hintPos = 0;
+        }
     }
 
     @Override

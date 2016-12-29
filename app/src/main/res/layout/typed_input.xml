@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/uinput_edit"
             android:imeOptions="actionDone"
-            android:textSize="24sp"
+            android:textSize="28sp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"/>
 
