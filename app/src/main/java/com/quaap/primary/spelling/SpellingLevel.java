@@ -36,7 +36,7 @@ public class SpellingLevel extends Level {
 
     @Override
     public String getDescription(Context context) {
-        return context.getString(R.string.level, mLevel) + ": " + "Length: " + mMaxwordlength;
+        return "Length: " + mMaxwordlength + ". " + (mInputMode==InputMode.Buttons ? "Multiple choice" : "Keyboard");
     }
 
     @Override
