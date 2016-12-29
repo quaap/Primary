@@ -39,7 +39,8 @@ public class BasicMathLevel extends Level {
     public String getDescription(Context context) {
         String ops = getOpsStr(context);
         String max = (mNegatives!=Negatives.None?"\u00B1":"") + mMaxNum;
-        return context.getString(R.string.level, mLevel) + ": " + ops + " / " + context.getString(R.string.max, max) ;
+        return ops + " / " + context.getString(R.string.max, max) + ". " + (mInputMode==InputMode.Buttons ? "Multiple choice" : "Keyboard");
+
     }
 
     @Override
