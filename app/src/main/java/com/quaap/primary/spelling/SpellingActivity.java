@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.quaap.primary.Primary;
 import com.quaap.primary.R;
+import com.quaap.primary.TextToVoice;
 import com.quaap.primary.base.BaseActivity;
 import com.quaap.primary.base.InputMode;
 import com.quaap.primary.base.StdGameActivity;
@@ -69,10 +70,7 @@ public class SpellingActivity extends StdGameActivity
 
     @Override
     protected void onPause() {
-        if (v!=null) {
-            v.shutDown();
-            v = null;
-        }
+
         cancelHint();
 
         if (timer!=null) {
@@ -92,8 +90,12 @@ public class SpellingActivity extends StdGameActivity
         setReadyForProblem(false);
         findViewById(R.id.spelling_problem_area).setVisibility(View.INVISIBLE);
         findViewById(R.id.spell_loading).setVisibility(View.VISIBLE);
-        v = new TextToVoice(this);
+
+        v = ((Primary)getApplicationContext()).getTextToVoice();
         v.setVoiceReadyListener(this);
+        if (v.isReady()) {
+            setWeReady();
+        }
 
         super.onResume();
 
@@ -102,6 +104,11 @@ public class SpellingActivity extends StdGameActivity
             LinearLayout spelling_problem_area = (LinearLayout)findViewById(R.id.spelling_problem_area);
             spelling_problem_area.setOrientation(LinearLayout.HORIZONTAL);
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -180,12 +187,16 @@ public class SpellingActivity extends StdGameActivity
         handler.post(new Runnable() {
             @Override
             public void run() {
-                findViewById(R.id.spelling_problem_area).setVisibility(View.VISIBLE);
-                findViewById(R.id.spell_loading).setVisibility(View.GONE);
-                setReadyForProblem(true);
+                setWeReady();
             }
         });
         Log.d("sp1", "onVoiceReady called");
+    }
+
+    protected void setWeReady() {
+        findViewById(R.id.spelling_problem_area).setVisibility(View.VISIBLE);
+        findViewById(R.id.spell_loading).setVisibility(View.GONE);
+        setReadyForProblem(true);
     }
 
     private String wordStart;

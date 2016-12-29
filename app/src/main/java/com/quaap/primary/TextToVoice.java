@@ -1,4 +1,4 @@
-package com.quaap.primary.spelling;
+package com.quaap.primary;
 import android.content.Context;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
