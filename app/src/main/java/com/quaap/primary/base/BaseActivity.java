@@ -166,8 +166,6 @@ public abstract class BaseActivity extends CommonBaseActivity {
         super.onSaveInstanceState(outState);
     }
 
-
-
     @Override
     protected void onResume() {
         //Log.d("base", "onResume1. levelnum=" + levelnum);
@@ -258,6 +256,26 @@ public abstract class BaseActivity extends CommonBaseActivity {
 
     }
 
+
+    protected void saveValue(String name, int value) {
+        getSharedPreferences(this.getClass().getName(), MODE_PRIVATE).edit().putInt(name,value).apply();
+    }
+
+    protected void saveValue(String name, String value) {
+        getSharedPreferences(this.getClass().getName(), MODE_PRIVATE).edit().putString(name,value).apply();
+    }
+
+    protected int getSavedIntValue(String name, int value) {
+        return getSharedPreferences(this.getClass().getName(), MODE_PRIVATE).getInt(name,value);
+    }
+
+    protected String getSavedStringValue(String name, String value) {
+        return getSharedPreferences(this.getClass().getName(), MODE_PRIVATE).getString(name,value);
+    }
+
+    protected void deleteSavedValue(String name){
+        getSharedPreferences(this.getClass().getName(), MODE_PRIVATE).edit().remove(name).apply();
+    }
 
     protected abstract void onShowLevel();
 

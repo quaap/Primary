@@ -78,6 +78,8 @@ public class SpellingActivity extends StdGameActivity
             timer.purge();
             timer=null;
         }
+
+        saveValue("word", word);
         super.onPause();
     }
 
@@ -86,16 +88,9 @@ public class SpellingActivity extends StdGameActivity
     protected void onResume() {
         timer = new Timer();
 
-
         setReadyForProblem(false);
         findViewById(R.id.spelling_problem_area).setVisibility(View.INVISIBLE);
         findViewById(R.id.spell_loading).setVisibility(View.VISIBLE);
-
-        v = ((Primary)getApplicationContext()).getTextToVoice();
-        v.setVoiceReadyListener(this);
-        if (v.isReady()) {
-            setWeReady();
-        }
 
         super.onResume();
 
@@ -104,12 +99,16 @@ public class SpellingActivity extends StdGameActivity
             LinearLayout spelling_problem_area = (LinearLayout)findViewById(R.id.spelling_problem_area);
             spelling_problem_area.setOrientation(LinearLayout.HORIZONTAL);
         }
+
+        v = ((Primary)getApplicationContext()).getTextToVoice();
+        v.setVoiceReadyListener(this);
+        if (v.isReady()) {
+            setWeReady();
+        }
+
+
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
 
     @Override
     protected void onShowLevel() {
@@ -127,10 +126,15 @@ public class SpellingActivity extends StdGameActivity
     @Override
     protected void showProbImpl() {
 
-        int tries=0;
-        do {
-            word = words.get(getRand(words.size()-1));
-        } while (tries++<50 && seenProblem(word));
+        word = getSavedStringValue("word", null);
+        if (word==null) {
+            int tries = 0;
+            do {
+                word = words.get(getRand(words.size() - 1));
+            } while (tries++ < 50 && seenProblem(word));
+        } else {
+            deleteSavedValue("word");
+        }
 
         Log.d("spell", word);
 
