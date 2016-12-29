@@ -50,24 +50,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by tom on 12/15/16.
- * <p>
- * Copyright (C) 2016   Tom Kliethermes
- * <p>
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or
- * (at your option) any later version.
- * <p>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- */
 public abstract class BaseActivity extends AppCompatActivity  {
 
-    public enum Mode {Buttons, Input}
+
 
     public static final String LEVELNUM = "levelnum";
     public static final String START_AT_ZERO = "startover";
@@ -202,10 +187,10 @@ public abstract class BaseActivity extends AppCompatActivity  {
         restoreGameData();
         resumeDone = true;
         //Log.d("base", "onResume2. levelnum=" + levelnum);
+        onShowLevel();
         if (readyForProblem) {
             showProb();
         }
-        onShowLevel();
     }
 
 
@@ -297,7 +282,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
 
     protected static int INPUTTYPE_TEXT = InputType.TYPE_CLASS_TEXT;
-    protected static int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL;
+    protected static int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED;
 
     protected void makeInputBox(ViewGroup answerlayout, final AnswerTypedListener listener) {
         makeInputBox(answerlayout, listener, INPUTTYPE_TEXT, 0, 18);
@@ -487,6 +472,11 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     }
 
+
+    protected void hideKeys(ViewGroup parentlayout) {
+        parentlayout.removeAllViews();
+
+    }
 
     private static String KEY_BACKSP = "\u0008";
     private static String KEY_DONE = "\n";

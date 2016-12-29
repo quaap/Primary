@@ -3,6 +3,8 @@ package com.quaap.primary.math;
 import android.content.Context;
 
 import com.quaap.primary.R;
+import com.quaap.primary.base.BaseActivity;
+import com.quaap.primary.base.InputMode;
 import com.quaap.primary.base.Level;
 
 public class BasicMathLevel extends Level {
@@ -11,24 +13,26 @@ public class BasicMathLevel extends Level {
     private final MathOp mMinMathOp;
     private final int mMaxNum;
     private final Negatives mNegatives;
+    private InputMode mInputMode;
 
 
-    public BasicMathLevel(String subjectkey, MathOp maxMathOp, int maxNum, int rounds) {
-        this(subjectkey, maxMathOp, maxMathOp, maxNum, rounds);
+    public BasicMathLevel(String subjectkey, MathOp maxMathOp, int maxNum, int rounds, InputMode inputMode) {
+        this(subjectkey, maxMathOp, maxMathOp, maxNum, rounds, inputMode);
     }
-    public BasicMathLevel(String subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, int rounds) {
-        this(subjectkey, maxMathOp, minMathOp, maxNum, Negatives.None, rounds);
+    public BasicMathLevel(String subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, int rounds, InputMode inputMode) {
+        this(subjectkey, maxMathOp, minMathOp, maxNum, Negatives.None, rounds, inputMode);
     }
-    public BasicMathLevel(String subjectkey, MathOp maxMathOp, int maxNum, Negatives negatives, int rounds) {
-        this(subjectkey, maxMathOp, maxMathOp, maxNum, negatives, rounds);
+    public BasicMathLevel(String subjectkey, MathOp maxMathOp, int maxNum, Negatives negatives, int rounds, InputMode inputMode) {
+        this(subjectkey, maxMathOp, maxMathOp, maxNum, negatives, rounds, inputMode);
     }
-    public BasicMathLevel(String subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, Negatives negatives, int rounds) {
+    public BasicMathLevel(String subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, Negatives negatives, int rounds, InputMode inputMode) {
         super(subjectkey, rounds);
 
         mMaxMathOp = maxMathOp;
         mMinMathOp = minMathOp;
         mMaxNum = maxNum;
         mNegatives = negatives;
+        mInputMode = inputMode;
     }
 
     @Override
@@ -87,6 +91,10 @@ public class BasicMathLevel extends Level {
     }
 
     public Negatives getNegatives() { return mNegatives; }
+
+    public InputMode getInputMode() {
+        return mInputMode;
+    }
 
 //    public int getMaxNum(int prevCorrect) {
 //        return (int)(mMaxNum * ((double)Math.max(prevCorrect, mRounds/5.0)/mRounds));

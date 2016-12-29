@@ -73,7 +73,11 @@ public abstract class StdGameActivity extends BaseActivity {
 
     @Override
     protected void onShowLevel() {
+        hideKeys(getKeysArea());
+    }
 
+    protected ViewGroup getKeysArea() {
+        return (ViewGroup) findViewById(R.id.keypad_area);
     }
 
     protected LinearLayout getAnswerArea() {

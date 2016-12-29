@@ -5,14 +5,13 @@ import android.annotation.SuppressLint;
 
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quaap.primary.R;
 import com.quaap.primary.base.BaseActivity;
+import com.quaap.primary.base.InputMode;
 import com.quaap.primary.base.StdGameActivity;
 
 import java.util.ArrayList;
@@ -29,8 +28,8 @@ public class BasicMathActivity extends StdGameActivity implements BaseActivity.A
 
     //public static final String LevelSetName = "Math1Levels";
 
-    public Mode mode = Mode.Input;
-    //Mode.Input doesn't work yet.
+   // public InputMode inputMode = InputMode.Input;
+    //InputMode.Input doesn't work yet.
 
     public BasicMathActivity() {
        super(R.layout.std_math_prob);
@@ -56,11 +55,6 @@ public class BasicMathActivity extends StdGameActivity implements BaseActivity.A
 
 
 
-    @Override
-    protected void onShowLevel() {
-
-    }
-
 
     @Override
     protected void showProbImpl() {
@@ -78,12 +72,15 @@ public class BasicMathActivity extends StdGameActivity implements BaseActivity.A
 
        // LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
         float fontsize = num1txt.getTextSize();
+        BasicMathLevel level = (BasicMathLevel) levels[levelnum];
 
-        if (mode==Mode.Buttons) {
+        if (level.getInputMode() == InputMode.Buttons) {
             makeAnswerButtons(getAnswerArea(), fontsize);
-        } else if (mode==Mode.Input) {
-            ViewGroup keypadarea = (ViewGroup)findViewById(R.id.keypad_area);
-            makeInputBox(getAnswerArea(), keypadarea, this, INPUTTYPE_NUMBER, 3, fontsize);
+        } else if (level.getInputMode() == InputMode.Input) {
+
+            makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_NUMBER, 3, fontsize);
+        } else {
+            throw new IllegalArgumentException("Unknown inputMode! " + level.getInputMode());
         }
 
     }
@@ -185,7 +182,7 @@ public class BasicMathActivity extends StdGameActivity implements BaseActivity.A
 
     }
 
-    //Mode.Input impl:
+    //InputMode.Input impl:
 
 //    private EditText answerBox;
 //    private void makeAnswerBox(LinearLayout answerarea, float fontsize) {
@@ -217,7 +214,7 @@ public class BasicMathActivity extends StdGameActivity implements BaseActivity.A
 //    }
 
 
-    //Mode.Buttons impl:
+    //InputMode.Buttons impl:
 //    @NonNull
 //    private List<Integer> getAnswerChoices2(int numans) {
 //        List<Integer> answers = new ArrayList<>();

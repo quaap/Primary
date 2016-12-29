@@ -3,6 +3,7 @@ package com.quaap.primary.spelling;
 import android.content.Context;
 
 import com.quaap.primary.R;
+import com.quaap.primary.base.InputMode;
 import com.quaap.primary.base.Level;
 
 /**
@@ -24,11 +25,13 @@ public class SpellingLevel extends Level {
 
     private int mWordlistId;
     private int mMaxwordlength;
+    private InputMode mInputMode;
 
-    public SpellingLevel(String subjectkey, int wordlistid, int maxwordlength, int rounds) {
+    public SpellingLevel(String subjectkey, int wordlistid, int maxwordlength, int rounds, InputMode inputMode) {
         super(subjectkey, rounds);
         mWordlistId = wordlistid;
         mMaxwordlength = maxwordlength;
+        mInputMode = inputMode;
     }
 
     @Override
@@ -44,4 +47,10 @@ public class SpellingLevel extends Level {
     public int getmWordlistId() {
         return mWordlistId;
     }
+
+
+    public InputMode getInputMode() {
+        return mInputMode;
+    }
+
 }

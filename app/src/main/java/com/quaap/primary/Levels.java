@@ -1,5 +1,6 @@
 package com.quaap.primary;
 
+import com.quaap.primary.base.InputMode;
 import com.quaap.primary.base.Level;
 import com.quaap.primary.math.BasicMathLevel;
 import com.quaap.primary.math.MathOp;
@@ -52,69 +53,99 @@ public class Levels {
             //Math1Levels
              {
 
-                     new BasicMathLevel("m1", MathOp.Plus, 5, 10),
-                     new BasicMathLevel("m1", MathOp.Minus, 5, 10),
+                     new BasicMathLevel("m1", MathOp.Plus, 5, 10, InputMode.Buttons),
+                     new BasicMathLevel("m1", MathOp.Minus, 5, 10, InputMode.Buttons),
 
-                     new BasicMathLevel("m1", MathOp.Plus, 10, 20),
-                     new BasicMathLevel("m1", MathOp.Minus, 10, 20),
+                     new BasicMathLevel("m1", MathOp.Plus, 10, 20, InputMode.Buttons),
+                     new BasicMathLevel("m1", MathOp.Minus, 10, 20, InputMode.Buttons),
 
-                     new BasicMathLevel("m1", MathOp.Plus, 15, 20),
-                     new BasicMathLevel("m1", MathOp.Minus, 15, 20),
+                     new BasicMathLevel("m1", MathOp.Plus, 10, 10, InputMode.Input),
+                     new BasicMathLevel("m1", MathOp.Minus, 10, 10, InputMode.Input),
 
-                     new BasicMathLevel("m1", MathOp.Plus, 25, 10),
-                     new BasicMathLevel("m1", MathOp.Minus, 25, 10),
+                     new BasicMathLevel("m1", MathOp.Plus, 15, 20, InputMode.Buttons),
+                     new BasicMathLevel("m1", MathOp.Minus, 15, 20, InputMode.Buttons),
 
-                     new BasicMathLevel("m1", MathOp.Minus, MathOp.Plus, 25, 20),
+                     new BasicMathLevel("m1", MathOp.Plus, 25, 10, InputMode.Buttons),
+                     new BasicMathLevel("m1", MathOp.Minus, 25, 10, InputMode.Buttons),
+
+                     new BasicMathLevel("m1", MathOp.Plus, 25, 10, InputMode.Input),
+                     new BasicMathLevel("m1", MathOp.Minus, 25, 10, InputMode.Input),
+
+                     new BasicMathLevel("m1", MathOp.Minus, MathOp.Plus, 25, 20, InputMode.Buttons),
              },
 
              //Math2Levels
              {
-                    new BasicMathLevel("m2", MathOp.Times, 5, 10),
-                    new BasicMathLevel("m2", MathOp.Divide, 5, 10),
+                     new BasicMathLevel("m2", MathOp.Times, 5, 10, InputMode.Buttons),
+                     new BasicMathLevel("m2", MathOp.Divide, 5, 10, InputMode.Buttons),
 
-                    new BasicMathLevel("m2", MathOp.Times, 10, 20),
-                    new BasicMathLevel("m2", MathOp.Divide, 10, 20),
+                     new BasicMathLevel("m2", MathOp.Times, 10, 20, InputMode.Buttons),
+                     new BasicMathLevel("m2", MathOp.Divide, 10, 20, InputMode.Buttons),
 
-                    new BasicMathLevel("m2", MathOp.Times, 12, 10),
-                    new BasicMathLevel("m2", MathOp.Divide, 12, 10),
+                     new BasicMathLevel("m2", MathOp.Times, 10, 10, InputMode.Input),
+                     new BasicMathLevel("m2", MathOp.Divide, 10, 10, InputMode.Input),
 
-                    new BasicMathLevel("m2", MathOp.Divide, MathOp.Times, 12, 20),
+                     new BasicMathLevel("m2", MathOp.Times, 12, 20, InputMode.Buttons),
+                     new BasicMathLevel("m2", MathOp.Divide, 12, 20, InputMode.Buttons),
+
+                     new BasicMathLevel("m2", MathOp.Times, 12, 10, InputMode.Input),
+                     new BasicMathLevel("m2", MathOp.Divide, 12, 10, InputMode.Input),
+
+                     new BasicMathLevel("m2", MathOp.Divide, MathOp.Times, 12, 20, InputMode.Buttons),
+
+                     new BasicMathLevel("m2", MathOp.Divide, MathOp.Times, 12, 20, InputMode.Input),
              },
 
              //Math3Levels
              {
 //  Same levels, but now with negatives
 
-                    new BasicMathLevel("m3", MathOp.Plus, 5, Negatives.Required, 10),
-                    new BasicMathLevel("m3", MathOp.Minus, 5, Negatives.Required, 10),
+                    new BasicMathLevel("m3", MathOp.Plus, 5, Negatives.Required, 10, InputMode.Buttons),
+                    new BasicMathLevel("m3", MathOp.Minus, 5, Negatives.Required, 10, InputMode.Buttons),
 
-                    new BasicMathLevel("m3", MathOp.Plus, 10, Negatives.Required, 20),
-                    new BasicMathLevel("m3", MathOp.Minus, 10, Negatives.Required, 20),
+                    new BasicMathLevel("m3", MathOp.Plus, 10, Negatives.Required, 20, InputMode.Buttons),
+                    new BasicMathLevel("m3", MathOp.Minus, 10, Negatives.Required, 20, InputMode.Buttons),
 
-                    new BasicMathLevel("m3", MathOp.Plus, 15, Negatives.Required, 20),
-                    new BasicMathLevel("m3", MathOp.Minus, 15, Negatives.Required, 20),
+                     new BasicMathLevel("m3", MathOp.Plus, 10, Negatives.Required, 10, InputMode.Input),
+                     new BasicMathLevel("m3", MathOp.Minus, 10, Negatives.Required, 10, InputMode.Input),
 
-                    new BasicMathLevel("m3", MathOp.Plus, 25, Negatives.Required, 10),
-                    new BasicMathLevel("m3", MathOp.Minus, 25, Negatives.Required, 10),
+                    new BasicMathLevel("m3", MathOp.Plus, 15, Negatives.Required, 20, InputMode.Buttons),
+                    new BasicMathLevel("m3", MathOp.Minus, 15, Negatives.Required, 20, InputMode.Buttons),
 
-                    new BasicMathLevel("m3", MathOp.Minus, MathOp.Plus, 25, Negatives.Allowed, 20),
+                     new BasicMathLevel("m3", MathOp.Plus, 25, Negatives.Required, 10, InputMode.Buttons),
+                     new BasicMathLevel("m3", MathOp.Minus, 25, Negatives.Required, 10, InputMode.Buttons),
+
+                     new BasicMathLevel("m3", MathOp.Plus, 25, Negatives.Required, 10, InputMode.Input),
+                     new BasicMathLevel("m3", MathOp.Minus, 25, Negatives.Required, 10, InputMode.Input),
+
+                     new BasicMathLevel("m3", MathOp.Minus, MathOp.Plus, 25, Negatives.Allowed, 20, InputMode.Buttons),
+
+                     new BasicMathLevel("m3", MathOp.Minus, MathOp.Plus, 25, Negatives.Allowed, 20, InputMode.Input),
 
              },
 
              //Math4Levels
              {
 
-                    new BasicMathLevel("m4", MathOp.Times, 5, Negatives.Required, 10),
-                    new BasicMathLevel("m4", MathOp.Divide, 5, Negatives.Required, 10),
+                    new BasicMathLevel("m4", MathOp.Times, 5, Negatives.Required, 10, InputMode.Buttons),
+                    new BasicMathLevel("m4", MathOp.Divide, 5, Negatives.Required, 10, InputMode.Buttons),
 
-                    new BasicMathLevel("m4", MathOp.Times, 10, Negatives.Required, 20),
-                    new BasicMathLevel("m4", MathOp.Divide, 10, Negatives.Required, 20),
+                     new BasicMathLevel("m4", MathOp.Times, 10, Negatives.Required, 20, InputMode.Buttons),
+                     new BasicMathLevel("m4", MathOp.Divide, 10, Negatives.Required, 20, InputMode.Buttons),
 
-                    new BasicMathLevel("m4", MathOp.Times, 12, Negatives.Required, 10),
-                    new BasicMathLevel("m4", MathOp.Divide, 12, Negatives.Required, 10),
+                     new BasicMathLevel("m4", MathOp.Times, 10, Negatives.Required, 10, InputMode.Input),
+                     new BasicMathLevel("m4", MathOp.Divide, 10, Negatives.Required, 10, InputMode.Input),
+
+                     new BasicMathLevel("m4", MathOp.Times, 12, Negatives.Required, 10, InputMode.Buttons),
+                     new BasicMathLevel("m4", MathOp.Divide, 12, Negatives.Required, 10, InputMode.Buttons),
+
+                     new BasicMathLevel("m4", MathOp.Times, 12, Negatives.Required, 10, InputMode.Input),
+                     new BasicMathLevel("m4", MathOp.Divide, 12, Negatives.Required, 10, InputMode.Input),
 
 
-                    new BasicMathLevel("m4", MathOp.Divide, MathOp.Times, 12, Negatives.Allowed, 20),
+                     new BasicMathLevel("m4", MathOp.Divide, MathOp.Times, 12, Negatives.Allowed, 20, InputMode.Buttons),
+
+                     new BasicMathLevel("m4", MathOp.Divide, MathOp.Times, 12, Negatives.Allowed, 20, InputMode.Input),
 
 
              },
@@ -122,28 +153,37 @@ public class Levels {
              //Math5Levels
              {
 
-                     new BasicMathLevel("m5",  MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 100)
+                     new BasicMathLevel("m5",  MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 100, InputMode.Buttons),
+                     new BasicMathLevel("m5",  MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 100, InputMode.Input)
              },
 
             //Spelling1Levels
             {
-                    new SpellingLevel("sp1",R.array.spelling_words_1a, 2, 10),
-                    new SpellingLevel("sp1",R.array.spelling_words_1b, 3, 20),
-                    new SpellingLevel("sp1",R.array.spelling_words_1c, 4, 20),
+                    new SpellingLevel("sp1",R.array.spelling_words_1a, 2, 10, InputMode.Buttons),
+                    new SpellingLevel("sp1",R.array.spelling_words_1b, 3, 20, InputMode.Buttons),
+                    new SpellingLevel("sp1",R.array.spelling_words_1b, 3, 10, InputMode.Input),
+                    new SpellingLevel("sp1",R.array.spelling_words_1c, 4, 20, InputMode.Buttons),
+                    new SpellingLevel("sp1",R.array.spelling_words_1c, 4, 10, InputMode.Input),
             },
 
             //Spelling2Levels
             {
-                    new SpellingLevel("sp2",R.array.spelling_words_1d, 5, 20),
-                    new SpellingLevel("sp2",R.array.spelling_words_1e, 6, 20),
-                    new SpellingLevel("sp2",R.array.spelling_words_1f, 7, 20),
+                    new SpellingLevel("sp2",R.array.spelling_words_1d, 5, 20, InputMode.Buttons),
+                    new SpellingLevel("sp2",R.array.spelling_words_1d, 5, 10, InputMode.Input),
+                    new SpellingLevel("sp2",R.array.spelling_words_1e, 6, 20, InputMode.Buttons),
+                    new SpellingLevel("sp2",R.array.spelling_words_1e, 6, 10, InputMode.Input),
+                    new SpellingLevel("sp2",R.array.spelling_words_1f, 7, 20, InputMode.Buttons),
+                    new SpellingLevel("sp2",R.array.spelling_words_1f, 7, 10, InputMode.Input),
             },
 
             //Spelling3Levels
             {
-                    new SpellingLevel("sp3",R.array.spelling_words_1g, 8, 20),
-                    new SpellingLevel("sp3",R.array.spelling_words_1h, 9, 20),
-                    new SpellingLevel("sp3",R.array.spelling_words_1i, 10, 20),
+                    new SpellingLevel("sp3",R.array.spelling_words_1g, 8, 20, InputMode.Buttons),
+                    new SpellingLevel("sp3",R.array.spelling_words_1g, 8, 10, InputMode.Input),
+                    new SpellingLevel("sp3",R.array.spelling_words_1h, 9, 20, InputMode.Buttons),
+                    new SpellingLevel("sp3",R.array.spelling_words_1h, 9, 10, InputMode.Input),
+                    new SpellingLevel("sp3",R.array.spelling_words_1i, 10, 20, InputMode.Buttons),
+                    new SpellingLevel("sp3",R.array.spelling_words_1i, 10, 10, InputMode.Input),
             },
 
 

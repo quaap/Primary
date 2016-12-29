@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.quaap.primary.R;
 import com.quaap.primary.base.BaseActivity;
+import com.quaap.primary.base.InputMode;
 import com.quaap.primary.base.StdGameActivity;
 
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ public class SpellingActivity extends StdGameActivity
         BaseActivity.AnswerGivenListener<String>,
         BaseActivity.AnswerTypedListener{
 
-    public Mode mode = Mode.Input;
 
     private List<String> words;
 
@@ -81,6 +81,7 @@ public class SpellingActivity extends StdGameActivity
 
     @Override
     protected void onShowLevel() {
+        super.onShowLevel();
         words = Arrays.asList(getResources().getStringArray(((SpellingLevel)levels[levelnum]).getmWordlistId()));
     }
 
@@ -94,15 +95,18 @@ public class SpellingActivity extends StdGameActivity
 
         Log.d("spell", word);
 
-        if (mode==Mode.Buttons) {
+        SpellingLevel level = (SpellingLevel) levels[levelnum];
+
+        if (level.getInputMode() == InputMode.Buttons) {
             List<String> answers = getAnswerChoices(word);
 
             makeChoiceButtons(getAnswerArea(), answers, this);
 
+        } else if (level.getInputMode() == InputMode.Input) {
+
+            makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_TEXT, 0, 0);
         } else {
-           // makeInputBox(getAnswerArea(), this);
-            ViewGroup keypadarea = (ViewGroup)findViewById(R.id.keypad_area);
-            makeInputBox(getAnswerArea(), keypadarea, this, INPUTTYPE_TEXT, 0, 0);
+            throw new IllegalArgumentException("Unknown inputMode! " + level.getInputMode());
         }
         v.speak(word);
 
