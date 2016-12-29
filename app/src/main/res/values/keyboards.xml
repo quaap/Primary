@@ -59,6 +59,43 @@
         <item>m</item>
         <item>\'</item>
         <item>\n</item>
+    </string-array>
+
+
+    <string-array name="keyboard_dvorak">
+        <item>p</item>
+        <item>y</item>
+        <item>f</item>
+        <item>g</item>
+        <item>c</item>
+        <item>r</item>
+        <item>l</item>
+        <item>\'</item>
+        <item>" "</item>
+        <item>\u0008</item>
+
+        <item>a</item>
+        <item>o</item>
+        <item>e</item>
+        <item>u</item>
+        <item>i</item>
+        <item>d</item>
+        <item>h</item>
+        <item>t</item>
+        <item>n</item>
+        <item>s</item>
+
+        <item>q</item>
+        <item>j</item>
+        <item>k</item>
+        <item>x</item>
+        <item>b</item>
+        <item>m</item>
+        <item>w</item>
+        <item>v</item>
+        <item>z</item>
+        <item>\n</item>
 
     </string-array>
+
 </resources>
