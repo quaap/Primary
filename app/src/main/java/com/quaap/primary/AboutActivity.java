@@ -3,11 +3,12 @@ package com.quaap.primary;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
+
+import com.quaap.primary.base.CommonBaseActivity;
 
 public class AboutActivity extends CommonBaseActivity {
 

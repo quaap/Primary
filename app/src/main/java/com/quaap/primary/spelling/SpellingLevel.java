@@ -2,8 +2,7 @@ package com.quaap.primary.spelling;
 
 import android.content.Context;
 
-import com.quaap.primary.R;
-import com.quaap.primary.base.InputMode;
+import com.quaap.primary.base.component.InputMode;
 import com.quaap.primary.base.Level;
 
 /**

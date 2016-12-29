@@ -1,12 +1,12 @@
 package com.quaap.primary;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.quaap.primary.base.CommonBaseActivity;
 import com.quaap.primary.base.data.AppData;
 import com.quaap.primary.base.data.Subjects;
 import com.quaap.primary.base.data.UserData;

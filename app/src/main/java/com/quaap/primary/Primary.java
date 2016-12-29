@@ -3,6 +3,8 @@ package com.quaap.primary;
 
 import android.app.Application;
 
+import com.quaap.primary.base.component.TextToVoice;
+
 /**
  * Created by tom on 12/29/16.
  * <p>

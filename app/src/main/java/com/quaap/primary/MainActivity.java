@@ -31,6 +31,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.quaap.primary.base.CommonBaseActivity;
+import com.quaap.primary.base.component.HorzItemList;
 import com.quaap.primary.base.data.AppData;
 import com.quaap.primary.base.data.Subjects;
 import com.quaap.primary.base.data.UserData;

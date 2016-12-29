@@ -30,10 +30,11 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.quaap.primary.CommonBaseActivity;
 import com.quaap.primary.Levels;
 import com.quaap.primary.MainActivity;
 import com.quaap.primary.R;
+import com.quaap.primary.base.component.ActivityWriter;
+import com.quaap.primary.base.component.Keyboard;
 import com.quaap.primary.base.data.AppData;
 import com.quaap.primary.base.data.UserData;
 
@@ -42,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public abstract class BaseActivity extends CommonBaseActivity {
+public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
 
 
@@ -92,7 +93,7 @@ public abstract class BaseActivity extends CommonBaseActivity {
 
     private SharedPreferences appPreferences;
 
-    protected BaseActivity(int layoutIdtxt) {
+    protected SubjectBaseActivity(int layoutIdtxt) {
 
         layoutId = layoutIdtxt;
     }

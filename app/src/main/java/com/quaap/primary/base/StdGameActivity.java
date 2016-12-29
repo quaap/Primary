@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quaap.primary.R;
+import com.quaap.primary.base.component.Keyboard;
 
 /**
  * Created by tom on 12/28/16.
@@ -24,7 +25,7 @@ import com.quaap.primary.R;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-public abstract class StdGameActivity extends BaseActivity {
+public abstract class StdGameActivity extends SubjectBaseActivity {
 
     private int mProblemView;
 

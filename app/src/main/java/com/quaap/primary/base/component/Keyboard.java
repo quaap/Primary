@@ -1,4 +1,4 @@
-package com.quaap.primary.base;
+package com.quaap.primary.base.component;
 
 import android.content.Context;
 import android.content.res.Configuration;

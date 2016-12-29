@@ -1,4 +1,4 @@
-package com.quaap.primary;
+package com.quaap.primary.base.component;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -11,6 +11,8 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.quaap.primary.R;
 
 import java.util.Collection;
 import java.util.Collections;

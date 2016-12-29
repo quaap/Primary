@@ -1,4 +1,4 @@
-package com.quaap.primary;
+package com.quaap.primary.base.component;
 import android.content.Context;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;

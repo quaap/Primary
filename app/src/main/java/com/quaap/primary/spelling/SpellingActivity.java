@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import com.quaap.primary.Primary;
 import com.quaap.primary.R;
-import com.quaap.primary.TextToVoice;
-import com.quaap.primary.base.BaseActivity;
-import com.quaap.primary.base.InputMode;
+import com.quaap.primary.base.component.TextToVoice;
+import com.quaap.primary.base.SubjectBaseActivity;
+import com.quaap.primary.base.component.InputMode;
 import com.quaap.primary.base.StdGameActivity;
 
 import java.util.ArrayList;
@@ -25,8 +25,8 @@ import java.util.TimerTask;
 
 public class SpellingActivity extends StdGameActivity
         implements TextToVoice.VoiceReadyListener,
-        BaseActivity.AnswerGivenListener<String>,
-        BaseActivity.AnswerTypedListener{
+        SubjectBaseActivity.AnswerGivenListener<String>,
+        SubjectBaseActivity.AnswerTypedListener{
 
 
     private List<String> words;

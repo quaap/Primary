@@ -5,13 +5,12 @@ import android.annotation.SuppressLint;
 
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quaap.primary.R;
-import com.quaap.primary.base.BaseActivity;
-import com.quaap.primary.base.InputMode;
+import com.quaap.primary.base.SubjectBaseActivity;
+import com.quaap.primary.base.component.InputMode;
 import com.quaap.primary.base.StdGameActivity;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-public class BasicMathActivity extends StdGameActivity implements BaseActivity.AnswerGivenListener<Integer>,BaseActivity.AnswerTypedListener {
+public class BasicMathActivity extends StdGameActivity implements SubjectBaseActivity.AnswerGivenListener<Integer>,SubjectBaseActivity.AnswerTypedListener {
 
     private int num1;
     private int num2;

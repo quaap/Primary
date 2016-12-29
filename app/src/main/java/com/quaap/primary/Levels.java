@@ -1,6 +1,6 @@
 package com.quaap.primary;
 
-import com.quaap.primary.base.InputMode;
+import com.quaap.primary.base.component.InputMode;
 import com.quaap.primary.base.Level;
 import com.quaap.primary.math.BasicMathLevel;
 import com.quaap.primary.math.MathOp;
