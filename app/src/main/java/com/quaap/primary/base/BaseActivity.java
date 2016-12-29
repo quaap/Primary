@@ -461,10 +461,14 @@ public abstract class BaseActivity extends AppCompatActivity  {
     protected void showSoftKeyboard(final EditText view, ViewGroup keypadarea) {
         view.clearFocus();
 
+        view.setText("");
 
-        if ((view.getInputType() & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER && keypadarea!=null) {
+        boolean useourkeyboard = getResources().getBoolean(R.bool.keyboard_use);
+        boolean useourkeypad = getResources().getBoolean(R.bool.keypad_use);
+
+        if (useourkeypad && ( (view.getInputType() & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER) && keypadarea!=null) {
             showNumberpad(view, keypadarea);
-        } else if (keypadarea!=null) {
+        } else if (useourkeyboard && keypadarea!=null) {
             showKeyboard(view, keypadarea);
         } else {
 
@@ -483,23 +487,25 @@ public abstract class BaseActivity extends AppCompatActivity  {
     }
 
 
-    private static String KEY_BACKSP = "\b";
+    private static String KEY_BACKSP = "\u0008";
     private static String KEY_DONE = "\n";
 
     protected void showKeyboard(final EditText editText, ViewGroup parentlayout) {
-        String keys = "qwertyuiopasdfghjkl"+KEY_BACKSP+" zxcvbnm'"+KEY_DONE;
+        String [] keys = getResources().getStringArray(R.array.keyboard_keys);
+        int rows = getResources().getInteger(R.integer.keyboard_rows);
 
-        showKeys(editText, parentlayout, keys, 3);
+        showKeys(editText, parentlayout, keys, rows);
     }
 
 
     protected void showNumberpad(final EditText editText, ViewGroup parentlayout) {
-        String keys = "01234"+KEY_BACKSP+"56789"+KEY_DONE;
+        String [] keys = getResources().getStringArray(R.array.keypad_keys);
+        int rows = getResources().getInteger(R.integer.keypad_rows);
 
-        showKeys(editText, parentlayout, keys, 2);
+        showKeys(editText, parentlayout, keys, rows);
     }
 
-    protected void showKeys(final EditText editText, ViewGroup parentlayout, String keys, int rows) {
+    protected void showKeys(final EditText editText, ViewGroup parentlayout, String[] keys, int rows) {
 
         parentlayout.removeAllViews();
         GridLayout glayout = new GridLayout(this);
@@ -509,8 +515,8 @@ public abstract class BaseActivity extends AppCompatActivity  {
         Point size = new Point();
         display.getSize(size);
 
-        int cols = keys.length()/rows;
-        if (keys.length()%2!=0) cols+=1;
+        int cols = keys.length/rows;
+        if (keys.length%2!=0) cols+=1;
         glayout.setColumnCount(cols);
 
 
@@ -519,9 +525,12 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
         System.out.println("size: " + size.x + ", " + size.y);
 
-        for (String k: keys.split("(?!^)")) {
-            Button key = new Button(new ContextThemeWrapper(this, android.R.style.Widget_Button_Small), null, 0);
-
+        for (String k: keys) {
+            TextView key = new TextView(this);
+            key.setClickable(true);
+            key.setPadding(4, 4 ,4, 4);
+            key.setGravity(Gravity.CENTER);
+            key.setBackgroundResource(android.R.drawable.btn_default_small);
             key.setTextSize((int)(keywidth/3.2));
             key.setMinimumWidth(0);
             key.setMinimumHeight(0);
