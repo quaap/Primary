@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <bool name="keypad_use">true</bool>
+
+    <!-- This overrides user prefs if false-->
+    <bool name="game_keypad_available">true</bool>
 
     <integer name="keypad_rows">2</integer>
     <string-array name="keypad_keys">
@@ -23,7 +25,7 @@
     </string-array>
 
 
-    <bool name="keyboard_use">true</bool>
+    <bool name="game_keyboard_available">true</bool>
 
     <integer name="keyboard_rows">3</integer>
     <string-array name="keyboard_keys">

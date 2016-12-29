@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="applicationPreference">
+
+    <ListPreference
+        android:defaultValue="1"
+        android:title="Choose alphabetic keyboard"
+        android:entries="@array/keyboard_prefs"
+        android:entryValues="@array/keyboardpad_prefs_values"
+        android:key="keyboard_preference"
+        android:summary="%s" />
+    <ListPreference
+        android:defaultValue="1"
+        android:title="Choose numeric keypad"
+        android:entries="@array/keypad_prefs"
+        android:entryValues="@array/keyboardpad_prefs_values"
+        android:key="keypad_preference"
+        android:summary="%s" />
+</PreferenceScreen>

@@ -13,7 +13,7 @@ import com.quaap.primary.base.data.UserData;
 
 import java.util.Map;
 
-public class ScoresActivity extends AppCompatActivity {
+public class ScoresActivity extends CommonBaseActivity {
 
     private AppData mAppdata;
 

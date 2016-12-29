@@ -4,6 +4,8 @@
 
     <item android:title="@string/all_scores"
         android:id="@+id/menu_scores" />
+    <item android:title="Settings"
+        android:id="@+id/menu_settings" />
     <item android:title="@string/about"
         android:id="@+id/menu_about" />
 </menu>

@@ -5,17 +5,14 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
 import android.text.InputType;
 import android.util.Log;
 import android.util.TypedValue;
@@ -23,21 +20,17 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.quaap.primary.AboutActivity;
+import com.quaap.primary.CommonBaseActivity;
 import com.quaap.primary.Levels;
 import com.quaap.primary.MainActivity;
 import com.quaap.primary.R;
@@ -45,12 +38,11 @@ import com.quaap.primary.base.data.AppData;
 import com.quaap.primary.base.data.UserData;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public abstract class BaseActivity extends AppCompatActivity  {
+public abstract class BaseActivity extends CommonBaseActivity {
 
 
 
@@ -98,6 +90,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     private List<String> seenProblems = new ArrayList<>();
 
+    private SharedPreferences appPreferences;
 
     protected BaseActivity(int layoutIdtxt) {
 
@@ -123,6 +116,10 @@ public abstract class BaseActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        appPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+
         //Log.d("base", "onCreate savedInstanceState=" + (savedInstanceState==null?"null":"notnull"));
         if (savedInstanceState==null) {
             Intent intent = getIntent();
@@ -281,8 +278,8 @@ public abstract class BaseActivity extends AppCompatActivity  {
     }
 
 
-    protected static int INPUTTYPE_TEXT = InputType.TYPE_CLASS_TEXT;
-    protected static int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED;
+    protected static int INPUTTYPE_TEXT = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_CLASS_TEXT;
+    protected static int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED  | InputType.TYPE_NUMBER_FLAG_DECIMAL;
 
 //    protected void makeInputBox(ViewGroup answerlayout, final AnswerTypedListener listener) {
 //        makeInputBox(answerlayout, listener, INPUTTYPE_TEXT, 0, 18);
@@ -304,7 +301,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
         final EditText uinput = (EditText) type_area.findViewById(R.id.uinput_edit);
 
-        uinput.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | inputttpe);
 
         if((inputttpe & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER) {
             uinput.setGravity(Gravity.END);
@@ -313,6 +309,11 @@ public abstract class BaseActivity extends AppCompatActivity  {
         if (emwidth!=0) {
             uinput.setEms(emwidth);
         }
+
+        uinput.setPrivateImeOptions("nm");
+
+        uinput.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        uinput.setInputType(inputttpe);
 
         uinput.setOnEditorActionListener(
                 new TextView.OnEditorActionListener() {
@@ -353,23 +354,12 @@ public abstract class BaseActivity extends AppCompatActivity  {
                 }
             });
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                uinput.setShowSoftInputOnFocus(false);
-            } else {
-                try {
-                    final Method method = EditText.class.getMethod(
-                            "setShowSoftInputOnFocus"
-                            , new Class[]{boolean.class});
-                    method.setAccessible(true);
-                    method.invoke(uinput, false);
-                } catch (Exception e) {
-                    // ignore
-                }
-            }
+
             clear.setVisibility(View.GONE);
             done.setVisibility(View.GONE);
 
         }
+
         showSoftKeyboard(uinput, keypadarea);
     }
 
@@ -445,31 +435,63 @@ public abstract class BaseActivity extends AppCompatActivity  {
     }
 
     protected void showSoftKeyboard(final EditText view, ViewGroup keypadarea) {
+
         view.clearFocus();
 
         view.setText("");
 
-        boolean useourkeyboard = getResources().getBoolean(R.bool.keyboard_use);
-        boolean useourkeypad = getResources().getBoolean(R.bool.keypad_use);
+        boolean isnumeric = ( (view.getInputType() & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER);
 
-        if (useourkeypad && ( (view.getInputType() & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER) && keypadarea!=null) {
+        int whichkeyboard = Integer.parseInt(appPreferences.getString("keyboard_preference", "1"));
+        int whichkeypad = Integer.parseInt(appPreferences.getString("keypad_preference", "1"));
+
+        boolean gkeyboardAvail = getResources().getBoolean(R.bool.game_keyboard_available);
+        boolean gkeypadAvail = getResources().getBoolean(R.bool.game_keypad_available);
+
+        if (isnumeric && gkeypadAvail && whichkeypad==1 && keypadarea!=null) {
             Keyboard.showNumberpad(this, view, keypadarea);
-        } else if (useourkeyboard && keypadarea!=null) {
-            Keyboard.showKeyboard(this, view, keypadarea);
-        } else {
 
-            view.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (view.requestFocus()) {
-                        InputMethodManager imm = (InputMethodManager)
-                                getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-                    }
-                }
-            }, 100);
+        } else if (!isnumeric && gkeyboardAvail && whichkeyboard==1 && keypadarea!=null) {
+            Keyboard.showKeyboard(this, view, keypadarea);
+
+        } else if (whichkeypad==2 || whichkeyboard==2 || (isnumeric && !gkeypadAvail) || (!isnumeric && !gkeyboardAvail) ) {
+            showSystemKeyboard(view);
         }
 
+//        if (whichkeypad==1 && gkeypadAvail && isnumeric && keypadarea!=null) {
+//            Keyboard.showNumberpad(this, view, keypadarea);
+//
+//        } else if (whichkeyboard==1 && gkeyboardAvail && keypadarea!=null) {
+//            Keyboard.showKeyboard(this, view, keypadarea);
+//
+//        } else if ( (whichkeypad==2 && isnumeric) || (!isnumeric && whichkeyboard==2) ) {
+//
+//            view.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (view.requestFocus()) {
+//                        InputMethodManager imm = (InputMethodManager)
+//                                getSystemService(Context.INPUT_METHOD_SERVICE);
+//                        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+//                    }
+//                }
+//            }, 100);
+//        }
+
+
+    }
+
+    protected void showSystemKeyboard(final EditText view) {
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (view.requestFocus()) {
+                    InputMethodManager imm = (InputMethodManager)
+                            getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+                }
+            }
+        }, 100);
     }
 
 
@@ -757,26 +779,5 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-
-        if (id==R.id.menu_about) {
-            Intent intent = new Intent(this, AboutActivity.class);
-            startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="keyboard_prefs">
+        <item>Force in-game keyboard (default)</item>
+        <item>Force system keyboard</item>
+        <item>Force nothing</item>
+    </string-array>
+
+    <string-array name="keypad_prefs">
+        <item>Force in-game keypad (default)</item>
+        <item>Force system keypad</item>
+        <item>Force nothing</item>
+    </string-array>
+
+    <string-array name="keyboardpad_prefs_values">
+        <item>1</item>
+        <item>2</item>
+        <item>0</item>
+    </string-array>
+
+
+</resources>

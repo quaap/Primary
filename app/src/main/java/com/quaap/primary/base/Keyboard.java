@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.os.Build;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -15,6 +16,8 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 
 import com.quaap.primary.R;
+
+import java.lang.reflect.Method;
 
 /**
  * Created by tom on 12/29/16.
@@ -75,6 +78,20 @@ public class Keyboard {
     }
 
     protected void showKeys(final EditText editText, ViewGroup parentlayout, String[] keys, int rows) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            editText.setShowSoftInputOnFocus(false);
+        } else {
+            try {
+                final Method method = EditText.class.getMethod(
+                        "setShowSoftInputOnFocus"
+                        , new Class[]{boolean.class});
+                method.setAccessible(true);
+                method.invoke(editText, false);
+            } catch (Exception e) {
+                // ignore
+            }
+        }
 
         parentlayout.removeAllViews();
         GridLayout glayout = new GridLayout(mContext);

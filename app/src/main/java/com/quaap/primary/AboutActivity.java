@@ -9,7 +9,7 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends CommonBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quaap.primary.AboutActivity;
+import com.quaap.primary.CommonBaseActivity;
 import com.quaap.primary.Levels;
 import com.quaap.primary.MainActivity;
 import com.quaap.primary.R;
@@ -57,7 +58,7 @@ Goofy math word problems.
 
 */
 
-public abstract class SubjectMenuActivity extends AppCompatActivity implements Button.OnClickListener {
+public abstract class SubjectMenuActivity extends CommonBaseActivity implements Button.OnClickListener {
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 121;
 
     private UserData mUserData;
@@ -191,29 +192,6 @@ public abstract class SubjectMenuActivity extends AppCompatActivity implements B
 
         super.onBackPressed();
         finish();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-
-        switch (menuItem.getItemId()) {
-
-            case R.id.menu_about:
-                Intent intent = new Intent(this, AboutActivity.class);
-                startActivity(intent);
-                break;
-
-        }
-        return (super.onOptionsItemSelected(menuItem));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-
-        return true;
     }
 
 
