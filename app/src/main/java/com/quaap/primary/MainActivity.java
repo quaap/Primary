@@ -351,14 +351,14 @@ public class MainActivity extends CommonBaseActivity {
 
                     String uscore;
                     if (utod != 0) {
-                        uscore = String.format("Today: %d", utod);
+                        uscore = getString(R.string.today_score, utod);
                     } else {
                         uscore = "";
                     }
                     uscore += "\n";
 
                     if (utot != 0) {
-                        uscore += String.format("Total: %d", utot);
+                        uscore +=getString(R.string.total_score, utot);
                     }
 
 

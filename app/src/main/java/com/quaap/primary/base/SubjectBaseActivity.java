@@ -43,7 +43,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.TreeSet;
 
 public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
@@ -358,7 +357,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                 new TextView.OnEditorActionListener() {
                      @Override
                      public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-                        Log.d("rrr", actionId + " " + event);
+                        //Log.d("rrr", actionId + " " + event);
                          if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
                                  || (actionId == EditorInfo.IME_ACTION_DONE)
                                  || (actionId == EditorInfo.IME_ACTION_NEXT)

@@ -77,6 +77,8 @@
     <string name="repeat_word">Repeat word</string>
     <string name="done">Done</string>
     <string name="voice_ready">Ready?,</string>
+    <string name="today_score">Today: %d</string>
+    <string name="total_score">Total: %d</string>
 
 
 </resources>
