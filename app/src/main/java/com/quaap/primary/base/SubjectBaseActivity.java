@@ -430,7 +430,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             if (fontsize>0) {
                 ansbutt.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontsize);
             }
-
+           // ansbutt.setWidth((int)(ansbutt.getTextSize()*choice.toString().length()*3));
             ansbutt.setText(choice.toString());
             ansbutt.setTag(choice);
             ansbutt.setOnClickListener(new View.OnClickListener() {

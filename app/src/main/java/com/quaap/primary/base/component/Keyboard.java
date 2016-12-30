@@ -114,7 +114,7 @@ public class Keyboard {
         }
 
         int keywidth = (int)(size.x/cols * xfac);
-        int keyheight = (int)(keywidth*1.5);
+        int keyheight = (int)(keywidth*1.4);
 
         if (keyheight>100) keyheight=100;
 

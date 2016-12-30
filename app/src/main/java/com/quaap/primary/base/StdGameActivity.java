@@ -1,7 +1,9 @@
 package com.quaap.primary.base;
 
+
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -55,12 +57,16 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
             LinearLayout centercol = (LinearLayout)findViewById(R.id.centercol);
             centercol.setOrientation(LinearLayout.HORIZONTAL);
 
-            LinearLayout scores_area = (LinearLayout)findViewById(R.id.scores_area);
-            scores_area.setOrientation(LinearLayout.HORIZONTAL);
+            //LinearLayout scores_area = (LinearLayout)findViewById(R.id.scores_area);
+            //scores_area.setOrientation(LinearLayout.HORIZONTAL);
 
-            LinearLayout scores_level = (LinearLayout)findViewById(R.id.scores_level);
-            scores_level.setOrientation(LinearLayout.HORIZONTAL);
+            //LinearLayout scores_level = (LinearLayout)findViewById(R.id.scores_level);
+            //scores_level.setOrientation(LinearLayout.HORIZONTAL);
 
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar!=null) {
+                actionBar.hide();
+            }
         }
     }
 

@@ -48,9 +48,9 @@
         android:minWidth="0dp"
         android:gravity="center_horizontal"
         android:layout_alignParentBottom="false"
-        android:layout_toEndOf="@+id/scores_area"
         android:layout_alignParentEnd="true"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_toEndOf="@+id/scores_area">
 
         <TextView
             android:text=" "
