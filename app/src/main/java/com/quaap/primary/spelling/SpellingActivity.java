@@ -39,6 +39,8 @@ public class SpellingActivity extends StdGameActivity
     private TimerTask hinttask;
     private volatile int hintPos=0;
 
+    private volatile boolean showHint = false;
+
 
     TextToVoice v;
     public SpellingActivity() {
@@ -117,8 +119,10 @@ public class SpellingActivity extends StdGameActivity
 
         if (((SpellingLevel)levels[levelnum]).getInputMode()==InputMode.Buttons) {
             setFasttimes(800, 1600, 3000);
+            showHint = false;
         } else {
             setFasttimes(1500, 2200, 5000);
+            showHint = true;
         }
 
     }
@@ -219,29 +223,32 @@ public class SpellingActivity extends StdGameActivity
 
         cancelHint();
 
-        hinttask = new TimerTask() {
-            @Override
-            public void run() {
-                if (hintPos<word.length()) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            hint.setText(word.substring(0,hintPos));
+        if (showHint) {
+
+            hinttask = new TimerTask() {
+                @Override
+                public void run() {
+                    if (hintPos < word.length()) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                hint.setText(word.substring(0, hintPos));
+                            }
+                        });
+
+                        hintPos++;
+                        if (hintPos == 1 || (word.length() > 3 && hintPos == word.length())) {
+                            v.speak(word);
                         }
-                    });
 
-                    hintPos++;
-                    if (hintPos == 1 || (word.length()>3 && hintPos==word.length())) {
-                        v.speak(word);
+                    } else {
+                        cancelHint();
                     }
-
-                } else {
-                    cancelHint();
                 }
-            }
-        };
+            };
 
-        timer.scheduleAtFixedRate(hinttask,5000,3000);
+            timer.scheduleAtFixedRate(hinttask, 5000, 3000);
+        }
     }
 
     private void cancelHint() {
