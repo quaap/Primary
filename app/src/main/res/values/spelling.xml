@@ -577,7 +577,6 @@
         <item>luck</item>
         <item>lump</item>
         <item>lung</item>
-        <item>made</item>
         <item>mail</item>
         <item>main</item>
         <item>make</item>
@@ -590,9 +589,6 @@
         <item>math</item>
         <item>meal</item>
         <item>mean</item>
-        <item>meat</item>
-        <item>meep</item>
-        <item>meet</item>
         <item>melt</item>
         <item>mend</item>
         <item>mere</item>
@@ -647,7 +643,6 @@
         <item>pack</item>
         <item>page</item>
         <item>pain</item>
-        <item>pair</item>
         <item>pale</item>
         <item>park</item>
         <item>part</item>
@@ -671,15 +666,10 @@
         <item>poem</item>
         <item>poet</item>
         <item>poke</item>
-        <item>pole</item>
-        <item>poll</item>
         <item>pond</item>
         <item>pong</item>
         <item>pool</item>
         <item>poop</item>
-        <item>poor</item>
-        <item>poot</item>
-        <item>pore</item>
         <item>post</item>
         <item>pour</item>
         <item>pray</item>
@@ -697,7 +687,6 @@
         <item>rare</item>
         <item>rate</item>
         <item>read</item>
-        <item>real</item>
         <item>rear</item>
         <item>redo</item>
         <item>rent</item>
@@ -710,12 +699,9 @@
         <item>rise</item>
         <item>risk</item>
         <item>road</item>
-        <item>roam</item>
         <item>roar</item>
         <item>rock</item>
         <item>rode</item>
-        <item>roll</item>
-        <item>Rome</item>
         <item>roof</item>
         <item>room</item>
         <item>root</item>
@@ -728,9 +714,7 @@
         <item>sack</item>
         <item>safe</item>
         <item>said</item>
-        <item>sail</item>
         <item>sake</item>
-        <item>sale</item>
         <item>salt</item>
         <item>same</item>
         <item>sand</item>
@@ -759,7 +743,6 @@
         <item>silk</item>
         <item>sing</item>
         <item>sink</item>
-        <item>site</item>
         <item>size</item>
         <item>skin</item>
         <item>skip</item>
@@ -775,7 +758,6 @@
         <item>some</item>
         <item>song</item>
         <item>soon</item>
-        <item>sore</item>
         <item>sort</item>
         <item>soul</item>
         <item>soup</item>
@@ -1030,7 +1012,6 @@
         <item>chore</item>
         <item>chose</item>
         <item>chuck</item>
-        <item>chute</item>
         <item>civil</item>
         <item>claim</item>
         <item>class</item>
@@ -1098,7 +1079,6 @@
         <item>eagle</item>
         <item>early</item>
         <item>earth</item>
-        <item>Earth</item>
         <item>edict</item>
         <item>Egypt</item>
         <item>eight</item>
