@@ -83,7 +83,7 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
 
        // LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
         float fontsize = num1txt.getTextSize();
-        BasicMathLevel level = (BasicMathLevel) levels[levelnum];
+        BasicMathLevel level = (BasicMathLevel) getLevel();
 
         if (level.getInputMode() == InputMode.Buttons) {
             makeAnswerButtons(getAnswerArea(), fontsize);
@@ -142,7 +142,7 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
     private void makeRandomProblem() {
 
         int tries = 0;
-        BasicMathLevel level = (BasicMathLevel) levels[levelnum];
+        BasicMathLevel level = (BasicMathLevel) getLevel();
         boolean negsallowed = level.getNegatives() != Negatives.None;
         do {
             int min = 0;
@@ -251,7 +251,7 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
         List<Integer> answers = new ArrayList<>();
         answers.add(answer);
 
-        boolean allownegs = ((BasicMathLevel) levels[levelnum]).getNegatives()!=Negatives.None;
+        boolean allownegs = ((BasicMathLevel) getLevel()).getNegatives()!=Negatives.None;
         int range = Math.abs(answer/10);
         for (int i=1; i<numans; i++) {
             int tmpans;

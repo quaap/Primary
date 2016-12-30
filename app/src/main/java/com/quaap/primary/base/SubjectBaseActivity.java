@@ -73,10 +73,13 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     private Level getLevel(int leveln) {
         return levels[leveln];
     }
+    protected Level getLevel() {
+        return levels[levelnum];
+    }
 
     private int[] fasttimes = {1000, 2000, 3000};
 
-    protected Level[] levels;
+    private Level[] levels;
 
     private final int layoutId;
 
@@ -496,26 +499,6 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         } else if (whichkeypad==2 || whichkeyboard==2 || (isnumeric && !gkeypadAvail) || (!isnumeric && !gkeyboardAvail) ) {
             showSystemKeyboard(view);
         }
-
-//        if (whichkeypad==1 && gkeypadAvail && isnumeric && keypadarea!=null) {
-//            Keyboard.showNumberpad(this, view, keypadarea);
-//
-//        } else if (whichkeyboard==1 && gkeyboardAvail && keypadarea!=null) {
-//            Keyboard.showKeyboard(this, view, keypadarea);
-//
-//        } else if ( (whichkeypad==2 && isnumeric) || (!isnumeric && whichkeyboard==2) ) {
-//
-//            view.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    if (view.requestFocus()) {
-//                        InputMethodManager imm = (InputMethodManager)
-//                                getSystemService(Context.INPUT_METHOD_SERVICE);
-//                        imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-//                    }
-//                }
-//            }, 100);
-//        }
 
 
     }

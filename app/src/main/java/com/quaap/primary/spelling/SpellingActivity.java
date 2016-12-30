@@ -115,9 +115,9 @@ public class SpellingActivity extends StdGameActivity
     @Override
     protected void onShowLevel() {
         super.onShowLevel();
-        words = Arrays.asList(getResources().getStringArray(((SpellingLevel)levels[levelnum]).getmWordlistId()));
+        words = Arrays.asList(getResources().getStringArray(((SpellingLevel)getLevel()).getmWordlistId()));
 
-        if (((SpellingLevel)levels[levelnum]).getInputMode()==InputMode.Buttons) {
+        if (((SpellingLevel)getLevel()).getInputMode()==InputMode.Buttons) {
             setFasttimes(800, 1600, 3000);
             showHint = false;
         } else {
@@ -142,7 +142,7 @@ public class SpellingActivity extends StdGameActivity
 
         Log.d("spell", word);
 
-        SpellingLevel level = (SpellingLevel) levels[levelnum];
+        SpellingLevel level = (SpellingLevel) getLevel();
 
         if (level.getInputMode() == InputMode.Buttons) {
             List<String> answers = getAnswerChoices(word);
