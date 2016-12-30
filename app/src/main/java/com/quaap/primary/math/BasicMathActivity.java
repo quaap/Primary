@@ -44,6 +44,9 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
 
     @Override
     protected void onPause() {
+        saveValue("num1", num1);
+        saveValue("num2", num2);
+        saveValue("op", op.name());
         super.onPause();
     }
 
@@ -62,7 +65,16 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
         TextView num2txt = (TextView)findViewById(R.id.num2);
         TextView optxt = (TextView)findViewById(R.id.op);
 
-        makeRandomProblem();
+        num1 = getSavedValue("num1",Integer.MIN_VALUE);
+        num2 = getSavedValue("num2",Integer.MIN_VALUE);
+        op = MathOp.valueOf(getSavedValue("op","Plus"));
+        if (num1==Integer.MIN_VALUE || num1==Integer.MIN_VALUE) {
+            makeRandomProblem();
+        } else {
+            deleteSavedValue("num1");
+            deleteSavedValue("num2");
+            deleteSavedValue("op");
+        }
 
         num1txt.setText(String.format(Locale.getDefault(),"%d",num1));
         num2txt.setText(String.format(Locale.getDefault(),"%d",num2));

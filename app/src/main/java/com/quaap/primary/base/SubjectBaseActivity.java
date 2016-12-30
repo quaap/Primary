@@ -42,6 +42,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.TreeSet;
 
 public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
@@ -225,6 +227,8 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         //mSubjectData.setToday(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
         mSubjectData.setPopUpShown(levelCompletePopup!=null);
 
+        mSubjectData.saveValue("seenProblems", seenProblems);
+
     }
 
     private void restoreGameData() {
@@ -237,6 +241,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             incorrect = mSubjectData.getIncorrect();
             correctInARow = mSubjectData.getCorrectInARow();
             showpopup = mSubjectData.getPopUpShown();
+            seenProblems = mSubjectData.getValue("seenProblems", seenProblems);
         }
         //Log.d("base", "restoreGameData2. levelnum=" + levelnum);
 
@@ -259,24 +264,39 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
 
     protected void saveValue(String name, int value) {
-        getSharedPreferences(this.getClass().getName(), MODE_PRIVATE).edit().putInt(name,value).apply();
+        mSubjectData.saveValue(name,value);
     }
 
     protected void saveValue(String name, String value) {
-        getSharedPreferences(this.getClass().getName(), MODE_PRIVATE).edit().putString(name,value).apply();
+        mSubjectData.saveValue(name,value);
     }
 
-    protected int getSavedIntValue(String name, int value) {
-        return getSharedPreferences(this.getClass().getName(), MODE_PRIVATE).getInt(name,value);
+    protected int getSavedValue(String name, int value) {
+        return mSubjectData.getValue(name,value);
     }
 
-    protected String getSavedStringValue(String name, String value) {
-        return getSharedPreferences(this.getClass().getName(), MODE_PRIVATE).getString(name,value);
+    protected String getSavedValue(String name, String value) {
+        return mSubjectData.getValue(name,value);
     }
 
     protected void deleteSavedValue(String name){
-        getSharedPreferences(this.getClass().getName(), MODE_PRIVATE).edit().remove(name).apply();
+        mSubjectData.deleteValue(name);
     }
+
+    protected void saveValue(String name, Set<String> stringset) {
+        mSubjectData.saveValue(name,stringset);
+    }
+    protected void saveValue(String name, List<String> stringlist) {
+        mSubjectData.saveValue(name,stringlist);
+    }
+
+    protected  Set<String> getSavedValue(String name, Set<String> stringset) {
+        return mSubjectData.getValue(name,stringset);
+    }
+    protected  List<String> getSavedValue(String name, List<String> stringlist) {
+        return mSubjectData.getValue(name,stringlist);
+    }
+
 
     protected abstract void onShowLevel();
 

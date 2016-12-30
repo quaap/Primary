@@ -126,7 +126,7 @@ public class SpellingActivity extends StdGameActivity
     @Override
     protected void showProbImpl() {
 
-        word = getSavedStringValue("word", null);
+        word = getSavedValue("word", (String)null);
         if (word==null) {
             int tries = 0;
             do {
@@ -229,7 +229,12 @@ public class SpellingActivity extends StdGameActivity
                             hint.setText(word.substring(0,hintPos));
                         }
                     });
+
                     hintPos++;
+                    if (hintPos == 1 || (word.length()>3 && hintPos==word.length())) {
+                        v.speak(word);
+                    }
+
                 } else {
                     cancelHint();
                 }

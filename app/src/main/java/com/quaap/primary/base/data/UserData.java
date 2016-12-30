@@ -3,6 +3,7 @@ package com.quaap.primary.base.data;
 import android.content.SharedPreferences;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -232,6 +233,43 @@ public class UserData {
         }
 
 
+        private final static String PREFIX = "_extra_";
+
+        public void saveValue(String name, int value) {
+            mSubjectPrefs.edit().putInt(PREFIX+name,value).apply();
+        }
+
+        public void saveValue(String name, String value) {
+            mSubjectPrefs.edit().putString(PREFIX+name,value).apply();
+        }
+
+        public int getValue(String name, int value) {
+            return mSubjectPrefs.getInt(PREFIX+name,value);
+        }
+
+        public String getValue(String name, String value) {
+            return mSubjectPrefs.getString(PREFIX+name,value);
+        }
+
+        public void deleteValue(String name){
+            mSubjectPrefs.edit().remove(PREFIX+name).apply();
+        }
+
+        public void saveValue(String name, Set<String> stringset) {
+            mSubjectPrefs.edit().putStringSet(PREFIX+name,stringset).apply();
+        }
+
+        public void saveValue(String name, List<String> stringlist) {
+            saveValue(name, new TreeSet<>(stringlist));
+        }
+
+        public  Set<String> getValue(String name, Set<String> stringset) {
+            return mSubjectPrefs.getStringSet(PREFIX+name,stringset);
+        }
+
+        public  List<String> getValue(String name, List<String> stringlist) {
+            return new ArrayList<>(getValue(name, new TreeSet<>(stringlist)));
+        }
 
 
         public void clearProgress() {
