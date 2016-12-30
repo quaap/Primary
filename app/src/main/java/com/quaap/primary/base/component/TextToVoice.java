@@ -112,6 +112,11 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
         }
     }
 
+    public void stop() {
+        if (fullyInited) {
+            mTts.stop();
+        }
+    }
 
     public void setPitch(float pitch) {
         mPitch = pitch;

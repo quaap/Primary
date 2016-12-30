@@ -72,7 +72,7 @@ public class SpellingActivity extends StdGameActivity
 
     @Override
     protected void onPause() {
-
+        v.stop();
         cancelHint();
 
         if (timer!=null) {
