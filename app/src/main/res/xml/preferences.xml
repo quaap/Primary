@@ -2,18 +2,27 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="applicationPreference">
 
+
     <ListPreference
         android:defaultValue="1"
-        android:title="Choose alphabetic keyboard"
+        android:title="@string/choose_keyboard"
         android:entries="@array/keyboard_prefs"
         android:entryValues="@array/keyboardpad_prefs_values"
         android:key="keyboard_preference"
         android:summary="%s" />
     <ListPreference
         android:defaultValue="1"
-        android:title="Choose numeric keypad"
+        android:title="@string/choose_keypad"
         android:entries="@array/keypad_prefs"
         android:entryValues="@array/keyboardpad_prefs_values"
         android:key="keypad_preference"
         android:summary="%s" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:title="@string/should_use_csv"
+        android:key="use_csv_preference"
+        android:summaryOn="@string/using_csv"
+        android:summaryOff="@string/not_using_csv" />
+
+
 </PreferenceScreen>

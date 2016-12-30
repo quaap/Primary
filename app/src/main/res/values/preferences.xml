@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="keyboard_prefs">
         <item>Force in-game keyboard (default)</item>
         <item>Force system keyboard</item>
@@ -18,5 +19,11 @@
         <item>0</item>
     </string-array>
 
+
+    <string name="should_use_csv">Record data in CSV files?</string>
+    <string name="using_csv">Data will be recorded</string>
+    <string name="not_using_csv">Data will not be recorded</string>
+    <string name="choose_keypad">Choose numeric keypad</string>
+    <string name="choose_keyboard">Choose alphabetic keyboard</string>
 
 </resources>

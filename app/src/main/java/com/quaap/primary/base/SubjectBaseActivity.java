@@ -172,7 +172,8 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     protected void onResume() {
         //Log.d("base", "onResume1. levelnum=" + levelnum);
         super.onResume();
-        if (hasStorageAccess()) {
+
+        if (hasStorageAccess() && appPreferences.getBoolean("use_csv_preference", true)) {
             try {
                 actwriter = new ActivityWriter(this, username, subject);
             } catch (IOException e) {
