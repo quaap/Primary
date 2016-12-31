@@ -41,29 +41,5 @@
         <item>English plurals</item>
     </string-array>
 
-    <!--<string-array name="subjectsActivity">-->
-        <!--<item>com.quaap.primary.math.BasicMathMenuActivity</item>-->
-        <!--<item>com.quaap.primary.math.BasicMathMenuActivity</item>-->
-        <!--<item>com.quaap.primary.math.BasicMathMenuActivity</item>-->
-        <!--<item>com.quaap.primary.math.BasicMathMenuActivity</item>-->
-        <!--<item>com.quaap.primary.math.BasicMathMenuActivity</item>-->
-        <!--<item>com.quaap.primary.spelling.SpellingMenuActivity</item>-->
-        <!--<item>com.quaap.primary.spelling.SpellingMenuActivity</item>-->
-        <!--<item>com.quaap.primary.spelling.SpellingMenuActivity</item>-->
-        <!--<item>com.quaap.primary.partsofspeech.PluralMenuActivity</item>-->
-    <!--</string-array>-->
-
-    <!--<string-array name="subjectsLevelset">-->
-        <!--<item>Math1Levels</item>-->
-        <!--<item>Math2Levels</item>-->
-        <!--<item>Math3Levels</item>-->
-        <!--<item>Math4Levels</item>-->
-        <!--<item>Math5Levels</item>-->
-        <!--<item>Spelling1Levels</item>-->
-        <!--<item>Spelling2Levels</item>-->
-        <!--<item>Spelling3Levels</item>-->
-        <!--<item>Plurals1Levels</item>-->
-    <!--</string-array>-->
-
 
 </resources>
