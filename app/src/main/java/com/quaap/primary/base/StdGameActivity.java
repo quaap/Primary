@@ -124,7 +124,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
         return (LinearLayout)findViewById(R.id.answer_area);
     }
 
-    protected void startHint() {
+    protected void startHint(int firstHintDelayMillis, int nextHintDelaysMillis) {
 
 
         cancelHint();
@@ -138,7 +138,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
                 }
             };
 
-            timer.scheduleAtFixedRate(hinttask, 5000, 3000);
+            timer.scheduleAtFixedRate(hinttask, firstHintDelayMillis, nextHintDelaysMillis);
         }
     }
 
