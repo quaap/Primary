@@ -13,6 +13,7 @@
         <item>Sp2</item>
         <item>Sp3</item>
         <item>Eng1</item>
+        <item>Eng2</item>
     </string-array>
 
     <!-- The subject name. Should be less than 12 chars-->
@@ -25,7 +26,8 @@
         <item>Spelling 1-4</item>
         <item>Spelling 5-7</item>
         <item>Spelling 8+</item>
-        <item>Eng: Plurals</item>
+        <item>Plurals 1</item>
+        <item>Plurals 2</item>
     </string-array>
 
     <!-- The subject description. -->
@@ -38,7 +40,8 @@
         <item>Spelling words 1 to 4 letters long</item>
         <item>Spelling words 5 to 7 letters long</item>
         <item>Spelling words 8+ letters long</item>
-        <item>English plurals</item>
+        <item>English plurals 1</item>
+        <item>English plurals 2</item>
     </string-array>
 
 

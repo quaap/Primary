@@ -48,6 +48,7 @@ public class Levels {
             "Spelling3Levels",
 
             "Plurals1Levels",
+            "Plurals2Levels",
     };
 
     public static final Class[] ActivityMenus = {
@@ -61,7 +62,8 @@ public class Levels {
             com.quaap.primary.spelling.SpellingMenuActivity.class,
             com.quaap.primary.spelling.SpellingMenuActivity.class,
 
-            com.quaap.primary.partsofspeech.PluralMenuActivity.class
+            com.quaap.primary.partsofspeech.PluralMenuActivity.class,
+            com.quaap.primary.partsofspeech.PluralMenuActivity.class,
     };
 
     //could probably read all these from a xml file.
@@ -208,16 +210,23 @@ public class Levels {
 
             //Plurals1Levels
             {
-                    new PluralLevel("pl1", 5, 20, InputMode.Buttons),
-                    new PluralLevel("pl1", 5, 10, InputMode.Input),
-                    new PluralLevel("pl1", 7, 20, InputMode.Buttons),
-                    new PluralLevel("pl1", 7, 10, InputMode.Input),
-                    new PluralLevel("pl1", 9, 20, InputMode.Buttons),
-                    new PluralLevel("pl1", 9, 10, InputMode.Input),
-                    new PluralLevel("pl1", 10, 20, InputMode.Buttons),
-                    new PluralLevel("pl1", 10, 10, InputMode.Input),
-                    new PluralLevel("pl1", 18, 20, InputMode.Buttons),
-                    new PluralLevel("pl1", 18, 10, InputMode.Input),
+                    new PluralLevel("pl1", 4, 20, InputMode.Buttons),
+                    new PluralLevel("pl1", 4, 10, InputMode.Input),
+                    new PluralLevel("pl1", 6, 20, InputMode.Buttons),
+                    new PluralLevel("pl1", 6, 10, InputMode.Input),
+                    new PluralLevel("pl1", 8, 20, InputMode.Buttons),
+                    new PluralLevel("pl1", 8, 10, InputMode.Input),
+
+            },
+
+            //Plurals2Levels
+            {
+                    new PluralLevel("pl2", 10, 20, InputMode.Buttons),
+                    new PluralLevel("pl2", 10, 10, InputMode.Input),
+                    new PluralLevel("pl2", 12, 20, InputMode.Buttons),
+                    new PluralLevel("pl2", 12, 10, InputMode.Input),
+                    new PluralLevel("pl2", 18, 20, InputMode.Buttons),
+                    new PluralLevel("pl2", 18, 10, InputMode.Input),
             },
 
 
