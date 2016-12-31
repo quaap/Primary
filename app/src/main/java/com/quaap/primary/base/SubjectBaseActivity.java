@@ -450,7 +450,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
            // ansbutt.setWidth((int)(ansbutt.getTextSize()*choice.toString().length()*3));
             ansbutt.setAllCaps(false);
             String text = choice.toString();
-            ansbutt.setText(text.substring(0,1).toUpperCase(Locale.getDefault()) + text.substring(1));
+            ansbutt.setText(text.substring(0,1).toUpperCase(Locale.getDefault()) + (text.length()>1?text.substring(1):""));
             ansbutt.setTag(choice);
             ansbutt.setOnClickListener(new View.OnClickListener() {
                 @Override
