@@ -4591,25 +4591,27 @@
         <item>"tion$"</item> <item>"sion"</item>
         <item>"ion$"</item> <item>"on"</item>
         <item>"[ao]n$"</item> <item>"un"</item>
+        <item>"[ao]n$"</item> <item>"en"</item>
         <item>"ant$"</item> <item>"ent"</item>
         <item>"ely$"</item> <item>"ly"</item>
         <item>"(.)\\1"</item> <item>"$1"</item>
-        <item>"(.)"</item> <item>"$1$1"</item>
+        <item>"(?!^)(.)"</item> <item>"$1$1"</item>
         <item>"a"</item> <item>"ay"</item>
+        <item>"a"</item> <item>"e"</item>
         <item>"mb"</item> <item>"m"</item>
         <item>"mb"</item> <item>"m"</item>
         <item>"ay"</item> <item>"a"</item>
         <item>"as"</item> <item>"az"</item>
-        <item>"e"</item> <item>"ee"</item>
+        <item>"(?!^)e"</item> <item>"ee"</item>
         <item>"i"</item> <item>"ih"</item>
         <item>"u"</item> <item>"ou"</item>
         <item>"ou"</item> <item>"ow"</item>
-        <item>"y"</item> <item>"i"</item>
-        <item>"y"</item> <item>"ie"</item>
+        <item>"(?!^)y"</item> <item>"i"</item>
+        <item>"(?!^)y"</item> <item>"ie"</item>
         <item>"ie"</item> <item>"ei"</item>
         <item>"ei"</item> <item>"ie"</item>
+        <item>"l(l|f|d)"</item> <item>"$1"</item>
         <item>"lv"</item> <item>"lf"</item>
-        <item>"ld"</item> <item>"d"</item>
         <item>"e$"</item> <item>""</item>
         <item>"e$"</item> <item>""</item>
         <item>"$"</item> <item>"e"</item>
@@ -4621,9 +4623,9 @@
         <item>"g"</item> <item>"j"</item>
         <item>"j"</item> <item>"g"</item>
         <item>"cks"</item> <item>"x"</item>
-        <item>"th"</item> <item>"th"</item>
+        <item>"th"</item> <item>"t"</item>
         <item>"tr"</item> <item>"chr"</item>
-        <item>"."</item> <item>""</item>
+        <item>"(?!^)."</item> <item>""</item>
         <item>"p"</item> <item>"b"</item>
         <item>"ph"</item> <item>"f"</item>
         <item>"f"</item> <item>"ph"</item>

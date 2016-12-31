@@ -319,10 +319,13 @@ public class SpellingActivity extends StdGameActivity
     public String unspell(String word) {
         List<String> words = new ArrayList<>();
 
-
         for (int j=0; j<1; j++) {
             int i = ((int) (Math.random() * ((unspellMap.length-1) / 2 )) * 2);
-            word = word.replaceFirst(unspellMap[i], unspellMap[i + 1]);
+
+            String find = unspellMap[i];
+            String replacement = unspellMap[i + 1];
+
+            word = word.replaceFirst(find, replacement);
         }
         return word;
     }
