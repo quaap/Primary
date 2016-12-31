@@ -478,7 +478,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             answerlayout.addView(ansbutt);
         }
 
-        //enable buttons ~1/10 of a second after display. prevents accidental clicks on new problem
+        //enable buttons ~2/10 of a second after display. prevents accidental clicks on new problem
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -486,7 +486,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                     ab.setEnabled(true);
                 }
             }
-        }, 120);
+        }, 220);
 
         return buttons;
     }
@@ -536,11 +536,11 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     }
 
 
-    private int maxseensize = 20;
+    private int maxseensize = 40;
     protected boolean seenProblem(Object ... parts) {
         String key = "";
         for (Object p: parts) {
-            key += "." + p.toString();
+            key += p.toString() + "#.#";
         }
         if (seenProblems.contains(key)) {
             return true;
