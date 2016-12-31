@@ -68,7 +68,7 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
         num1 = getSavedValue("num1",Integer.MIN_VALUE);
         num2 = getSavedValue("num2",Integer.MIN_VALUE);
         op = MathOp.valueOf(getSavedValue("op","Plus"));
-        if (num1==Integer.MIN_VALUE || num1==Integer.MIN_VALUE) {
+        if (num1==Integer.MIN_VALUE || num2==Integer.MIN_VALUE) {
             makeRandomProblem();
         } else {
             deleteSavedValue("num1");

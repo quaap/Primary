@@ -103,7 +103,7 @@ public abstract class HorzItemList {
             @Override
             public void onClick(View view) {
                 setSelected(view);
-                onItemClicked(mListItemsRev.get((ViewGroup)view), (LinearLayout)view);
+                onItemClicked(mListItemsRev.get(view), (LinearLayout)view);
             }
         });
         item.setTag(key);
@@ -188,7 +188,7 @@ public abstract class HorzItemList {
     }
 
     private void setSelected(View item) {
-        setSelected(mListItemsRev.get((ViewGroup)item));
+        setSelected(mListItemsRev.get(item));
     }
 
     private final int normalColor = Color.argb(64,200,200,200);

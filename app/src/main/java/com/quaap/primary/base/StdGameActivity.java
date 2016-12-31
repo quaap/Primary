@@ -1,7 +1,6 @@
 package com.quaap.primary.base;
 
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
@@ -33,6 +32,8 @@ import java.util.TimerTask;
  */
 public abstract class StdGameActivity extends SubjectBaseActivity {
 
+    // Things here are common to game activities which want ot use the standard layout.
+
     private int mProblemView;
 
     private Timer timer;
@@ -51,7 +52,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
         super.onCreate(savedInstanceState);
         ViewGroup probarea = (ViewGroup)findViewById(R.id.problem_area);
 
-        ViewGroup item = (ViewGroup) LayoutInflater.from(this).inflate(mProblemView, probarea);
+        LayoutInflater.from(this).inflate(mProblemView, probarea);
 
     }
 

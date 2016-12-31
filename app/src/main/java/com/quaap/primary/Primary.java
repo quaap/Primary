@@ -24,11 +24,6 @@ public class Primary extends Application {
 
     private TextToVoice mTtv;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-
     public TextToVoice getTextToVoice() {
         if (mTtv==null) {
             mTtv = new TextToVoice(this);

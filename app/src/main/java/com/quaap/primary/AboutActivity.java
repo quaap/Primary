@@ -17,9 +17,9 @@ public class AboutActivity extends CommonBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        PackageInfo pInfo = null;
+
         try {
-            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;
 
             TextView txtappname = (TextView)findViewById(R.id.txtappname);

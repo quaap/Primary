@@ -27,6 +27,7 @@ import com.quaap.primary.SettingsActivity;
  */
 public class CommonBaseActivity extends AppCompatActivity {
 
+    // Things here are common to ALL activities.
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

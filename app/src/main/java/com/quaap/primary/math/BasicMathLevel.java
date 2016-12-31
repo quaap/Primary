@@ -5,7 +5,6 @@ import android.content.Context;
 import com.quaap.primary.R;
 import com.quaap.primary.base.StdLevel;
 import com.quaap.primary.base.component.InputMode;
-import com.quaap.primary.base.Level;
 
 public class BasicMathLevel extends StdLevel {
 

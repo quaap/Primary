@@ -167,9 +167,6 @@ public class PluralActivity extends StdGameActivity
         }
         answerDone(isright, points, word, this.answer, answer.trim());
 
-        if (isright) {
-
-        }
         return isright;
     }
 
@@ -183,7 +180,7 @@ public class PluralActivity extends StdGameActivity
         List<String> answers = new ArrayList<>();
         answers.add(realanswer);
         int maxtries = unpluralMap.length;
-        int tries = 0;
+        int tries;
         do {
             String badspell;
             tries = 0;
@@ -220,7 +217,6 @@ public class PluralActivity extends StdGameActivity
     }
 
     public String unplural(String word) {
-        List<String> words = new ArrayList<>();
 
         for (int j=0; j<1; j++) {
             int i = ((int) (Math.random() * ((unpluralMap.length-1) / 2 )) * 2);

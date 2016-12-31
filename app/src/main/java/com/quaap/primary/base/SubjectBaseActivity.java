@@ -48,6 +48,7 @@ import java.util.Set;
 
 public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
+    // Things here are common to all level activities.
 
 
     public static final String LEVELNUM = "levelnum";
@@ -458,7 +459,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                     for (Button ab: buttons) {
                         ab.setEnabled(false);
                     }
-                    boolean isright = listener.answerGiven((T)view.getTag());
+                    boolean isright = listener.answerGiven(view.getTag());
                     if (!isright) {
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -498,8 +499,6 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         if (defaultInput!=null) {
             view.setText(defaultInput);
             view.setSelection(defaultInput.length());
-        } else {
-           // view.setText("");
         }
         boolean isnumeric = ( (view.getInputType() & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER);
 
@@ -745,7 +744,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         int crbonus = (int)Math.sqrt(correctInARow);
         if (crbonus>1) {
             if (bonuses==null) bonuses = "\n"; else bonuses += "\n";
-            bonuses += correctInARow + " in a row! ×" + crbonus;
+            bonuses += getString(R.string.in_a_row, correctInARow) +  " ×" + crbonus;
 
             points *= crbonus;
         }

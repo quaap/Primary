@@ -72,14 +72,15 @@
     <string name="about">About</string>
     <string name="all_scores">All Scores</string>
     <string name="settings">Settings</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
     <string name="clear_input">Clear</string>
     <string name="repeat_word">Repeat word</string>
     <string name="done">Done</string>
     <string name="voice_ready">Ready?,</string>
     <string name="today_score">Today: %d</string>
     <string name="total_score">Total: %d</string>
-
+    <string name="what_is_the_plural">What is the plural?</string>
+    <string name="in_a_row">%d in a row!</string>
 
 
 </resources>

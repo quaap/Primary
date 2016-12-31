@@ -2,7 +2,6 @@ package com.quaap.primary.partsofspeech.plurals;
 
 import android.content.Context;
 
-import com.quaap.primary.base.Level;
 import com.quaap.primary.base.StdLevel;
 import com.quaap.primary.base.component.InputMode;
 

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.quaap.primary.base.StdLevel;
 import com.quaap.primary.base.component.InputMode;
-import com.quaap.primary.base.Level;
 
 /**
  * Created by tom on 12/18/16.

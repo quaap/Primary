@@ -1,6 +1,5 @@
 package com.quaap.primary.spelling;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -20,8 +19,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class SpellingActivity extends StdGameActivity
         implements TextToVoice.VoiceReadyListener,
@@ -239,47 +236,6 @@ public class SpellingActivity extends StdGameActivity
         }
     }
 
-//
-//    private void startHint() {
-//        final TextView hint = (TextView)findViewById(R.id.spell_hint);
-//
-//        cancelHint();
-//
-//        if (showHint) {
-//
-//            hinttask = new TimerTask() {
-//                @Override
-//                public void run() {
-//                    if (hintPos < word.length()) {
-//                        handler.post(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                hint.setText(word.substring(0, hintPos));
-//                            }
-//                        });
-//
-//                        hintPos++;
-//                        if (hintPos == 1 || (word.length() > 3 && hintPos == word.length())) {
-//                            v.speak(word);
-//                        }
-//
-//                    } else {
-//                        cancelHint();
-//                    }
-//                }
-//            };
-//
-//            timer.scheduleAtFixedRate(hinttask, 5000, 3000);
-//        }
-//    }
-//
-//    private void cancelHint() {
-//        if (hinttask!=null) {
-//            hinttask.cancel();
-//            hinttask = null;
-//            hintPos = 0;
-//        }
-//    }
 
     @Override
     public void onError(TextToVoice ttv) {
@@ -297,7 +253,7 @@ public class SpellingActivity extends StdGameActivity
     protected List<String> getAnswerChoices(String realanswer) {
         List<String> answers = new ArrayList<>();
         int maxtries = unspellMap.length;
-        int tries = 0;
+        int tries;
         do {
             String badspell;
             tries = 0;
@@ -317,7 +273,6 @@ public class SpellingActivity extends StdGameActivity
 
 
     public String unspell(String word) {
-        List<String> words = new ArrayList<>();
 
         for (int j=0; j<1; j++) {
             int i = ((int) (Math.random() * ((unspellMap.length-1) / 2 )) * 2);
