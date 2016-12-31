@@ -114,7 +114,7 @@ public class PluralActivity extends StdGameActivity
                     word = words.get(getRand(words.size() - 1));
                     score = scoreWord(word);
                     //System.out.println(word + " " + score + " " + pluralsMap.containsKey(word));
-                } while (!pluralsMap.containsKey(word) || (getRand(10)>3 && score<2) || (getRand(10)>4 && score<3)); //try to get tricky words
+                } while (!pluralsMap.containsKey(word) || (getRand(10)>2 && score<2) || (getRand(10)>3 && score<3)); //try to get tricky words
 
             } while ( tries++ < 100 && ( word.length() < level.getMinWordLength() || word.length() > level.getMaxWordLength() || seenProblem(word) ) );
         } else {
