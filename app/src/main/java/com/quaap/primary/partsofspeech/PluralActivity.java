@@ -2,10 +2,12 @@ package com.quaap.primary.partsofspeech;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quaap.primary.R;
 import com.quaap.primary.base.StdGameActivity;
+import com.quaap.primary.base.StdLevel;
 import com.quaap.primary.base.SubjectBaseActivity;
 import com.quaap.primary.base.component.InputMode;
 
@@ -74,7 +76,10 @@ public class PluralActivity extends StdGameActivity
     protected void onResume() {
 
         super.onResume();
-
+        if (isLandscape() && ((StdLevel)getLevel()).getInputMode()==InputMode.Input) {
+            LinearLayout problem_area = (LinearLayout)findViewById(R.id.problem_area);
+            problem_area.setOrientation(LinearLayout.HORIZONTAL);
+        }
 
     }
 
@@ -114,6 +119,8 @@ public class PluralActivity extends StdGameActivity
         plural.setText(word);
 
 
+        final TextView hint = (TextView)findViewById(R.id.plurHint);
+        hint.setText("");
 
         if (level.getInputMode() == InputMode.Buttons) {
             List<String> answers = getAnswerChoices(answer);
@@ -123,12 +130,18 @@ public class PluralActivity extends StdGameActivity
         } else if (level.getInputMode() == InputMode.Input) {
 
             makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_TEXT, 5, 0);
+
+            hintPos=answer.length()-hintStart;
+            if (hintPos<1) hintPos=1;
+            startHint(5000, 3000);
+
         } else {
             throw new IllegalArgumentException("Unknown inputMode! " + level.getInputMode());
         }
 
-
     }
+
+    int hintStart = 4;
 
     @Override
     public boolean answerTyped(String answer) {
@@ -141,7 +154,7 @@ public class PluralActivity extends StdGameActivity
         int points = 0;
         boolean isright = answer.toLowerCase().trim().equals(this.answer.toLowerCase());
         if (isright) {
-            points = (int)(1 + word.length() * (levelnum+1) );
+            points = (int)(1 + word.length() * (levelnum+1) * (hintStart + answer.length() - (float)hintPos)/answer.length());
         }
         answerDone(isright, points, word, this.answer, answer.trim());
 
@@ -178,7 +191,24 @@ public class PluralActivity extends StdGameActivity
         return answers;
     }
 
+    int hintPos=0;
+    @Override
+    protected void performHint() {
+        final TextView hint = (TextView)findViewById(R.id.plurHint);
+        if (hintPos < answer.length()) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    hint.setText(answer.substring(0, hintPos));
+                }
+            });
 
+            hintPos++;
+
+        } else {
+            cancelHint();
+        }
+    }
 
     public String unplural(String word) {
         List<String> words = new ArrayList<>();

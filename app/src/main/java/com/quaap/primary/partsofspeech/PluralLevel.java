@@ -3,6 +3,7 @@ package com.quaap.primary.partsofspeech;
 import android.content.Context;
 
 import com.quaap.primary.base.Level;
+import com.quaap.primary.base.StdLevel;
 import com.quaap.primary.base.component.InputMode;
 
 /**
@@ -20,21 +21,20 @@ import com.quaap.primary.base.component.InputMode;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-public class PluralLevel extends Level {
+public class PluralLevel extends StdLevel {
 
     private int mMaxwordlength;
-    private InputMode mInputMode;
 
     public PluralLevel(String subjectkey, int maxwordlength, int rounds, InputMode inputMode) {
-        super(subjectkey, rounds);
+        super(subjectkey, rounds, inputMode);
 
         mMaxwordlength = maxwordlength;
-        mInputMode = inputMode;
+
     }
 
     @Override
     public String getDescription(Context context) {
-        return "Length: " + mMaxwordlength + ". " + (mInputMode==InputMode.Buttons ? "Multiple choice" : "Keyboard");
+        return "Length: " + mMaxwordlength + ". " + (getInputMode()==InputMode.Buttons ? "Multiple choice" : "Keyboard");
     }
 
     @Override
@@ -46,8 +46,5 @@ public class PluralLevel extends Level {
         return mMaxwordlength;
     }
 
-    public InputMode getInputMode() {
-        return mInputMode;
-    }
 
 }

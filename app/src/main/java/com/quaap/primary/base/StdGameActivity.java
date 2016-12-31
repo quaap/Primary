@@ -71,9 +71,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         timer = new Timer();
-
 
         if (isLandscape()) {
 
@@ -94,6 +92,8 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
                 actionBar.hide();
             }
         }
+        super.onResume();
+
     }
 
     @Override
