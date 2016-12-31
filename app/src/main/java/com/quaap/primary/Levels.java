@@ -26,6 +26,9 @@ import com.quaap.primary.spelling.SpellingLevel;
  */
 public class Levels {
 
+    //these get loaded by base.data.Subjects. maybe combine them.
+
+
     public static Level[] getLevels(String name) {
         for (int i=0; i<LevelSetNames.length; i++ ) {
             if (LevelSetNames[i].equals(name)) {

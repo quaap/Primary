@@ -48,7 +48,7 @@ public class PluralActivity extends StdGameActivity
 
         unpluralMap = getResources().getStringArray(R.array.unplural);
 
-        wordScores = getResources().getStringArray(R.array.word_scores);
+        wordScores = getResources().getStringArray(R.array.plural_word_scores);
 
         pluralsMap = arrayPairsToMap(getResources().getStringArray(R.array.plurals));
 
@@ -100,26 +100,6 @@ public class PluralActivity extends StdGameActivity
 
     }
 
-    private int scoreWord(String candidate) {
-
-        for (int difflevel=wordScores.length-1; difflevel>=0; difflevel--) {
-            if(candidate.matches(wordScores[difflevel])) {
-                return difflevel+1;
-            }
-
-        }
-
-//        if(candidate.matches(".*(ee|oo|ouse).*")) {
-//            return 4;
-//        }
-//        if(candidate.matches(".*(f|fe|ss|us|is|on|en|um|[^aeiou]y)$")) {
-//            return 3;
-//        }
-//        if(candidate.matches(".*(x|sh|ch|s|z|a|i|o|u|y)$")) {
-//            return 2;
-//        }
-        return 1;
-    }
 
     @Override
     protected void showProbImpl() {
@@ -249,5 +229,16 @@ public class PluralActivity extends StdGameActivity
         return word;
     }
 
+    private int scoreWord(String candidate) {
+
+        for (int difflevel=wordScores.length-1; difflevel>=0; difflevel--) {
+            if(candidate.matches(wordScores[difflevel])) {
+                return difflevel+1;
+            }
+
+        }
+
+        return 1;
+    }
 
 }
