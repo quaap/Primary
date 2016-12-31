@@ -129,7 +129,7 @@ public class PluralActivity extends StdGameActivity
 
         } else if (level.getInputMode() == InputMode.Input) {
 
-            makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_TEXT, 5, 0);
+            makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_TEXT, 5, 0, word);
 
             hintPos=answer.length()-hintStart;
             if (hintPos<1) hintPos=1;

@@ -338,6 +338,10 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 //    }
 
     protected void makeInputBox(final ViewGroup answerlayout, final ViewGroup keypadarea, final AnswerTypedListener listener, int inputttpe, int emwidth, float fontsize) {
+        makeInputBox(answerlayout, keypadarea, listener, inputttpe, emwidth, fontsize, null);
+    }
+
+    protected void makeInputBox(final ViewGroup answerlayout, final ViewGroup keypadarea, final AnswerTypedListener listener, int inputttpe, int emwidth, float fontsize, final String defaultInput) {
 
         answerlayout.removeAllViews();
         ViewGroup type_area = (ViewGroup)LayoutInflater.from(this).inflate(R.layout.typed_input, answerlayout);
@@ -349,8 +353,11 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             uinput.setGravity(Gravity.END);
         }
 
-        if (emwidth!=0) {
+        if (emwidth>0) {
             uinput.setEms(emwidth);
+        }
+        if (fontsize>0) {
+            uinput.setTextSize(fontsize);
         }
 
         uinput.setPrivateImeOptions("nm");
@@ -369,7 +376,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                                  || (actionId == EditorInfo.IME_ACTION_GO)
                                  ) {
                              if (!listener.answerTyped(uinput.getText().toString())) {
-                                 showSoftKeyboard(uinput, keypadarea);
+                                 showSoftKeyboard(uinput, keypadarea, defaultInput);
                              }
                          }
                          return true;
@@ -392,7 +399,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                 @Override
                 public void onClick(View view) {
                     if (!listener.answerTyped(uinput.getText().toString())) {
-                        showSoftKeyboard(uinput, keypadarea);
+                        showSoftKeyboard(uinput, keypadarea, defaultInput);
                     }
                 }
             });
@@ -403,7 +410,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
         }
 
-        showSoftKeyboard(uinput, keypadarea);
+        showSoftKeyboard(uinput, keypadarea, defaultInput);
     }
 
 
@@ -477,12 +484,16 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         return buttons;
     }
 
-    protected void showSoftKeyboard(final EditText view, ViewGroup keypadarea) {
+    protected void showSoftKeyboard(final EditText view, ViewGroup keypadarea, String defaultInput) {
 
         view.clearFocus();
 
-        view.setText("");
-
+        if (defaultInput!=null) {
+            view.setText(defaultInput);
+            view.setSelection(defaultInput.length());
+        } else {
+            view.setText("");
+        }
         boolean isnumeric = ( (view.getInputType() & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER);
 
         int whichkeyboard = Integer.parseInt(appPreferences.getString("keyboard_preference", "1"));

@@ -165,6 +165,8 @@ public class Keyboard {
         }
 
         parentlayout.addView(glayout);
+        
+        editText.requestFocus();
     }
 
 }

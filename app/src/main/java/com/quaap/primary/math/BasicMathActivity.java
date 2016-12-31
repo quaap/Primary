@@ -89,7 +89,7 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
             makeAnswerButtons(getAnswerArea(), fontsize);
         } else if (level.getInputMode() == InputMode.Input) {
 
-            makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_NUMBER, 3, fontsize);
+            makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_NUMBER, 3, fontsize/2);
         } else {
             throw new IllegalArgumentException("Unknown inputMode! " + level.getInputMode());
         }
