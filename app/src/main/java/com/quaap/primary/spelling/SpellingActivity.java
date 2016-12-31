@@ -177,7 +177,7 @@ public class SpellingActivity extends StdGameActivity
         int points = 0;
         boolean isright = answer.toLowerCase().trim().equals(word.toLowerCase());
         if (isright) {
-            points = (int)(1 + word.length() * (levelnum+1) * (word.length() - (float)hintPos)/(word.length()));
+            points = (int)(1 + word.length() * (levelnum+1) * (1+word.length() - (float)hintPos)/(word.length()));
         }
         answerDone(isright, points, word, word, answer.trim());
 
