@@ -20,18 +20,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".math.BasicMathMenuActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".math.BasicMathActivity"
             android:parentActivityName=".math.BasicMathMenuActivity" />
+
         <activity
             android:name=".spelling.SpellingMenuActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".spelling.SpellingActivity"
             android:parentActivityName=".spelling.SpellingMenuActivity" />
+
+        <activity
+            android:name=".partsofspeech.PluralMenuActivity"
+            android:parentActivityName="MainActivity" />
+        <activity
+            android:name=".partsofspeech.PluralActivity"
+            android:parentActivityName=".partsofspeech.PluralMenuActivity" />
 
         <activity android:name=".AboutActivity" />
         <activity android:name=".ScoresActivity" />
