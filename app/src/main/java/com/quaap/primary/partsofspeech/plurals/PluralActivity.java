@@ -32,6 +32,8 @@ public class PluralActivity extends StdGameActivity
     private String [] unpluralMap;
     private Map<String,String> pluralsMap;
 
+    private String[] wordScores;
+
 
     public PluralActivity() {
         super(R.layout.std_plural_prob);
@@ -45,6 +47,8 @@ public class PluralActivity extends StdGameActivity
         words = Arrays.asList(getResources().getStringArray(R.array.common_nouns));
 
         unpluralMap = getResources().getStringArray(R.array.unplural);
+
+        wordScores = getResources().getStringArray(R.array.word_scores);
 
         pluralsMap = arrayPairsToMap(getResources().getStringArray(R.array.plurals));
 
@@ -96,6 +100,27 @@ public class PluralActivity extends StdGameActivity
 
     }
 
+    private int scoreWord(String candidate) {
+
+        for (int difflevel=wordScores.length-1; difflevel>=0; difflevel--) {
+            if(candidate.matches(wordScores[difflevel])) {
+                return difflevel+1;
+            }
+
+        }
+
+//        if(candidate.matches(".*(ee|oo|ouse).*")) {
+//            return 4;
+//        }
+//        if(candidate.matches(".*(f|fe|ss|us|is|on|en|um|[^aeiou]y)$")) {
+//            return 3;
+//        }
+//        if(candidate.matches(".*(x|sh|ch|s|z|a|i|o|u|y)$")) {
+//            return 2;
+//        }
+        return 1;
+    }
+
     @Override
     protected void showProbImpl() {
 
@@ -104,9 +129,13 @@ public class PluralActivity extends StdGameActivity
         if (word==null) {
             int tries = 0;
             do {
+                int score;
                 do {
                     word = words.get(getRand(words.size() - 1));
-                } while (!pluralsMap.containsKey(word) );
+                    score = scoreWord(word);
+                    //System.out.println(word + " " + score + " " + pluralsMap.containsKey(word));
+                } while (!pluralsMap.containsKey(word) || (getRand(10)>3 && score<2) || (getRand(10)>4 && score<3)); //try to get tricky words
+
             } while ( tries++ < 100 && ( word.length() > level.getMaxWordLength() || seenProblem(word) ) );
         } else {
             deleteSavedValue("word");
@@ -154,7 +183,7 @@ public class PluralActivity extends StdGameActivity
         int points = 0;
         boolean isright = answer.toLowerCase().trim().equals(this.answer.toLowerCase());
         if (isright) {
-            points = (int)(1 + word.length() * (levelnum+1) * (hintStart + answer.length() - (float)hintPos)/answer.length());
+            points = (int)(1 + word.length() * (levelnum+1) * scoreWord(word) * (hintStart + answer.length() - (float)hintPos)/answer.length());
         }
         answerDone(isright, points, word, this.answer, answer.trim());
 

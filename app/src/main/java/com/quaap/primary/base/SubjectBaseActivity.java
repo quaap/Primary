@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -410,6 +411,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
         }
 
+        uinput.setText("");
         showSoftKeyboard(uinput, keypadarea, defaultInput);
     }
 
@@ -439,11 +441,16 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             Button ansbutt = new Button(this);
             buttons.add(ansbutt);
             ansbutt.setEnabled(false);
+            ansbutt.setTypeface(Typeface.MONOSPACE);
             if (fontsize>0) {
                 ansbutt.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontsize);
+            } else {
+                ansbutt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             }
            // ansbutt.setWidth((int)(ansbutt.getTextSize()*choice.toString().length()*3));
-            ansbutt.setText(choice.toString());
+            ansbutt.setAllCaps(false);
+            String text = choice.toString();
+            ansbutt.setText(text.substring(0,1).toUpperCase(Locale.getDefault()) + text.substring(1));
             ansbutt.setTag(choice);
             ansbutt.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -492,7 +499,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             view.setText(defaultInput);
             view.setSelection(defaultInput.length());
         } else {
-            view.setText("");
+           // view.setText("");
         }
         boolean isnumeric = ( (view.getInputType() & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER);
 

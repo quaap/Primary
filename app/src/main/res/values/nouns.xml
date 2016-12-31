@@ -13,7 +13,7 @@
         <item>f$</item><item>ves</item>
         <item>f$</item><item>vs</item>
         <item>fe$</item><item>ves</item>
-        <item>fe$</item><item>vs</item>
+        <item>fe$</item><item>ves</item>
         <item>ve?$</item><item>fs</item>
         <item>s$</item><item>ses</item>
         <item>x$</item><item>xen</item>
@@ -31,7 +31,14 @@
         <item>se$</item><item>ice</item>
         <item>[aeiouy]x$</item><item>ices</item>
         <item>oo</item><item>ee</item>
+        <item>oo</item><item>ee</item>
         <item>[aeiou]{2}</item><item>ee</item>
+    </string-array>
+
+    <string-array name="word_scores">
+        <item>".*(x|sh|ch|s|z|a|i|o|u|y)$"</item>
+        <item>".*(f|fe|ss|us|is|on|en|um|[^aeiou]y)$"</item>
+        <item>".*(ee|oo|ouse).*"</item>
     </string-array>
 
     <string-array name="common_nouns">
@@ -144,7 +151,6 @@
         <item>card</item>
         <item>care</item>
         <item>case</item>
-        <item>cash</item>
         <item>cell</item>
         <item>chip</item>
         <item>city</item>
@@ -166,7 +172,6 @@
         <item>drop</item>
         <item>dust</item>
         <item>duty</item>
-        <item>ease</item>
         <item>east</item>
         <item>edge</item>
         <item>exam</item>
@@ -191,7 +196,6 @@
         <item>girl</item>
         <item>goal</item>
         <item>gold</item>
-        <item>golf</item>
         <item>hair</item>
         <item>half</item>
         <item>hall</item>
@@ -267,13 +271,11 @@
         <item>rain</item>
         <item>rate</item>
         <item>rent</item>
-        <item>rice</item>
         <item>ring</item>
         <item>risk</item>
         <item>road</item>
         <item>rock</item>
         <item>role</item>
-        <item>roof</item>
         <item>room</item>
         <item>rope</item>
         <item>ruin</item>
@@ -395,7 +397,6 @@
         <item>drama</item>
         <item>dream</item>
         <item>dress</item>
-        <item>earth</item>
         <item>entry</item>
         <item>error</item>
         <item>essay</item>
@@ -458,7 +459,6 @@
         <item>paper</item>
         <item>party</item>
         <item>pause</item>
-        <item>peace</item>
         <item>phase</item>
         <item>phone</item>
         <item>photo</item>
@@ -513,7 +513,6 @@
         <item>storm</item>
         <item>story</item>
         <item>study</item>
-        <item>stuff</item>
         <item>style</item>
         <item>sugar</item>
         <item>table</item>
@@ -631,7 +630,6 @@
         <item>income</item>
         <item>injury</item>
         <item>insect</item>
-        <item>inside</item>
         <item>island</item>
         <item>jacket</item>
         <item>ladder</item>
@@ -817,7 +815,6 @@
         <item>opening</item>
         <item>opinion</item>
         <item>outcome</item>
-        <item>outside</item>
         <item>package</item>
         <item>parking</item>
         <item>partner</item>
