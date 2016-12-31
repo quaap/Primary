@@ -10,7 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quaap.primary.R;
+import com.quaap.primary.base.component.InputMode;
 import com.quaap.primary.base.component.Keyboard;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by tom on 12/28/16.
@@ -31,6 +35,12 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
     private int mProblemView;
 
+    private Timer timer;
+    private TimerTask hinttask;
+    //private volatile int hintPos=0;
+    private volatile boolean showHint = false;
+
+
     public StdGameActivity(int problemView) {
         super(R.layout.std_game_layout);
         mProblemView = problemView;
@@ -46,8 +56,24 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
     }
 
     @Override
+    protected void onPause() {
+
+        cancelHint();
+
+        if (timer!=null) {
+            timer.cancel();
+            timer.purge();
+            timer=null;
+        }
+
+        super.onPause();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+        timer = new Timer();
+
         int orientation = getResources().getConfiguration().orientation;
         if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
 
@@ -80,6 +106,13 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
     @Override
     protected void onShowLevel() {
+
+
+        if (((StdLevel)getLevel()).getInputMode()== InputMode.Buttons) {
+            showHint = false;
+        } else {
+            showHint = true;
+        }
         Keyboard.hideKeys(getKeysArea());
     }
 
@@ -89,5 +122,34 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
     protected LinearLayout getAnswerArea() {
         return (LinearLayout)findViewById(R.id.answer_area);
+    }
+
+    protected void startHint() {
+
+
+        cancelHint();
+
+        if (showHint) {
+
+            hinttask = new TimerTask() {
+                @Override
+                public void run() {
+                    performHint();
+                }
+            };
+
+            timer.scheduleAtFixedRate(hinttask, 5000, 3000);
+        }
+    }
+
+    protected void performHint() {
+        //override to do something.
+    }
+
+    protected void cancelHint() {
+        if (hinttask!=null) {
+            hinttask.cancel();
+            hinttask = null;
+        }
     }
 }

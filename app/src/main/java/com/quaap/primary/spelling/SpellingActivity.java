@@ -35,11 +35,10 @@ public class SpellingActivity extends StdGameActivity
 
     private String[] unspellMap;
 
-    private Timer timer;
-    private TimerTask hinttask;
+//    private Timer timer;
+//    private TimerTask hinttask;
     private volatile int hintPos=0;
-
-    private volatile boolean showHint = false;
+//    private volatile boolean showHint = false;
 
 
     TextToVoice v;
@@ -73,13 +72,13 @@ public class SpellingActivity extends StdGameActivity
     @Override
     protected void onPause() {
         v.stop();
-        cancelHint();
-
-        if (timer!=null) {
-            timer.cancel();
-            timer.purge();
-            timer=null;
-        }
+//        cancelHint();
+//
+//        if (timer!=null) {
+//            timer.cancel();
+//            timer.purge();
+//            timer=null;
+//        }
 
         saveValue("word", word);
         super.onPause();
@@ -88,7 +87,7 @@ public class SpellingActivity extends StdGameActivity
 
     @Override
     protected void onResume() {
-        timer = new Timer();
+        //timer = new Timer();
 
         setReadyForProblem(false);
         findViewById(R.id.spelling_problem_area).setVisibility(View.INVISIBLE);
@@ -119,10 +118,10 @@ public class SpellingActivity extends StdGameActivity
 
         if (((SpellingLevel)getLevel()).getInputMode()==InputMode.Buttons) {
             setFasttimes(800, 1600, 3000);
-            showHint = false;
+          //  showHint = false;
         } else {
             setFasttimes(1500, 2200, 5000);
-            showHint = true;
+           // showHint = true;
         }
 
     }
@@ -213,51 +212,74 @@ public class SpellingActivity extends StdGameActivity
     public void onSpeakComplete(TextToVoice ttv) {
         if (wordStart==null || !wordStart.equals(word)) {
             startTimer();
+            hintPos=0;
             startHint();
             wordStart = word;
         }
     }
 
-    private void startHint() {
+    @Override
+    protected void performHint() {
         final TextView hint = (TextView)findViewById(R.id.spell_hint);
-
-        cancelHint();
-
-        if (showHint) {
-
-            hinttask = new TimerTask() {
+        if (hintPos < word.length()) {
+            handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (hintPos < word.length()) {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                hint.setText(word.substring(0, hintPos));
-                            }
-                        });
-
-                        hintPos++;
-                        if (hintPos == 1 || (word.length() > 3 && hintPos == word.length())) {
-                            v.speak(word);
-                        }
-
-                    } else {
-                        cancelHint();
-                    }
+                    hint.setText(word.substring(0, hintPos));
                 }
-            };
+            });
 
-            timer.scheduleAtFixedRate(hinttask, 5000, 3000);
+            hintPos++;
+            if (hintPos == 1 || (word.length() > 3 && hintPos == word.length())) {
+                v.speak(word);
+            }
+
+        } else {
+            cancelHint();
         }
     }
 
-    private void cancelHint() {
-        if (hinttask!=null) {
-            hinttask.cancel();
-            hinttask = null;
-            hintPos = 0;
-        }
-    }
+//
+//    private void startHint() {
+//        final TextView hint = (TextView)findViewById(R.id.spell_hint);
+//
+//        cancelHint();
+//
+//        if (showHint) {
+//
+//            hinttask = new TimerTask() {
+//                @Override
+//                public void run() {
+//                    if (hintPos < word.length()) {
+//                        handler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                hint.setText(word.substring(0, hintPos));
+//                            }
+//                        });
+//
+//                        hintPos++;
+//                        if (hintPos == 1 || (word.length() > 3 && hintPos == word.length())) {
+//                            v.speak(word);
+//                        }
+//
+//                    } else {
+//                        cancelHint();
+//                    }
+//                }
+//            };
+//
+//            timer.scheduleAtFixedRate(hinttask, 5000, 3000);
+//        }
+//    }
+//
+//    private void cancelHint() {
+//        if (hinttask!=null) {
+//            hinttask.cancel();
+//            hinttask = null;
+//            hintPos = 0;
+//        }
+//    }
 
     @Override
     public void onError(TextToVoice ttv) {
