@@ -36,11 +36,11 @@
             android:parentActivityName=".spelling.SpellingMenuActivity" />
 
         <activity
-            android:name=".partsofspeech.PluralMenuActivity"
+            android:name=".partsofspeech.plurals.PluralMenuActivity"
             android:parentActivityName="MainActivity" />
         <activity
-            android:name=".partsofspeech.PluralActivity"
-            android:parentActivityName=".partsofspeech.PluralMenuActivity" />
+            android:name=".partsofspeech.plurals.PluralActivity"
+            android:parentActivityName=".partsofspeech.plurals.PluralMenuActivity" />
 
         <activity android:name=".AboutActivity" />
         <activity android:name=".ScoresActivity" />

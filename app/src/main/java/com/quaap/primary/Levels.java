@@ -1,12 +1,12 @@
 package com.quaap.primary;
 
-import com.quaap.primary.base.SubjectMenuActivity;
 import com.quaap.primary.base.component.InputMode;
 import com.quaap.primary.base.Level;
 import com.quaap.primary.math.BasicMathLevel;
 import com.quaap.primary.math.MathOp;
 import com.quaap.primary.math.Negatives;
-import com.quaap.primary.partsofspeech.PluralLevel;
+import com.quaap.primary.partsofspeech.plurals.PluralLevel;
+import com.quaap.primary.partsofspeech.plurals.PluralMenuActivity;
 import com.quaap.primary.spelling.SpellingLevel;
 
 /**
@@ -62,8 +62,8 @@ public class Levels {
             com.quaap.primary.spelling.SpellingMenuActivity.class,
             com.quaap.primary.spelling.SpellingMenuActivity.class,
 
-            com.quaap.primary.partsofspeech.PluralMenuActivity.class,
-            com.quaap.primary.partsofspeech.PluralMenuActivity.class,
+            PluralMenuActivity.class,
+            PluralMenuActivity.class,
     };
 
     //could probably read all these from a xml file.

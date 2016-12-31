@@ -1,4 +1,4 @@
-package com.quaap.primary.partsofspeech;
+package com.quaap.primary.partsofspeech.plurals;
 
 import android.content.Context;
 
