@@ -12,6 +12,7 @@
         <item>Sp1</item>
         <item>Sp2</item>
         <item>Sp3</item>
+        <item>Eng1</item>
     </string-array>
 
     <!-- The subject name. Should be less than 12 chars-->
@@ -24,6 +25,7 @@
         <item>Spelling 1-4</item>
         <item>Spelling 5-7</item>
         <item>Spelling 8+</item>
+        <item>Eng: Plurals</item>
     </string-array>
 
     <!-- The subject description. -->
@@ -36,29 +38,32 @@
         <item>Spelling words 1 to 4 letters long</item>
         <item>Spelling words 5 to 7 letters long</item>
         <item>Spelling words 8+ letters long</item>
+        <item>English plurals</item>
     </string-array>
 
-    <string-array name="subjectsActivity">
-        <item>com.quaap.primary.math.BasicMathMenuActivity</item>
-        <item>com.quaap.primary.math.BasicMathMenuActivity</item>
-        <item>com.quaap.primary.math.BasicMathMenuActivity</item>
-        <item>com.quaap.primary.math.BasicMathMenuActivity</item>
-        <item>com.quaap.primary.math.BasicMathMenuActivity</item>
-        <item>com.quaap.primary.spelling.SpellingMenuActivity</item>
-        <item>com.quaap.primary.spelling.SpellingMenuActivity</item>
-        <item>com.quaap.primary.spelling.SpellingMenuActivity</item>
-    </string-array>
+    <!--<string-array name="subjectsActivity">-->
+        <!--<item>com.quaap.primary.math.BasicMathMenuActivity</item>-->
+        <!--<item>com.quaap.primary.math.BasicMathMenuActivity</item>-->
+        <!--<item>com.quaap.primary.math.BasicMathMenuActivity</item>-->
+        <!--<item>com.quaap.primary.math.BasicMathMenuActivity</item>-->
+        <!--<item>com.quaap.primary.math.BasicMathMenuActivity</item>-->
+        <!--<item>com.quaap.primary.spelling.SpellingMenuActivity</item>-->
+        <!--<item>com.quaap.primary.spelling.SpellingMenuActivity</item>-->
+        <!--<item>com.quaap.primary.spelling.SpellingMenuActivity</item>-->
+        <!--<item>com.quaap.primary.partsofspeech.PluralMenuActivity</item>-->
+    <!--</string-array>-->
 
-    <string-array name="subjectsLevelset">
-        <item>Math1Levels</item>
-        <item>Math2Levels</item>
-        <item>Math3Levels</item>
-        <item>Math4Levels</item>
-        <item>Math5Levels</item>
-        <item>Spelling1Levels</item>
-        <item>Spelling2Levels</item>
-        <item>Spelling3Levels</item>
-    </string-array>
+    <!--<string-array name="subjectsLevelset">-->
+        <!--<item>Math1Levels</item>-->
+        <!--<item>Math2Levels</item>-->
+        <!--<item>Math3Levels</item>-->
+        <!--<item>Math4Levels</item>-->
+        <!--<item>Math5Levels</item>-->
+        <!--<item>Spelling1Levels</item>-->
+        <!--<item>Spelling2Levels</item>-->
+        <!--<item>Spelling3Levels</item>-->
+        <!--<item>Plurals1Levels</item>-->
+    <!--</string-array>-->
 
 
 </resources>

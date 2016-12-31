@@ -186,14 +186,14 @@ public class MainActivity extends CommonBaseActivity {
 
                 Subjects.Desc subject = subjectDescs.get(code);
                 try {
-                    Intent intent = new Intent(MainActivity.this, Class.forName(subject.getActivityclass()));
+                    Intent intent = new Intent(MainActivity.this, subject.getActivityclass());
                     intent.putExtra(LEVELSET, subject.getLevelset());
                     intent.putExtra(SUBJECT, code);
                     intent.putExtra(SUBJECTNAME, subject.getName());
                     intent.putExtra(USERNAME, userlist.getSelected());
 
                     startActivity(intent);
-                } catch (ClassNotFoundException e) {
+                } catch (Exception e) {
                     Log.e("Primary", "Can't load " + code + " " + subject.getName(), e);
                 }
             }

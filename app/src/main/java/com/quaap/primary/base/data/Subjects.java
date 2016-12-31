@@ -2,8 +2,10 @@ package com.quaap.primary.base.data;
 
 import android.content.Context;
 
+import com.quaap.primary.Levels;
 import com.quaap.primary.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +49,11 @@ public class Subjects {
     }
 
     public List<String> getCodes() {
-        return AppData.sort(subjectMap.keySet());
+        List<String> codes = new ArrayList<>();
+        for (Desc d: subjects) {
+            codes.add(d.code);
+        }
+        return codes;
     }
 
     public int getCount() {
@@ -80,7 +86,7 @@ public class Subjects {
         private String code;
         private String name;
         private String desc;
-        private String activityclass;
+        private Class activityclass;
         private String levelset;
 
         public Desc(Context context, int pos) {
@@ -88,8 +94,10 @@ public class Subjects {
             this.setCode(getString(context, R.array.subjects, pos));
             this.setName(getString(context, R.array.subjectsName, pos));
             this.setDesc(getString(context, R.array.subjectDescs, pos));
-            this.setActivityclass(getString(context, R.array.subjectsActivity, pos));
-            this.setLevelset(getString(context, R.array.subjectsLevelset, pos));
+            //this.setActivityclass(getString(context, R.array.subjectsActivity, pos));
+            //this.setLevelset(getString(context, R.array.subjectsLevelset, pos));
+            this.setActivityclass(Levels.ActivityMenus[pos]);
+            this.setLevelset(Levels.LevelSetNames[pos]);
         }
 
         private String getString(Context context, int id, int pos) {
@@ -129,11 +137,11 @@ public class Subjects {
             this.desc = desc;
         }
 
-        public String getActivityclass() {
+        public Class getActivityclass() {
             return activityclass;
         }
 
-        public void setActivityclass(String activityclass) {
+        public void setActivityclass(Class activityclass) {
             this.activityclass = activityclass;
         }
 
