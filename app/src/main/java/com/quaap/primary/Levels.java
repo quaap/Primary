@@ -208,13 +208,16 @@ public class Levels {
 
             //Plurals1Levels
             {
-                    new PluralLevel("pl1", 8, 20, InputMode.Buttons),
-                    new PluralLevel("pl1", 8, 10, InputMode.Input),
+                    new PluralLevel("pl1", 5, 20, InputMode.Buttons),
+                    new PluralLevel("pl1", 5, 10, InputMode.Input),
+                    new PluralLevel("pl1", 7, 20, InputMode.Buttons),
+                    new PluralLevel("pl1", 7, 10, InputMode.Input),
                     new PluralLevel("pl1", 9, 20, InputMode.Buttons),
                     new PluralLevel("pl1", 9, 10, InputMode.Input),
                     new PluralLevel("pl1", 10, 20, InputMode.Buttons),
                     new PluralLevel("pl1", 10, 10, InputMode.Input),
-                    new PluralLevel("pl1", 12, 30, InputMode.Buttons),
+                    new PluralLevel("pl1", 18, 20, InputMode.Buttons),
+                    new PluralLevel("pl1", 18, 10, InputMode.Input),
             },
 
 
