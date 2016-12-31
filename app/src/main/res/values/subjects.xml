@@ -9,9 +9,11 @@
         <item>M3</item>
         <item>M4</item>
         <item>M5</item>
+
         <item>Sp1</item>
         <item>Sp2</item>
         <item>Sp3</item>
+
         <item>Eng1</item>
         <item>Eng2</item>
     </string-array>
@@ -23,9 +25,11 @@
         <item>-Math +-25</item>
         <item>-Math ×÷12</item>
         <item>Lotta math</item>
-        <item>Spelling 1–4</item>
-        <item>Spelling 5–7</item>
-        <item>Spelling 8+</item>
+
+        <item>Spelling 1–6</item>
+        <item>Spelling 6–8</item>
+        <item>Spelling 9+</item>
+
         <item>Plurals 1</item>
         <item>Plurals 2</item>
     </string-array>
@@ -37,9 +41,11 @@
         <item>Plus and Minus. Numbers -25 to 25.</item>
         <item>Times and Divide. Numbers -12 to 12.</item>
         <item>Everything!</item>
-        <item>Spelling words 1 to 4 letters long</item>
-        <item>Spelling words 5 to 7 letters long</item>
-        <item>Spelling words 8+ letters long</item>
+
+        <item>Spelling words 1 to 5 letters long</item>
+        <item>Spelling words 6 to 8 letters long</item>
+        <item>Spelling words 9+ letters long</item>
+
         <item>English plurals 1</item>
         <item>English plurals 2</item>
     </string-array>
