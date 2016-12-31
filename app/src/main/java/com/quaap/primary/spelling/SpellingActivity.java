@@ -95,8 +95,8 @@ public class SpellingActivity extends StdGameActivity
 
         super.onResume();
 
-        int orientation = getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+        if (isLandscape()) {
             LinearLayout spelling_problem_area = (LinearLayout)findViewById(R.id.spelling_problem_area);
             spelling_problem_area.setOrientation(LinearLayout.HORIZONTAL);
         }

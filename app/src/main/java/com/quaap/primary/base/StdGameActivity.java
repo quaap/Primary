@@ -74,8 +74,8 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
         super.onResume();
         timer = new Timer();
 
-        int orientation = getResources().getConfiguration().orientation;
-        if (orientation== Configuration.ORIENTATION_LANDSCAPE) {
+
+        if (isLandscape()) {
 
             LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
             answerarea.setOrientation(LinearLayout.HORIZONTAL);

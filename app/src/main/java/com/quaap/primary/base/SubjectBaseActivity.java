@@ -7,6 +7,7 @@ import android.content.Intent;
 
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
@@ -615,9 +616,9 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
         TextView lc = (TextView)levelcompleteView.findViewById(R.id.level_complete_text);
         lc.setText(getString(R.string.level_complete, getLevel(levelnum).getLevelNum()));
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
+
+        Point size = getScreenSize();
+
         int width = size.x;
         int height = size.y;
 
@@ -801,5 +802,16 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     }
 
+    public boolean isLandscape() {
+        int orientation = getResources().getConfiguration().orientation;
+        return orientation== Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    public Point getScreenSize() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size;
+    }
 
 }
