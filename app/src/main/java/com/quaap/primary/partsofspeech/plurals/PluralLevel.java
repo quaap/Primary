@@ -23,10 +23,17 @@ import com.quaap.primary.base.component.InputMode;
 public class PluralLevel extends StdLevel {
 
     private int mMaxwordlength;
+    private int mMinwordlength;
+
+    private static final int wDiff = 4;
 
     public PluralLevel(String subjectkey, int maxwordlength, int rounds, InputMode inputMode) {
+        this(subjectkey, maxwordlength>wDiff?maxwordlength-wDiff:1, maxwordlength, rounds, inputMode);
+    }
+    public PluralLevel(String subjectkey, int minwordlength, int maxwordlength, int rounds, InputMode inputMode) {
         super(subjectkey, rounds, inputMode);
 
+        mMinwordlength = minwordlength;
         mMaxwordlength = maxwordlength;
 
     }
@@ -43,6 +50,10 @@ public class PluralLevel extends StdLevel {
 
     public int getMaxWordLength() {
         return mMaxwordlength;
+    }
+
+    public int getMinWordLength() {
+        return mMinwordlength;
     }
 
 
