@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quaap.primary.base.CommonBaseActivity;
+import com.quaap.primary.base.SubjectMenuActivity;
 import com.quaap.primary.base.component.HorzItemList;
 import com.quaap.primary.base.data.AppData;
 import com.quaap.primary.base.data.Subjects;
@@ -45,7 +46,7 @@ import java.util.List;
 public class MainActivity extends CommonBaseActivity {
 
     public static final String USERNAME = "username";
-    public static final String SUBJECT = "subject";
+    public static final String SUBJECTCODE = "subjectcode";
     public static final String SUBJECTNAME = "subjectname";
     public static final String LEVELSET = "levelset";
     public static final String LEVELSETDONE = "levelsetdone";
@@ -186,9 +187,9 @@ public class MainActivity extends CommonBaseActivity {
 
                 Subjects.Desc subject = subjectDescs.get(code);
                 try {
-                    Intent intent = new Intent(MainActivity.this, subject.getActivityclass());
+                    Intent intent = new Intent(MainActivity.this, SubjectMenuActivity.class);
                     intent.putExtra(LEVELSET, subject.getLevelset());
-                    intent.putExtra(SUBJECT, code);
+                    intent.putExtra(SUBJECTCODE, code);
                     intent.putExtra(SUBJECTNAME, subject.getName());
                     intent.putExtra(USERNAME, userlist.getSelected());
 

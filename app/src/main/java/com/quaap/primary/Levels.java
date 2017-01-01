@@ -5,8 +5,8 @@ import com.quaap.primary.base.Level;
 import com.quaap.primary.math.BasicMathLevel;
 import com.quaap.primary.math.MathOp;
 import com.quaap.primary.math.Negatives;
+import com.quaap.primary.partsofspeech.plurals.PluralActivity;
 import com.quaap.primary.partsofspeech.plurals.PluralLevel;
-import com.quaap.primary.partsofspeech.plurals.PluralMenuActivity;
 import com.quaap.primary.spelling.SpellingLevel;
 
 /**
@@ -54,19 +54,19 @@ public class Levels {
             "Plurals2Levels",
     };
 
-    public static final Class[] ActivityMenus = {
-            com.quaap.primary.math.BasicMathMenuActivity.class,
-            com.quaap.primary.math.BasicMathMenuActivity.class,
-            com.quaap.primary.math.BasicMathMenuActivity.class,
-            com.quaap.primary.math.BasicMathMenuActivity.class,
-            com.quaap.primary.math.BasicMathMenuActivity.class,
+    public static final Class[] ActivityClasses = {
+            com.quaap.primary.math.BasicMathActivity.class,
+            com.quaap.primary.math.BasicMathActivity.class,
+            com.quaap.primary.math.BasicMathActivity.class,
+            com.quaap.primary.math.BasicMathActivity.class,
+            com.quaap.primary.math.BasicMathActivity.class,
 
-            com.quaap.primary.spelling.SpellingMenuActivity.class,
-            com.quaap.primary.spelling.SpellingMenuActivity.class,
-            com.quaap.primary.spelling.SpellingMenuActivity.class,
+            com.quaap.primary.spelling.SpellingActivity.class,
+            com.quaap.primary.spelling.SpellingActivity.class,
+            com.quaap.primary.spelling.SpellingActivity.class,
 
-            PluralMenuActivity.class,
-            PluralMenuActivity.class,
+            PluralActivity.class,
+            PluralActivity.class,
     };
 
     //could probably read all these from a xml file.

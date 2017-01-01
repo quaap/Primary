@@ -134,7 +134,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             levelnum = intent.getIntExtra(LEVELNUM, 0);
             //Log.d("base", "intent says levelnum=" + levelnum);
             username = intent.getStringExtra(MainActivity.USERNAME);
-            subject = intent.getStringExtra(MainActivity.SUBJECT);
+            subject = intent.getStringExtra(MainActivity.SUBJECTCODE);
             levelsetname = intent.getStringExtra(MainActivity.LEVELSET);
             subjectName = intent.getStringExtra(MainActivity.SUBJECTNAME);
             startover = intent.getBooleanExtra(START_AT_ZERO, false);
@@ -143,7 +143,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             levelnum = savedInstanceState.getInt(LEVELNUM, 0);
             //Log.d("base", "savedInstanceState says levelnum=" + levelnum);
             username = savedInstanceState.getString(MainActivity.USERNAME);
-            subject = savedInstanceState.getString(MainActivity.SUBJECT);
+            subject = savedInstanceState.getString(MainActivity.SUBJECTCODE);
             levelsetname = savedInstanceState.getString(MainActivity.LEVELSET);
             subjectName = savedInstanceState.getString(MainActivity.SUBJECTNAME);
 
@@ -166,7 +166,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         //Log.d("base", "onSaveInstanceState called! levelnum=" + levelnum);
 
         outState.putInt(LEVELNUM, levelnum);
-        outState.putString(MainActivity.SUBJECT, subject);
+        outState.putString(MainActivity.SUBJECTCODE, subject);
         outState.putString(MainActivity.LEVELSET, levelsetname);
         outState.putString(MainActivity.USERNAME, username);
         outState.putString(MainActivity.SUBJECTNAME, subjectName);

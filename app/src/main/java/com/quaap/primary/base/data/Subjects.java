@@ -96,7 +96,7 @@ public class Subjects {
             this.setDesc(getString(context, R.array.subjectDescs, pos));
             //this.setActivityclass(getString(context, R.array.subjectsActivity, pos));
             //this.setLevelset(getString(context, R.array.subjectsLevelset, pos));
-            this.setActivityclass(Levels.ActivityMenus[pos]);
+            this.setActivityclass(Levels.ActivityClasses[pos]);
             this.setLevelset(Levels.LevelSetNames[pos]);
         }
 

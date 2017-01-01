@@ -24,6 +24,7 @@ import com.quaap.primary.Levels;
 import com.quaap.primary.MainActivity;
 import com.quaap.primary.R;
 import com.quaap.primary.base.data.AppData;
+import com.quaap.primary.base.data.Subjects;
 import com.quaap.primary.base.data.UserData;
 
 /**
@@ -53,13 +54,13 @@ Goofy math word problems.
 
 */
 
-public abstract class SubjectMenuActivity extends CommonBaseActivity implements Button.OnClickListener {
+public class SubjectMenuActivity extends CommonBaseActivity implements Button.OnClickListener {
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 121;
 
     private UserData mUserData;
     private UserData.Subject mSubjectData;
 
-    private String mSubject;
+    private String mSubjectCode;
     private String mSubjectName;
     private Class mTargetActivity;
 
@@ -79,27 +80,28 @@ public abstract class SubjectMenuActivity extends CommonBaseActivity implements 
         if (savedInstanceState==null) {
 
             Intent intent = getIntent();
-            mSubject = intent.getStringExtra(MainActivity.SUBJECT);
+            mSubjectCode = intent.getStringExtra(MainActivity.SUBJECTCODE);
             mSubjectName = intent.getStringExtra(MainActivity.SUBJECTNAME);
             mLevelSetName = intent.getStringExtra(MainActivity.LEVELSET);
             username = intent.getStringExtra(MainActivity.USERNAME);
 
         } else {
-            mSubject = savedInstanceState.getString("mSubject", mSubject);
+            mSubjectCode = savedInstanceState.getString("mSubjectCode", mSubjectCode);
             mSubjectName = savedInstanceState.getString("mSubjectName", mSubjectName);
             mLevelSetName = savedInstanceState.getString("mLevelSetName", mLevelSetName);
             username = savedInstanceState.getString("username", username);
         }
         //Log.d("onCreate", "onCreate username=" + username);
 
-        if (mSubject==null || username==null) {
+        if (mSubjectCode ==null || username==null) {
             SharedPreferences state = getSharedPreferences(this.getClass().getName(), MODE_PRIVATE);
-            mSubject = state.getString("mSubject", mSubject);
+            mSubjectCode = state.getString("mSubjectCode", mSubjectCode);
             mSubjectName = state.getString("mSubjectName",mSubjectName);
             mLevelSetName = state.getString("mLevelSetName", mLevelSetName);
             username = state.getString("username", username);
         }
         //Log.d("onCreate", "onCreate username=" + username);
+        mTargetActivity = Subjects.getInstance(this).get(mSubjectCode).getActivityclass();
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar!=null) {
@@ -107,7 +109,7 @@ public abstract class SubjectMenuActivity extends CommonBaseActivity implements 
         }
 
         mUserData = AppData.getAppData(this).getUser(username);
-        mSubjectData = mUserData.getSubjectForUser(mSubject);
+        mSubjectData = mUserData.getSubjectForUser(mSubjectCode);
         setContentView(R.layout.activity_subject_menu);
 
 
@@ -143,7 +145,7 @@ public abstract class SubjectMenuActivity extends CommonBaseActivity implements 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //Log.d("subjectmenu", "onSaveInstanceState called! username=" + username);
-        outState.putString("mSubject", mSubject);
+        outState.putString("mSubjectCode", mSubjectCode);
         outState.putString("mSubjectName", mSubjectName);
         outState.putString("mLevelSetName", mLevelSetName);
         outState.putString("username", username);
@@ -170,7 +172,7 @@ public abstract class SubjectMenuActivity extends CommonBaseActivity implements 
         SharedPreferences state = getSharedPreferences(this.getClass().getName(), MODE_PRIVATE);
 
         state.edit()
-                .putString("mSubject", mSubject)
+                .putString("mSubjectCode", mSubjectCode)
                 .putString("mSubjectName", mSubjectName)
                 .putString("mLevelSetName", mLevelSetName)
                 .putString("username", username)
@@ -191,7 +193,7 @@ public abstract class SubjectMenuActivity extends CommonBaseActivity implements 
 
 
     private void showLevelButtons() {
-        int highest = mUserData.getSubjectForUser(mSubject).getHighestLevelNum();
+        int highest = mUserData.getSubjectForUser(mSubjectCode).getHighestLevelNum();
 
         LinearLayout button_layout = (LinearLayout)findViewById(R.id.button_layout);
 
@@ -261,7 +263,7 @@ public abstract class SubjectMenuActivity extends CommonBaseActivity implements 
         }
         intent.putExtra(MainActivity.USERNAME, username);
         intent.putExtra(MainActivity.LEVELSET, mLevelSetName);
-        intent.putExtra(MainActivity.SUBJECT, mSubject);
+        intent.putExtra(MainActivity.SUBJECTCODE, mSubjectCode);
         intent.putExtra(MainActivity.SUBJECTNAME, mSubjectName);
         startActivity(intent);
     }
