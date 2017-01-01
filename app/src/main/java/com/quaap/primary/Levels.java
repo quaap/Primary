@@ -186,8 +186,8 @@ public class Levels {
                     new SpellingLevel("sp1",R.array.spelling_words_1b, 3, 10, InputMode.Input),
                     new SpellingLevel("sp1",R.array.spelling_words_1c, 4, 20, InputMode.Buttons),
                     new SpellingLevel("sp1",R.array.spelling_words_1c, 4, 10, InputMode.Input),
-                    new SpellingLevel("sp2",R.array.spelling_words_1d, 5, 20, InputMode.Buttons),
-                    new SpellingLevel("sp2",R.array.spelling_words_1d, 5, 10, InputMode.Input),
+                    new SpellingLevel("sp1",R.array.spelling_words_1d, 5, 20, InputMode.Buttons),
+                    new SpellingLevel("sp1",R.array.spelling_words_1d, 5, 10, InputMode.Input),
             },
 
             //Spelling2Levels
@@ -196,8 +196,8 @@ public class Levels {
                     new SpellingLevel("sp2",R.array.spelling_words_1e, 6, 10, InputMode.Input),
                     new SpellingLevel("sp2",R.array.spelling_words_1f, 7, 20, InputMode.Buttons),
                     new SpellingLevel("sp2",R.array.spelling_words_1f, 7, 10, InputMode.Input),
-                    new SpellingLevel("sp3",R.array.spelling_words_1g, 8, 20, InputMode.Buttons),
-                    new SpellingLevel("sp3",R.array.spelling_words_1g, 8, 10, InputMode.Input),
+                    new SpellingLevel("sp2",R.array.spelling_words_1g, 8, 20, InputMode.Buttons),
+                    new SpellingLevel("sp2",R.array.spelling_words_1g, 8, 10, InputMode.Input),
             },
 
             //Spelling3Levels
