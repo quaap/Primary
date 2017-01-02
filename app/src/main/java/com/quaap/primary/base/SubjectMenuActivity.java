@@ -60,16 +60,17 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
     private UserData mUserData;
     private UserData.Subject mSubjectData;
 
+    private Subjects.Desc mSubject;
     private String mSubjectCode;
-    private String mSubjectName;
-    private Class mTargetActivity;
-
-    private String mLevelSetName;
+//    private String mSubjectName;
+//    private Class mTargetActivity;
+//
+//    private String mLevelSetName;
     private String username;
 
-    protected void setTargetActivity(Class targetActivity) {
-        mTargetActivity = targetActivity;
-    }
+//    protected void setTargetActivity(Class targetActivity) {
+//        mTargetActivity = targetActivity;
+//    }
 
 
     @Override
@@ -81,14 +82,14 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
 
             Intent intent = getIntent();
             mSubjectCode = intent.getStringExtra(MainActivity.SUBJECTCODE);
-            mSubjectName = intent.getStringExtra(MainActivity.SUBJECTNAME);
-            mLevelSetName = intent.getStringExtra(MainActivity.LEVELSET);
+           // mSubjectName = intent.getStringExtra(MainActivity.SUBJECTNAME);
+           // mLevelSetName = intent.getStringExtra(MainActivity.LEVELSET);
             username = intent.getStringExtra(MainActivity.USERNAME);
 
         } else {
             mSubjectCode = savedInstanceState.getString("mSubjectCode", mSubjectCode);
-            mSubjectName = savedInstanceState.getString("mSubjectName", mSubjectName);
-            mLevelSetName = savedInstanceState.getString("mLevelSetName", mLevelSetName);
+           // mSubjectName = savedInstanceState.getString("mSubjectName", mSubjectName);
+           // mLevelSetName = savedInstanceState.getString("mLevelSetName", mLevelSetName);
             username = savedInstanceState.getString("username", username);
         }
         //Log.d("onCreate", "onCreate username=" + username);
@@ -96,16 +97,21 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
         if (mSubjectCode ==null || username==null) {
             SharedPreferences state = getSharedPreferences(this.getClass().getName(), MODE_PRIVATE);
             mSubjectCode = state.getString("mSubjectCode", mSubjectCode);
-            mSubjectName = state.getString("mSubjectName",mSubjectName);
-            mLevelSetName = state.getString("mLevelSetName", mLevelSetName);
+           // mSubjectName = state.getString("mSubjectName",mSubjectName);
+           // mLevelSetName = state.getString("mLevelSetName", mLevelSetName);
             username = state.getString("username", username);
         }
         //Log.d("onCreate", "onCreate username=" + username);
-        mTargetActivity = Subjects.getInstance(this).get(mSubjectCode).getActivityclass();
+        Subjects subjects = Subjects.getInstance(this);
+        mSubject = subjects.get(mSubjectCode);
+
+//        mTargetActivity = subjects.get(mSubjectCode).getActivityclass();
+//        mSubjectName = subjects.getString("mSubjectName",mSubjectName);
+//        mLevelSetName = subjects.getString("mLevelSetName", mLevelSetName);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar!=null) {
-            actionBar.setTitle(getString(R.string.app_name) + ": " + mSubjectName + " (" + username + ")");
+            actionBar.setTitle(getString(R.string.app_name) + ": " + mSubject.getName() + " (" + username + ")");
         }
 
         mUserData = AppData.getAppData(this).getUser(username);
@@ -146,8 +152,8 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
     protected void onSaveInstanceState(Bundle outState) {
         //Log.d("subjectmenu", "onSaveInstanceState called! username=" + username);
         outState.putString("mSubjectCode", mSubjectCode);
-        outState.putString("mSubjectName", mSubjectName);
-        outState.putString("mLevelSetName", mLevelSetName);
+//        outState.putString("mSubjectName", mSubjectName);
+//        outState.putString("mLevelSetName", mLevelSetName);
         outState.putString("username", username);
         super.onSaveInstanceState(outState);
 
@@ -173,8 +179,8 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
 
         state.edit()
                 .putString("mSubjectCode", mSubjectCode)
-                .putString("mSubjectName", mSubjectName)
-                .putString("mLevelSetName", mLevelSetName)
+//                .putString("mSubjectName", mSubjectName)
+//                .putString("mLevelSetName", mLevelSetName)
                 .putString("username", username)
                 .apply();
 
@@ -202,7 +208,7 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.gravity = Gravity.CENTER_VERTICAL;
 
-        for( Level level: Levels.getLevels(mLevelSetName)) {
+        for( Level level: Levels.getLevels(mSubject.getLevelset())) {
 
             LinearLayout levelrow = new LinearLayout(this);
             levelrow.setOrientation(LinearLayout.HORIZONTAL);
@@ -256,15 +262,15 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(this, mTargetActivity);
+        Intent intent = new Intent(this, mSubject.getActivityclass());
         if ((int) view.getTag() != -1) {
             intent.putExtra(SubjectBaseActivity.START_AT_ZERO, true);
             intent.putExtra(SubjectBaseActivity.LEVELNUM, (int) view.getTag());
         }
         intent.putExtra(MainActivity.USERNAME, username);
-        intent.putExtra(MainActivity.LEVELSET, mLevelSetName);
         intent.putExtra(MainActivity.SUBJECTCODE, mSubjectCode);
-        intent.putExtra(MainActivity.SUBJECTNAME, mSubjectName);
+//        intent.putExtra(MainActivity.LEVELSET, mLevelSetName);
+//        intent.putExtra(MainActivity.SUBJECTNAME, mSubjectName);
         startActivity(intent);
     }
 

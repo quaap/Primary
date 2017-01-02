@@ -38,6 +38,7 @@ import com.quaap.primary.R;
 import com.quaap.primary.base.component.ActivityWriter;
 import com.quaap.primary.base.component.Keyboard;
 import com.quaap.primary.base.data.AppData;
+import com.quaap.primary.base.data.Subjects;
 import com.quaap.primary.base.data.UserData;
 
 import java.io.IOException;
@@ -70,8 +71,9 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     private int correctInARow = 0;
     private String bonuses;
 
-    private String subject;
-    private String subjectName;
+    private Subjects.Desc mSubject;
+    private String mSubjectCode;
+  //  private String subjectName;
 
     private Level getLevel(int leveln) {
         return levels[leveln];
@@ -87,7 +89,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     private final int layoutId;
 
     private String username;
-    private String levelsetname;
+//    private String levelsetname;
 
     private boolean startover;
 
@@ -134,29 +136,32 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             levelnum = intent.getIntExtra(LEVELNUM, 0);
             //Log.d("base", "intent says levelnum=" + levelnum);
             username = intent.getStringExtra(MainActivity.USERNAME);
-            subject = intent.getStringExtra(MainActivity.SUBJECTCODE);
-            levelsetname = intent.getStringExtra(MainActivity.LEVELSET);
-            subjectName = intent.getStringExtra(MainActivity.SUBJECTNAME);
+            mSubjectCode = intent.getStringExtra(MainActivity.SUBJECTCODE);
+//            levelsetname = intent.getStringExtra(MainActivity.LEVELSET);
+//            subjectName = intent.getStringExtra(MainActivity.SUBJECTNAME);
             startover = intent.getBooleanExtra(START_AT_ZERO, false);
 
         } else {
             levelnum = savedInstanceState.getInt(LEVELNUM, 0);
             //Log.d("base", "savedInstanceState says levelnum=" + levelnum);
             username = savedInstanceState.getString(MainActivity.USERNAME);
-            subject = savedInstanceState.getString(MainActivity.SUBJECTCODE);
-            levelsetname = savedInstanceState.getString(MainActivity.LEVELSET);
-            subjectName = savedInstanceState.getString(MainActivity.SUBJECTNAME);
+            mSubjectCode = savedInstanceState.getString(MainActivity.SUBJECTCODE);
+//            levelsetname = savedInstanceState.getString(MainActivity.LEVELSET);
+//            subjectName = savedInstanceState.getString(MainActivity.SUBJECTNAME);
 
         }
-        levels = Levels.getLevels(levelsetname);
+
+        Subjects subjects = Subjects.getInstance(this);
+        mSubject = subjects.get(mSubjectCode);
+        levels = Levels.getLevels(mSubject.getLevelset());
 
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar!=null) {
-            actionBar.setTitle(getString(R.string.app_name) + ": " + subjectName + " ("+username+")");
+            actionBar.setTitle(getString(R.string.app_name) + ": " + mSubject.getName() + " ("+username+")");
         }
 
-        mSubjectData = AppData.getSubjectForUser(this, username, subject);
+        mSubjectData = AppData.getSubjectForUser(this, username, mSubjectCode);
 
         setContentView(layoutId);
     }
@@ -166,10 +171,10 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         //Log.d("base", "onSaveInstanceState called! levelnum=" + levelnum);
 
         outState.putInt(LEVELNUM, levelnum);
-        outState.putString(MainActivity.SUBJECTCODE, subject);
-        outState.putString(MainActivity.LEVELSET, levelsetname);
+        outState.putString(MainActivity.SUBJECTCODE, mSubjectCode);
         outState.putString(MainActivity.USERNAME, username);
-        outState.putString(MainActivity.SUBJECTNAME, subjectName);
+//        outState.putString(MainActivity.LEVELSET, levelsetname);
+//        outState.putString(MainActivity.SUBJECTNAME, subjectName);
 
         super.onSaveInstanceState(outState);
     }
@@ -181,7 +186,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
         if (hasStorageAccess() && appPreferences.getBoolean("use_csv_preference", true)) {
             try {
-                actwriter = new ActivityWriter(this, username, subject);
+                actwriter = new ActivityWriter(this, username, mSubjectCode);
             } catch (IOException e) {
                 Log.e("Primary", "Could not write file. Not logging user.", e);
             }
