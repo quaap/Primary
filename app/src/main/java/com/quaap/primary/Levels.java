@@ -5,6 +5,8 @@ import com.quaap.primary.base.Level;
 import com.quaap.primary.math.BasicMathLevel;
 import com.quaap.primary.math.MathOp;
 import com.quaap.primary.math.Negatives;
+import com.quaap.primary.math.SortingActivity;
+import com.quaap.primary.math.SortingLevel;
 import com.quaap.primary.partsofspeech.plurals.PluralActivity;
 import com.quaap.primary.partsofspeech.plurals.PluralLevel;
 import com.quaap.primary.spelling.SpellingLevel;
@@ -46,12 +48,15 @@ public class Levels {
             "Math4Levels",
             "Math5Levels",
 
+            "Sorting1Levels",
+
             "Spelling1Levels",
             "Spelling2Levels",
             "Spelling3Levels",
 
             "Plurals1Levels",
             "Plurals2Levels",
+
     };
 
     public static final Class[] ActivityClasses = {
@@ -60,6 +65,8 @@ public class Levels {
             com.quaap.primary.math.BasicMathActivity.class,
             com.quaap.primary.math.BasicMathActivity.class,
             com.quaap.primary.math.BasicMathActivity.class,
+
+            SortingActivity.class,
 
             com.quaap.primary.spelling.SpellingActivity.class,
             com.quaap.primary.spelling.SpellingActivity.class,
@@ -179,6 +186,12 @@ public class Levels {
                      new BasicMathLevel("m5",  MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 100, InputMode.Input)
              },
 
+
+            //Sorting1Levels
+
+            {
+                    new SortingLevel("sr1", 10),
+            },
 
             //Spelling1Levels
             {

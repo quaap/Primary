@@ -29,6 +29,10 @@
             android:name=".math.BasicMathActivity"
             android:parentActivityName=".base.SubjectMenuActivity" />
 
+        <activity
+            android:name=".math.SortingActivity"
+            android:parentActivityName=".base.SubjectMenuActivity" />
+
 
         <activity
             android:name=".spelling.SpellingActivity"
