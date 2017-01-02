@@ -32,7 +32,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.quaap.primary.Levels;
 import com.quaap.primary.MainActivity;
 import com.quaap.primary.R;
 import com.quaap.primary.base.component.ActivityWriter;

@@ -3,7 +3,6 @@ package com.quaap.primary.base.data;
 import android.content.Context;
 
 import com.quaap.primary.Levels;
-import com.quaap.primary.R;
 import com.quaap.primary.base.Level;
 
 import java.util.ArrayList;

@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.quaap.primary.Levels;
 import com.quaap.primary.MainActivity;
 import com.quaap.primary.R;
 import com.quaap.primary.base.data.AppData;
