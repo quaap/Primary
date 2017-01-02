@@ -2,7 +2,7 @@ package com.quaap.primary.math;
 
 import android.content.ClipData;
 import android.graphics.Color;
-import android.util.Log;
+
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.quaap.primary.R;
 import com.quaap.primary.base.StdGameActivity;
-import com.quaap.primary.base.SubjectBaseActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -121,9 +120,11 @@ public class SortingActivity extends StdGameActivity implements
         }
         problemDone = false;
         moves = 0;
+        int n = level.getNumItems()*200;
+        setFasttimes(400 + n, 1000 + n, 2000 + n);
     }
 
-    private int bgColorOrig;
+
 
     @Override
     public boolean onDrag(View view, DragEvent event) {
