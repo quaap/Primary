@@ -89,7 +89,7 @@ public class SortingActivity extends StdGameActivity implements
 
         int mlen = (level.getMaxNum()+"").length();
 
-        int tsize = 38-mlen*2;
+        int tsize = 34-mlen*2;
 
         for(int num: numlist){
             final String numstr = num + "";
@@ -103,7 +103,7 @@ public class SortingActivity extends StdGameActivity implements
 
             item.setMaxLines(1);
             item.setTextSize(tsize);
-            item.setWidth(tsize*5);
+            item.setWidth(28+tsize*4);
             //item.setEms(mlen);
 
             item.setGravity(Gravity.END);
@@ -114,7 +114,7 @@ public class SortingActivity extends StdGameActivity implements
             lp.setGravity(Gravity.CENTER);
             item.setLayoutParams(lp);
             item.setBackgroundColor(BACKGROUND_COLOR);
-            item.setPadding(24, 4, 24, 4);
+            item.setPadding(16, 4, 16, 4);
 
             sortArea.addView(item);
         }
