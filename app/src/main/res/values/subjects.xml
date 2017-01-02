@@ -24,8 +24,16 @@
     <string name="subjectm5_desc">Everything!</string>
 
     <string name="subjectm6_code">M6</string>
-    <string name="subjectm6_name">Sorting 1</string>
-    <string name="subjectm6_desc">Sorting</string>
+    <string name="subjectm6_name">Sorting 0-9</string>
+    <string name="subjectm6_desc">Sorting 1 digit numbers</string>
+
+    <string name="subjectm7_code">M7</string>
+    <string name="subjectm7_name">Sorting 0-99</string>
+    <string name="subjectm7_desc">Sorting 2 digit numbers</string>
+
+    <string name="subjectm8_code">M8</string>
+    <string name="subjectm8_name">Sorting 0-999</string>
+    <string name="subjectm8_desc">Sorting 3 digit numbers</string>
 
     <string name="subjectsp1_code">Sp1</string>
     <string name="subjectsp1_name">Spelling 1–6</string>

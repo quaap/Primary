@@ -3,15 +3,19 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <TextView
+        android:text="Sort the values"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sort_area"
-        android:background="@android:color/holo_orange_light"
-        android:paddingEnd="24dp"
-        android:paddingStart="24dp">
+        android:id="@+id/sort_label"
+        android:gravity="center_horizontal"
+        android:textSize="24sp" />
 
-    </LinearLayout>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sort_area">
+
+    </GridLayout>
 
 </LinearLayout>

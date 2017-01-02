@@ -148,10 +148,43 @@ public class Levels {
                                 new BasicMathLevel("m5",  MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 100, InputMode.Input)
                         }),
 
+
+
                 new Subjects.Desc(context, R.string.subjectm6_code, R.string.subjectm6_name, R.string.subjectm6_desc,
                         SortingActivity.class,
                         new Level[] {
-                                new SortingLevel("sr1", 10),
+                                new SortingLevel("sr1", 3, 9, 10),
+                                new SortingLevel("sr1", 4, 9, 10),
+                                new SortingLevel("sr1", 5, 9, 10),
+                                new SortingLevel("sr1", 6, 9, 10),
+                                new SortingLevel("sr1", 7, 9, 10),
+                                new SortingLevel("sr1", 8, 9, 10),
+                                new SortingLevel("sr1", 9, 9, 10),
+                        }),
+
+
+                new Subjects.Desc(context, R.string.subjectm7_code, R.string.subjectm7_name, R.string.subjectm7_desc,
+                        SortingActivity.class,
+                        new Level[] {
+                                new SortingLevel("sr2", 3, 99, 10),
+                                new SortingLevel("sr2", 4, 99, 10),
+                                new SortingLevel("sr2", 5, 99, 10),
+                                new SortingLevel("sr2", 6, 99, 10),
+                                new SortingLevel("sr2", 7, 99, 10),
+                                new SortingLevel("sr2", 8, 99, 10),
+                                new SortingLevel("sr2", 9, 99, 10),
+                        }),
+
+                new Subjects.Desc(context, R.string.subjectm8_code, R.string.subjectm8_name, R.string.subjectm8_desc,
+                        SortingActivity.class,
+                        new Level[] {
+                                new SortingLevel("sr3", 3, 999, 10),
+                                new SortingLevel("sr3", 4, 999, 10),
+                                new SortingLevel("sr3", 5, 999, 10),
+                                new SortingLevel("sr3", 6, 999, 10),
+                                new SortingLevel("sr3", 7, 999, 10),
+                                new SortingLevel("sr3", 8, 999, 10),
+                                new SortingLevel("sr3", 9, 999, 10),
                         }),
 
 

@@ -16,4 +16,4 @@ package com.quaap.primary.base.component;
  * GNU General Public License for more details.
  */
 
-public enum InputMode {Buttons, Input}
+public enum InputMode {None, Buttons, Input}
