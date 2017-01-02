@@ -3,57 +3,57 @@
 
     <!-- The levels are defined in Levels.java.  These are the strings for translation. -->
 
-    <string name="subjectm1_code">M1</string>
-    <string name="subjectm1_name">Math +-25</string>
-    <string name="subjectm1_desc">Plus and Minus. Numbers up to 25.</string>
+    <string name="subject_m1_code">M1</string>
+    <string name="subject_m1_name">Math +-25</string>
+    <string name="subject_m1_desc">Plus and Minus. Numbers up to 25.</string>
 
-    <string name="subjectm2_code">M2</string>
-    <string name="subjectm2_name">Math ×÷12</string>
-    <string name="subjectm2_desc">Times and Divide. Numbers up to 12.</string>
+    <string name="subject_m2_code">M2</string>
+    <string name="subject_m2_name">Math ×÷12</string>
+    <string name="subject_m2_desc">Times and Divide. Numbers up to 12.</string>
 
-    <string name="subjectm3_code">M3</string>
-    <string name="subjectm3_name">-Math +-25</string>
-    <string name="subjectm3_desc">Plus and Minus. Numbers -25 to 25.</string>
+    <string name="subject_m3_code">M3</string>
+    <string name="subject_m3_name">-Math +-25</string>
+    <string name="subject_m3_desc">Plus and Minus. Numbers -25 to 25.</string>
 
-    <string name="subjectm4_code">M4</string>
-    <string name="subjectm4_name">-Math ×÷12</string>
-    <string name="subjectm4_desc">Times and Divide. Numbers -12 to 12.</string>
+    <string name="subject_m4_code">M4</string>
+    <string name="subject_m4_name">-Math ×÷12</string>
+    <string name="subject_m4_desc">Times and Divide. Numbers -12 to 12.</string>
 
-    <string name="subjectm5_code">M5</string>
-    <string name="subjectm5_name">Lotta math</string>
-    <string name="subjectm5_desc">Everything!</string>
+    <string name="subject_m5_code">M5</string>
+    <string name="subject_m5_name">Lotta math</string>
+    <string name="subject_m5_desc">Everything!</string>
 
-    <string name="subjectm6_code">M6</string>
-    <string name="subjectm6_name">Sorting 0-9</string>
-    <string name="subjectm6_desc">Sorting 1 digit numbers</string>
+    <string name="subject_m6_code">M6</string>
+    <string name="subject_m6_name">Sorting 0-9</string>
+    <string name="subject_m6_desc">Sorting 1 digit numbers</string>
 
-    <string name="subjectm7_code">M7</string>
-    <string name="subjectm7_name">Sorting 0-99</string>
-    <string name="subjectm7_desc">Sorting 2 digit numbers</string>
+    <string name="subject_m7_code">M7</string>
+    <string name="subject_m7_name">Sorting 0-99</string>
+    <string name="subject_m7_desc">Sorting 2 digit numbers</string>
 
-    <string name="subjectm8_code">M8</string>
-    <string name="subjectm8_name">Sorting 0-999</string>
-    <string name="subjectm8_desc">Sorting 3 digit numbers</string>
+    <string name="subject_m8_code">M8</string>
+    <string name="subject_m8_name">Sorting 0-999</string>
+    <string name="subject_m8_desc">Sorting 3 digit numbers</string>
 
-    <string name="subjectsp1_code">Sp1</string>
-    <string name="subjectsp1_name">Spelling 1–6</string>
-    <string name="subjectsp1_desc">Spelling words 1 to 5 letters long</string>
+    <string name="subject_sp1_code">Sp1</string>
+    <string name="subject_sp1_name">Spelling 1–6</string>
+    <string name="subject_sp1_desc">Spelling words 1 to 5 letters long</string>
 
-    <string name="subjectsp2_code">Sp2</string>
-    <string name="subjectsp2_name">Spelling 6–8</string>
-    <string name="subjectsp2_desc">Spelling words 6 to 8 letters long</string>
+    <string name="subject_sp2_code">Sp2</string>
+    <string name="subject_sp2_name">Spelling 6–8</string>
+    <string name="subject_sp2_desc">Spelling words 6 to 8 letters long</string>
 
-    <string name="subjectsp3_code">Sp3</string>
-    <string name="subjectsp3_name">Spelling 9+</string>
-    <string name="subjectsp3_desc">Spelling words 9+ letters long</string>
+    <string name="subject_sp3_code">Sp3</string>
+    <string name="subject_sp3_name">Spelling 9+</string>
+    <string name="subject_sp3_desc">Spelling words 9+ letters long</string>
 
-    <string name="subjecteng1_code">Eng1</string>
-    <string name="subjecteng1_name">Plurals 1</string>
-    <string name="subjecteng1_desc">English plurals 1</string>
+    <string name="subject_eng1_code">Eng1</string>
+    <string name="subject_eng1_name">Plurals 1</string>
+    <string name="subject_eng1_desc">English plurals 1</string>
 
-    <string name="subjecteng2_code">Eng2</string>
-    <string name="subjecteng2_name">Plurals 2</string>
-    <string name="subjecteng2_desc">English plurals 2</string>
+    <string name="subject_eng2_code">Eng2</string>
+    <string name="subject_eng2_name">Plurals 2</string>
+    <string name="subject_eng2_desc">English plurals 2</string>
 
 
 </resources>

@@ -2,6 +2,7 @@ package com.quaap.primary.math;
 
 import android.content.Context;
 
+import com.quaap.primary.R;
 import com.quaap.primary.base.StdLevel;
 import com.quaap.primary.base.component.InputMode;
 
@@ -39,11 +40,11 @@ public class SortingLevel extends StdLevel{
 
     @Override
     public String getDescription(Context context) {
-        return null;
+        return context.getString(R.string.sort_desc, mNumItems, mMaxNum);
     }
 
     @Override
     public String getShortDescription(Context context) {
-        return null;
+        return context.getString(R.string.sort_sdesc, mNumItems, mMaxNum);
     }
 }

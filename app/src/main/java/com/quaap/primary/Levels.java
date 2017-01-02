@@ -37,8 +37,8 @@ public class Levels {
 
 
     public static Subjects.Desc [] getSubjectInstances(Context context) {
-        Subjects.Desc [] subjects = new Subjects.Desc [] {
-                new Subjects.Desc(context, R.string.subjectm1_code, R.string.subjectm1_name, R.string.subjectm1_desc,
+        Subjects.Desc [] subject = new Subjects.Desc [] {
+                new Subjects.Desc(context, R.string.subject_m1_code, R.string.subject_m1_name, R.string.subject_m1_desc,
                         BasicMathActivity.class,
                         new Level[] {
 
@@ -64,7 +64,7 @@ public class Levels {
                         }),
 
 
-                new Subjects.Desc(context, R.string.subjectm2_code, R.string.subjectm2_name, R.string.subjectm2_desc,
+                new Subjects.Desc(context, R.string.subject_m2_code, R.string.subject_m2_name, R.string.subject_m2_desc,
                         BasicMathActivity.class,
                         new Level[] {
                                 new BasicMathLevel("m2", MathOp.Times, 5, 10, InputMode.Buttons),
@@ -88,7 +88,7 @@ public class Levels {
                         }),
 
 
-                new Subjects.Desc(context, R.string.subjectm3_code, R.string.subjectm3_name, R.string.subjectm3_desc,
+                new Subjects.Desc(context, R.string.subject_m3_code, R.string.subject_m3_name, R.string.subject_m3_desc,
                         BasicMathActivity.class,
                         new Level[] {
                                 //  Same levels, but now with negatives
@@ -117,7 +117,7 @@ public class Levels {
                         }),
 
 
-                new Subjects.Desc(context, R.string.subjectm4_code, R.string.subjectm4_name, R.string.subjectm4_desc,
+                new Subjects.Desc(context, R.string.subject_m4_code, R.string.subject_m4_name, R.string.subject_m4_desc,
                         BasicMathActivity.class,
                         new Level[] {
                                 new BasicMathLevel("m4", MathOp.Times, 5, Negatives.Required, 10, InputMode.Buttons),
@@ -141,7 +141,7 @@ public class Levels {
                                 new BasicMathLevel("m4", MathOp.Divide, MathOp.Times, 12, Negatives.Allowed, 20, InputMode.Input),
                         }),
 
-                new Subjects.Desc(context, R.string.subjectm5_code, R.string.subjectm5_name, R.string.subjectm5_desc,
+                new Subjects.Desc(context, R.string.subject_m5_code, R.string.subject_m5_name, R.string.subject_m5_desc,
                         BasicMathActivity.class,
                         new Level[] {
                                 new BasicMathLevel("m5",  MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 100, InputMode.Buttons),
@@ -150,7 +150,7 @@ public class Levels {
 
 
 
-                new Subjects.Desc(context, R.string.subjectm6_code, R.string.subjectm6_name, R.string.subjectm6_desc,
+                new Subjects.Desc(context, R.string.subject_m6_code, R.string.subject_m6_name, R.string.subject_m6_desc,
                         SortingActivity.class,
                         new Level[] {
                                 new SortingLevel("sr1", 3, 9, 10),
@@ -163,7 +163,7 @@ public class Levels {
                         }),
 
 
-                new Subjects.Desc(context, R.string.subjectm7_code, R.string.subjectm7_name, R.string.subjectm7_desc,
+                new Subjects.Desc(context, R.string.subject_m7_code, R.string.subject_m7_name, R.string.subject_m7_desc,
                         SortingActivity.class,
                         new Level[] {
                                 new SortingLevel("sr2", 3, 99, 10),
@@ -175,7 +175,7 @@ public class Levels {
                                 new SortingLevel("sr2", 9, 99, 10),
                         }),
 
-                new Subjects.Desc(context, R.string.subjectm8_code, R.string.subjectm8_name, R.string.subjectm8_desc,
+                new Subjects.Desc(context, R.string.subject_m8_code, R.string.subject_m8_name, R.string.subject_m8_desc,
                         SortingActivity.class,
                         new Level[] {
                                 new SortingLevel("sr3", 3, 999, 10),
@@ -189,7 +189,7 @@ public class Levels {
 
 
 
-                new Subjects.Desc(context, R.string.subjectsp1_code, R.string.subjectsp1_name, R.string.subjectsp1_desc,
+                new Subjects.Desc(context, R.string.subject_sp1_code, R.string.subject_sp1_name, R.string.subject_sp1_desc,
                         SpellingActivity.class,
                         new Level[] {
                                 new SpellingLevel("sp1",R.array.spelling_words_1b, 3, 20, InputMode.Buttons),
@@ -201,7 +201,7 @@ public class Levels {
                         }),
 
 
-                new Subjects.Desc(context, R.string.subjectsp2_code, R.string.subjectsp2_name, R.string.subjectsp2_desc,
+                new Subjects.Desc(context, R.string.subject_sp2_code, R.string.subject_sp2_name, R.string.subject_sp2_desc,
                         SpellingActivity.class,
                         new Level[] {
                                 new SpellingLevel("sp2",R.array.spelling_words_1e, 6, 20, InputMode.Buttons),
@@ -213,7 +213,7 @@ public class Levels {
                         }),
 
 
-                new Subjects.Desc(context, R.string.subjectsp3_code, R.string.subjectsp3_name, R.string.subjectsp3_desc,
+                new Subjects.Desc(context, R.string.subject_sp3_code, R.string.subject_sp3_name, R.string.subject_sp3_desc,
                         SpellingActivity.class,
                         new Level[] {
                                 new SpellingLevel("sp3",R.array.spelling_words_1h, 9, 20, InputMode.Buttons),
@@ -226,7 +226,7 @@ public class Levels {
                                 new SpellingLevel("sp3",R.array.spelling_words_1j, 18, 30, InputMode.Buttons),
                         }),
 
-                new Subjects.Desc(context, R.string.subjecteng1_code, R.string.subjecteng1_name, R.string.subjecteng1_desc,
+                new Subjects.Desc(context, R.string.subject_eng1_code, R.string.subject_eng1_name, R.string.subject_eng1_desc,
                         PluralActivity.class,
                         new Level[] {
                                 new PluralLevel("pl1", 4, 20, InputMode.Buttons),
@@ -237,7 +237,7 @@ public class Levels {
                                 new PluralLevel("pl1", 8, 10, InputMode.Input),
                         }),
 
-                new Subjects.Desc(context, R.string.subjecteng2_code, R.string.subjecteng2_name, R.string.subjecteng2_desc,
+                new Subjects.Desc(context, R.string.subject_eng2_code, R.string.subject_eng2_name, R.string.subject_eng2_desc,
                         PluralActivity.class,
                         new Level[] {
                                 new PluralLevel("pl2", 10, 20, InputMode.Buttons),
@@ -253,7 +253,7 @@ public class Levels {
         };
 
 
-        return  subjects;
+        return  subject;
     }
 
 }

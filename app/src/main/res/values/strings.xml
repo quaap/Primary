@@ -81,6 +81,8 @@
     <string name="total_score">Total: %d</string>
     <string name="what_is_the_plural">What is the plural?</string>
     <string name="in_a_row">%d in a row!</string>
+    <string name="sort_desc">%1$d items. Values up to %2$d.</string>
+    <string name="sort_sdesc">x%1$d. Mx%2$d</string>
 
 
 </resources>
