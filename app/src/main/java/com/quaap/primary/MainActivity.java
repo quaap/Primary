@@ -128,7 +128,7 @@ public class MainActivity extends CommonBaseActivity {
     }
 
     private void updateSubjectList() {
-        String [] subcodes = subjectDescs.getCodes().toArray(new String[0]);
+        final String [] subcodes = subjectDescs.getCodes().toArray(new String[0]);
         if (subjectlist!=null) {
             subjectlist.clear();
             subjectlist.populate(subcodes);
@@ -145,7 +145,7 @@ public class MainActivity extends CommonBaseActivity {
                 protected void populateItem(String key, ViewGroup item, int i) {
                     setItemTextField(item, R.id.subjectview_code, key);
 
-                    setItemTextField(item, R.id.subjectview_name, getResources().getStringArray(R.array.subjectsName)[i]);
+                    setItemTextField(item, R.id.subjectview_name, subjectDescs.get(i).getName());
 
                     String username = userlist.getSelected();
                     if (username!=null) {
@@ -165,11 +165,17 @@ public class MainActivity extends CommonBaseActivity {
             if (sub == null) {
                 sub = subjectDescs.get(0).getCode();
             } else if (getIntent().getBooleanExtra(LEVELSETDONE, false)) {
-                getIntent().removeExtra(LEVELSETDONE);
-                int pos = subjectDescs.get(sub).getPos();
-                if (pos + 1 < subjectDescs.getCount()) {
-                    sub = subjectDescs.get(pos + 1).getCode();
+                String subnext = subjectDescs.getNextCode(sub);
+                if (subnext!=null) {
+                    sub = subnext;
                 }
+
+//                getIntent().removeExtra(LEVELSETDONE);
+
+//                int pos = subjectDescs.get(sub);
+//                if (pos + 1 < subjectDescs.getCount()) {
+//                    sub = subjectDescs.get(pos + 1).getCode();
+//                }
             }
             subjectlist.setSelected(sub);
             setSubjectDesc(sub);

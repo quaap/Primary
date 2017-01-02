@@ -183,7 +183,7 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.gravity = Gravity.CENTER_VERTICAL;
 
-        for( Level level: Levels.getLevels(mSubject.getLevelset())) {
+        for( Level level: mSubject.getLevels()) {
 
             LinearLayout levelrow = new LinearLayout(this);
             levelrow.setOrientation(LinearLayout.HORIZONTAL);

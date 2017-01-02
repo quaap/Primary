@@ -151,7 +151,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
         Subjects subjects = Subjects.getInstance(this);
         mSubject = subjects.get(mSubjectCode);
-        levels = Levels.getLevels(mSubject.getLevelset());
+        levels = mSubject.getLevels();
 
 
         ActionBar actionBar = getSupportActionBar();

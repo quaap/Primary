@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.quaap.primary.Levels;
 import com.quaap.primary.R;
+import com.quaap.primary.base.Level;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,29 +41,36 @@ public class Subjects {
 
     private Desc[] subjects;
     private Map<String, Desc> subjectMap = new HashMap<>();
+    private List<String> codes = new ArrayList<>();
 
     public Subjects(Context context) {
         subjects = loadSubjects(context);
         for(Desc subject: subjects) {
             subjectMap.put(subject.getCode(), subject);
+            codes.add(subject.getCode());
         }
     }
 
     public List<String> getCodes() {
-        List<String> codes = new ArrayList<>();
-        for (Desc d: subjects) {
-            codes.add(d.code);
-        }
+
         return codes;
+    }
+
+    public String getNextCode(String code) {
+        int pos= codes.indexOf(code);
+        if (pos+1<codes.size()) {
+            return codes.get(pos+1);
+        }
+        return null;
     }
 
     public int getCount() {
         return subjects.length;
     }
 
-    private static String[] getArray(Context context, int arrayid) {
-        return context.getResources().getStringArray(arrayid);
-    }
+//    private static String[] getArray(Context context, int arrayid) {
+//        return context.getResources().getStringArray(arrayid);
+//    }
 
     public Desc get(String code) {
         return subjectMap.get(code);
@@ -73,45 +81,55 @@ public class Subjects {
     }
 
     public static Desc[] loadSubjects(Context context) {
-        String[] codes = getArray(context, R.array.subjects);
-        Desc[] subjects = new Desc[codes.length];
-        for (int i = 0; i < codes.length; i++) {
-            subjects[i] = new Desc(context, i);
-        }
-        return subjects;
+//        String[] codes = getArray(context, R.array.subjects);
+//        Desc[] subjects = new Desc[codes.length];
+//        for (int i = 0; i < codes.length; i++) {
+//           // subjects[i] = new Desc(context, i);
+//        }
+        return Levels.getSubjectInstances(context);
     }
 
     public static class Desc {
-        private int pos;
+      //  private int pos;
         private String code;
         private String name;
         private String desc;
         private Class activityclass;
-        private String levelset;
+       // private String levelset;
 
-        public Desc(Context context, int pos) {
-            this.setPos(pos);
-            this.setCode(getString(context, R.array.subjects, pos));
-            this.setName(getString(context, R.array.subjectsName, pos));
-            this.setDesc(getString(context, R.array.subjectDescs, pos));
-            //this.setActivityclass(getString(context, R.array.subjectsActivity, pos));
-            //this.setLevelset(getString(context, R.array.subjectsLevelset, pos));
-            this.setActivityclass(Levels.ActivityClasses[pos]);
-            this.setLevelset(Levels.LevelSetNames[pos]);
+        private Level[] levels;
+
+        public Desc(Context context, int code, int name, int desc, Class activityClass, Level[] levels) {
+            this.setCode(context.getString(code));
+            this.setName(context.getString(name));
+            this.setDesc(context.getString(desc));
+            this.setActivityclass(activityClass);
+            this.levels = levels;
+
         }
 
-        private String getString(Context context, int id, int pos) {
-            return getArray(context, id)[pos];
-        }
+//        public Desc(Context context, int pos) {
+//            this.setPos(pos);
+//            this.setCode(getString(context, R.array.subjects, pos));
+//            this.setName(getString(context, R.array.subjectsName, pos));
+//            this.setDesc(getString(context, R.array.subjectDescs, pos));
+//
+//            this.setActivityclass(Levels.ActivityClasses[pos]);
+//            this.setLevelset(Levels.LevelSetNames[pos]);
+//        }
 
-
-        public int getPos() {
-            return pos;
-        }
-
-        public void setPos(int pos) {
-            this.pos = pos;
-        }
+//        private String getString(Context context, int id, int pos) {
+//            return getArray(context, id)[pos];
+//        }
+//
+//
+//        public int getPos() {
+//            return pos;
+//        }
+//
+//        public void setPos(int pos) {
+//            this.pos = pos;
+//        }
 
         public String getCode() {
             return code;
@@ -145,12 +163,16 @@ public class Subjects {
             this.activityclass = activityclass;
         }
 
-        public String getLevelset() {
-            return levelset;
+        public Level[] getLevels() {
+            return levels;
         }
 
-        public void setLevelset(String levelset) {
-            this.levelset = levelset;
-        }
+//        public String getLevelset() {
+//            return levelset;
+//        }
+//
+//        public void setLevelset(String levelset) {
+//            this.levelset = levelset;
+//        }
     }
 }
