@@ -68,6 +68,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     private long starttime = System.currentTimeMillis();
     private ActivityWriter actwriter;
     private int correctInARow = 0;
+    private boolean useInARow = true;
     private String bonuses;
 
     private Subjects.Desc mSubject;
@@ -721,12 +722,15 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             points *= 1.5;
         }
 
-        int crbonus = (int)Math.sqrt(correctInARow);
-        if (crbonus>1) {
-            if (bonuses==null) bonuses = "\n"; else bonuses += "\n";
-            bonuses += getString(R.string.in_a_row, correctInARow) +  " ×" + crbonus;
+        if (useInARow) {
+            int crbonus = (int) Math.sqrt(correctInARow);
+            if (crbonus > 1) {
+                if (bonuses == null) bonuses = "\n";
+                else bonuses += "\n";
+                bonuses += getString(R.string.in_a_row, correctInARow) + " ×" + crbonus;
 
-            points *= crbonus;
+                points *= crbonus;
+            }
         }
 
         return points;
@@ -811,4 +815,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         return size;
     }
 
+    protected void setUseInARow(boolean use) {
+        useInARow = use;
+    }
 }
