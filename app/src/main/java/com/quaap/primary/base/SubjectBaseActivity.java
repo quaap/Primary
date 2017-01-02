@@ -54,7 +54,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     public static final String LEVELNUM = "levelnum";
     public static final String START_AT_ZERO = "startover";
-    //protected BasicMathLevel[] levels;
+
 
     private UserData.Subject mSubjectData;
 
@@ -73,7 +73,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     private Subjects.Desc mSubject;
     private String mSubjectCode;
-  //  private String subjectName;
+
 
     private Level getLevel(int leveln) {
         return levels[leveln];
@@ -89,7 +89,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     private final int layoutId;
 
     private String username;
-//    private String levelsetname;
+
 
     private boolean startover;
 
@@ -137,8 +137,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             //Log.d("base", "intent says levelnum=" + levelnum);
             username = intent.getStringExtra(MainActivity.USERNAME);
             mSubjectCode = intent.getStringExtra(MainActivity.SUBJECTCODE);
-//            levelsetname = intent.getStringExtra(MainActivity.LEVELSET);
-//            subjectName = intent.getStringExtra(MainActivity.SUBJECTNAME);
+
             startover = intent.getBooleanExtra(START_AT_ZERO, false);
 
         } else {
@@ -146,8 +145,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             //Log.d("base", "savedInstanceState says levelnum=" + levelnum);
             username = savedInstanceState.getString(MainActivity.USERNAME);
             mSubjectCode = savedInstanceState.getString(MainActivity.SUBJECTCODE);
-//            levelsetname = savedInstanceState.getString(MainActivity.LEVELSET);
-//            subjectName = savedInstanceState.getString(MainActivity.SUBJECTNAME);
+
 
         }
 
@@ -173,8 +171,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         outState.putInt(LEVELNUM, levelnum);
         outState.putString(MainActivity.SUBJECTCODE, mSubjectCode);
         outState.putString(MainActivity.USERNAME, username);
-//        outState.putString(MainActivity.LEVELSET, levelsetname);
-//        outState.putString(MainActivity.SUBJECTNAME, subjectName);
+
 
         super.onSaveInstanceState(outState);
     }
@@ -235,7 +232,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         mSubjectData.setCorrectInARow(correctInARow);
         mSubjectData.setTotalPoints(tscore);
         mSubjectData.setTodayPoints(todaysScore);
-        //mSubjectData.setToday(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
+
         mSubjectData.setPopUpShown(levelCompletePopup!=null);
 
         mSubjectData.saveValue("seenProblems", seenProblems);
@@ -330,19 +327,6 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     protected static int INPUTTYPE_TEXT = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_CLASS_TEXT;
     protected static int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED  | InputType.TYPE_NUMBER_FLAG_DECIMAL;
-
-//    protected void makeInputBox(ViewGroup answerlayout, final AnswerTypedListener listener) {
-//        makeInputBox(answerlayout, listener, INPUTTYPE_TEXT, 0, 18);
-//    }
-//
-//    protected void makeInputBox(ViewGroup answerlayout, final AnswerTypedListener listener, int emwidth) {
-//        makeInputBox(answerlayout, listener, INPUTTYPE_TEXT, emwidth, 18);
-//    }
-//
-//
-//    protected void makeInputBox(final ViewGroup answerlayout, final AnswerTypedListener listener, int inputttpe, int emwidth, float fontsize) {
-//        makeInputBox(answerlayout, null, listener, inputttpe, emwidth, fontsize);
-//    }
 
     protected void makeInputBox(final ViewGroup answerlayout, final ViewGroup keypadarea, final AnswerTypedListener listener, int inputttpe, int emwidth, float fontsize) {
         makeInputBox(answerlayout, keypadarea, listener, inputttpe, emwidth, fontsize, null);
@@ -453,7 +437,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             } else {
                 ansbutt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             }
-           // ansbutt.setWidth((int)(ansbutt.getTextSize()*choice.toString().length()*3));
+
             ansbutt.setAllCaps(false);
             String text = choice.toString();
             ansbutt.setText(text.substring(0,1).toUpperCase(Locale.getDefault()) + (text.length()>1?text.substring(1):""));
@@ -644,11 +628,6 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         int width = size.x;
         int height = size.y;
 
-        //int width = 400;
-        //int height = 300;
-
-
-       // levelCompletePopup = new PopupWindow(levelcompleteView, levelcompleteView.getWidth(), levelcompleteView.getHeight());
         levelCompletePopup = new PopupWindow(levelcompleteView, width, height, true);
 
         View no_more_levels_txt = levelcompleteView.findViewById(R.id.no_more_levels_txt);
@@ -692,9 +671,6 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             });
         }
 
-
-//        int width = wwidth - wwidth/6;
-//        int height = width/2;
 
         levelcompleteView.post(new Runnable() {
             public void run() {

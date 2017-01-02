@@ -188,9 +188,7 @@ public class MainActivity extends CommonBaseActivity {
                 Subjects.Desc subject = subjectDescs.get(code);
                 try {
                     Intent intent = new Intent(MainActivity.this, SubjectMenuActivity.class);
-                    //intent.putExtra(LEVELSET, subject.getLevelset());
                     intent.putExtra(SUBJECTCODE, code);
-                  // intent.putExtra(SUBJECTNAME, subject.getName());
                     intent.putExtra(USERNAME, userlist.getSelected());
 
                     startActivity(intent);
