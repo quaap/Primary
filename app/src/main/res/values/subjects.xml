@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Subjects. Part is here and the levelsets are defined in Levels.java -->
+    <!-- SubjectsOld. Part is here and the levelsets are defined in Levels.java -->
+
+    <string name="m1_name">Math 1</string>
+    <string name="m1_description">Math description</string>
 
     <!-- The subject code. Should be 4-6 chars at most-->
     <string-array name="subjects">

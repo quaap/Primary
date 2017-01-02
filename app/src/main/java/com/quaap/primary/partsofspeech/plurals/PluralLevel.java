@@ -5,6 +5,8 @@ import android.content.Context;
 import com.quaap.primary.base.StdLevel;
 import com.quaap.primary.base.component.InputMode;
 
+import java.util.Map;
+
 /**
  * Created by tom on 12/18/16.
  * <p>
@@ -37,8 +39,13 @@ public class PluralLevel extends StdLevel {
         mMaxwordlength = maxwordlength;
 
     }
+    protected PluralLevel(String subjectkey, Map<String,String> initMap) {
+        super(subjectkey, initMap);
+        mMinwordlength = Integer.parseInt(initMap.get("minwordlength"));
+        mMaxwordlength = Integer.parseInt(initMap.get("maxwordlength"));
+    }
 
-    @Override
+        @Override
     public String getDescription(Context context) {
         return "Length: " + mMaxwordlength + ". " + (getInputMode()==InputMode.Buttons ? "Multiple choice" : "Keyboard");
     }

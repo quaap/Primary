@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.quaap.primary.base.CommonBaseActivity;
 import com.quaap.primary.base.data.AppData;
-import com.quaap.primary.base.data.Subjects;
+import com.quaap.primary.base.data.SubjectsOld;
 import com.quaap.primary.base.data.UserData;
 
 import java.util.Map;
@@ -17,7 +17,7 @@ public class ScoresActivity extends CommonBaseActivity {
 
     private AppData mAppdata;
 
-    private Subjects subjects;
+    private SubjectsOld subjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class ScoresActivity extends CommonBaseActivity {
 
         LinearLayout list = (LinearLayout) findViewById(R.id.scores_list);
 
-        subjects = Subjects.getInstance(this);
+        subjects = SubjectsOld.getInstance(this);
 
         mAppdata = AppData.getAppData(this);
 

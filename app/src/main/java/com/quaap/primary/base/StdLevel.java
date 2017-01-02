@@ -2,6 +2,8 @@ package com.quaap.primary.base;
 
 import com.quaap.primary.base.component.InputMode;
 
+import java.util.Map;
+
 /**
  * Created by tom on 12/31/16.
  * <p>
@@ -19,6 +21,11 @@ import com.quaap.primary.base.component.InputMode;
  */
 public abstract class StdLevel extends Level {
     private InputMode mInputMode;
+
+    protected StdLevel(String subjectkey, Map<String,String> initMap) {
+        super(subjectkey, initMap);
+        mInputMode = InputMode.valueOf(initMap.get("inputMode"));
+    }
 
     public StdLevel(String subjectkey, int rounds, InputMode mInputMode) {
         super(subjectkey, rounds);

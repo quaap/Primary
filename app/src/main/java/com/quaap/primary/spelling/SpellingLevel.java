@@ -5,6 +5,8 @@ import android.content.Context;
 import com.quaap.primary.base.StdLevel;
 import com.quaap.primary.base.component.InputMode;
 
+import java.util.Map;
+
 /**
  * Created by tom on 12/18/16.
  * <p>
@@ -22,7 +24,8 @@ import com.quaap.primary.base.component.InputMode;
  */
 public class SpellingLevel extends StdLevel {
 
-    private int mWordlistId;
+    private int mWordlistId = -1;
+    private String mWordlistKey;
     private int mMaxwordlength;
 
 
@@ -31,6 +34,13 @@ public class SpellingLevel extends StdLevel {
         mWordlistId = wordlistid;
         mMaxwordlength = maxwordlength;
 
+    }
+
+    protected SpellingLevel(String subjectkey, Map<String,String> initMap) {
+        super(subjectkey, initMap);
+
+        mWordlistKey = initMap.get("wordlistKey");
+        mMaxwordlength = Integer.parseInt(initMap.get("maxwordlength"));
     }
 
     @Override
@@ -43,7 +53,10 @@ public class SpellingLevel extends StdLevel {
         return "Wl: " + mMaxwordlength;
     }
 
-    public int getmWordlistId() {
+    public int getmWordlistId(Context context) {
+        if (mWordlistId==-1) {
+            mWordlistId = context.getResources().getIdentifier(mWordlistKey, "string","com.quaap.primary");
+        }
         return mWordlistId;
     }
 

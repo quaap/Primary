@@ -6,6 +6,8 @@ import com.quaap.primary.R;
 import com.quaap.primary.base.StdLevel;
 import com.quaap.primary.base.component.InputMode;
 
+import java.util.Map;
+
 public class BasicMathLevel extends StdLevel {
 
     private final MathOp mMaxMathOp;
@@ -30,6 +32,16 @@ public class BasicMathLevel extends StdLevel {
         mMaxNum = maxNum;
         mNegatives = negatives;
 
+    }
+
+    protected BasicMathLevel(String subjectkey, Map<String,String> initMap) {
+        super(subjectkey, initMap);
+        mMaxMathOp = MathOp.valueOf(initMap.get("maxMathOp"));
+        String minMath = initMap.get("minMathOp");
+        mMinMathOp = minMath==null ? mMaxMathOp : MathOp.valueOf(minMath);
+        mMaxNum = Integer.parseInt(initMap.get("maxNum"));
+        String negs = initMap.get("negatives");
+        mNegatives = negs==null ? Negatives.None : Negatives.valueOf(negs);
     }
 
     @Override

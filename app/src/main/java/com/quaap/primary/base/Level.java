@@ -28,6 +28,10 @@ public abstract class Level {
     private final int mRounds;
     protected int mLevel;
 
+    protected Level(String subjectkey, Map<String,String> initMap) {
+        this(subjectkey, Integer.parseInt(initMap.get("rounds")));
+    }
+
     protected Level(String subjectkey, int rounds) {
         mSubjectkey = subjectkey;
         mRounds = rounds;

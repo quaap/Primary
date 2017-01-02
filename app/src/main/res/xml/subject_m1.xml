@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<subject>
+    <code>M1</code>
+
+    <nameKey>m1_name</nameKey>
+    <descriptionKey>m1_description</descriptionKey>
+
+    <activityClass>com.quaap.primary.math.BasicMathActivity</activityClass>
+
+    <levelClass>com.quaap.primary.math.BasicMathLevel</levelClass>
+    <levels>
+        <level>
+            <rounds>10</rounds>
+            <maxMathOp>Plus</maxMathOp>
+            <minMathOp>Plus</minMathOp>
+            <maxNum>5</maxNum>
+            <negatives>None</negatives>
+            <inputMode>Buttons</inputMode>
+        </level>
+        <level>
+            <rounds>10</rounds>
+            <maxMathOp>Minus</maxMathOp>
+            <minMathOp>Minus</minMathOp>
+            <maxNum>5</maxNum>
+            <negatives>None</negatives>
+            <inputMode>Buttons</inputMode>
+        </level>
+    </levels>
+</subject>

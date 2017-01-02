@@ -26,7 +26,7 @@ import com.quaap.primary.spelling.SpellingLevel;
  */
 public class Levels {
 
-    //these get loaded by base.data.Subjects. maybe combine them.
+    //these get loaded by base.data.SubjectsOld. maybe combine them.
 
 
     public static Level[] getLevels(String name) {

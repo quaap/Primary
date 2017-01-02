@@ -18,6 +18,7 @@ package com.quaap.primary;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -35,7 +36,9 @@ import com.quaap.primary.base.CommonBaseActivity;
 import com.quaap.primary.base.SubjectMenuActivity;
 import com.quaap.primary.base.component.HorzItemList;
 import com.quaap.primary.base.data.AppData;
-import com.quaap.primary.base.data.Subjects;
+import com.quaap.primary.base.data.Subject;
+import com.quaap.primary.base.data.SubjectOld;
+import com.quaap.primary.base.data.SubjectsOld;
 import com.quaap.primary.base.data.UserData;
 
 import java.util.ArrayList;
@@ -59,7 +62,7 @@ public class MainActivity extends CommonBaseActivity {
     private String defaultusername;
 
     private AppData appdata;
-    private Subjects subjectDescs;
+    private SubjectsOld subjectDescs;
 
 
     @Override
@@ -68,7 +71,7 @@ public class MainActivity extends CommonBaseActivity {
         setContentView(R.layout.activity_login);
 
         appdata = AppData.getAppData(this);
-        subjectDescs = Subjects.getInstance(this);
+        subjectDescs = SubjectsOld.getInstance(this);
 
         defaultusername = getString(R.string.defaultUserName);
         addUser(defaultusername, UserData.avatars[0]);
@@ -113,7 +116,10 @@ public class MainActivity extends CommonBaseActivity {
             }
         });
         //Log.d("spell", Locale.getDefault().getLanguage());
+
+        new Subject(this,R.xml.subject_m1);
     }
+
 
 
     @Override
@@ -185,7 +191,7 @@ public class MainActivity extends CommonBaseActivity {
                 appdata.getUser(userlist.getSelected()).setLatestSubject(code);
 
 
-                Subjects.Desc subject = subjectDescs.get(code);
+                SubjectOld subject = subjectDescs.get(code);
                 try {
                     Intent intent = new Intent(MainActivity.this, SubjectMenuActivity.class);
                     intent.putExtra(LEVELSET, subject.getLevelset());

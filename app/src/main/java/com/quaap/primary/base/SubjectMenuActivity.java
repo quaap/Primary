@@ -24,7 +24,7 @@ import com.quaap.primary.Levels;
 import com.quaap.primary.MainActivity;
 import com.quaap.primary.R;
 import com.quaap.primary.base.data.AppData;
-import com.quaap.primary.base.data.Subjects;
+import com.quaap.primary.base.data.SubjectsOld;
 import com.quaap.primary.base.data.UserData;
 
 /**
@@ -44,7 +44,7 @@ import com.quaap.primary.base.data.UserData;
  */
 
 /*
-Future Subjects:
+Future SubjectsOld:
 Math 1, but typed answers.
 Spelling.
 Reading/vocabulary.
@@ -101,7 +101,7 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
             username = state.getString("username", username);
         }
         //Log.d("onCreate", "onCreate username=" + username);
-        mTargetActivity = Subjects.getInstance(this).get(mSubjectCode).getActivityclass();
+        mTargetActivity = SubjectsOld.getInstance(this).get(mSubjectCode).getActivityclass();
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar!=null) {
