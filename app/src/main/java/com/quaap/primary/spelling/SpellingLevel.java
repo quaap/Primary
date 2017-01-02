@@ -26,7 +26,7 @@ public class SpellingLevel extends StdLevel {
     private int mMaxwordlength;
 
 
-    public SpellingLevel(String subjectkey, int wordlistid, int maxwordlength, int rounds, InputMode inputMode) {
+    public SpellingLevel(int subjectkey, int wordlistid, int maxwordlength, int rounds, InputMode inputMode) {
         super(subjectkey, rounds, inputMode);
         mWordlistId = wordlistid;
         mMaxwordlength = maxwordlength;

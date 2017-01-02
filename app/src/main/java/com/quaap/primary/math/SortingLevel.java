@@ -24,7 +24,7 @@ import com.quaap.primary.base.component.InputMode;
 public class SortingLevel extends StdLevel{
     private int mNumItems;
     private int mMaxNum;
-    public SortingLevel(String subjectkey, int numItems, int maxNum, int rounds) {
+    public SortingLevel(int subjectkey, int numItems, int maxNum, int rounds) {
         super(subjectkey, rounds, InputMode.None);
         mNumItems = numItems;
         mMaxNum = maxNum;

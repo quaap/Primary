@@ -22,13 +22,13 @@ import java.util.Map;
  */
 public abstract class Level {
 
-    private final static Map<String,Integer> nextlevelnum = new HashMap<>();
-    private String mSubjectkey;
+    private final static Map<Integer,Integer> nextlevelnum = new HashMap<>();
+    private int mSubjectkey;
 
     private final int mRounds;
     protected int mLevel;
 
-    protected Level(String subjectkey, int rounds) {
+    protected Level(int subjectkey, int rounds) {
         mSubjectkey = subjectkey;
         mRounds = rounds;
         synchronized (nextlevelnum) {

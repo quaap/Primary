@@ -13,16 +13,16 @@ public class BasicMathLevel extends StdLevel {
     private final int mMaxNum;
     private final Negatives mNegatives;
 
-    public BasicMathLevel(String subjectkey, MathOp maxMathOp, int maxNum, int rounds, InputMode inputMode) {
+    public BasicMathLevel(int subjectkey, MathOp maxMathOp, int maxNum, int rounds, InputMode inputMode) {
         this(subjectkey, maxMathOp, maxMathOp, maxNum, rounds, inputMode);
     }
-    public BasicMathLevel(String subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, int rounds, InputMode inputMode) {
+    public BasicMathLevel(int subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, int rounds, InputMode inputMode) {
         this(subjectkey, maxMathOp, minMathOp, maxNum, Negatives.None, rounds, inputMode);
     }
-    public BasicMathLevel(String subjectkey, MathOp maxMathOp, int maxNum, Negatives negatives, int rounds, InputMode inputMode) {
+    public BasicMathLevel(int subjectkey, MathOp maxMathOp, int maxNum, Negatives negatives, int rounds, InputMode inputMode) {
         this(subjectkey, maxMathOp, maxMathOp, maxNum, negatives, rounds, inputMode);
     }
-    public BasicMathLevel(String subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, Negatives negatives, int rounds, InputMode inputMode) {
+    public BasicMathLevel(int subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, Negatives negatives, int rounds, InputMode inputMode) {
         super(subjectkey, rounds, inputMode);
 
         mMaxMathOp = maxMathOp;

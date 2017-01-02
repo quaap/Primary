@@ -20,7 +20,7 @@ import com.quaap.primary.base.component.InputMode;
 public abstract class StdLevel extends Level {
     private InputMode mInputMode;
 
-    public StdLevel(String subjectkey, int rounds, InputMode mInputMode) {
+    public StdLevel(int subjectkey, int rounds, InputMode mInputMode) {
         super(subjectkey, rounds);
         this.mInputMode = mInputMode;
     }
