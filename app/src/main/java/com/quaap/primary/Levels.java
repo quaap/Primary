@@ -33,9 +33,8 @@ import com.quaap.primary.spelling.SpellingLevel;
  */
 public class Levels {
 
-    //these get loaded by base.data.Subjects. maybe combine them.
+    //these get loaded by base.data.Subjects.
 
-    //Context context, int code, int name, int desc, Class activityClass, Levels[] levels
 
     public static Subjects.Desc [] getSubjectInstances(Context context) {
         Subjects.Desc [] subjects = new Subjects.Desc [] {
