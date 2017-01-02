@@ -45,6 +45,7 @@ public class SortingActivity extends StdGameActivity implements
     private List<Integer> numlist;
     public SortingActivity() {
         super(R.layout.std_sorting_prob);
+        setUseInARow(false);
     }
 
     private boolean problemDone = false;
@@ -126,13 +127,17 @@ public class SortingActivity extends StdGameActivity implements
 
     @Override
     public boolean onDrag(View view, DragEvent event) {
+
         boolean islayout = view instanceof GridLayout;
         switch (event.getAction()) {
             case DragEvent.ACTION_DRAG_STARTED:
                 // do nothing
                 break;
             case DragEvent.ACTION_DRAG_ENTERED:
-                if (!islayout) view.setBackgroundColor(Color.GREEN);
+                if (!islayout) {
+                    view.setBackgroundColor(Color.BLUE);
+                    //view.setBackgroundResource(R.drawable.sort_drop_target);
+                }
                 break;
             case DragEvent.ACTION_DRAG_EXITED:
 
@@ -187,7 +192,7 @@ public class SortingActivity extends StdGameActivity implements
 
     private void checkDone() {
         if (!problemDone) {
-            GridLayout sortArea = (GridLayout) findViewById(R.id.sort_area);
+            final GridLayout sortArea = (GridLayout) findViewById(R.id.sort_area);
 
             boolean sorted = true;
 
@@ -202,17 +207,39 @@ public class SortingActivity extends StdGameActivity implements
             }
             if (sorted) {
                 problemDone = true;
+                stopTimer();
 
-                String prob = "";
-                for (int p : numlist) {
-                    prob += p + ";";
+                for (int i = 0; i < sortArea.getChildCount(); i++) {
+                    final int c=i;
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            sortArea.getChildAt(c).setBackgroundColor(Color.GREEN);
+                        }
+                    }, (c+1)*1000 / sortArea.getChildCount());
                 }
 
-                SortingLevel level = ((SortingLevel)getLevel());
 
-                answerDone(true, (int)(Math.sqrt(level.getMaxNum())*level.getNumItems()/moves), prob, "sorted", "sorted");
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finishDone();
+                    }
+                }, 1200);
             }
         }
+
+    }
+
+    private void finishDone() {
+        String prob = "";
+        for (int p : numlist) {
+            prob += p + ";";
+        }
+
+        SortingLevel level = ((SortingLevel)getLevel());
+
+        answerDone(true, (int)(Math.sqrt(level.getMaxNum())*level.getNumItems()/moves), prob, "sorted", "sorted");
 
     }
 
@@ -230,7 +257,7 @@ public class SortingActivity extends StdGameActivity implements
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+        if (!problemDone && motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             ClipData data = ClipData.newPlainText(view.getTag().toString(), view.getTag().toString());
             View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
             view.startDrag(data, shadowBuilder, view, 0);

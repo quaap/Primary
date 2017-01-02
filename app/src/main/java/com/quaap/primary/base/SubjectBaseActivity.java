@@ -114,9 +114,6 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     protected abstract void showProbImpl();
 
-    protected void startTimer() {
-        starttime = System.currentTimeMillis();
-    }
 
     private boolean hasStorageAccess() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
@@ -562,8 +559,25 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     }
     final protected Handler handler = new Handler();
 
+    private long timespent;
+    private boolean timeMeasured;
+
+    protected void startTimer() {
+        starttime = System.currentTimeMillis();
+        timeMeasured = false;
+    }
+
+    protected void stopTimer() {
+        if (!timeMeasured) {
+            timespent = System.currentTimeMillis() - starttime;
+            timeMeasured = true;
+        }
+    }
+
+
+
     protected void answerDone(boolean isright, int addscore, String problem, String answer, String useranswer) {
-        long timespent = System.currentTimeMillis() - starttime;
+        stopTimer();
 
         bonuses = null;
         if (isright) {
