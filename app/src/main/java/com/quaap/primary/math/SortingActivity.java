@@ -3,6 +3,7 @@ package com.quaap.primary.math;
 import android.content.ClipData;
 import android.graphics.Color;
 
+import android.graphics.Typeface;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -51,14 +52,19 @@ public class SortingActivity extends StdGameActivity implements
 
     private int moves = 0;
 
+    private int numcolumns = 3;
+
+
     @Override
     protected void onResume() {
         super.onResume();
         GridLayout sortArea = (GridLayout)findViewById(R.id.sort_area);
         if (isLandscape()){
             sortArea.setColumnCount(6);
+            numcolumns = 6;
         } else {
             sortArea.setColumnCount(3);
+            numcolumns = 3;
         }
 
         //override super class
@@ -87,12 +93,20 @@ public class SortingActivity extends StdGameActivity implements
             Collections.shuffle(numlist);
         } while (isSorted(numlist));
 
-        int mlen = (level.getMaxNum()+"").length();
-
-        int tsize = 34-mlen*2;
+//        int mlen = (level.getMaxNum()+"").length();
+//        int xsize = getScreenSize().x;
+//
+//        int tsize = xsize*2/3 / numcolumns / 4 - 5;
+//        if (tsize>30) tsize = 30;
+        int tsize = 30;
 
         for(int num: numlist){
-            final String numstr = num + "";
+            String spaces = "";
+            for (int i=0; i<3-(num+"").length();i++) {
+                spaces += " ";
+            }
+
+            final String numstr = spaces + num;
 
             TextView item = new TextView(this);
             item.setText(numstr);
@@ -103,7 +117,8 @@ public class SortingActivity extends StdGameActivity implements
 
             item.setMaxLines(1);
             item.setTextSize(tsize);
-            item.setWidth(28+tsize*4);
+            item.setTypeface(Typeface.MONOSPACE);
+            //item.setWidth(xsize*2/3 / numcolumns -10);
             //item.setEms(mlen);
 
             item.setGravity(Gravity.END);
@@ -120,8 +135,8 @@ public class SortingActivity extends StdGameActivity implements
         }
         problemDone = false;
         moves = 0;
-        int n = level.getNumItems()*200;
-        setFasttimes(400 + n, 1000 + n, 2000 + n);
+        int n = level.getNumItems()*250;
+        setFasttimes(300 + n, 1000 + n, 2000 + n);
     }
 
 
