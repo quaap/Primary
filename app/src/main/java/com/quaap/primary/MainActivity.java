@@ -125,7 +125,7 @@ public class MainActivity extends CommonBaseActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             appPreferences.edit().putBoolean(csvkey, true).apply();
                             checkStorageAccess();
-                            Toast.makeText(MainActivity.this, R.string.can_change_csv,Toast.LENGTH_LONG).show();
+                           // Toast.makeText(MainActivity.this, R.string.can_change_csv,Toast.LENGTH_LONG).show();
                         }
 
                     })
@@ -154,7 +154,15 @@ public class MainActivity extends CommonBaseActivity {
 
         updateSubjectList();
 
-        checkFirstRun();
+        Button goButton = (Button) findViewById(R.id.login_button);
+
+        goButton.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkFirstRun();
+            }
+        }, 1000);
+
 
     }
 
