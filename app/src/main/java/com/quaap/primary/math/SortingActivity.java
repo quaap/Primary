@@ -71,6 +71,11 @@ public class SortingActivity extends StdGameActivity implements
         //override super class
         LinearLayout centercol = (LinearLayout) findViewById(R.id.centercol);
         centercol.setOrientation(LinearLayout.VERTICAL);
+
+
+        findViewById(R.id.score_total_correct_area).setVisibility(View.GONE);
+
+        findViewById(R.id.score_level_percent_area).setVisibility(View.GONE);
     }
 
     @Override
@@ -143,8 +148,8 @@ public class SortingActivity extends StdGameActivity implements
         }
         problemDone = false;
         moves = 0;
-        int n = level.getNumItems() * 400;
-        setFasttimes(200 + n, 1000 + n, 2000 + n);
+        int n = level.getNumItems() * 500;
+        setFasttimes(2 + n, 1000 + n, 2000 + n);
     }
 
 
