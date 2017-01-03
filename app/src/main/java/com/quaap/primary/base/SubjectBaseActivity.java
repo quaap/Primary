@@ -268,38 +268,65 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     }
 
 
-    protected void saveValue(String name, int value) {
-        mSubjectData.saveValue(name,value);
+    protected void saveLevelValue(String name, int value) {
+        mSubjectData.saveValue(name+levelnum,value);
     }
 
-    protected void saveValue(String name, String value) {
-        mSubjectData.saveValue(name,value);
+    protected void saveLevelValue(String name, String value) {
+        mSubjectData.saveValue(name+levelnum,value);
     }
 
-    protected int getSavedValue(String name, int value) {
-        return mSubjectData.getValue(name,value);
+    protected int getSavedLevelValue(String name, int value) {
+        return mSubjectData.getValue(name+levelnum,value);
     }
 
-    protected String getSavedValue(String name, String value) {
-        return mSubjectData.getValue(name,value);
+    protected String getSavedLevelValue(String name, String value) {
+        return mSubjectData.getValue(name+levelnum,value);
     }
 
-    protected void deleteSavedValue(String name){
-        mSubjectData.deleteValue(name);
+    protected void deleteSavedLevelValue(String name){
+        mSubjectData.deleteValue(name+levelnum);
     }
 
-    protected void saveValue(String name, Set<String> stringset) {
-        mSubjectData.saveValue(name,stringset);
+    protected void saveLevelValue(String name, Set<String> stringset) {
+        mSubjectData.saveValue(name+levelnum,stringset);
     }
-    protected void saveValue(String name, List<String> stringlist) {
-        mSubjectData.saveValue(name,stringlist);
+    protected void saveLevelValue(String name, List<String> stringlist) {
+        mSubjectData.saveValue(name+levelnum,stringlist);
     }
 
-    protected  Set<String> getSavedValue(String name, Set<String> stringset) {
-        return mSubjectData.getValue(name,stringset);
+    protected  Set<String> getSavedLevelValue(String name, Set<String> stringset) {
+        return mSubjectData.getValue(name+levelnum,stringset);
     }
-    protected  List<String> getSavedValue(String name, List<String> stringlist) {
-        return mSubjectData.getValue(name,stringlist);
+    protected  List<String> getSavedLevelValue(String name, List<String> stringlist) {
+        return mSubjectData.getValue(name+levelnum,stringlist);
+    }
+
+    protected String join(String sep, List<?> list) {
+        return join(sep, list.toArray());
+    }
+
+    protected String join(String sep, Object ...list) {
+        StringBuilder sb = new StringBuilder();
+        boolean first = true;
+        for (Object item : list) {
+            if (first) {
+                first = false;
+            } else {
+                sb.append(sep);
+            }
+            sb.append(item);
+        }
+        return sb.toString();
+    }
+
+    protected List<Integer> splitInts(String sep, String string) {
+        String [] vals = string.split(sep);
+        List<Integer> intlist = new ArrayList<>();
+        for (String s: vals) {
+            intlist.add(Integer.parseInt(s));
+        }
+        return intlist;
     }
 
 

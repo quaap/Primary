@@ -71,7 +71,7 @@ public class PluralActivity extends StdGameActivity
     protected void onPause() {
 
 
-        saveValue("word", word);
+        saveLevelValue("word", word);
         super.onPause();
     }
 
@@ -105,7 +105,7 @@ public class PluralActivity extends StdGameActivity
     protected void showProbImpl() {
 
         PluralLevel level = (PluralLevel)getLevel();
-        word = getSavedValue("word", (String)null);
+        word = getSavedLevelValue("word", (String)null);
         if (word==null) {
             int tries = 0;
             do {
@@ -118,7 +118,7 @@ public class PluralActivity extends StdGameActivity
 
             } while ( tries++ < 100 && ( word.length() < level.getMinWordLength() || word.length() > level.getMaxWordLength() || seenProblem(word) ) );
         } else {
-            deleteSavedValue("word");
+            deleteSavedLevelValue("word");
         }
 
         answer = pluralsMap.get(word);

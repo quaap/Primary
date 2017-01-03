@@ -56,6 +56,12 @@ public class SortingActivity extends StdGameActivity implements
 
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        saveLevelValue("numlist", join(",",numlist));
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         GridLayout sortArea = (GridLayout)findViewById(R.id.sort_area);
@@ -80,18 +86,25 @@ public class SortingActivity extends StdGameActivity implements
         sortArea.setOnDragListener(this);
 
         Set<Integer> nums = new TreeSet<>();
-
         SortingLevel level = ((SortingLevel)getLevel());
-        int tries = 0;
-        do {
-            nums.add(getRand(level.getMaxNum()));
-        } while (tries++<100 && nums.size()<level.getNumItems());
 
-        numlist = new ArrayList<>(nums);
+        String numliststr = getSavedLevelValue("numlist", (String)null);
+        if (numliststr==null || numliststr.length()==0) {
+            int tries = 0;
+            do {
+                nums.add(getRand(level.getMaxNum()));
+            } while (tries++ < 100 && nums.size() < level.getNumItems());
 
-        do {
-            Collections.shuffle(numlist);
-        } while (isSorted(numlist));
+            numlist = new ArrayList<>(nums);
+
+            do {
+                Collections.shuffle(numlist);
+            } while (isSorted(numlist));
+
+        } else {
+            numlist = splitInts(",",numliststr);
+            deleteSavedLevelValue("numlist");
+        }
 
         int mlen = (level.getMaxNum()+"").length();
 //        int xsize = getScreenSize().x;

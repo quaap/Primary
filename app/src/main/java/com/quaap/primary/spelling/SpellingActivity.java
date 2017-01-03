@@ -77,7 +77,7 @@ public class SpellingActivity extends StdGameActivity
 //            timer=null;
 //        }
 
-        saveValue("word", word);
+        saveLevelValue("word", word);
         super.onPause();
     }
 
@@ -126,14 +126,14 @@ public class SpellingActivity extends StdGameActivity
     @Override
     protected void showProbImpl() {
 
-        word = getSavedValue("word", (String)null);
+        word = getSavedLevelValue("word", (String)null);
         if (word==null) {
             int tries = 0;
             do {
                 word = words.get(getRand(words.size() - 1));
             } while (tries++ < 50 && seenProblem(word));
         } else {
-            deleteSavedValue("word");
+            deleteSavedLevelValue("word");
         }
 
         Log.d("spell", word);
