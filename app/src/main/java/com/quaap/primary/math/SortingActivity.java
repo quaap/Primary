@@ -143,8 +143,8 @@ public class SortingActivity extends StdGameActivity implements
         }
         problemDone = false;
         moves = 0;
-        int n = level.getNumItems() * 250;
-        setFasttimes(300 + n, 1000 + n, 2000 + n);
+        int n = level.getNumItems() * 400;
+        setFasttimes(200 + n, 1000 + n, 2000 + n);
     }
 
 
