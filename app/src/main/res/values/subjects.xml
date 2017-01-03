@@ -9,11 +9,11 @@
     <string name="group_mu">Music</string>
     <string name="group_ar">Art</string>
 
-    <color name="group_color_m">#aaaaaaff</color>
+    <color name="group_color_m">#a86486fd</color>
     <color name="group_color_sc">#aaaaffaa</color>
-    <color name="group_color_la">#aaee99ff</color>
+    <color name="group_color_la">#aafc767b</color>
     <color name="group_color_mu">#aaffff77</color>
-    <color name="group_color_ar">#aaef989f</color>
+    <color name="group_color_ar">#aaff975f</color>
 
     <string name="subject_m1_code">M1</string>
     <string name="subject_m1_name">Math +-25</string>
@@ -36,20 +36,20 @@
     <string name="subject_m5_desc">Everything!</string>
 
     <string name="subject_m6_code">M-S1</string>
-    <string name="subject_m6_name">Sorting 0-9</string>
+    <string name="subject_m6_name">Sorting 0–9</string>
     <string name="subject_m6_desc">Sorting 1 digit numbers</string>
 
     <string name="subject_m7_code">M-S2</string>
-    <string name="subject_m7_name">Sorting 0-99</string>
+    <string name="subject_m7_name">Sorting 0–99</string>
     <string name="subject_m7_desc">Sorting 2 digit numbers</string>
 
     <string name="subject_m8_code">M-S3</string>
-    <string name="subject_m8_name">Sorting 0-999</string>
+    <string name="subject_m8_name">Sorting 0–999</string>
     <string name="subject_m8_desc">Sorting 3 digit numbers</string>
 
     <string name="subject_m9_code">M-S4</string>
     <string name="subject_m9_name">Sorting big</string>
-    <string name="subject_m9_desc">Sorting 9+ three digit numbers.</string>
+    <string name="subject_m9_desc">Sorting more three digit numbers.</string>
 
     <string name="subject_sp1_code">LA-Sp1</string>
     <string name="subject_sp1_name">Spelling 1–6</string>
