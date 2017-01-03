@@ -128,10 +128,6 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     protected abstract void showProbImpl();
 
-    private boolean hasStorageAccess() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -53,7 +53,7 @@ Goofy math word problems.
 */
 
 public class SubjectMenuActivity extends CommonBaseActivity implements Button.OnClickListener {
-    private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 121;
+
 
     private UserData mUserData;
     private UserData.Subject mSubjectData;
@@ -125,7 +125,6 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
 
             }
         });
-        checkStorageAccess();
     }
 
     @Override
@@ -245,32 +244,6 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
         startActivity(intent);
     }
 
-
-    private void checkStorageAccess() {
-        boolean beendenied = getSharedPreferences(this.getClass().getName(), MODE_PRIVATE).getBoolean("denied", false);
-        if (!beendenied && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_WRITE_EXTERNAL_STORAGE);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_WRITE_EXTERNAL_STORAGE: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    Toast.makeText(this, R.string.write_perms_granted, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, R.string.write_perms_denied, Toast.LENGTH_LONG).show();
-                    getSharedPreferences(this.getClass().getName(), MODE_PRIVATE).edit().putBoolean("denied", true).apply();
-                }
-            }
-        }
-    }
 
 
 }

@@ -18,7 +18,9 @@ package com.quaap.primary;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -105,7 +107,40 @@ public class MainActivity extends CommonBaseActivity {
                 startSelectedSubject();
             }
         });
-        //Log.d("spell", Locale.getDefault().getLanguage());
+
+
+    }
+
+    private void checkFirstRun() {
+        final SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final String csvkey = "use_csv_preference";
+
+        if (!appPreferences.contains(csvkey)) {
+            new AlertDialog.Builder(MainActivity.this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Write CSV?")
+                    .setMessage("Do you want to record your results in CSV files? (For your own record-keeping purposes only)")
+                    .setPositiveButton("Record", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            appPreferences.edit().putBoolean(csvkey, true).apply();
+                            checkStorageAccess();
+                        }
+
+                    })
+                    .setNegativeButton("Don't record", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            appPreferences.edit().putBoolean(csvkey, false).apply();
+                        }
+                    })
+                    .show();
+
+        } else if (appPreferences.getBoolean(csvkey, true)) {
+            checkStorageAccess();
+        }
+
+
     }
 
     @Override
@@ -116,6 +151,8 @@ public class MainActivity extends CommonBaseActivity {
         selectUser(appdata.getLastSelectedUser(defaultusername));
 
         updateSubjectList();
+
+        checkFirstRun();
 
     }
 
