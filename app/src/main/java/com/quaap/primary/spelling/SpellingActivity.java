@@ -1,5 +1,20 @@
 package com.quaap.primary.spelling;
 
+/**
+ * Created by tom on 12/15/16.
+ * <p>
+ * Copyright (C) 2016   Tom Kliethermes
+ * <p>
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -10,10 +25,10 @@ import android.widget.TextView;
 
 import com.quaap.primary.Primary;
 import com.quaap.primary.R;
-import com.quaap.primary.base.component.TextToVoice;
+import com.quaap.primary.base.StdGameActivity;
 import com.quaap.primary.base.SubjectBaseActivity;
 import com.quaap.primary.base.component.InputMode;
-import com.quaap.primary.base.StdGameActivity;
+import com.quaap.primary.base.component.TextToVoice;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,41 +38,39 @@ import java.util.List;
 public class SpellingActivity extends StdGameActivity
         implements TextToVoice.VoiceReadyListener,
         SubjectBaseActivity.AnswerGivenListener<String>,
-        SubjectBaseActivity.AnswerTypedListener{
+        SubjectBaseActivity.AnswerTypedListener {
 
 
-    private List<String> words;
-
-    private String word;
-
-    private String[] unspellMap;
-
-//    private Timer timer;
-//    private TimerTask hinttask;
-    private volatile int hintPos=0;
-//    private volatile boolean showHint = false;
-
-
+    final protected Handler handler = new Handler();
+    private final int numanswers = 4;
     TextToVoice v;
+    private List<String> words;
+//    private volatile boolean showHint = false;
+    private String word;
+    private String[] unspellMap;
+    //    private Timer timer;
+//    private TimerTask hinttask;
+    private volatile int hintPos = 0;
+    private String wordStart;
+
+
     public SpellingActivity() {
         super(R.layout.std_spelling_prob);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         unspellMap = getResources().getStringArray(R.array.unspell);
 
-        if (unspellMap.length%2!=0) {
+        if (unspellMap.length % 2 != 0) {
             throw new IllegalArgumentException("unspell array must have even number of arguments");
         }
 
         super.onCreate(savedInstanceState);
 
 
-
-        Button b = (Button)findViewById(R.id.btn_repeat);
+        Button b = (Button) findViewById(R.id.btn_repeat);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +94,6 @@ public class SpellingActivity extends StdGameActivity
         super.onPause();
     }
 
-
     @Override
     protected void onResume() {
         //timer = new Timer();
@@ -94,11 +106,11 @@ public class SpellingActivity extends StdGameActivity
 
 
         if (isLandscape()) {
-            LinearLayout spelling_problem_area = (LinearLayout)findViewById(R.id.spelling_problem_area);
+            LinearLayout spelling_problem_area = (LinearLayout) findViewById(R.id.spelling_problem_area);
             spelling_problem_area.setOrientation(LinearLayout.HORIZONTAL);
         }
 
-        v = ((Primary)getApplicationContext()).getTextToVoice();
+        v = ((Primary) getApplicationContext()).getTextToVoice();
         v.setVoiceReadyListener(this);
         if (v.isReady()) {
             setWeReady();
@@ -107,18 +119,17 @@ public class SpellingActivity extends StdGameActivity
 
     }
 
-
     @Override
     protected void onShowLevel() {
         super.onShowLevel();
-        words = Arrays.asList(getResources().getStringArray(((SpellingLevel)getLevel()).getmWordlistId()));
+        words = Arrays.asList(getResources().getStringArray(((SpellingLevel) getLevel()).getmWordlistId()));
 
-        if (((SpellingLevel)getLevel()).getInputMode()==InputMode.Buttons) {
+        if (((SpellingLevel) getLevel()).getInputMode() == InputMode.Buttons) {
             setFasttimes(800, 1600, 3000);
-          //  showHint = false;
+            //  showHint = false;
         } else {
             setFasttimes(1500, 2200, 5000);
-           // showHint = true;
+            // showHint = true;
         }
 
     }
@@ -126,8 +137,8 @@ public class SpellingActivity extends StdGameActivity
     @Override
     protected void showProbImpl() {
 
-        word = getSavedLevelValue("word", (String)null);
-        if (word==null) {
+        word = getSavedLevelValue("word", (String) null);
+        if (word == null) {
             int tries = 0;
             do {
                 word = words.get(getRand(words.size() - 1));
@@ -158,7 +169,7 @@ public class SpellingActivity extends StdGameActivity
                 v.speak(word);
             }
         }, 500);
-        ((TextView)findViewById(R.id.spell_hint)).setText("");
+        ((TextView) findViewById(R.id.spell_hint)).setText("");
 
 
     }
@@ -174,7 +185,7 @@ public class SpellingActivity extends StdGameActivity
         int points = 0;
         boolean isright = answer.toLowerCase().trim().equals(word.toLowerCase());
         if (isright) {
-            points = (int)(1 + word.length() * (levelnum+1) * (1+word.length() - (float)hintPos)/(word.length()));
+            points = (int) (1 + word.length() * (levelnum + 1) * (1 + word.length() - (float) hintPos) / (word.length()));
         }
         answerDone(isright, points, word, word, answer.trim());
 
@@ -184,8 +195,6 @@ public class SpellingActivity extends StdGameActivity
         return isright;
     }
 
-
-    final protected Handler handler = new Handler();
     @Override
     public void onVoiceReady(TextToVoice ttv) {
         handler.post(new Runnable() {
@@ -203,13 +212,11 @@ public class SpellingActivity extends StdGameActivity
         setReadyForProblem(true);
     }
 
-    private String wordStart;
-
     @Override
     public void onSpeakComplete(TextToVoice ttv) {
-        if (wordStart==null || !wordStart.equals(word)) {
+        if (wordStart == null || !wordStart.equals(word)) {
             startTimer();
-            hintPos=0;
+            hintPos = 0;
             startHint(5000, 3000);
             wordStart = word;
         }
@@ -217,7 +224,7 @@ public class SpellingActivity extends StdGameActivity
 
     @Override
     protected void performHint() {
-        final TextView hint = (TextView)findViewById(R.id.spell_hint);
+        final TextView hint = (TextView) findViewById(R.id.spell_hint);
         if (hintPos < word.length()) {
             handler.post(new Runnable() {
                 @Override
@@ -236,19 +243,10 @@ public class SpellingActivity extends StdGameActivity
         }
     }
 
-
     @Override
     public void onError(TextToVoice ttv) {
 
     }
-
-
-
-
-    private final int numanswers = 4;
-
-
-
 
     protected List<String> getAnswerChoices(String realanswer) {
         List<String> answers = new ArrayList<>();
@@ -259,23 +257,22 @@ public class SpellingActivity extends StdGameActivity
             tries = 0;
             do {
                 badspell = unspell(word);
-            } while (tries++<maxtries && answers.contains(badspell));
-            if (tries<maxtries) {
+            } while (tries++ < maxtries && answers.contains(badspell));
+            if (tries < maxtries) {
                 answers.add(badspell);
             }
 
-        } while (answers.size()<numanswers && tries<maxtries);
+        } while (answers.size() < numanswers && tries < maxtries);
 
         Collections.shuffle(answers);
         return answers;
     }
 
 
-
     public String unspell(String word) {
 
-        for (int j=0; j<1; j++) {
-            int i = ((int) (Math.random() * ((unspellMap.length-1) / 2 )) * 2);
+        for (int j = 0; j < 1; j++) {
+            int i = ((int) (Math.random() * ((unspellMap.length - 1) / 2)) * 2);
 
             String find = unspellMap[i];
             String replacement = unspellMap[i + 1];

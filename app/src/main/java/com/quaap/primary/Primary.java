@@ -25,7 +25,7 @@ public class Primary extends Application {
     private TextToVoice mTtv;
 
     public TextToVoice getTextToVoice() {
-        if (mTtv==null) {
+        if (mTtv == null) {
             mTtv = new TextToVoice(this);
         }
         return mTtv;
@@ -33,7 +33,7 @@ public class Primary extends Application {
 
     @Override
     public void onTerminate() {
-        if (mTtv!=null) {
+        if (mTtv != null) {
             mTtv.shutDown();
             mTtv = null;
         }

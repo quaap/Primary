@@ -25,12 +25,30 @@ public enum MathOp {
     Times("\u00D7", R.string.times),
     Divide("\u00F7", R.string.divide);
 
+    private static final SecureRandom random = new SecureRandom();
     private final String mDisplay;
     private final int mResid;
 
     MathOp(String display, int resid) {
         mDisplay = display;
         mResid = resid;
+    }
+
+    public static MathOp random(MathOp upto) {
+        return randomEnum(MathOp.class, MathOp.Plus, upto);
+    }
+
+    public static MathOp random(MathOp start, MathOp upto) {
+        return randomEnum(MathOp.class, start, upto);
+    }
+
+    private static <T extends Enum<?>> T randomEnum(Class<T> clazz, T start, T upto) {
+
+        int max = upto.ordinal();
+        int min = start.ordinal();
+
+        int x = random.nextInt(max - min + 1) + min;
+        return clazz.getEnumConstants()[x];
     }
 
     @Override
@@ -41,23 +59,4 @@ public enum MathOp {
     public int getResId() {
         return mResid;
     }
-
-
-    public static MathOp random(MathOp upto) {
-        return randomEnum(MathOp.class, MathOp.Plus, upto);
-    }
-
-    public static MathOp random(MathOp start, MathOp upto) {
-        return randomEnum(MathOp.class, start, upto);
-    }
-
-    private static <T extends Enum<?>> T randomEnum(Class<T> clazz, T start, T upto){
-
-        int max = upto.ordinal();
-        int min = start.ordinal();
-
-        int x = random.nextInt(max - min +1 ) + min;
-        return clazz.getEnumConstants()[x];
-    }
-    private static final SecureRandom random = new SecureRandom();
 }

@@ -31,25 +31,34 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class AppData {
 
-    public static AppData getAppData(Context context) {
-        return new AppData(context);
-    }
-
+    private static final String USERS_KEY = "users";
     private SharedPreferences mPrefs;
 
     private Context mContext;
+    private Map<String, UserData> users = new HashMap<>();
 
     private AppData(Context context) {
         mContext = context;
         mPrefs = mContext.getSharedPreferences("app", MODE_PRIVATE);
     }
 
-    Context getContext() {
-        return mContext;
+    public static AppData getAppData(Context context) {
+        return new AppData(context);
     }
 
     public static UserData.Subject getSubjectForUser(Context context, String username, String subject) {
         return AppData.getAppData(context).getUser(username).getSubjectForUser(subject);
+    }
+
+    public static <T extends Comparable> List<T> sort(Collection<T> collection) {
+        List<T> list = new ArrayList<>(collection);
+
+        Collections.sort(list);
+        return list;
+    }
+
+    Context getContext() {
+        return mContext;
     }
 
     public void setLastSelectedUser(String username) {
@@ -59,8 +68,6 @@ public class AppData {
     public String getLastSelectedUser(String defaultname) {
         return mPrefs.getString("lastselecteduser", defaultname);
     }
-
-    private static final String USERS_KEY = "users";
 
     public List<String> listUsers() {
         return sort(getUsersSet());
@@ -93,20 +100,17 @@ public class AppData {
     }
 
     public void setAvatarInUse(String avatar, boolean inuse) {
-        if (avatar!=null) {
+        if (avatar != null) {
             mPrefs.edit().putBoolean("avatar:" + avatar, inuse).apply();
         }
     }
 
-
-    private Map<String, UserData> users = new HashMap<>();
-
     public UserData getUser(String username) {
-        if (username==null) {
+        if (username == null) {
             return null;
         }
         UserData data = users.get(username);
-        if (data==null) {
+        if (data == null) {
             data = new UserData(this, username);
             users.put(username, data);
         }
@@ -114,7 +118,7 @@ public class AppData {
     }
 
     public boolean deleteUser(String username) {
-        if (username==null) {
+        if (username == null) {
             return false;
         }
         users.remove(username);
@@ -128,10 +132,10 @@ public class AppData {
         return false;
     }
 
-
     public List<String> getUnusedAvatars() {
         return getUnusedAvatars(null);
     }
+
     public List<String> getUnusedAvatars(String additional) {
         List<String> avatarlist = new ArrayList<>();
         for (String avatar : UserData.avatars) {
@@ -142,12 +146,5 @@ public class AppData {
         if (additional != null) avatarlist.add(additional);
         Collections.sort(avatarlist);
         return avatarlist;
-    }
-
-    public static <T extends Comparable> List<T> sort(Collection<T> collection) {
-        List<T> list = new ArrayList<>(collection);
-
-        Collections.sort(list);
-        return list;
     }
 }

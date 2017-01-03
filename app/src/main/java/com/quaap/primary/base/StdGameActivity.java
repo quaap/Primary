@@ -38,7 +38,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
     private Timer timer;
     private TimerTask hinttask;
-    //private volatile int hintPos=0;
+
     private volatile boolean showHint = false;
 
 
@@ -50,7 +50,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewGroup probarea = (ViewGroup)findViewById(R.id.problem_area);
+        ViewGroup probarea = (ViewGroup) findViewById(R.id.problem_area);
 
         LayoutInflater.from(this).inflate(mProblemView, probarea);
 
@@ -61,10 +61,10 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
         cancelHint();
 
-        if (timer!=null) {
+        if (timer != null) {
             timer.cancel();
             timer.purge();
-            timer=null;
+            timer = null;
         }
 
         super.onPause();
@@ -76,20 +76,14 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
         if (isLandscape()) {
 
-            LinearLayout answerarea = (LinearLayout)findViewById(R.id.answer_area);
+            LinearLayout answerarea = (LinearLayout) findViewById(R.id.answer_area);
             answerarea.setOrientation(LinearLayout.HORIZONTAL);
 
-            LinearLayout centercol = (LinearLayout)findViewById(R.id.centercol);
+            LinearLayout centercol = (LinearLayout) findViewById(R.id.centercol);
             centercol.setOrientation(LinearLayout.HORIZONTAL);
 
-            //LinearLayout scores_area = (LinearLayout)findViewById(R.id.scores_area);
-            //scores_area.setOrientation(LinearLayout.HORIZONTAL);
-
-            //LinearLayout scores_level = (LinearLayout)findViewById(R.id.scores_level);
-            //scores_level.setOrientation(LinearLayout.HORIZONTAL);
-
             ActionBar actionBar = getSupportActionBar();
-            if (actionBar!=null) {
+            if (actionBar != null) {
                 actionBar.hide();
             }
         }
@@ -99,7 +93,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
     @Override
     protected void setStatus(String text) {
-        final TextView status = (TextView)findViewById(R.id.txtstatus);
+        final TextView status = (TextView) findViewById(R.id.txtstatus);
         status.setText(text);
 
     }
@@ -109,7 +103,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
     protected void onShowLevel() {
 
 
-        if (((StdLevel)getLevel()).getInputMode()== InputMode.Buttons) {
+        if (((StdLevel) getLevel()).getInputMode() == InputMode.Buttons) {
             showHint = false;
         } else {
             showHint = true;
@@ -122,7 +116,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
     }
 
     protected LinearLayout getAnswerArea() {
-        return (LinearLayout)findViewById(R.id.answer_area);
+        return (LinearLayout) findViewById(R.id.answer_area);
     }
 
     protected void startHint(int firstHintDelayMillis, int nextHintDelaysMillis) {
@@ -148,7 +142,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
     }
 
     protected void cancelHint() {
-        if (hinttask!=null) {
+        if (hinttask != null) {
             hinttask.cancel();
             hinttask = null;
         }

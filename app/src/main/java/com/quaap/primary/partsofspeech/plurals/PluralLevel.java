@@ -22,14 +22,14 @@ import com.quaap.primary.base.component.InputMode;
  */
 public class PluralLevel extends StdLevel {
 
+    private static final int wDiff = 4;
     private int mMaxwordlength;
     private int mMinwordlength;
 
-    private static final int wDiff = 4;
-
     public PluralLevel(int subjectkey, int maxwordlength, int rounds, InputMode inputMode) {
-        this(subjectkey, maxwordlength>wDiff?maxwordlength-wDiff:1, maxwordlength, rounds, inputMode);
+        this(subjectkey, maxwordlength > wDiff ? maxwordlength - wDiff : 1, maxwordlength, rounds, inputMode);
     }
+
     public PluralLevel(int subjectkey, int minwordlength, int maxwordlength, int rounds, InputMode inputMode) {
         super(subjectkey, rounds, inputMode);
 
@@ -40,7 +40,7 @@ public class PluralLevel extends StdLevel {
 
     @Override
     public String getDescription(Context context) {
-        return "Length: " + mMaxwordlength + ". " + (getInputMode()==InputMode.Buttons ? "Multiple choice" : "Keyboard");
+        return "Length: " + mMaxwordlength + ". " + (getInputMode() == InputMode.Buttons ? "Multiple choice" : "Keyboard");
     }
 
     @Override

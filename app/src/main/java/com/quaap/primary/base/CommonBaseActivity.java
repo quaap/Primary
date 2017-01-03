@@ -43,7 +43,7 @@ public class CommonBaseActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         Intent intent = null;
-        switch(id){
+        switch (id) {
             case R.id.menu_about:
                 intent = new Intent(this, AboutActivity.class);
                 break;
@@ -54,7 +54,7 @@ public class CommonBaseActivity extends AppCompatActivity {
                 intent = new Intent(this, SettingsActivity.class);
                 break;
         }
-        if (intent!=null) {
+        if (intent != null) {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

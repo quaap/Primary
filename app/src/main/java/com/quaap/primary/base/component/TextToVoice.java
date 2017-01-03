@@ -1,4 +1,5 @@
 package com.quaap.primary.base.component;
+
 import android.content.Context;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
@@ -24,13 +25,16 @@ import java.util.Locale;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-public class TextToVoice implements  TextToSpeech.OnInitListener {
+public class TextToVoice implements TextToSpeech.OnInitListener {
     private TextToSpeech mTts = null;
     private Context mContext;
     private boolean isInit = false;
 
     private float mPitch = .8f;
     private float mSpeed = .6f;
+    private int utterid = 0;
+    private VoiceReadyListener mFil;
+    private boolean fullyInited;
 
     public TextToVoice(Context context) {
         mContext = context;
@@ -51,16 +55,16 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
                     //Log.d("TextToSpeech", "Done!" +  System.currentTimeMillis());
                     if (!fullyInited) {
                         fullyInited = true;
-                        if (mFil!=null) mFil.onVoiceReady(TextToVoice.this);
+                        if (mFil != null) mFil.onVoiceReady(TextToVoice.this);
                     } else {
-                        if (mFil!=null) mFil.onSpeakComplete(TextToVoice.this);
+                        if (mFil != null) mFil.onSpeakComplete(TextToVoice.this);
                     }
                 }
 
                 @Override
                 public void onError(String s) {
                     Log.e("TextToSpeech", "Error with " + s);
-                    if (mFil!=null) mFil.onError(TextToVoice.this);
+                    if (mFil != null) mFil.onError(TextToVoice.this);
                 }
             });
 
@@ -80,7 +84,7 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
 
                 Log.e("error", "This Language is not supported");
             }
-            Log.d("TextToSpeech", "Initialization Suceeded! " +  System.currentTimeMillis());
+            Log.d("TextToSpeech", "Initialization Suceeded! " + System.currentTimeMillis());
 
             speak(mContext.getString(R.string.voice_ready) + ",");
         } else {
@@ -91,17 +95,16 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
     public void shutDown() {
         isInit = false;
         fullyInited = false;
-        if (mTts!=null) {
+        if (mTts != null) {
             mTts.shutdown();
             mTts = null;
         }
     }
 
-    private int utterid = 0;
     public void speak(String text) {
-       // Log.d("TextToSpeech", text + " " +  System.currentTimeMillis());
+        // Log.d("TextToSpeech", text + " " +  System.currentTimeMillis());
         if (isInit) {
-            if (Build.VERSION.SDK_INT>=21) {
+            if (Build.VERSION.SDK_INT >= 21) {
                 mTts.speak(text, TextToSpeech.QUEUE_ADD, null, "utt" + utterid);
             } else {
                 mTts.speak(text, TextToSpeech.QUEUE_ADD, null);
@@ -118,9 +121,17 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
         }
     }
 
+    public float getPitch() {
+        return mPitch;
+    }
+
     public void setPitch(float pitch) {
         mPitch = pitch;
         mTts.setPitch(pitch);
+    }
+
+    public float getSpeed() {
+        return mSpeed;
     }
 
     public void setSpeed(float speed) {
@@ -128,22 +139,9 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
         mTts.setSpeechRate(speed);
     }
 
-    public float getPitch() {
-        return mPitch;
-    }
-
-    public float getSpeed() {
-        return mSpeed;
-    }
-
-
     public boolean isReady() {
         return fullyInited;
     }
-
-    private VoiceReadyListener mFil;
-
-    private boolean fullyInited;
 
     public void setVoiceReadyListener(VoiceReadyListener fil) {
         mFil = fil;
@@ -152,7 +150,9 @@ public class TextToVoice implements  TextToSpeech.OnInitListener {
 
     public interface VoiceReadyListener {
         void onVoiceReady(TextToVoice ttv);
+
         void onSpeakComplete(TextToVoice ttv);
+
         void onError(TextToVoice ttv);
     }
 }

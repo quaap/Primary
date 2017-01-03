@@ -15,4 +15,6 @@ package com.quaap.primary.math;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-public enum Negatives {None, Allowed, Required}
+public enum Negatives {
+    None, Allowed, Required
+}

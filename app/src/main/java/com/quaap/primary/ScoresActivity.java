@@ -1,5 +1,20 @@
 package com.quaap.primary;
 
+/**
+ * Created by tom on 12/15/16.
+ * <p>
+ * Copyright (C) 2016   Tom Kliethermes
+ * <p>
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
@@ -32,7 +47,7 @@ public class ScoresActivity extends CommonBaseActivity {
 
         mAppdata = AppData.getAppData(this);
 
-        for(String username: mAppdata.listUsers()) {
+        for (String username : mAppdata.listUsers()) {
             showUserData(list, username);
         }
 
@@ -43,7 +58,7 @@ public class ScoresActivity extends CommonBaseActivity {
 
         TextView uname = new TextView(this);
         String avname = user.getAvatar() + " " + user.getUsername() + ": " + user.getTotalPoints();
-        uname.setPadding(0,23,0,2);
+        uname.setPadding(0, 23, 0, 2);
         uname.setText(avname);
         uname.setTextSize(24);
         list.addView(uname);
@@ -51,21 +66,21 @@ public class ScoresActivity extends CommonBaseActivity {
         GridLayout userlayout = new GridLayout(this);
         //userlayout.setOrientation(GridLayout.VERTICAL);
         userlayout.setColumnCount(2);
-        userlayout.setPadding(24,8,4,16);
+        userlayout.setPadding(24, 8, 4, 16);
         list.addView(userlayout);
 
-        for (String sub: user.getSubjectsStarted()) {
+        for (String sub : user.getSubjectsStarted()) {
 
             UserData.Subject subject = user.getSubjectForUser(sub);
 
             addTextView(userlayout, sub + " (" + subjects.get(sub).getName() + "): ", 20, 0);
-            addTextView(userlayout, subject.getTotalPoints()+"");
+            addTextView(userlayout, subject.getTotalPoints() + "");
 
-            Map<String,Integer> thist= subject.getTodayPointHistory();
+            Map<String, Integer> thist = subject.getTodayPointHistory();
 
-            for (String day: AppData.sort(thist.keySet())) {
+            for (String day : AppData.sort(thist.keySet())) {
                 addTextView(userlayout, day, 18, 32);
-                addTextView(userlayout, thist.get(day)+"");
+                addTextView(userlayout, thist.get(day) + "");
 
             }
 
@@ -80,7 +95,7 @@ public class ScoresActivity extends CommonBaseActivity {
     private void addTextView(GridLayout viewg, String text, float fsize, int lpadding) {
         TextView tview = new TextView(this);
         tview.setTextSize(fsize);
-        tview.setPadding(lpadding+16, 6, 6 , 6);
+        tview.setPadding(lpadding + 16, 6, 6, 6);
         tview.setText(text);
         viewg.addView(tview);
     }

@@ -22,18 +22,17 @@ import java.util.Map;
  */
 public abstract class Level {
 
-    private final static Map<Integer,Integer> nextlevelnum = new HashMap<>();
-    private int mSubjectkey;
-
+    private final static Map<Integer, Integer> nextlevelnum = new HashMap<>();
     private final int mRounds;
     protected int mLevel;
+    private int mSubjectkey;
 
     protected Level(int subjectkey, int rounds) {
         mSubjectkey = subjectkey;
         mRounds = rounds;
         synchronized (nextlevelnum) {
             Integer lnum = nextlevelnum.get(mSubjectkey);
-            if (lnum==null) lnum = 0;
+            if (lnum == null) lnum = 0;
             lnum++;
             nextlevelnum.put(mSubjectkey, lnum);
             mLevel = lnum;

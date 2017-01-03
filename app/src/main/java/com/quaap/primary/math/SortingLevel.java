@@ -21,9 +21,10 @@ import com.quaap.primary.base.component.InputMode;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-public class SortingLevel extends StdLevel{
+public class SortingLevel extends StdLevel {
     private int mNumItems;
     private int mMaxNum;
+
     public SortingLevel(int subjectkey, int numItems, int maxNum, int rounds) {
         super(subjectkey, rounds, InputMode.None);
         mNumItems = numItems;
@@ -34,6 +35,7 @@ public class SortingLevel extends StdLevel{
     public int getNumItems() {
         return mNumItems;
     }
+
     public int getMaxNum() {
         return mMaxNum;
     }

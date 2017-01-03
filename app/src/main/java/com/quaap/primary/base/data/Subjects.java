@@ -29,6 +29,16 @@ import java.util.Map;
 public class Subjects {
 
     private static Subjects inst;
+    private Desc[] subjects;
+    private Map<String, Desc> subjectMap = new HashMap<>();
+    private List<String> codes = new ArrayList<>();
+    public Subjects(Context context) {
+        subjects = loadSubjects(context);
+        for (Desc subject : subjects) {
+            subjectMap.put(subject.getCode(), subject);
+            codes.add(subject.getCode());
+        }
+    }
 
     public synchronized static Subjects getInstance(Context context) {
         if (inst == null) {
@@ -37,17 +47,9 @@ public class Subjects {
         return inst;
     }
 
+    public static Desc[] loadSubjects(Context context) {
 
-    private Desc[] subjects;
-    private Map<String, Desc> subjectMap = new HashMap<>();
-    private List<String> codes = new ArrayList<>();
-
-    public Subjects(Context context) {
-        subjects = loadSubjects(context);
-        for(Desc subject: subjects) {
-            subjectMap.put(subject.getCode(), subject);
-            codes.add(subject.getCode());
-        }
+        return Levels.getSubjectInstances(context);
     }
 
     public List<String> getCodes() {
@@ -56,20 +58,17 @@ public class Subjects {
     }
 
     public String getNextCode(String code) {
-        int pos= codes.indexOf(code);
-        if (pos+1<codes.size()) {
-            return codes.get(pos+1);
+        int pos = codes.indexOf(code);
+        if (pos + 1 < codes.size()) {
+            return codes.get(pos + 1);
         }
         return null;
     }
 
+
     public int getCount() {
         return subjects.length;
     }
-
-//    private static String[] getArray(Context context, int arrayid) {
-//        return context.getResources().getStringArray(arrayid);
-//    }
 
     public Desc get(String code) {
         return subjectMap.get(code);
@@ -79,25 +78,14 @@ public class Subjects {
         return subjects[num];
     }
 
-    public static Desc[] loadSubjects(Context context) {
-//        String[] codes = getArray(context, R.array.subjects);
-//        Desc[] subjects = new Desc[codes.length];
-//        for (int i = 0; i < codes.length; i++) {
-//           // subjects[i] = new Desc(context, i);
-//        }
-        return Levels.getSubjectInstances(context);
-    }
-
-
-
     public static class Desc {
-      //  private int pos;
+
         private SubjectGroup group;
         private String code;
         private String name;
         private String desc;
         private Class activityclass;
-       // private String levelset;
+
 
         private Level[] levels;
 
@@ -110,30 +98,6 @@ public class Subjects {
             this.levels = levels;
 
         }
-
-//        public Desc(Context context, int pos) {
-//            this.setPos(pos);
-//            this.setCode(getString(context, R.array.subjects, pos));
-//            this.setName(getString(context, R.array.subjectsName, pos));
-//            this.setDesc(getString(context, R.array.subjectDescs, pos));
-//
-//            this.setActivityclass(Levels.ActivityClasses[pos]);
-//            this.setLevelset(Levels.LevelSetNames[pos]);
-//        }
-
-//        private String getString(Context context, int id, int pos) {
-//            return getArray(context, id)[pos];
-//        }
-//
-//
-//        public int getPos() {
-//            return pos;
-//        }
-//
-//        public void setPos(int pos) {
-//            this.pos = pos;
-//        }
-
 
         public String getCode() {
             return code;
@@ -179,12 +143,6 @@ public class Subjects {
             this.group = group;
         }
 
-//        public String getLevelset() {
-//            return levelset;
-//        }
-//
-//        public void setLevelset(String levelset) {
-//            this.levelset = levelset;
-//        }
+
     }
 }

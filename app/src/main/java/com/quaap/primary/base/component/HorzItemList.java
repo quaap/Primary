@@ -37,16 +37,13 @@ public abstract class HorzItemList {
     //This could be a custom view
 
 
+    private final int normalColor = Color.argb(64, 200, 200, 200);
     private Activity mParent;
-
-
     private int mItemLayoutId;
     private View mHorzList;
     private LinearLayout mItemsListView;
-
     private Map<String, ViewGroup> mListItems = new HashMap<>();
     private Map<ViewGroup, String> mListItemsRev = new HashMap<>();
-
     private String selected;
 
     public HorzItemList(Activity parent, int includeID, int itemLayoutId) {
@@ -59,8 +56,8 @@ public abstract class HorzItemList {
         mItemLayoutId = itemLayoutId;
 
         mHorzList = parent.findViewById(includeID);
-        mItemsListView = (LinearLayout)mHorzList.findViewById(R.id.items_list_area);
-        ImageView newbutton = (ImageView)mHorzList.findViewById(R.id.add_list_item_button);
+        mItemsListView = (LinearLayout) mHorzList.findViewById(R.id.items_list_area);
+        ImageView newbutton = (ImageView) mHorzList.findViewById(R.id.add_list_item_button);
         newbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,26 +68,28 @@ public abstract class HorzItemList {
     }
 
     public void populate(String[] itemkeys) {
-        if (itemkeys!=null) {
-            for (int i=0; i<itemkeys.length; i++) {
+        if (itemkeys != null) {
+            for (int i = 0; i < itemkeys.length; i++) {
                 addItem(i, itemkeys[i]);
             }
         }
     }
 
     public void showAddButton(boolean show) {
-        mHorzList.findViewById(R.id.add_list_item_button).setVisibility(show?View.VISIBLE:View.GONE);
+        mHorzList.findViewById(R.id.add_list_item_button).setVisibility(show ? View.VISIBLE : View.GONE);
     }
+
     public ViewGroup addItem(String key) {
         return addItem(-1, key);
     }
+
     public ViewGroup addItem(int pos, String key) {
         if (mListItems.containsKey(key)) {
             return mListItems.get(key);
         }
-        ViewGroup item = (ViewGroup)LayoutInflater.from(mParent).inflate(mItemLayoutId, (ViewGroup)null);
+        ViewGroup item = (ViewGroup) LayoutInflater.from(mParent).inflate(mItemLayoutId, (ViewGroup) null);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(10,10,10,10);
+        lp.setMargins(10, 10, 10, 10);
         item.setLayoutParams(lp);
 
         item.setBackgroundColor(normalColor);
@@ -103,7 +102,7 @@ public abstract class HorzItemList {
             @Override
             public void onClick(View view) {
                 setSelected(view);
-                onItemClicked(mListItemsRev.get(view), (LinearLayout)view);
+                onItemClicked(mListItemsRev.get(view), (LinearLayout) view);
             }
         });
         item.setTag(key);
@@ -114,8 +113,8 @@ public abstract class HorzItemList {
         return item;
     }
 
-    private void setBackground(View item, int drawableId){
-        if (Build.VERSION.SDK_INT>=21) {
+    private void setBackground(View item, int drawableId) {
+        if (Build.VERSION.SDK_INT >= 21) {
             item.setBackground(mParent.getResources().getDrawable(android.R.drawable.btn_default, mParent.getTheme()));
         } else {
             item.setBackground(mParent.getResources().getDrawable(android.R.drawable.btn_default));
@@ -132,7 +131,7 @@ public abstract class HorzItemList {
         mListItemsRev.remove(item);
         mListItems.remove(key);
         if (key.equals(selected)) {
-            setSelected((String)null);
+            setSelected((String) null);
         }
 
     }
@@ -145,7 +144,7 @@ public abstract class HorzItemList {
     }
 
     public void setItemTextField(View item, int itemFieldId, String value) {
-        TextView itemfield = (TextView)item.findViewById(itemFieldId);
+        TextView itemfield = (TextView) item.findViewById(itemFieldId);
         itemfield.setText(value);
     }
 
@@ -162,18 +161,11 @@ public abstract class HorzItemList {
         return mListItems.get(key);
     }
 
-
     protected void onNewItemClicked() {
 
     }
 
-
     protected void onItemClicked(String key, ViewGroup item) {
-
-    }
-
-
-    protected void populateItem(String key, ViewGroup item, int i) {
 
     }
 //    protected abstract void onNewItemClicked();
@@ -182,6 +174,9 @@ public abstract class HorzItemList {
 //
 //    protected abstract void populateItem(String key, ViewGroup item, int i);
 
+    protected void populateItem(String key, ViewGroup item, int i) {
+
+    }
 
     public boolean hasSelected() {
         return selected != null;
@@ -191,24 +186,19 @@ public abstract class HorzItemList {
         return selected;
     }
 
-    private void setSelected(View item) {
-        setSelected(mListItemsRev.get(item));
-    }
-
-    private final int normalColor = Color.argb(64,200,200,200);
     public void setSelected(String key) {
 
         final int selectedColor = Color.CYAN;
 
-        if (selected!=null) {
+        if (selected != null) {
             View old_selected = mListItems.get(selected);
-            if (old_selected!=null) {
+            if (old_selected != null) {
                 old_selected.setBackgroundColor(normalColor);
             }
         }
         selected = key;
-        if (selected!=null) {
-            HorizontalScrollView hsv = (HorizontalScrollView)mHorzList.findViewById(R.id.horz_list_scroller);
+        if (selected != null) {
+            HorizontalScrollView hsv = (HorizontalScrollView) mHorzList.findViewById(R.id.horz_list_scroller);
             View new_selected = mListItems.get(selected);
 //            boolean nextone = false;
 //            for (String sk: mListItems.keySet()) {
@@ -220,12 +210,16 @@ public abstract class HorzItemList {
 //                    nextone = true;
 //                }
 //            }
-            if (new_selected!=null) {
+            if (new_selected != null) {
                 new_selected.setBackgroundColor(selectedColor);
                 hsv.requestChildFocus(new_selected, new_selected);
-               // focusChild(hsv, new_selected);
+                // focusChild(hsv, new_selected);
             }
         }
+    }
+
+    private void setSelected(View item) {
+        setSelected(mListItemsRev.get(item));
     }
 
 //    private void focusChild(final HorizontalScrollView scroll, final View view) {

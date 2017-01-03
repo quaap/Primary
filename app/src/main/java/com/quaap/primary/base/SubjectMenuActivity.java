@@ -3,7 +3,6 @@ package com.quaap.primary.base;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -70,7 +69,7 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
         super.onCreate(savedInstanceState);
 
         //Log.d("onCreate", "onCreate savedInstanceState=" + (savedInstanceState==null?"null":"notnull"));
-        if (savedInstanceState==null) {
+        if (savedInstanceState == null) {
 
             Intent intent = getIntent();
             mSubjectCode = intent.getStringExtra(MainActivity.SUBJECTCODE);
@@ -82,7 +81,7 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
         }
         //Log.d("onCreate", "onCreate username=" + username);
 
-        if (mSubjectCode ==null || username==null) {
+        if (mSubjectCode == null || username == null) {
             SharedPreferences state = getSharedPreferences(this.getClass().getName(), MODE_PRIVATE);
             mSubjectCode = state.getString("mSubjectCode", mSubjectCode);
             username = state.getString("username", username);
@@ -92,7 +91,7 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
         mSubject = subjects.get(mSubjectCode);
 
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setTitle(getString(R.string.app_name) + ": " + mSubject.getName() + " (" + username + ")");
         }
 
@@ -101,12 +100,11 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
         setContentView(R.layout.activity_subject_menu);
 
 
-
-        Button resume_button = (Button)findViewById(R.id.resume_button);
+        Button resume_button = (Button) findViewById(R.id.resume_button);
         resume_button.setTag(-1);
         resume_button.setOnClickListener(this);
 
-        Button clear_button = (Button)findViewById(R.id.clear_button);
+        Button clear_button = (Button) findViewById(R.id.clear_button);
         clear_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,7 +112,7 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle(getString(R.string.clear_progress))
                         .setMessage(R.string.sure_clear_progress)
-                        .setPositiveButton(R.string.clear, new DialogInterface.OnClickListener()  {
+                        .setPositiveButton(R.string.clear, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 clearProgress();
@@ -138,6 +136,7 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
         super.onSaveInstanceState(outState);
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -175,14 +174,14 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
     private void showLevelButtons() {
         int highest = mUserData.getSubjectForUser(mSubjectCode).getHighestLevelNum();
 
-        LinearLayout button_layout = (LinearLayout)findViewById(R.id.button_layout);
+        LinearLayout button_layout = (LinearLayout) findViewById(R.id.button_layout);
 
         button_layout.removeAllViews();
 
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.gravity = Gravity.CENTER_VERTICAL;
 
-        for( Level level: mSubject.getLevels()) {
+        for (Level level : mSubject.getLevels()) {
 
             LinearLayout levelrow = new LinearLayout(this);
             levelrow.setOrientation(LinearLayout.HORIZONTAL);
@@ -201,7 +200,7 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
             desc.setTextSize(16);
             levelrow.addView(desc);
 
-            boolean beenthere = level.getLevelNum()-1<=highest;
+            boolean beenthere = level.getLevelNum() - 1 <= highest;
             levelbutt.setEnabled(beenthere);
             desc.setEnabled(beenthere);
         }
@@ -215,9 +214,9 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
     }
 
     private void show_hide_gip() {
-        LinearLayout gip_layout = (LinearLayout)findViewById(R.id.gip_layout);
-        TextView score_overview = (TextView)findViewById(R.id.score_overview);
-        if (mSubjectData.getLevelNum()==-1) {
+        LinearLayout gip_layout = (LinearLayout) findViewById(R.id.gip_layout);
+        TextView score_overview = (TextView) findViewById(R.id.score_overview);
+        if (mSubjectData.getLevelNum() == -1) {
             gip_layout.setVisibility(View.GONE);
             score_overview.setText(" ");
         } else {
@@ -226,7 +225,7 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
             int incorrect = mSubjectData.getTotalIncorrect();
             int highest = mSubjectData.getHighestLevelNum() + 1;
             int tscore = mSubjectData.getTodayPoints();
-            if (correct+incorrect>0) {
+            if (correct + incorrect > 0) {
                 String score = getString(R.string.score_overview, highest, correct, (correct + incorrect), tscore);
                 score_overview.setText(score);
             }
@@ -247,9 +246,8 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
     }
 
 
-
     private void checkStorageAccess() {
-        boolean beendenied = getSharedPreferences(this.getClass().getName(),MODE_PRIVATE).getBoolean("denied", false);
+        boolean beendenied = getSharedPreferences(this.getClass().getName(), MODE_PRIVATE).getBoolean("denied", false);
         if (!beendenied && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
@@ -268,12 +266,11 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
                     Toast.makeText(this, R.string.write_perms_granted, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, R.string.write_perms_denied, Toast.LENGTH_LONG).show();
-                    getSharedPreferences(this.getClass().getName(),MODE_PRIVATE).edit().putBoolean("denied", true).apply();
+                    getSharedPreferences(this.getClass().getName(), MODE_PRIVATE).edit().putBoolean("denied", true).apply();
                 }
             }
         }
     }
-
 
 
 }

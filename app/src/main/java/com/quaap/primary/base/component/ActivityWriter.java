@@ -37,22 +37,37 @@ public class ActivityWriter {
 
     public ActivityWriter(Context context, String username, String subject) throws IOException {
 
-        username = username.replaceAll("\\W","_");
+        username = username.replaceAll("\\W", "_");
 
 
         SimpleDateFormat fileFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String fname = username + " " + subject + " " + fileFormat.format(new Date());
-        fname = fname.replaceAll("[/\\\\.(){}$*|?<>\\[\\]]"," ");
-        File f = new File(getAppDocumentsDir(context),  fname + ".csv");
+        fname = fname.replaceAll("[/\\\\.(){}$*|?<>\\[\\]]", " ");
+        File f = new File(getAppDocumentsDir(context), fname + ".csv");
         boolean newfile = !f.exists();
         mFw = new FileWriter(f, true);
         if (newfile) {
-            writeRow(context.getString(R.string.csv_time), context.getString(R.string.csv_level), 
-                    context.getString(R.string.csv_problem), context.getString(R.string.csv_answer), 
-                    context.getString(R.string.csv_useranswer), context.getString(R.string.csv_correct), 
-                    context.getString(R.string.csv_tspent), context.getString(R.string.csv_run_percent), 
+            writeRow(context.getString(R.string.csv_time), context.getString(R.string.csv_level),
+                    context.getString(R.string.csv_problem), context.getString(R.string.csv_answer),
+                    context.getString(R.string.csv_useranswer), context.getString(R.string.csv_correct),
+                    context.getString(R.string.csv_tspent), context.getString(R.string.csv_run_percent),
                     context.getString(R.string.csv_points));
         }
+    }
+
+    private static String csvEscape(String value) {
+
+        if (value == null) {
+            return "";
+        }
+        if (value.length() == 0) {
+            return "\"\"";
+        }
+        if (value.matches("^-?(\\d+(\\.\\d+)?|\\.\\d+)$")) {
+            return value;
+        }
+        return "\"" + value.replaceAll("\"", "\"\"") + "\"";
+
     }
 
     public synchronized void close() throws IOException {
@@ -73,33 +88,17 @@ public class ActivityWriter {
         return file;
     }
 
-    private static String csvEscape(String value) {
-
-        if (value==null) {
-            return "";
-        }
-        if (value.length() ==0) {
-            return "\"\"";
-        }
-        if (value.matches("^-?(\\d+(\\.\\d+)?|\\.\\d+)$")) {
-            return value;
-        }
-        return "\"" + value.replaceAll("\"", "\"\"") + "\"";
-
-    }
-
-
     public synchronized void log(int level, String problem, String answer, String useranswer, boolean correct, long millis, float runningpercent, int points) {
         writeRow(mDateFormat.format(new Date()), level, problem, answer, useranswer, correct,
-                millis, String.format(Locale.getDefault(),"%4.1f",runningpercent), points );
+                millis, String.format(Locale.getDefault(), "%4.1f", runningpercent), points);
     }
 
 
-    private synchronized void writeRow(Object ... items) {
+    private synchronized void writeRow(Object... items) {
         try {
-            for (int i=0; i<items.length; i++) {
+            for (int i = 0; i < items.length; i++) {
                 mFw.write(csvEscape(items[i].toString()));
-                if (i<items.length-1) {
+                if (i < items.length - 1) {
                     mFw.write(",");
                 }
             }

@@ -35,7 +35,7 @@ public class SpellingLevel extends StdLevel {
 
     @Override
     public String getDescription(Context context) {
-        return "Length: " + mMaxwordlength + ". " + (getInputMode()==InputMode.Buttons ? "Multiple choice" : "Keyboard");
+        return "Length: " + mMaxwordlength + ". " + (getInputMode() == InputMode.Buttons ? "Multiple choice" : "Keyboard");
     }
 
     @Override
@@ -46,8 +46,6 @@ public class SpellingLevel extends StdLevel {
     public int getmWordlistId() {
         return mWordlistId;
     }
-
-
 
 
 }

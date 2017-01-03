@@ -25,8 +25,7 @@ public enum SubjectGroup {
     LanguageArts("LA", R.string.group_la, R.color.group_color_la),
     Science("Sc", R.string.group_sc, R.color.group_color_sc),
     Music("Mu", R.string.group_mu, R.color.group_color_mu),
-    Art("Ar", R.string.group_ar, R.color.group_color_ar)
-    ;
+    Art("Ar", R.string.group_ar, R.color.group_color_ar);
 
 
     private String mCode;
@@ -44,7 +43,7 @@ public enum SubjectGroup {
     }
 
     public int getColor(Context context) {
-        if (Build.VERSION.SDK_INT>=21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             return context.getColor(mColorResId);
         } else {
             return context.getResources().getColor(mColorResId);

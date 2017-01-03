@@ -2,7 +2,6 @@ package com.quaap.primary.math;
 
 import android.content.ClipData;
 import android.graphics.Color;
-
 import android.graphics.Typeface;
 import android.view.DragEvent;
 import android.view.Gravity;
@@ -38,34 +37,31 @@ import java.util.TreeSet;
  * GNU General Public License for more details.
  */
 public class SortingActivity extends StdGameActivity implements
-        View.OnTouchListener, View.OnDragListener{
+        View.OnTouchListener, View.OnDragListener {
 
     public static final int BACKGROUND_COLOR = Color.rgb(200, 200, 200);
 
     private List<Integer> numlist;
+    private boolean problemDone = false;
+    private int moves = 0;
+    private int numcolumns = 3;
+
     public SortingActivity() {
         super(R.layout.std_sorting_prob);
         setUseInARow(false);
     }
 
-    private boolean problemDone = false;
-
-    private int moves = 0;
-
-    private int numcolumns = 3;
-
-
     @Override
     protected void onPause() {
         super.onPause();
-        saveLevelValue("numlist", join(",",numlist));
+        saveLevelValue("numlist", join(",", numlist));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        GridLayout sortArea = (GridLayout)findViewById(R.id.sort_area);
-        if (isLandscape()){
+        GridLayout sortArea = (GridLayout) findViewById(R.id.sort_area);
+        if (isLandscape()) {
             numcolumns = 6;
         } else {
             numcolumns = 3;
@@ -73,22 +69,22 @@ public class SortingActivity extends StdGameActivity implements
         sortArea.setColumnCount(numcolumns);
 
         //override super class
-        LinearLayout centercol = (LinearLayout)findViewById(R.id.centercol);
+        LinearLayout centercol = (LinearLayout) findViewById(R.id.centercol);
         centercol.setOrientation(LinearLayout.VERTICAL);
     }
 
     @Override
     protected void showProbImpl() {
-        GridLayout sortArea = (GridLayout)findViewById(R.id.sort_area);
+        GridLayout sortArea = (GridLayout) findViewById(R.id.sort_area);
         sortArea.removeAllViews();
 
         sortArea.setOnDragListener(this);
 
         Set<Integer> nums = new TreeSet<>();
-        SortingLevel level = ((SortingLevel)getLevel());
+        SortingLevel level = ((SortingLevel) getLevel());
 
-        String numliststr = getSavedLevelValue("numlist", (String)null);
-        if (numliststr==null || numliststr.length()==0) {
+        String numliststr = getSavedLevelValue("numlist", (String) null);
+        if (numliststr == null || numliststr.length() == 0) {
             int tries = 0;
             do {
                 nums.add(getRand(level.getMaxNum()));
@@ -101,20 +97,20 @@ public class SortingActivity extends StdGameActivity implements
             } while (isSorted(numlist));
 
         } else {
-            numlist = splitInts(",",numliststr);
+            numlist = splitInts(",", numliststr);
             deleteSavedLevelValue("numlist");
         }
 
-        int mlen = (level.getMaxNum()+"").length();
+        int mlen = (level.getMaxNum() + "").length();
 //        int xsize = getScreenSize().x;
 //
 //        int tsize = xsize*2/3 / numcolumns / 4 - 5;
 //        if (tsize>30) tsize = 30;
         int tsize = 30 - mlen;
 
-        for(int num: numlist){
+        for (int num : numlist) {
             String spaces = "";
-            for (int i=0; i<Math.max(3,mlen)-(num+"").length();i++) {
+            for (int i = 0; i < Math.max(3, mlen) - (num + "").length(); i++) {
                 spaces += " ";
             }
 
@@ -137,7 +133,7 @@ public class SortingActivity extends StdGameActivity implements
 
             GridLayout.LayoutParams lp = new GridLayout.LayoutParams();
 
-            lp.setMargins(1,1,1,1);
+            lp.setMargins(1, 1, 1, 1);
             lp.setGravity(Gravity.CENTER);
             item.setLayoutParams(lp);
             item.setBackgroundColor(BACKGROUND_COLOR);
@@ -147,10 +143,9 @@ public class SortingActivity extends StdGameActivity implements
         }
         problemDone = false;
         moves = 0;
-        int n = level.getNumItems()*250;
+        int n = level.getNumItems() * 250;
         setFasttimes(300 + n, 1000 + n, 2000 + n);
     }
-
 
 
     @Override
@@ -176,7 +171,7 @@ public class SortingActivity extends StdGameActivity implements
                 // Dropped, reassign View to ViewGroup
                 View view2 = (View) event.getLocalState();
                 if (view2 == view) {
-                   // Log.d("sort", "self drop");
+                    // Log.d("sort", "self drop");
                     break;
                 }
 
@@ -184,7 +179,7 @@ public class SortingActivity extends StdGameActivity implements
 
                 GridLayout container;
                 if (view instanceof GridLayout) {
-                    container = (GridLayout)view;
+                    container = (GridLayout) view;
 
                 } else {
                     container = (GridLayout) view.getParent();
@@ -192,14 +187,14 @@ public class SortingActivity extends StdGameActivity implements
                 }
 
                 int index = -1;
-                for (int i=0;i<container.getChildCount(); i++) {
-                    if (container.getChildAt(i)==view) {
+                for (int i = 0; i < container.getChildCount(); i++) {
+                    if (container.getChildAt(i) == view) {
                         index = i;
                     }
                 }
 
                 owner.removeView(view2);
-                if (index==-1) {
+                if (index == -1) {
                     container.addView(view2);
                 } else {
                     container.addView(view2, index);
@@ -224,9 +219,9 @@ public class SortingActivity extends StdGameActivity implements
 
             boolean sorted = true;
 
-            for (int i = 0; i < sortArea.getChildCount()-1; i++) {
+            for (int i = 0; i < sortArea.getChildCount() - 1; i++) {
                 int num1 = (int) sortArea.getChildAt(i).getTag();
-                int num2 = (int) sortArea.getChildAt(i+1).getTag();
+                int num2 = (int) sortArea.getChildAt(i + 1).getTag();
                 if (num1 > num2) {
                     sorted = false;
                     break;
@@ -238,13 +233,13 @@ public class SortingActivity extends StdGameActivity implements
                 stopTimer();
 
                 for (int i = 0; i < sortArea.getChildCount(); i++) {
-                    final int c=i;
+                    final int c = i;
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             sortArea.getChildAt(c).setBackgroundColor(Color.GREEN);
                         }
-                    }, (c+1)*1000 / sortArea.getChildCount());
+                    }, (c + 1) * 1000 / sortArea.getChildCount());
                 }
 
 
@@ -265,17 +260,17 @@ public class SortingActivity extends StdGameActivity implements
             prob += p + ";";
         }
 
-        SortingLevel level = ((SortingLevel)getLevel());
+        SortingLevel level = ((SortingLevel) getLevel());
 
-        answerDone(true, (int)(Math.sqrt(level.getMaxNum())*level.getNumItems()/moves), prob, "sorted", "sorted");
+        answerDone(true, (int) (Math.sqrt(level.getMaxNum()) * level.getNumItems() / moves), prob, "sorted", "sorted");
 
     }
 
     private boolean isSorted(List<Integer> list) {
         boolean sorted = true;
 
-        for (int i = 0; i < list.size()-1; i++) {
-            if (list.get(i) > list.get(i+1)) {
+        for (int i = 0; i < list.size() - 1; i++) {
+            if (list.get(i) > list.get(i + 1)) {
                 sorted = false;
                 break;
             }

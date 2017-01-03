@@ -41,9 +41,7 @@ public class SettingsActivity extends PreferenceActivity {
         modIntent.putExtra(EXTRA_NO_HEADERS, true);
         return modIntent;
     }
-    /**
-     * Populate the activity with the top-level headers.
-     */
+
     @Override
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.preference_headers, target);

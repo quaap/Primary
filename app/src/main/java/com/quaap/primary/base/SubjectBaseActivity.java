@@ -1,10 +1,23 @@
 package com.quaap.primary.base;
 
+/**
+ * Created by tom on 12/15/16.
+ * <p>
+ * Copyright (C) 2016   Tom Kliethermes
+ * <p>
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
 import android.Manifest;
-
 import android.content.Context;
 import android.content.Intent;
-
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -53,16 +66,17 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     public static final String LEVELNUM = "levelnum";
     public static final String START_AT_ZERO = "startover";
-
-
-    private UserData.Subject mSubjectData;
-
-    protected int correct=0;
-    protected int incorrect=0;
+    protected static int INPUTTYPE_TEXT = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_CLASS_TEXT;
+    protected static int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL;
+    final protected Handler handler = new Handler();
+    private final int layoutId;
+    protected int correct = 0;
+    protected int incorrect = 0;
     protected int levelnum = 0;
+    private UserData.Subject mSubjectData;
     private int highestLevelnum = 0;
-    private int totalCorrect=0;
-    private int totalIncorrect=0;
+    private int totalCorrect = 0;
+    private int totalIncorrect = 0;
     private int tscore = 0;
     private int todaysScore = 0;
     private long starttime = System.currentTimeMillis();
@@ -70,41 +84,41 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     private int correctInARow = 0;
     private boolean useInARow = true;
     private String bonuses;
-
     private Subjects.Desc mSubject;
     private String mSubjectCode;
-
-
-    private Level getLevel(int leveln) {
-        return levels[leveln];
-    }
-    protected Level getLevel() {
-        return levels[levelnum];
-    }
-
     private int[] fasttimes = {1000, 2000, 3000};
-
     private Level[] levels;
-
-    private final int layoutId;
-
     private String username;
-
-
     private boolean startover;
-
     private PopupWindow levelCompletePopup;
-
     private boolean readyForProblem = true;
     private boolean resumeDone = false;
-
     private List<String> seenProblems = new ArrayList<>();
-
     private SharedPreferences appPreferences;
+    private int maxseensize = 40;
+    private long timespent;
+    private boolean timeMeasured;
+
 
     protected SubjectBaseActivity(int layoutIdtxt) {
 
         layoutId = layoutIdtxt;
+    }
+
+    protected static int getRand(int upper) {
+        return getRand(0, upper);
+    }
+
+    protected static int getRand(int lower, int upper) {
+        return (int) (Math.random() * (upper + 1 - lower)) + lower;
+    }
+
+    private Level getLevel(int leveln) {
+        return levels[leveln];
+    }
+
+    protected Level getLevel() {
+        return levels[levelnum];
     }
 
     private void showProb() {
@@ -114,11 +128,9 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     protected abstract void showProbImpl();
 
-
     private boolean hasStorageAccess() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +140,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
 
         //Log.d("base", "onCreate savedInstanceState=" + (savedInstanceState==null?"null":"notnull"));
-        if (savedInstanceState==null) {
+        if (savedInstanceState == null) {
             Intent intent = getIntent();
             levelnum = intent.getIntExtra(LEVELNUM, 0);
             //Log.d("base", "intent says levelnum=" + levelnum);
@@ -152,8 +164,8 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
 
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar!=null) {
-            actionBar.setTitle(getString(R.string.app_name) + ": " + mSubject.getName() + " ("+username+")");
+        if (actionBar != null) {
+            actionBar.setTitle(getString(R.string.app_name) + ": " + mSubject.getName() + " (" + username + ")");
         }
 
         mSubjectData = AppData.getSubjectForUser(this, username, mSubjectCode);
@@ -196,23 +208,22 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         }
     }
 
-
     @Override
     protected void onPause() {
 
         //Log.d("base", "onPause. levelnum=" + levelnum);
         saveGameData();
 
-        if (levelCompletePopup!=null) {
+        if (levelCompletePopup != null) {
             levelCompletePopup.dismiss();
             //   levelnum++;
             levelCompletePopup = null;
         }
         try {
-            if (actwriter !=null) actwriter.close();
+            if (actwriter != null) actwriter.close();
             actwriter = null;
         } catch (IOException e) {
-            Log.e("Primary", "Error closing activity file.",e);
+            Log.e("Primary", "Error closing activity file.", e);
         }
         super.onPause();
     }
@@ -230,7 +241,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         mSubjectData.setTotalPoints(tscore);
         mSubjectData.setTodayPoints(todaysScore);
 
-        mSubjectData.setPopUpShown(levelCompletePopup!=null);
+        mSubjectData.setPopUpShown(levelCompletePopup != null);
 
         mSubjectData.saveValue("seenProblems", seenProblems);
 
@@ -242,7 +253,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
         if (!startover) {
             levelnum = mSubjectData.getLevelNum();
-            correct =  mSubjectData.getCorrect();
+            correct = mSubjectData.getCorrect();
             incorrect = mSubjectData.getIncorrect();
             correctInARow = mSubjectData.getCorrectInARow();
             showpopup = mSubjectData.getPopUpShown();
@@ -259,7 +270,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
 
         View todayview = findViewById(R.id.todays_area);
-        todayview.setVisibility(todaysScore==tscore ? View.GONE : View.VISIBLE);
+        todayview.setVisibility(todaysScore == tscore ? View.GONE : View.VISIBLE);
         setLevelFields();
         if (showpopup) {
             showLevelCompletePopup(false);
@@ -267,46 +278,47 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     }
 
-
     protected void saveLevelValue(String name, int value) {
-        mSubjectData.saveValue(name+levelnum,value);
+        mSubjectData.saveValue(name + levelnum, value);
     }
 
     protected void saveLevelValue(String name, String value) {
-        mSubjectData.saveValue(name+levelnum,value);
+        mSubjectData.saveValue(name + levelnum, value);
     }
 
     protected int getSavedLevelValue(String name, int value) {
-        return mSubjectData.getValue(name+levelnum,value);
+        return mSubjectData.getValue(name + levelnum, value);
     }
 
     protected String getSavedLevelValue(String name, String value) {
-        return mSubjectData.getValue(name+levelnum,value);
+        return mSubjectData.getValue(name + levelnum, value);
     }
 
-    protected void deleteSavedLevelValue(String name){
-        mSubjectData.deleteValue(name+levelnum);
+    protected void deleteSavedLevelValue(String name) {
+        mSubjectData.deleteValue(name + levelnum);
     }
 
     protected void saveLevelValue(String name, Set<String> stringset) {
-        mSubjectData.saveValue(name+levelnum,stringset);
-    }
-    protected void saveLevelValue(String name, List<String> stringlist) {
-        mSubjectData.saveValue(name+levelnum,stringlist);
+        mSubjectData.saveValue(name + levelnum, stringset);
     }
 
-    protected  Set<String> getSavedLevelValue(String name, Set<String> stringset) {
-        return mSubjectData.getValue(name+levelnum,stringset);
+    protected void saveLevelValue(String name, List<String> stringlist) {
+        mSubjectData.saveValue(name + levelnum, stringlist);
     }
-    protected  List<String> getSavedLevelValue(String name, List<String> stringlist) {
-        return mSubjectData.getValue(name+levelnum,stringlist);
+
+    protected Set<String> getSavedLevelValue(String name, Set<String> stringset) {
+        return mSubjectData.getValue(name + levelnum, stringset);
+    }
+
+    protected List<String> getSavedLevelValue(String name, List<String> stringlist) {
+        return mSubjectData.getValue(name + levelnum, stringlist);
     }
 
     protected String join(String sep, List<?> list) {
         return join(sep, list.toArray());
     }
 
-    protected String join(String sep, Object ...list) {
+    protected String join(String sep, Object... list) {
         StringBuilder sb = new StringBuilder();
         boolean first = true;
         for (Object item : list) {
@@ -321,14 +333,13 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     }
 
     protected List<Integer> splitInts(String sep, String string) {
-        String [] vals = string.split(sep);
+        String[] vals = string.split(sep);
         List<Integer> intlist = new ArrayList<>();
-        for (String s: vals) {
+        for (String s : vals) {
             intlist.add(Integer.parseInt(s));
         }
         return intlist;
     }
-
 
     protected abstract void onShowLevel();
 
@@ -339,19 +350,6 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         }
     }
 
-
-    public interface AnswerGivenListener<T> {
-        boolean answerGiven(T answer);
-    }
-
-    public interface AnswerTypedListener {
-        boolean answerTyped(String answer);
-    }
-
-
-    protected static int INPUTTYPE_TEXT = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_CLASS_TEXT;
-    protected static int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED  | InputType.TYPE_NUMBER_FLAG_DECIMAL;
-
     protected void makeInputBox(final ViewGroup answerlayout, final ViewGroup keypadarea, final AnswerTypedListener listener, int inputttpe, int emwidth, float fontsize) {
         makeInputBox(answerlayout, keypadarea, listener, inputttpe, emwidth, fontsize, null);
     }
@@ -359,19 +357,19 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     protected void makeInputBox(final ViewGroup answerlayout, final ViewGroup keypadarea, final AnswerTypedListener listener, int inputttpe, int emwidth, float fontsize, final String defaultInput) {
 
         answerlayout.removeAllViews();
-        ViewGroup type_area = (ViewGroup)LayoutInflater.from(this).inflate(R.layout.typed_input, answerlayout);
+        ViewGroup type_area = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.typed_input, answerlayout);
 
         final EditText uinput = (EditText) type_area.findViewById(R.id.uinput_edit);
 
 
-        if((inputttpe & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER) {
+        if ((inputttpe & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER) {
             uinput.setGravity(Gravity.END);
         }
 
-        if (emwidth>0) {
+        if (emwidth > 0) {
             uinput.setEms(emwidth);
         }
-        if (fontsize>0) {
+        if (fontsize > 0) {
             uinput.setTextSize(fontsize);
         }
 
@@ -382,25 +380,25 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
         uinput.setOnEditorActionListener(
                 new TextView.OnEditorActionListener() {
-                     @Override
-                     public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+                    @Override
+                    public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
                         //Log.d("rrr", actionId + " " + event);
-                         if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
-                                 || (actionId == EditorInfo.IME_ACTION_DONE)
-                                 || (actionId == EditorInfo.IME_ACTION_NEXT)
-                                 || (actionId == EditorInfo.IME_ACTION_GO)
-                                 ) {
-                             if (!listener.answerTyped(uinput.getText().toString())) {
-                                 showSoftKeyboard(uinput, keypadarea, defaultInput);
-                             }
-                         }
-                         return true;
-                     }
-                 });
+                        if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
+                                || (actionId == EditorInfo.IME_ACTION_DONE)
+                                || (actionId == EditorInfo.IME_ACTION_NEXT)
+                                || (actionId == EditorInfo.IME_ACTION_GO)
+                                ) {
+                            if (!listener.answerTyped(uinput.getText().toString())) {
+                                showSoftKeyboard(uinput, keypadarea, defaultInput);
+                            }
+                        }
+                        return true;
+                    }
+                });
 
         Button clear = (Button) type_area.findViewById(R.id.uinput_clear);
         Button done = (Button) type_area.findViewById(R.id.uinput_done);
-        if (keypadarea==null) {
+        if (keypadarea == null) {
             clear.setVisibility(View.VISIBLE);
             done.setVisibility(View.VISIBLE);
             clear.setOnClickListener(new View.OnClickListener() {
@@ -429,10 +427,6 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         showSoftKeyboard(uinput, keypadarea, defaultInput);
     }
 
-
-
-
-
     protected <T> List<Button> makeChoiceButtons(
             ViewGroup answerlayout,
             List<T> choices,
@@ -441,22 +435,21 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     }
 
     protected <T> List<Button> makeChoiceButtons(
-                    ViewGroup answerlayout,
-                    List<T> choices,
-                    final AnswerGivenListener listener,
-                    float fontsize,
-                    ViewGroup.LayoutParams lparams,
-                    int gravity)
-    {
+            ViewGroup answerlayout,
+            List<T> choices,
+            final AnswerGivenListener listener,
+            float fontsize,
+            ViewGroup.LayoutParams lparams,
+            int gravity) {
         answerlayout.removeAllViews();
 
         final List<Button> buttons = new ArrayList<>();
-        for (T choice: choices) {
+        for (T choice : choices) {
             Button ansbutt = new Button(this);
             buttons.add(ansbutt);
             ansbutt.setEnabled(false);
             ansbutt.setTypeface(Typeface.MONOSPACE);
-            if (fontsize>0) {
+            if (fontsize > 0) {
                 ansbutt.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontsize);
             } else {
                 ansbutt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
@@ -464,12 +457,12 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
             ansbutt.setAllCaps(false);
             String text = choice.toString();
-            ansbutt.setText(text.substring(0,1).toUpperCase(Locale.getDefault()) + (text.length()>1?text.substring(1):""));
+            ansbutt.setText(text.substring(0, 1).toUpperCase(Locale.getDefault()) + (text.length() > 1 ? text.substring(1) : ""));
             ansbutt.setTag(choice);
             ansbutt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    for (Button ab: buttons) {
+                    for (Button ab : buttons) {
                         ab.setEnabled(false);
                     }
                     boolean isright = listener.answerGiven(view.getTag());
@@ -477,7 +470,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                for (Button ab: buttons) {
+                                for (Button ab : buttons) {
                                     ab.setEnabled(true);
                                 }
                             }
@@ -486,7 +479,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                 }
             });
             ansbutt.setGravity(gravity);
-            if (lparams!=null) {
+            if (lparams != null) {
                 ansbutt.setLayoutParams(lparams);
             }
             answerlayout.addView(ansbutt);
@@ -496,7 +489,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (Button ab: buttons) {
+                for (Button ab : buttons) {
                     ab.setEnabled(true);
                 }
             }
@@ -509,11 +502,11 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
         view.clearFocus();
 
-        if (defaultInput!=null) {
+        if (defaultInput != null) {
             view.setText(defaultInput);
             view.setSelection(defaultInput.length());
         }
-        boolean isnumeric = ( (view.getInputType() & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER);
+        boolean isnumeric = ((view.getInputType() & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER);
 
         int whichkeyboard = Integer.parseInt(appPreferences.getString("keyboard_preference", "1"));
         int whichkeypad = Integer.parseInt(appPreferences.getString("keypad_preference", "1"));
@@ -521,13 +514,13 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         boolean gkeyboardAvail = getResources().getBoolean(R.bool.game_keyboard_available);
         boolean gkeypadAvail = getResources().getBoolean(R.bool.game_keypad_available);
 
-        if (isnumeric && gkeypadAvail && whichkeypad==1 && keypadarea!=null) {
+        if (isnumeric && gkeypadAvail && whichkeypad == 1 && keypadarea != null) {
             Keyboard.showNumberpad(this, view, keypadarea);
 
-        } else if (!isnumeric && gkeyboardAvail && whichkeyboard==1 && keypadarea!=null) {
+        } else if (!isnumeric && gkeyboardAvail && whichkeyboard == 1 && keypadarea != null) {
             Keyboard.showKeyboard(this, view, keypadarea);
 
-        } else if (whichkeypad==2 || whichkeyboard==2 || (isnumeric && !gkeypadAvail) || (!isnumeric && !gkeyboardAvail) ) {
+        } else if (whichkeypad == 2 || whichkeyboard == 2 || (isnumeric && !gkeypadAvail) || (!isnumeric && !gkeyboardAvail)) {
             showSystemKeyboard(view);
         }
 
@@ -547,25 +540,22 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         }, 100);
     }
 
-
-    private int maxseensize = 40;
-    protected boolean seenProblem(Object ... parts) {
+    protected boolean seenProblem(Object... parts) {
         String key = "";
-        for (Object p: parts) {
+        for (Object p : parts) {
             key += p.toString() + "#.#";
         }
         if (seenProblems.contains(key)) {
             return true;
         }
         seenProblems.add(key);
-        if (seenProblems.size()>maxseensize) {
+        if (seenProblems.size() > maxseensize) {
             seenProblems.remove(0);
         }
         return false;
     }
 
     protected abstract void setStatus(String text);
-
 
     private void setStatus(String text, int timeout) {
         setStatus(text);
@@ -584,10 +574,6 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     private void setStatus(int resid, int timeout) {
         setStatus(getString(resid), timeout);
     }
-    final protected Handler handler = new Handler();
-
-    private long timespent;
-    private boolean timeMeasured;
 
     protected void startTimer() {
         starttime = System.currentTimeMillis();
@@ -600,7 +586,6 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             timeMeasured = true;
         }
     }
-
 
 
     protected void answerDone(boolean isright, int addscore, String problem, String answer, String useranswer) {
@@ -616,22 +601,22 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             tscore += points;
             todaysScore += points;
 
-            if (actwriter !=null) {
-                actwriter.log(levelnum+1, problem, answer, useranswer, isright, timespent, getCurrentPercentFloat(), points);
+            if (actwriter != null) {
+                actwriter.log(levelnum + 1, problem, answer, useranswer, isright, timespent, getCurrentPercentFloat(), points);
             }
 
-            if (correct>=levels[levelnum].getRounds()) {
+            if (correct >= levels[levelnum].getRounds()) {
                 correct = 0;
                 incorrect = 0;
                 setStatus(R.string.correct, 1200);
-                if (levelnum+1>=levels.length) {
+                if (levelnum + 1 >= levels.length) {
                     mSubjectData.setSubjectCompleted(true);
                     saveGameData();
                     showLevelCompletePopup(true);
                     return;
                 } else {
-                    if (highestLevelnum<levelnum+1) {
-                        highestLevelnum = levelnum+1;
+                    if (highestLevelnum < levelnum + 1) {
+                        highestLevelnum = levelnum + 1;
                     }
 
                     showLevelCompletePopup(false);
@@ -648,8 +633,8 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             correctInARow = 0;
             totalIncorrect++;
             setStatus(R.string.try_again, 1200);
-            if (actwriter !=null) {
-                actwriter.log(levelnum+1, problem, answer, useranswer, isright, timespent, getCurrentPercentFloat(), 0);
+            if (actwriter != null) {
+                actwriter.log(levelnum + 1, problem, answer, useranswer, isright, timespent, getCurrentPercentFloat(), 0);
             }
 
         }
@@ -659,9 +644,9 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
 
     private void showLevelCompletePopup(boolean alldone) {
-        final LinearLayout levelcompleteView = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.level_complete, null);
+        final LinearLayout levelcompleteView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.level_complete, null);
 
-        TextView lc = (TextView)levelcompleteView.findViewById(R.id.level_complete_text);
+        TextView lc = (TextView) levelcompleteView.findViewById(R.id.level_complete_text);
         lc.setText(getString(R.string.level_complete, getLevel(levelnum).getLevelNum()));
 
         Point size = getScreenSize();
@@ -672,7 +657,6 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         levelCompletePopup = new PopupWindow(levelcompleteView, width, height, true);
 
         View no_more_levels_txt = levelcompleteView.findViewById(R.id.no_more_levels_txt);
-
 
 
         View nextlevel_button = levelcompleteView.findViewById(R.id.nextlevel_button);
@@ -752,13 +736,13 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     private int getBonuses(int addscore, long timespent) {
         int points = addscore;
 
-        if (timespent<fasttimes[0]) {
+        if (timespent < fasttimes[0]) {
             bonuses = getString(R.string.superfast) + " ×3";
             points *= 3;
-        } else if (timespent<fasttimes[1]) {
+        } else if (timespent < fasttimes[1]) {
             bonuses = getString(R.string.fast) + " ×2";
             points *= 2;
-        } else if (timespent<fasttimes[2]) {
+        } else if (timespent < fasttimes[2]) {
             bonuses = getString(R.string.quick) + " +50%";
             points *= 1.5;
         }
@@ -779,29 +763,28 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
 
     private void setLevelFields() {
-        TextView leveltxt = (TextView)findViewById(R.id.level);
+        TextView leveltxt = (TextView) findViewById(R.id.level);
         leveltxt.setText(getString(R.string.level, getLevel(levelnum).getLevelNum()));
 
-        TextView leveldesc = (TextView)findViewById(R.id.level_desc);
+        TextView leveldesc = (TextView) findViewById(R.id.level_desc);
         leveldesc.setText(getLevel(levelnum).getShortDescription(this));
 
-        TextView correcttxt = (TextView)findViewById(R.id.correct);
+        TextView correcttxt = (TextView) findViewById(R.id.correct);
 
         correcttxt.setText(String.format(Locale.getDefault(), "%d", getLevel(levelnum).getRounds() - correct));
-
 
 
         TextView scoretxt = (TextView) findViewById(R.id.score);
         scoretxt.setText(getCurrentPercent());
 
 
-        TextView total_ratio = (TextView)findViewById(R.id.total_ratio);
+        TextView total_ratio = (TextView) findViewById(R.id.total_ratio);
         total_ratio.setText(String.format(Locale.getDefault(), "%d / %d", totalCorrect, totalCorrect + totalIncorrect));
 
-        TextView todayscore_txt = (TextView)findViewById(R.id.todayscore);
+        TextView todayscore_txt = (TextView) findViewById(R.id.todayscore);
         todayscore_txt.setText(String.format(Locale.getDefault(), "%d", todaysScore));
 
-        TextView tscore_txt = (TextView)findViewById(R.id.tscore);
+        TextView tscore_txt = (TextView) findViewById(R.id.tscore);
         tscore_txt.setText(String.format(Locale.getDefault(), "%d", tscore));
 
         TextView bonusestxt = (TextView) findViewById(R.id.bonuses);
@@ -817,26 +800,18 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     private String getCurrentPercent() {
         float per = getCurrentPercentFloat();
-        if ((int)per == per) {
+        if ((int) per == per) {
             return String.format(Locale.getDefault(), "%3.0f%%", per);
         } else {
             return String.format(Locale.getDefault(), "%3.1f%%", per);
         }
     }
 
-    protected static int getRand(int upper) {
-        return getRand(0,upper);
-    }
-
-    protected static int getRand(int lower, int upper) {
-        return (int) (Math.random() * (upper + 1 - lower)) + lower;
-    }
-
     protected void setFasttimes(int superfast, int fast, int quick) {
         if (superfast >= fast || fast >= quick) {
             throw new IllegalArgumentException(
                     "'superfast' should be less than 'fast', and 'fast' should be less than 'quick'. " +
-                            "Actual values:" + superfast +"," + fast + "," + quick);
+                            "Actual values:" + superfast + "," + fast + "," + quick);
         }
         fasttimes[0] = superfast;
         fasttimes[1] = fast;
@@ -846,7 +821,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     public boolean isLandscape() {
         int orientation = getResources().getConfiguration().orientation;
-        return orientation== Configuration.ORIENTATION_LANDSCAPE;
+        return orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     public Point getScreenSize() {
@@ -858,5 +833,13 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     protected void setUseInARow(boolean use) {
         useInARow = use;
+    }
+
+    public interface AnswerGivenListener<T> {
+        boolean answerGiven(T answer);
+    }
+
+    public interface AnswerTypedListener {
+        boolean answerTyped(String answer);
     }
 }
