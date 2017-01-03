@@ -453,7 +453,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
             ansbutt.setAllCaps(false);
             String text = choice.toString();
-            ansbutt.setText(text.substring(0, 1).toUpperCase(Locale.getDefault()) + (text.length() > 1 ? text.substring(1) : ""));
+            ansbutt.setText(capitalize(text));
             ansbutt.setTag(choice);
             ansbutt.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -492,6 +492,10 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         }, 220);
 
         return buttons;
+    }
+
+    protected String capitalize(String text) {
+        return text.substring(0, 1).toUpperCase(Locale.getDefault()) + (text.length() > 1 ? text.substring(1) : "");
     }
 
     protected void showSoftKeyboard(final EditText view, ViewGroup keypadarea, String defaultInput) {

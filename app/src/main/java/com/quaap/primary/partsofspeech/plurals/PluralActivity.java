@@ -136,7 +136,7 @@ public class PluralActivity extends StdGameActivity
         Log.d("plural", word + " -> " + answer);
 
         TextView plural = (TextView) findViewById(R.id.txtplural);
-        plural.setText(word);
+        plural.setText(capitalize(word));
 
 
         final TextView hint = (TextView) findViewById(R.id.plurHint);
