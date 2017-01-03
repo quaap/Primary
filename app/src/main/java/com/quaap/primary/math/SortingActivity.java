@@ -93,16 +93,16 @@ public class SortingActivity extends StdGameActivity implements
             Collections.shuffle(numlist);
         } while (isSorted(numlist));
 
-//        int mlen = (level.getMaxNum()+"").length();
+        int mlen = (level.getMaxNum()+"").length();
 //        int xsize = getScreenSize().x;
 //
 //        int tsize = xsize*2/3 / numcolumns / 4 - 5;
 //        if (tsize>30) tsize = 30;
-        int tsize = 30;
+        int tsize = 30 - mlen;
 
         for(int num: numlist){
             String spaces = "";
-            for (int i=0; i<3-(num+"").length();i++) {
+            for (int i=0; i<Math.max(3,mlen)-(num+"").length();i++) {
                 spaces += " ";
             }
 

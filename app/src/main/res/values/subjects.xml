@@ -35,6 +35,10 @@
     <string name="subject_m8_name">Sorting 0-999</string>
     <string name="subject_m8_desc">Sorting 3 digit numbers</string>
 
+    <string name="subject_m9_code">M9</string>
+    <string name="subject_m9_name">Sorting 0-999</string>
+    <string name="subject_m9_desc">Sorting 3 digit numbers. 9+ items</string>
+
     <string name="subject_sp1_code">Sp1</string>
     <string name="subject_sp1_name">Spelling 1–6</string>
     <string name="subject_sp1_desc">Spelling words 1 to 5 letters long</string>

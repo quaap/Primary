@@ -188,6 +188,14 @@ public class Levels {
                         }),
 
 
+                new Subjects.Desc(context, R.string.subject_m9_code, R.string.subject_m9_name, R.string.subject_m9_desc,
+                        SortingActivity.class,
+                        new Level[] {
+                                new SortingLevel(R.string.subject_m9_code, 9, 999, 20),
+                                new SortingLevel(R.string.subject_m9_code, 12, 999, 20),
+                                new SortingLevel(R.string.subject_m9_code, 16, 999, 20),
+                        }),
+
 
                 new Subjects.Desc(context, R.string.subject_sp1_code, R.string.subject_sp1_name, R.string.subject_sp1_desc,
                         SpellingActivity.class,
