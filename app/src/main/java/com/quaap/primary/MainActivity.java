@@ -147,13 +147,16 @@ public class MainActivity extends CommonBaseActivity {
 
                     setItemTextField(item, R.id.subjectview_name, subjectDescs.get(i).getName());
 
+                    setItemBackground(item, R.id.subjectview_code, subjectDescs.get(i).getGroup().getColor(MainActivity.this));
+
+
                     String username = userlist.getSelected();
                     if (username!=null) {
                         UserData.Subject subject = AppData.getSubjectForUser(MainActivity.this, username, key);
                         if (subject.getSubjectCompleted()) {
                             setItemTextField(item, R.id.subjectview_status, getString(R.string.setcompleted));
                         } else if (subject.getTotalPoints()!=0) {
-                            setItemTextField(item, R.id.subjectview_status, getString(R.string.level,subject.getLevelNum()+1));
+                            setItemTextField(item, R.id.subjectview_status, getString(R.string.level,subject.getHighestLevelNum()+1));
                         }
                     }
                 }

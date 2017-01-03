@@ -88,8 +88,11 @@ public class Subjects {
         return Levels.getSubjectInstances(context);
     }
 
+
+
     public static class Desc {
       //  private int pos;
+        private SubjectGroup group;
         private String code;
         private String name;
         private String desc;
@@ -98,7 +101,8 @@ public class Subjects {
 
         private Level[] levels;
 
-        public Desc(Context context, int code, int name, int desc, Class activityClass, Level[] levels) {
+        public Desc(Context context, SubjectGroup group, int code, int name, int desc, Class activityClass, Level[] levels) {
+            this.setGroup(group);
             this.setCode(context.getString(code));
             this.setName(context.getString(name));
             this.setDesc(context.getString(desc));
@@ -129,6 +133,7 @@ public class Subjects {
 //        public void setPos(int pos) {
 //            this.pos = pos;
 //        }
+
 
         public String getCode() {
             return code;
@@ -164,6 +169,14 @@ public class Subjects {
 
         public Level[] getLevels() {
             return levels;
+        }
+
+        public SubjectGroup getGroup() {
+            return group;
+        }
+
+        public void setGroup(SubjectGroup group) {
+            this.group = group;
         }
 
 //        public String getLevelset() {

@@ -66,12 +66,11 @@ public class SortingActivity extends StdGameActivity implements
         super.onResume();
         GridLayout sortArea = (GridLayout)findViewById(R.id.sort_area);
         if (isLandscape()){
-            sortArea.setColumnCount(6);
             numcolumns = 6;
         } else {
-            sortArea.setColumnCount(3);
             numcolumns = 3;
         }
+        sortArea.setColumnCount(numcolumns);
 
         //override super class
         LinearLayout centercol = (LinearLayout)findViewById(R.id.centercol);
@@ -142,7 +141,7 @@ public class SortingActivity extends StdGameActivity implements
             lp.setGravity(Gravity.CENTER);
             item.setLayoutParams(lp);
             item.setBackgroundColor(BACKGROUND_COLOR);
-            item.setPadding(16, 4, 16, 4);
+            item.setPadding(16, 8, 16, 8);
 
             sortArea.addView(item);
         }

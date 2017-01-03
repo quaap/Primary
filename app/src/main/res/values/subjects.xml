@@ -3,6 +3,18 @@
 
     <!-- The levels are defined in Levels.java.  These are the strings for translation. -->
 
+    <string name="group_m">Math</string>
+    <string name="group_sc">Science</string>
+    <string name="group_la">Language Arts</string>
+    <string name="group_mu">Music</string>
+    <string name="group_ar">Art</string>
+
+    <color name="group_color_m">#aaaaaaff</color>
+    <color name="group_color_sc">#aaaaffaa</color>
+    <color name="group_color_la">#aaee99ff</color>
+    <color name="group_color_mu">#aaffff77</color>
+    <color name="group_color_ar">#aaef989f</color>
+
     <string name="subject_m1_code">M1</string>
     <string name="subject_m1_name">Math +-25</string>
     <string name="subject_m1_desc">Plus and Minus. Numbers up to 25.</string>
@@ -23,41 +35,41 @@
     <string name="subject_m5_name">Lotta math</string>
     <string name="subject_m5_desc">Everything!</string>
 
-    <string name="subject_m6_code">M6</string>
+    <string name="subject_m6_code">M-S1</string>
     <string name="subject_m6_name">Sorting 0-9</string>
     <string name="subject_m6_desc">Sorting 1 digit numbers</string>
 
-    <string name="subject_m7_code">M7</string>
+    <string name="subject_m7_code">M-S2</string>
     <string name="subject_m7_name">Sorting 0-99</string>
     <string name="subject_m7_desc">Sorting 2 digit numbers</string>
 
-    <string name="subject_m8_code">M8</string>
+    <string name="subject_m8_code">M-S3</string>
     <string name="subject_m8_name">Sorting 0-999</string>
     <string name="subject_m8_desc">Sorting 3 digit numbers</string>
 
-    <string name="subject_m9_code">M9</string>
-    <string name="subject_m9_name">Sorting 0-999</string>
-    <string name="subject_m9_desc">Sorting 3 digit numbers. 9+ items</string>
+    <string name="subject_m9_code">M-S4</string>
+    <string name="subject_m9_name">Sorting big</string>
+    <string name="subject_m9_desc">Sorting 9+ three digit numbers.</string>
 
-    <string name="subject_sp1_code">Sp1</string>
+    <string name="subject_sp1_code">LA-Sp1</string>
     <string name="subject_sp1_name">Spelling 1–6</string>
-    <string name="subject_sp1_desc">Spelling words 1 to 5 letters long</string>
+    <string name="subject_sp1_desc">Language Arts: spelling words 1 to 5 letters long</string>
 
-    <string name="subject_sp2_code">Sp2</string>
+    <string name="subject_sp2_code">LA-Sp2</string>
     <string name="subject_sp2_name">Spelling 6–8</string>
-    <string name="subject_sp2_desc">Spelling words 6 to 8 letters long</string>
+    <string name="subject_sp2_desc">Language Arts: spelling words 6 to 8 letters long</string>
 
-    <string name="subject_sp3_code">Sp3</string>
+    <string name="subject_sp3_code">LA-Sp3</string>
     <string name="subject_sp3_name">Spelling 9+</string>
-    <string name="subject_sp3_desc">Spelling words 9+ letters long</string>
+    <string name="subject_sp3_desc">Language Arts: spelling words 9+ letters long</string>
 
-    <string name="subject_eng1_code">Eng1</string>
+    <string name="subject_eng1_code">LA-Pl1</string>
     <string name="subject_eng1_name">Plurals 1</string>
-    <string name="subject_eng1_desc">English plurals 1</string>
+    <string name="subject_eng1_desc">Language Arts: plurals 1</string>
 
-    <string name="subject_eng2_code">Eng2</string>
+    <string name="subject_eng2_code">LA-Pl2</string>
     <string name="subject_eng2_name">Plurals 2</string>
-    <string name="subject_eng2_desc">English plurals 2</string>
+    <string name="subject_eng2_desc">Language Arts: plurals 2</string>
 
 
 </resources>

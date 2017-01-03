@@ -147,7 +147,11 @@ public abstract class HorzItemList {
     public void setItemTextField(View item, int itemFieldId, String value) {
         TextView itemfield = (TextView)item.findViewById(itemFieldId);
         itemfield.setText(value);
+    }
 
+    public void setItemBackground(View item, int itemFieldId, int color) {
+        View itemfield = item.findViewById(itemFieldId);
+        itemfield.setBackgroundColor(color);
     }
 
     public Collection<String> getKeys() {
