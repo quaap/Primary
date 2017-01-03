@@ -118,20 +118,22 @@ public class MainActivity extends CommonBaseActivity {
         if (!appPreferences.contains(csvkey)) {
             new AlertDialog.Builder(MainActivity.this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Write CSV?")
-                    .setMessage("Do you want to record your results in CSV files? (For your own record-keeping purposes only)")
-                    .setPositiveButton("Record", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.write_csv_alert)
+                    .setMessage(R.string.do_csv_alert)
+                    .setPositiveButton(R.string.record, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             appPreferences.edit().putBoolean(csvkey, true).apply();
                             checkStorageAccess();
+                            Toast.makeText(MainActivity.this, R.string.can_change_csv,Toast.LENGTH_LONG).show();
                         }
 
                     })
-                    .setNegativeButton("Don't record", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.no_record, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             appPreferences.edit().putBoolean(csvkey, false).apply();
+                            Toast.makeText(MainActivity.this, R.string.can_change_csv,Toast.LENGTH_LONG).show();
                         }
                     })
                     .show();

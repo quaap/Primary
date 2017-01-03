@@ -65,7 +65,7 @@
             <p>Report any issues, feedback, or suggestions <a href="https://github.com/quaap/Primary/issues">here</a>.</p>
 
 
-            <p>This program was written by <a href=\'http://quaap.com/D/programming-index?from=audiometer\'>Tom Kliethermes</a></p>
+            <p>This program was written by <a href=\'http://quaap.com/D/programming-index?from=primary\'>Tom Kliethermes</a></p>
 
             ]]>
     </string>
@@ -83,6 +83,11 @@
     <string name="in_a_row">%d in a row!</string>
     <string name="sort_desc">%1$d items. Values up to %2$d.</string>
     <string name="sort_sdesc">x%1$d. Mx%2$d</string>
+    <string name="write_csv_alert">Write CSV?</string>
+    <string name="do_csv_alert">Do you want to record your results in CSV files? (For your own record-keeping purposes only.)</string>
+    <string name="record">Record</string>
+    <string name="no_record">Don\'t record</string>
+    <string name="can_change_csv">You can change the CSV setting from the Settings menu at any time.</string>
 
 
 </resources>
