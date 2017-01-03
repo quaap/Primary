@@ -266,8 +266,8 @@ public class SortingActivity extends StdGameActivity implements
         }
 
         SortingLevel level = ((SortingLevel) getLevel());
-
-        answerDone(true, (int) (Math.sqrt(level.getMaxNum()) * level.getNumItems() / moves), prob, "sorted", "sorted");
+        if (moves == 0 ) moves =1; //failsafe
+        answerDone(true, 1 + (int) ((levelnum+1)*Math.sqrt(level.getMaxNum()) * level.getNumItems() / moves), prob, "sorted", "sorted");
 
     }
 
