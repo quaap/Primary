@@ -100,7 +100,7 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
         } else if (level.getInputMode() == InputMode.Input) {
 
             makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_NUMBER, 3, fontsize / 2);
-            startHint(20000,5000);
+            startHint(30000,5000);
             hintPos = 0;
 
         } else {
