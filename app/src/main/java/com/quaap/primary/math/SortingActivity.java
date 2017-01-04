@@ -142,7 +142,7 @@ public class SortingActivity extends StdGameActivity implements
             lp.setGravity(Gravity.CENTER);
             item.setLayoutParams(lp);
             item.setBackgroundColor(BACKGROUND_COLOR);
-            item.setPadding(16, 8, 16, 8);
+            item.setPadding(16, 12, 16, 12);
 
             sortArea.addView(item);
         }
