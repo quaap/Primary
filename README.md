@@ -2,7 +2,7 @@
 
 A simple educational practice game for kids and adults.
 
-Currently there are levels dealing with Math and Language Arts.
+In version 0.2 there are levels dealing with Math and Language Arts.
 
 The app is designed to allow other level sets, and in the future I'd like to add 
 other math levels (ideas: word problems, easier and harder math, etc) and other subjects 
@@ -15,11 +15,11 @@ Features:
 
 Math Features:
 * Basic addition, subtration, multiplication, and division levelsets.
-* Sorting if 1, 2, and 3 digit numbers.
+* Sorting of 1, 2, and 3 digit numbers.
 
 Language Arts Features:
 * Spelling common words
-* Pluralization
+* Pluralization of common nouns
 
 ![Primary main menu](http://quaap.com/D/media/pa.png)
 ![Math 1](http://quaap.com/D/media/pe.png)
