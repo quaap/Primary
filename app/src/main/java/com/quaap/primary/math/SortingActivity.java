@@ -150,6 +150,8 @@ public class SortingActivity extends StdGameActivity implements
         moves = 0;
         int n = level.getNumItems() * 500;
         setFasttimes(2 + n, 1000 + n, 2000 + n);
+
+        startHint(5000*level.getNumItems(),5000);
     }
 
 
@@ -234,8 +236,10 @@ public class SortingActivity extends StdGameActivity implements
 
             }
             if (sorted) {
+                cancelHint();
                 problemDone = true;
                 stopTimer();
+
 
                 for (int i = 0; i < sortArea.getChildCount(); i++) {
                     final int c = i;
@@ -281,6 +285,26 @@ public class SortingActivity extends StdGameActivity implements
             }
         }
         return sorted;
+    }
+
+    private void markSorted() {
+        final GridLayout sortArea = (GridLayout) findViewById(R.id.sort_area);
+
+        for (int i = 0; i < sortArea.getChildCount() - 1; i++) {
+            int num1 = (int) sortArea.getChildAt(i).getTag();
+            int num2 = (int) sortArea.getChildAt(i + 1).getTag();
+            if (num1 > num2) {
+                //sortArea.getChildAt(i).setBackgroundColor(Color.CYAN);
+                sortArea.getChildAt(i+1).setBackgroundColor(Color.RED);
+                //break;
+            }
+
+        }
+    }
+
+    @Override
+    protected void performHint() {
+        markSorted();
     }
 
     @Override
