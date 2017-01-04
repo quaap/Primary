@@ -171,7 +171,6 @@ public class SpellingActivity extends StdGameActivity
         }, 500);
         ((TextView) findViewById(R.id.spell_hint)).setText("");
 
-
     }
 
     @Override

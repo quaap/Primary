@@ -111,6 +111,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
         Keyboard.hideKeys(getKeysArea());
     }
 
+
     @Override
     protected void answerDone(boolean isright, int addscore, String problem, String answer, String useranswer) {
         if (isright) cancelHint();
