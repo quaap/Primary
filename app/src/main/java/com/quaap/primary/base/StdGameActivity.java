@@ -119,7 +119,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
         return (LinearLayout) findViewById(R.id.answer_area);
     }
 
-    protected void startHint(int firstHintDelayMillis, int nextHintDelaysMillis) {
+    protected void startHint(int firstHintDelayMillis, int repeatHintDelaysMillis) {
 
 
         cancelHint();
@@ -129,11 +129,16 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
             hinttask = new TimerTask() {
                 @Override
                 public void run() {
-                    performHint();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            performHint();
+                        }
+                    });
                 }
             };
 
-            timer.scheduleAtFixedRate(hinttask, firstHintDelayMillis, nextHintDelaysMillis);
+            timer.scheduleAtFixedRate(hinttask, firstHintDelayMillis, repeatHintDelaysMillis);
         }
     }
 

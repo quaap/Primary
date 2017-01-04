@@ -226,14 +226,10 @@ public class SpellingActivity extends StdGameActivity
     protected void performHint() {
         final TextView hint = (TextView) findViewById(R.id.spell_hint);
         if (hintPos < word.length()) {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    hint.setText(word.substring(0, hintPos));
-                }
-            });
 
             hintPos++;
+            hint.setText(word.substring(0, hintPos));
+
             if (hintPos == 1 || (word.length() > 3 && hintPos == word.length())) {
                 v.speak(word);
             }

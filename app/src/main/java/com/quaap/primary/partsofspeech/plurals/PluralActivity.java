@@ -152,7 +152,7 @@ public class PluralActivity extends StdGameActivity
             makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_TEXT, 5, 0, word);
 
             hintPos = answer.length() - hintStart;
-            if (hintPos < 1) hintPos = 1;
+            if (hintPos < 0) hintPos = 0;
             startHint(6000, 3000);
 
         } else {
@@ -204,14 +204,10 @@ public class PluralActivity extends StdGameActivity
     protected void performHint() {
         final TextView hint = (TextView) findViewById(R.id.plurHint);
         if (hintPos < answer.length()) {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    hint.setText(answer.substring(0, hintPos));
-                }
-            });
 
             hintPos++;
+            hint.setText(answer.substring(0, hintPos));
+
 
         } else {
             cancelHint();

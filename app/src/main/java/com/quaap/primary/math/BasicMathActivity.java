@@ -68,6 +68,9 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
     @Override
     protected void showProbImpl() {
 
+        TextView txtMathHint = (TextView)findViewById(R.id.txtMathHint);
+        txtMathHint.setText("");
+
         TextView num1txt = (TextView) findViewById(R.id.num1);
         TextView num2txt = (TextView) findViewById(R.id.num2);
         TextView optxt = (TextView) findViewById(R.id.op);
@@ -97,12 +100,26 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
         } else if (level.getInputMode() == InputMode.Input) {
 
             makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_NUMBER, 3, fontsize / 2);
+            startHint(20000,5000);
+            hintPos = 0;
+
         } else {
             throw new IllegalArgumentException("Unknown inputMode! " + level.getInputMode());
         }
 
+
     }
 
+    int hintPos = 0;
+    @Override
+    protected void performHint() {
+        String a = answer+"";
+        if (hintPos<a.length()){
+            hintPos++;
+            TextView txtMathHint = (TextView)findViewById(R.id.txtMathHint);
+            txtMathHint.setText(a.substring(0,hintPos));
+        }
+    }
 
     private int getAnswer(int n1, int n2, MathOp op) {
         switch (op) {
