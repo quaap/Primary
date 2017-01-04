@@ -152,7 +152,6 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
     public boolean answerGiven(Integer ans) {
 
         boolean isright = ans == answer;
-        if (isright) cancelHint();
 
         int points = 1 + (Math.abs(num1) + Math.abs(num2)) * (op.ordinal() + 1);
         answerDone(isright, points, num1 + op.toString() + num2, answer + "", ans + "");

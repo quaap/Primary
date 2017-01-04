@@ -153,7 +153,7 @@ public class PluralActivity extends StdGameActivity
 
             hintPos = answer.length() - hintStart;
             if (hintPos < 0) hintPos = 0;
-            startHint(6000, 3000);
+            startHint(5000 + 1000 * word.length(), 3000);
 
         } else {
             throw new IllegalArgumentException("Unknown inputMode! " + level.getInputMode());

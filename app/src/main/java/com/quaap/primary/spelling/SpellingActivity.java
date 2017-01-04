@@ -181,7 +181,6 @@ public class SpellingActivity extends StdGameActivity
 
     @Override
     public boolean answerGiven(String answer) {
-
         int points = 0;
         boolean isright = answer.toLowerCase().trim().equals(word.toLowerCase());
         if (isright) {
@@ -189,9 +188,6 @@ public class SpellingActivity extends StdGameActivity
         }
         answerDone(isright, points, word, word, answer.trim());
 
-        if (isright) {
-            cancelHint();
-        }
         return isright;
     }
 
@@ -217,7 +213,7 @@ public class SpellingActivity extends StdGameActivity
         if (wordStart == null || !wordStart.equals(word)) {
             startTimer();
             hintPos = 0;
-            startHint(5000, 3000);
+            startHint(5000 + 1000 * word.length(), 3000);
             wordStart = word;
         }
     }
