@@ -6,10 +6,12 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.quaap.primary.R;
 import com.quaap.primary.base.StdGameActivity;
 import com.quaap.primary.base.SubjectBaseActivity;
+import com.quaap.primary.base.component.InputMode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +35,7 @@ import java.util.TreeSet;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-public class TimeActivity extends StdGameActivity implements SubjectBaseActivity.AnswerGivenListener {
+public class TimeActivity extends StdGameActivity implements SubjectBaseActivity.AnswerGivenListener, SubjectBaseActivity.AnswerTypedListener {
 
     private int mClockwidth = 300;
     private int mHour;
@@ -44,28 +46,62 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         setFasttimes(900, 1800, 3000);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveLevelValue("mHour", mHour);
+        saveLevelValue("mMinute", mMinute);
+    }
 
     @Override
     protected void onResume() {
         Point ss = getScreenSize();
         mClockwidth = Math.min(ss.x, ss.y)/2;
+        addToNumpadKeyMap(".",":");
         super.onResume();
 
     }
 
     @Override
     protected void showProbImpl() {
-        mHour = getRand(1,12);
-        mMinute = getMinutes();
+        mHour = getSavedLevelValue("mHour", -1);
+        mMinute = getSavedLevelValue("mMinute", -1);
+        if (mMinute==-1 || mHour ==-1 ) {
+            int tries = 0;
+            do {
+                mHour = getRand(1, 12);
+                mMinute = getMinutes();
+            } while (tries++ < 50 && seenProblem(mHour, mMinute));
+        } else {
+            deleteSavedLevelValue("mHour");
+            deleteSavedLevelValue("mMinute");
+        }
 
+        TimeLevel level = (TimeLevel)getLevel();
         Bitmap bitmap = getClockBitmap(mHour, mMinute);
 
         ImageView timeimage = (ImageView) findViewById(R.id.timeimage);
         timeimage.setImageBitmap(bitmap);
 
+        List<String> answers = getAnswers(level);
+
+        Collections.shuffle(answers);
+
+        if (level.getInputMode()== InputMode.Buttons) {
+            makeChoiceButtons(getAnswerArea(), answers, this);
+        } else if (level.getInputMode()== InputMode.Input) {
+            makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_TIME, 3, 0);
+            startHint(8000,3000);
+        }
+
+    }
+
+    @NonNull
+    private List<String> getAnswers(TimeLevel level) {
         Set<String> answerset = new TreeSet<>();
         answerset.add(formatTime(mHour,mMinute));
 
+        int mindiff = 8;
         do {
             int thour = getRand(1,12);
             int tminute = getMinutes();
@@ -82,21 +118,39 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
                 } else {
                     thour = (mMinute) / 5;
                 }
-                if (((TimeLevel)getLevel()).getMinuteGranularity()!= TimeLevel.MinuteGranularity.Hour) {
-                    tminute = t * 5;
+                if (level.getMinuteGranularity()!= TimeLevel.MinuteGranularity.Hour) {
+                    tminute = (t-1) * 5;
+                }
+            } else if (getRand(10)>5 && (
+                       level.getMinuteGranularity()== TimeLevel.MinuteGranularity.Five
+                    || level.getMinuteGranularity()== TimeLevel.MinuteGranularity.One)) {
+                thour = mHour;
+                if (mMinute<60-mindiff*2 && getRand(10)>5) {
+                    tminute = mMinute + getRand(mindiff, mindiff*2);
+
+                } else if (mMinute>mindiff*2 && getRand(10)>5) {
+                    tminute = mMinute - getRand(mindiff, mindiff*2);
                 }
             }
-            if (!(thour == mHour && Math.abs(tminute - mMinute)<10)) {
+            if (!(thour == mHour && Math.abs(tminute - mMinute)<mindiff) ) {
                 answerset.add(formatTime(thour,tminute));
             }
         } while (answerset.size()<4);
 
-        List<String> answers = new ArrayList<>(answerset);
-        Collections.shuffle(answers);
-        makeChoiceButtons(getAnswerArea(), answers, this);
-
+        return new ArrayList<>(answerset);
     }
 
+    int hintPos = 0;
+
+    @Override
+    protected void performHint() {
+        String time = formatTime(mHour,mMinute);
+        if (hintPos<time.length()) {
+            TextView timeHint = (TextView) findViewById(R.id.timeHint);
+            hintPos++;
+            timeHint.setText(time.substring(0, hintPos));
+        }
+    }
 
     private int getMinutes() {
         int tminute;
@@ -121,10 +175,17 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         return tminute;
     }
 
+
+    @Override
+    public boolean answerTyped(String answer) {
+        return answerGiven(answer);
+    }
+
     @Override
     public boolean answerGiven(Object answer) {
         String ranswer = formatTime(mHour,mMinute);
         boolean isright = ranswer.equals((String)answer);
+
         answerDone(isright,20,ranswer,ranswer,(String)answer);
         return isright;
     }

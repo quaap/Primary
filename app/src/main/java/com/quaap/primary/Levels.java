@@ -156,10 +156,15 @@ public class Levels {
                         TimeActivity.class,
                         new Level[]{
                                 new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Hour, 10, InputMode.Buttons),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Hour, 10, InputMode.Input),
                                 new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Half, 10, InputMode.Buttons),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Half, 10, InputMode.Input),
                                 new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Quarter, 10, InputMode.Buttons),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Quarter, 10, InputMode.Input),
                                 new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Five, 10, InputMode.Buttons),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Five, 10, InputMode.Input),
                                 new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.One, 10, InputMode.Buttons),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.One, 5, InputMode.Input),
                         }),
 
 

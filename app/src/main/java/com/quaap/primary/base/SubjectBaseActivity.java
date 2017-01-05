@@ -57,7 +57,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
@@ -68,6 +70,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     public static final String START_AT_ZERO = "startover";
     protected static int INPUTTYPE_TEXT = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_CLASS_TEXT;
     protected static int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL;
+    protected static int INPUTTYPE_TIME = InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_TIME;
     final protected Handler handler = new Handler();
     private final int layoutId;
     protected int correct = 0;
@@ -423,6 +426,18 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         showSoftKeyboard(uinput, keypadarea, defaultInput);
     }
 
+    private Map<String,String> mNumpadkeyMap = new TreeMap<>();
+
+    protected void addToNumpadKeyMap(String orig, String repacement) {
+        mNumpadkeyMap.put(orig, repacement);
+    }
+
+    private Map<String,String> mKeyboardkeyMap = new TreeMap<>();
+
+    protected void addToKeyboardKeyMap(String orig, String repacement) {
+        mKeyboardkeyMap.put(orig, repacement);
+    }
+
     protected <T> List<Button> makeChoiceButtons(
             ViewGroup answerlayout,
             List<T> choices,
@@ -506,7 +521,8 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             view.setText(defaultInput);
             view.setSelection(defaultInput.length());
         }
-        boolean isnumeric = ((view.getInputType() & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER);
+        boolean isnumeric = ((view.getInputType() & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER)
+                         || ((view.getInputType() & InputType.TYPE_CLASS_DATETIME) == InputType.TYPE_CLASS_DATETIME);
 
         int whichkeyboard = Integer.parseInt(appPreferences.getString("keyboard_preference", "1"));
         int whichkeypad = Integer.parseInt(appPreferences.getString("keypad_preference", "1"));
@@ -515,10 +531,10 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         boolean gkeypadAvail = getResources().getBoolean(R.bool.game_keypad_available);
 
         if (isnumeric && gkeypadAvail && whichkeypad == 1 && keypadarea != null) {
-            Keyboard.showNumberpad(this, view, keypadarea);
+            Keyboard.showNumberpad(this, view, keypadarea, mNumpadkeyMap);
 
         } else if (!isnumeric && gkeyboardAvail && whichkeyboard == 1 && keypadarea != null) {
-            Keyboard.showKeyboard(this, view, keypadarea);
+            Keyboard.showKeyboard(this, view, keypadarea, mKeyboardkeyMap);
 
         } else if (whichkeypad == 2 || whichkeyboard == 2 || (isnumeric && !gkeypadAvail) || (!isnumeric && !gkeyboardAvail)) {
             showSystemKeyboard(view);

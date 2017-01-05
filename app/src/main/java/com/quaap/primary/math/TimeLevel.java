@@ -38,7 +38,7 @@ public class TimeLevel extends StdLevel {
 
     @Override
     public String getDescription(Context context) {
-        return mMinuteGranularity.toString();
+        return mMinuteGranularity.toString() + ". "  + (getInputMode() == InputMode.Buttons ? "Multiple choice" : "Keyboard");
     }
 
     @Override

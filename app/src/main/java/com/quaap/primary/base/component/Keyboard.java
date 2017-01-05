@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.quaap.primary.R;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by tom on 12/29/16.
@@ -36,23 +38,37 @@ import java.lang.reflect.Method;
  */
 public class Keyboard {
 
-    //private static Keyboard keyboardinst;
-    //private static Keyboard keypadinst;
 
     private static String KEY_BACKSP = "\u0008";
     private static String KEY_DONE = "\n";
     private Context mContext;
 
+    private Map<String,String> mKeyMap = new HashMap<>();
+
     public Keyboard(Context context) {
         mContext = context;
     }
+
+    public Keyboard(Context context, Map<String,String> keyMap ) {
+        mContext = context;
+        mKeyMap.putAll(keyMap);
+    }
+
 
     public synchronized static void showKeyboard(Context context, final EditText editText, ViewGroup parentlayout) {
         new Keyboard(context).showKeyboard(editText, parentlayout);
     }
 
+    public synchronized static void showKeyboard(Context context, final EditText editText, ViewGroup parentlayout, Map<String,String> keyMap) {
+        new Keyboard(context, keyMap).showKeyboard(editText, parentlayout);
+    }
+
     public synchronized static void showNumberpad(Context context, final EditText editText, ViewGroup parentlayout) {
         new Keyboard(context).showNumberpad(editText, parentlayout);
+    }
+
+    public synchronized static void showNumberpad(Context context, final EditText editText, ViewGroup parentlayout, Map<String,String> keyMap) {
+        new Keyboard(context, keyMap).showNumberpad(editText, parentlayout);
     }
 
     public synchronized static void hideKeys(ViewGroup parentlayout) {
@@ -119,6 +135,10 @@ public class Keyboard {
         System.out.println("size: " + size.x + ", " + size.y);
 
         for (String k : keys) {
+            if (mKeyMap.containsKey(k)) {
+                k = mKeyMap.get(k);
+            }
+
             TextView key = new TextView(mContext);
             key.setClickable(true);
             key.setPadding(4, 4, 4, 4);
