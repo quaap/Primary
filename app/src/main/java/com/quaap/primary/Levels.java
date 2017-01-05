@@ -12,6 +12,8 @@ import com.quaap.primary.math.MathOp;
 import com.quaap.primary.math.Negatives;
 import com.quaap.primary.math.SortingActivity;
 import com.quaap.primary.math.SortingLevel;
+import com.quaap.primary.math.TimeActivity;
+import com.quaap.primary.math.TimeLevel;
 import com.quaap.primary.partsofspeech.plurals.PluralActivity;
 import com.quaap.primary.partsofspeech.plurals.PluralLevel;
 import com.quaap.primary.spelling.SpellingActivity;
@@ -147,6 +149,17 @@ public class Levels {
                         new Level[]{
                                 new BasicMathLevel(R.string.subject_m5_code, MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 100, InputMode.Buttons),
                                 new BasicMathLevel(R.string.subject_m5_code, MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 100, InputMode.Input)
+                        }),
+
+
+                new Subjects.Desc(context, SubjectGroup.Math, R.string.subject_t1_code, R.string.subject_t1_name, R.string.subject_t1_desc,
+                        TimeActivity.class,
+                        new Level[]{
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Hour, 10, InputMode.Buttons),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Half, 10, InputMode.Buttons),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Quarter, 10, InputMode.Buttons),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Five, 10, InputMode.Buttons),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.One, 10, InputMode.Buttons),
                         }),
 
 

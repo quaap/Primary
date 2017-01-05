@@ -15,6 +15,10 @@
     <color name="group_color_mu">#aaffff77</color>
     <color name="group_color_ar">#aaff975f</color>
 
+    <string name="subject_t1_code">M-T1</string>
+    <string name="subject_t1_name">Times</string>
+    <string name="subject_t1_desc">Times</string>
+
     <string name="subject_m1_code">M1</string>
     <string name="subject_m1_name">Math +-25</string>
     <string name="subject_m1_desc">Plus and Minus. Numbers up to 25.</string>
