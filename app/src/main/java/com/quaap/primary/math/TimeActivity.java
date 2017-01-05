@@ -58,15 +58,23 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         Point ss = getScreenSize();
         mClockwidth = Math.min(ss.x, ss.y)/2;
         addToNumpadKeyMap(".",":");
+        setMaxSeenSize(12);
         super.onResume();
 
+    }
+
+
+    @Override
+    protected void onShowLevel() {
+        super.onShowLevel();
+        clearSeenProblem();
     }
 
     @Override
     protected void showProbImpl() {
         mHour = getSavedLevelValue("mHour", -1);
         mMinute = getSavedLevelValue("mMinute", -1);
-        if (mMinute==-1 || mHour ==-1 ) {
+        if (mMinute ==-1 || mHour ==-1 ) {
             int tries = 0;
             do {
                 mHour = getRand(1, 12);

@@ -23,6 +23,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -175,6 +176,8 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         mSubjectData = AppData.getSubjectForUser(this, username, mSubjectCode);
 
         setContentView(layoutId);
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
     }
 
     @Override
@@ -561,18 +564,29 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         }, 100);
     }
 
+    protected void setMaxSeenSize(int size) {
+        maxseensize = size;
+    }
+
+    protected void clearSeenProblem() {
+        seenProblems.clear();
+    }
+
     protected boolean seenProblem(Object... parts) {
+        while (seenProblems.size() > maxseensize) {
+            seenProblems.remove(0);
+        }
+
         String key = "";
         for (Object p : parts) {
             key += p.toString() + "#.#";
         }
+
         if (seenProblems.contains(key)) {
             return true;
         }
         seenProblems.add(key);
-        if (seenProblems.size() > maxseensize) {
-            seenProblems.remove(0);
-        }
+
         return false;
     }
 
