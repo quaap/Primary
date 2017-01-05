@@ -212,7 +212,7 @@ public class SpellingActivity extends StdGameActivity
         if (wordStart == null || !wordStart.equals(word)) {
             startTimer();
             hintPos = 0;
-            startHint(5000 + 1000 * word.length(), 3000);
+            startHint(word.length());
             wordStart = word;
         }
     }

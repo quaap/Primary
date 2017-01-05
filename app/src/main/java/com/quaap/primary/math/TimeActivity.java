@@ -91,8 +91,10 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
             makeChoiceButtons(getAnswerArea(), answers, this);
         } else if (level.getInputMode()== InputMode.Input) {
             makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_TIME, 3, 0);
-            startHint(8000,3000);
+            startHint(level.getLevelNum()+1);
         }
+        TextView timeHint = (TextView) findViewById(R.id.timeHint);
+        timeHint.setText("");
 
     }
 
@@ -185,8 +187,8 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
     public boolean answerGiven(Object answer) {
         String ranswer = formatTime(mHour,mMinute);
         boolean isright = ranswer.equals((String)answer);
-
-        answerDone(isright,20,ranswer,ranswer,(String)answer);
+        TimeLevel level = (TimeLevel)getLevel();
+        answerDone(isright, 20 * (level.getMinuteGranularity().ordinal()+1), ranswer, ranswer, (String)answer);
         return isright;
     }
 

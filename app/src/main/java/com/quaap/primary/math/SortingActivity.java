@@ -151,7 +151,7 @@ public class SortingActivity extends StdGameActivity implements
         int n = level.getNumItems() * 500;
         setFasttimes(2 + n, 1000 + n, 2000 + n);
 
-        startHint(5000*level.getNumItems(),5000);
+        startHint(level.getNumItems());
     }
 
 

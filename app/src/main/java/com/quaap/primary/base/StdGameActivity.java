@@ -41,6 +41,8 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
     private volatile boolean showHint = false;
 
+    protected static final int BASE_HINT_TIME = 30000;
+    protected static final int BASE_HINT_REPEAT_TIME = 3000;
 
     public StdGameActivity(int problemView) {
         super(R.layout.std_game_layout);
@@ -126,8 +128,13 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
         return (LinearLayout) findViewById(R.id.answer_area);
     }
 
-    protected void startHint(int firstHintDelayMillis, int repeatHintDelaysMillis) {
 
+    protected void startHint(int difficultyFactor) {
+        startHint(BASE_HINT_TIME + 1000*difficultyFactor, BASE_HINT_REPEAT_TIME + 250*difficultyFactor);
+
+    }
+
+    protected void startHint(int firstHintDelayMillis, int repeatHintDelaysMillis) {
 
         cancelHint();
 
