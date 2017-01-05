@@ -46,9 +46,11 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.quaap.primary.MainActivity;
+import com.quaap.primary.Primary;
 import com.quaap.primary.R;
 import com.quaap.primary.base.component.ActivityWriter;
 import com.quaap.primary.base.component.Keyboard;
+import com.quaap.primary.base.component.SoundEffects;
 import com.quaap.primary.base.data.AppData;
 import com.quaap.primary.base.data.Subjects;
 import com.quaap.primary.base.data.UserData;
@@ -102,6 +104,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     private long timespent;
     private boolean timeMeasured;
 
+    private SoundEffects soundEffects;
 
     protected SubjectBaseActivity(int layoutIdtxt) {
 
@@ -134,6 +137,8 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        soundEffects = ((Primary)getApplicationContext()).getSoundEffects();
 
         appPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
@@ -624,6 +629,12 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     protected void answerDone(boolean isright, String problem, String answer, String useranswer) {
         stopTimer();
+
+        if (isright) {
+            soundEffects.playGood();
+        } else {
+            soundEffects.playBad();
+        }
 
         bonuses = null;
         if (isright) {

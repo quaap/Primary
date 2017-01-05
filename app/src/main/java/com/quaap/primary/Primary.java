@@ -3,6 +3,7 @@ package com.quaap.primary;
 
 import android.app.Application;
 
+import com.quaap.primary.base.component.SoundEffects;
 import com.quaap.primary.base.component.TextToVoice;
 
 /**
@@ -23,6 +24,20 @@ import com.quaap.primary.base.component.TextToVoice;
 public class Primary extends Application {
 
     private TextToVoice mTtv;
+
+
+    private SoundEffects mSoundEffects;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mSoundEffects = new SoundEffects(this);
+    }
+
+
+    public SoundEffects getSoundEffects() {
+        return mSoundEffects;
+    }
 
     public TextToVoice getTextToVoice() {
         if (mTtv == null) {
