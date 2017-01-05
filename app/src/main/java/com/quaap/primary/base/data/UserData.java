@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -296,6 +297,15 @@ public class UserData {
             return new ArrayList<>(getValue(name, new TreeSet<>(stringlist)));
         }
 
+        public Set<String> getKeys(String matching) {
+            Set<String> ret = new LinkedHashSet<>();
+            for (String key: mSubjectPrefs.getAll().keySet()) {
+                if (key!=null && key.matches(matching)) {
+                    ret.add(key);
+                }
+            }
+            return ret;
+        }
 
         public void clearProgress() {
             mSubjectPrefs.edit().clear().apply();

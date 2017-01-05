@@ -285,40 +285,48 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     }
 
+    private static final String LDKEY = "_level_";
     protected void saveLevelValue(String name, int value) {
-        mSubjectData.saveValue(name + levelnum, value);
+        mSubjectData.saveValue(name + LDKEY + levelnum, value);
     }
 
     protected void saveLevelValue(String name, String value) {
-        mSubjectData.saveValue(name + levelnum, value);
+        mSubjectData.saveValue(name + LDKEY + levelnum, value);
     }
 
     protected int getSavedLevelValue(String name, int value) {
-        return mSubjectData.getValue(name + levelnum, value);
+        return mSubjectData.getValue(name + LDKEY + levelnum, value);
     }
 
     protected String getSavedLevelValue(String name, String value) {
-        return mSubjectData.getValue(name + levelnum, value);
+        return mSubjectData.getValue(name + LDKEY + levelnum, value);
     }
 
     protected void deleteSavedLevelValue(String name) {
-        mSubjectData.deleteValue(name + levelnum);
+        mSubjectData.deleteValue(name + LDKEY + levelnum);
     }
 
     protected void saveLevelValue(String name, Set<String> stringset) {
-        mSubjectData.saveValue(name + levelnum, stringset);
+        mSubjectData.saveValue(name + LDKEY + levelnum, stringset);
     }
 
     protected void saveLevelValue(String name, List<String> stringlist) {
-        mSubjectData.saveValue(name + levelnum, stringlist);
+        mSubjectData.saveValue(name + LDKEY + levelnum, stringlist);
     }
 
     protected Set<String> getSavedLevelValue(String name, Set<String> stringset) {
-        return mSubjectData.getValue(name + levelnum, stringset);
+        return mSubjectData.getValue(name + LDKEY + levelnum, stringset);
     }
 
     protected List<String> getSavedLevelValue(String name, List<String> stringlist) {
-        return mSubjectData.getValue(name + levelnum, stringlist);
+        return mSubjectData.getValue(name + LDKEY + levelnum, stringlist);
+    }
+
+    protected void deleteLevelKeys() {
+        Set<String> keys = mSubjectData.getKeys("^.*" + LDKEY + levelnum + "$");
+        for (String key: keys) {
+            mSubjectData.deleteValue(key);
+        }
     }
 
     protected String join(String sep, List<?> list) {
@@ -665,6 +673,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             }
 
             if (correct >= levels[levelnum].getRounds()) {
+                onDeleteLevelValues();
                 correct = 0;
                 incorrect = 0;
                 setStatus(R.string.correct, 1200);
@@ -876,6 +885,10 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         fasttimes[1] = fast;
         fasttimes[2] = quick;
 
+    }
+
+    protected void onDeleteLevelValues() {
+        deleteLevelKeys();
     }
 
     public boolean isLandscape() {
