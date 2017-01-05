@@ -52,6 +52,7 @@ public class Primary extends Application {
             mTtv.shutDown();
             mTtv = null;
         }
+        mSoundEffects.release();
     }
 
 }
