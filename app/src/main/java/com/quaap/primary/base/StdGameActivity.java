@@ -40,6 +40,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
     private TimerTask hinttask;
 
     private volatile boolean showHint = false;
+    private volatile int hintTick;
 
     protected static final int BASE_HINT_TIME = 30000;
     protected static final int BASE_HINT_REPEAT_TIME = 3000;
@@ -139,14 +140,14 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
         cancelHint();
 
         if (showHint) {
-
+            hintTick = 0;
             hinttask = new TimerTask() {
                 @Override
                 public void run() {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            performHint();
+                            performHint(hintTick++);
                         }
                     });
                 }
@@ -156,8 +157,15 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
         }
     }
 
-    protected void performHint() {
+    protected int getHintTicks() {
+        return hintTick;
+    }
+
+    protected void performHint(int hintTick) {
         //override to do something.
+        if (hintTick==0) {
+            getSoundEffects().playHighClick();
+        }
     }
 
     protected void cancelHint() {

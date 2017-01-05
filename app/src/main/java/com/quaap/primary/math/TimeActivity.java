@@ -150,16 +150,14 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         return new ArrayList<>(answerset);
     }
 
-    int hintPos = 0;
-
     @Override
-    protected void performHint() {
+    protected void performHint(int hintTick) {
         String time = formatTime(mHour,mMinute);
-        if (hintPos<time.length()) {
+        if (hintTick <time.length()) {
             TextView timeHint = (TextView) findViewById(R.id.timeHint);
-            hintPos++;
-            timeHint.setText(time.substring(0, hintPos));
+            timeHint.setText(time.substring(0, hintTick+1));
         }
+        super.performHint(hintTick);
     }
 
     private int getMinutes() {
@@ -283,8 +281,8 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         float hY = (float)(Math.sin(hourRadian * (hour+hourAdj) - Math.PI/2) * (radius*.5));
         canvas.drawLine(centerX, centerY, centerX+hX, centerY+hY, hourColor);
 
-        float mX = (float)(Math.cos(minuteRadian * minute - Math.PI/2) * (radius*.7));
-        float mY = (float)(Math.sin(minuteRadian * minute - Math.PI/2) * (radius*.7));
+        float mX = (float)(Math.cos(minuteRadian * minute - Math.PI/2) * (radius*.8));
+        float mY = (float)(Math.sin(minuteRadian * minute - Math.PI/2) * (radius*.8));
         canvas.drawLine(centerX, centerY, centerX+mX, centerY+mY, minuteColor);
 
         canvas.drawCircle(centerX, centerY, 4, black);

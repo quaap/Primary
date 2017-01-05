@@ -35,9 +35,11 @@ public class SoundEffects {
 
     private static final int GOODBING = 0;
     private static final int BADBING = 1;
+    private static final int HIGHCLICK = 2;
+    private static final int LOWCLICK = 3;
 
-    private final int [] soundFiles = {R.raw.goodbing, R.raw.badbing};
-    private final float [] soundVolumes = {1, .5f};
+    private final int [] soundFiles = {R.raw.goodbing, R.raw.badbing, R.raw.highclick, R.raw.lowclick};
+    private final float [] soundVolumes = {.9f, .4f, .5f, .5f};
 
 
     private volatile boolean mReady = false;
@@ -85,6 +87,12 @@ public class SoundEffects {
     }
     public void playBad() {
         play(BADBING);
+    }
+    public void playHighClick() {
+        play(HIGHCLICK);
+    }
+    public void playLowClick() {
+        play(LOWCLICK);
     }
 
     public void release() {

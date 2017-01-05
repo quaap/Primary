@@ -43,14 +43,13 @@ public class SpellingActivity extends StdGameActivity
 
     final protected Handler handler = new Handler();
     private final int numanswers = 4;
-    TextToVoice v;
+    private TextToVoice v;
     private List<String> words;
-//    private volatile boolean showHint = false;
+
     private String word;
     private String[] unspellMap;
-    //    private Timer timer;
-//    private TimerTask hinttask;
-    private volatile int hintPos = 0;
+
+
     private String wordStart;
 
 
@@ -82,13 +81,6 @@ public class SpellingActivity extends StdGameActivity
     @Override
     protected void onPause() {
         v.stop();
-//        cancelHint();
-//
-//        if (timer!=null) {
-//            timer.cancel();
-//            timer.purge();
-//            timer=null;
-//        }
 
         saveLevelValue("word", word);
         super.onPause();
@@ -205,7 +197,13 @@ public class SpellingActivity extends StdGameActivity
      */
     @Override
     protected int calculatePoints() {
-        return super.calculatePoints() + (int) (1 + word.length() * (levelnum + 1) * (1 + word.length() - (float) hintPos) / (word.length()));
+        float scoremult = word.length() - getHintTicks();
+
+        if (scoremult<=0) {  //if the hint is fully shown, give partial credit.
+            scoremult=.3f;
+        }
+        return super.calculatePoints() + (int) (1 + word.length()  * scoremult);
+
     }
 
     @Override
@@ -229,27 +227,28 @@ public class SpellingActivity extends StdGameActivity
     public void onSpeakComplete(TextToVoice ttv) {
         if (wordStart == null || !wordStart.equals(word)) {
             startTimer();
-            hintPos = 0;
             startHint(word.length());
             wordStart = word;
         }
     }
 
     @Override
-    protected void performHint() {
+    protected void performHint(int hintTick) {
         final TextView hint = (TextView) findViewById(R.id.spell_hint);
-        if (hintPos < word.length()) {
+        if (hintTick < word.length()) {
 
-            hintPos++;
-            hint.setText(word.substring(0, hintPos));
 
-            if (hintPos == 1 || (word.length() > 3 && hintPos == word.length())) {
+            hint.setText(word.substring(0, hintTick+1));
+
+            if (hintTick == 1 || (word.length() > 3 && hintTick == word.length())) {
                 v.speak(word);
             }
 
         } else {
             cancelHint();
         }
+        super.performHint(hintTick);
+
     }
 
     @Override

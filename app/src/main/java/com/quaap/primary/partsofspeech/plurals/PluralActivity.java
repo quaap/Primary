@@ -39,8 +39,7 @@ public class PluralActivity extends StdGameActivity
 
 
     private final int numanswers = 4;
-    int hintStart = 4;
-    int hintPos = 0;
+
     private List<String> words;
     private String word;
     private String answer;
@@ -151,8 +150,6 @@ public class PluralActivity extends StdGameActivity
 
             makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_TEXT, 5, 0, word);
 
-            hintPos = answer.length() - hintStart;
-            if (hintPos < 0) hintPos = 0;
             startHint(word.length());
 
         } else {
@@ -193,7 +190,12 @@ public class PluralActivity extends StdGameActivity
      */
     @Override
     protected int calculatePoints() {
-        return super.calculatePoints() + (int) (1 + word.length() * scoreWord(word) * (hintStart + answer.length() - (float) hintPos) / answer.length());
+        float scoremult = answer.length() - getHintTicks();
+
+        if (scoremult<=0) {  //if the hint is fully shown, give partial credit.
+            scoremult=.3f;
+        }
+        return super.calculatePoints() + (int) (1 + word.length() * scoreWord(word) * scoremult);
     }
 
 
@@ -219,17 +221,17 @@ public class PluralActivity extends StdGameActivity
     }
 
     @Override
-    protected void performHint() {
+    protected void performHint(int hintTick) {
         final TextView hint = (TextView) findViewById(R.id.plurHint);
-        if (hintPos < answer.length()) {
+        if (hintTick < answer.length()) {
 
-            hintPos++;
-            hint.setText(answer.substring(0, hintPos));
-
+            hint.setText(answer.substring(0, hintTick+1));
 
         } else {
             cancelHint();
         }
+        super.performHint(hintTick);
+
     }
 
     public String unplural(String word) {

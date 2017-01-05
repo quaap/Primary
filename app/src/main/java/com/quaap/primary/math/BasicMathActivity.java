@@ -101,7 +101,6 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
 
             makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_NUMBER, 3, fontsize / 2);
             startHint(op.ordinal() + 1);
-            hintPos = 0;
 
         } else {
             throw new IllegalArgumentException("Unknown inputMode! " + level.getInputMode());
@@ -110,15 +109,15 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
 
     }
 
-    int hintPos = 0;
+
     @Override
-    protected void performHint() {
+    protected void performHint(int hintTick) {
         String a = answer+"";
-        if (hintPos<a.length()){
-            hintPos++;
+        if (hintTick <a.length()){
             TextView txtMathHint = (TextView)findViewById(R.id.txtMathHint);
-            txtMathHint.setText(a.substring(0,hintPos));
+            txtMathHint.setText(a.substring(0, hintTick+1));
         }
+        super.performHint(hintTick);
     }
 
     private int getAnswer(int n1, int n2, MathOp op) {
@@ -177,7 +176,13 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
      */
     @Override
     protected int calculatePoints() {
-        return super.calculatePoints() + (Math.abs(num1) + Math.abs(num2)) * (op.ordinal() + 1);
+        float scoremult = (answer+"").length() - getHintTicks();
+
+        if (scoremult<=0) {  //if the hint is fully shown, give partial credit.
+            scoremult=.3f;
+        }
+
+        return super.calculatePoints() + (int)((1 + Math.abs(num1) + Math.abs(num2)) * (op.ordinal() + 1) * scoremult);
     }
 
     private void makeRandomProblem() {

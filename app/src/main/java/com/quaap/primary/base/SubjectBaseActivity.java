@@ -894,6 +894,11 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         useInARow = use;
     }
 
+    protected SoundEffects getSoundEffects() {
+        return soundEffects;
+    }
+
+
     public interface AnswerGivenListener<T> {
         boolean answerGiven(T answer);
     }

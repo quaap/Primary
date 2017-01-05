@@ -324,8 +324,9 @@ public class SortingActivity extends StdGameActivity implements
     }
 
     @Override
-    protected void performHint() {
+    protected void performHint(int hintTick) {
         markSorted();
+        super.performHint(hintTick);
     }
 
     @Override
