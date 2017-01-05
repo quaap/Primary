@@ -4,9 +4,13 @@ A simple educational practice game for kids and adults.
 
 In version 0.2 there are levels dealing with Math and Language Arts.
 
+Version 0.3 will add Time and Clocks.
+
 The app is designed to allow other level sets, and in the future I'd like to add 
 other math levels (ideas: word problems, easier and harder math,  fractions, decimals, time, etc) and other subjects 
 as well (ideas: reading, maps, geometry, science, etc?)
+
+(Note: This app is still in the beta stage and things are likely to change.)
 
 Features:
 * Progressive levels.

@@ -15,10 +15,6 @@
     <color name="group_color_mu">#aaffff77</color>
     <color name="group_color_ar">#aaff975f</color>
 
-    <string name="subject_t1_code">M-T1</string>
-    <string name="subject_t1_name">Times</string>
-    <string name="subject_t1_desc">Times</string>
-
     <string name="subject_m1_code">M1</string>
     <string name="subject_m1_name">Math +-25</string>
     <string name="subject_m1_desc">Plus and Minus. Numbers up to 25.</string>
@@ -54,6 +50,10 @@
     <string name="subject_m9_code">M-S4</string>
     <string name="subject_m9_name">Sorting big</string>
     <string name="subject_m9_desc">Sorting more three digit numbers.</string>
+
+    <string name="subject_t1_code">M-T1</string>
+    <string name="subject_t1_name">Clocks</string>
+    <string name="subject_t1_desc">Telling time on analog clocks</string>
 
     <string name="subject_sp1_code">LA-Sp1</string>
     <string name="subject_sp1_name">Spelling 1–6</string>
