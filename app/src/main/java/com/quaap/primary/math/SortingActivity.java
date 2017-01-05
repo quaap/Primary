@@ -269,10 +269,31 @@ public class SortingActivity extends StdGameActivity implements
             prob += p + ";";
         }
 
+
+        answerDone(true, prob, "sorted", "sorted");
+
+    }
+
+    /**
+     *  Calculate the points from the current problem
+     *  By default this is based on simply the level number.
+     *
+     *  Override this in each activity.
+     *
+     *  Range, in general:
+     *    difficulty 1:   1 - 50
+     *    difficulty 2:   up to 100
+     *    difficulty 3:   up to 200
+     *    difficulty 4:   up to 500
+     *    difficulty 5:   up to 1000
+     *
+     * @return the points for the current problem
+     */
+    @Override
+    protected int calculatePoints() {
         SortingLevel level = ((SortingLevel) getLevel());
         if (moves == 0 ) moves =1; //failsafe
-        answerDone(true, 1 + (int) ((levelnum+1)*Math.sqrt(level.getMaxNum()) * level.getNumItems() / moves), prob, "sorted", "sorted");
-
+        return super.calculatePoints() + (int) (Math.sqrt(level.getMaxNum()) * level.getNumItems() / moves);
     }
 
     private boolean isSorted(List<Integer> list) {

@@ -603,8 +603,26 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         }
     }
 
+    /**
+     *  Calculate the points from the current problem
+     *  By default this is based on simply the level number.
+     *
+     *  Override this in each activity.
+     *
+     *  Range, in general:
+     *    difficulty 1:   1 - 50
+     *    difficulty 2:   up to 100
+     *    difficulty 3:   up to 200
+     *    difficulty 4:   up to 500
+     *    difficulty 5:   up to 1000
+     *
+     * @return the points for the current problem
+     */
+    protected int calculatePoints() {
+        return levelnum+1;
+    }
 
-    protected void answerDone(boolean isright, int addscore, String problem, String answer, String useranswer) {
+    protected void answerDone(boolean isright, String problem, String answer, String useranswer) {
         stopTimer();
 
         bonuses = null;
@@ -613,7 +631,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             correctInARow++;
             totalCorrect++;
 
-            int points = getBonuses(addscore, timespent);
+            int points = getBonuses(calculatePoints(), timespent);
             tscore += points;
             todaysScore += points;
 

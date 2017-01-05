@@ -115,9 +115,9 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
 
     @Override
-    protected void answerDone(boolean isright, int addscore, String problem, String answer, String useranswer) {
+    protected void answerDone(boolean isright, String problem, String answer, String useranswer) {
         if (isright) cancelHint();
-        super.answerDone(isright, addscore, problem, answer, useranswer);
+        super.answerDone(isright, problem, answer, useranswer);
     }
 
     protected ViewGroup getKeysArea() {

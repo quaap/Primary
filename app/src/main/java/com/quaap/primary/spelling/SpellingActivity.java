@@ -180,14 +180,32 @@ public class SpellingActivity extends StdGameActivity
 
     @Override
     public boolean answerGiven(String answer) {
-        int points = 0;
+
         boolean isright = answer.toLowerCase().trim().equals(word.toLowerCase());
-        if (isright) {
-            points = (int) (1 + word.length() * (levelnum + 1) * (1 + word.length() - (float) hintPos) / (word.length()));
-        }
-        answerDone(isright, points, word, word, answer.trim());
+
+        answerDone(isright, word, word, answer.trim());
 
         return isright;
+    }
+
+    /**
+     *  Calculate the points from the current problem
+     *  By default this is based on simply the level number.
+     *
+     *  Override this in each activity.
+     *
+     *  Range, in general:
+     *    difficulty 1:   1 - 50
+     *    difficulty 2:   up to 100
+     *    difficulty 3:   up to 200
+     *    difficulty 4:   up to 500
+     *    difficulty 5:   up to 1000
+     *
+     * @return the points for the current problem
+     */
+    @Override
+    protected int calculatePoints() {
+        return super.calculatePoints() + (int) (1 + word.length() * (levelnum + 1) * (1 + word.length() - (float) hintPos) / (word.length()));
     }
 
     @Override
