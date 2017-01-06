@@ -1,11 +1,13 @@
 package com.quaap.primary.base.component;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 
 import com.quaap.primary.R;
 
@@ -41,8 +43,11 @@ public class SoundEffects {
     private final int [] soundFiles = {R.raw.goodbing, R.raw.badbing, R.raw.highclick, R.raw.lowclick};
     private final float [] soundVolumes = {.9f, .4f, .5f, .5f};
 
+    private SharedPreferences appPreferences;
 
     private volatile boolean mReady = false;
+
+    private volatile boolean mMute = false;
 
     public SoundEffects(final Context context) {
         if (Build.VERSION.SDK_INT>=21) {
@@ -56,7 +61,7 @@ public class SoundEffects {
         } else {
             mSounds = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
         }
-
+        appPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
 
         new Handler().postDelayed(new Runnable() {
@@ -75,8 +80,17 @@ public class SoundEffects {
         return mReady;
     }
 
+    public void setMute(boolean mute) {
+        mMute = mute;
+    }
+
+    public boolean isMuted() {
+        return mMute;
+    }
+
     private void play(int soundKey) {
-        if (isReady()) {
+
+        if (isReady() && !mMute && appPreferences.getBoolean("use_sound_effects", true)) {
             float vol = soundVolumes[soundKey];
             mSounds.play(mSoundIds.get(soundKey), vol, vol, 1, 0, 1);
         }
