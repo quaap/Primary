@@ -2,6 +2,7 @@ package com.quaap.primary.partsofspeech.plurals;
 
 import android.content.Context;
 
+import com.quaap.primary.R;
 import com.quaap.primary.base.StdLevel;
 import com.quaap.primary.base.component.InputMode;
 
@@ -40,7 +41,7 @@ public class PluralLevel extends StdLevel {
 
     @Override
     public String getDescription(Context context) {
-        return "Length: " + mMaxwordlength + ". " + (getInputMode() == InputMode.Buttons ? "Multiple choice" : "Keyboard");
+        return context.getString(R.string.length, mMaxwordlength) + " " + getInputModeString(context);
     }
 
     @Override

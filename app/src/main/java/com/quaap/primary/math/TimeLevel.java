@@ -2,6 +2,7 @@ package com.quaap.primary.math;
 
 import android.content.Context;
 
+import com.quaap.primary.R;
 import com.quaap.primary.base.StdLevel;
 import com.quaap.primary.base.component.InputMode;
 
@@ -22,7 +23,22 @@ import com.quaap.primary.base.component.InputMode;
  */
 public class TimeLevel extends StdLevel {
 
-    public enum MinuteGranularity {Hour, Half, Quarter, Five, One}
+    public enum MinuteGranularity {
+        Hour(R.string.min_gran_hour),
+        Half(R.string.min_gran_half),
+        Quarter(R.string.min_gran_quarter),
+        Five(R.string.min_gran_five),
+        One(R.string.min_gran_one);
+
+        private int mResId;
+        MinuteGranularity(int resId) {
+            mResId = resId;
+        }
+
+        public String getString(Context context) {
+            return context.getString(mResId);
+        }
+    }
     //public enum SecondGranularity {Minute, Half, Quarter, Five, One}
 
     private MinuteGranularity mMinuteGranularity;
@@ -47,7 +63,7 @@ public class TimeLevel extends StdLevel {
 
     @Override
     public String getDescription(Context context) {
-        return mMinuteGranularity.toString() + ". "  + (getInputMode() == InputMode.Buttons ? "Multiple choice" : "Keyboard");
+        return mMinuteGranularity.getString(context) + ". "  + getInputModeString(context);
     }
 
     @Override

@@ -72,7 +72,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         TimeLevel level = (TimeLevel)getLevel();
         if (level.useFuzzy() && level.getMinuteGranularity()== TimeLevel.MinuteGranularity.One) {
             TextView t = (TextView)findViewById(R.id.txt_time_header);
-            t.setText("What is the closest time?");
+            t.setText(R.string.fuzzy_closest_message);
         }
     }
 
@@ -169,16 +169,16 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         boolean noMins = false;
         String befaft = "";
         if (min <= 27) {
-            befaft = " after ";
+            befaft = getString(R.string.fuzzy_after);
             disphour = hour;
             dispmin = min;
         } else if (min >= 33) {
-            befaft = " till ";
+            befaft = getString(R.string.fuzzy_till);
             disphour = hour==12 ? 1 : hour+1;
             dispmin = 60 - min;
 
         } else {
-            befaft = "Half past ";
+            befaft = getString(R.string.fuzzy_half_past);
             noMins = true;
         }
         if (min >3 && min<57) {
@@ -186,7 +186,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
                 if (Math.abs(dispmin - t) <= 2) {
                     if (!noMins) {
                         if (t==15 || t==45) {
-                            fuzzytime = "Quarter";
+                            fuzzytime = getString(R.string.fuzzy_quarter);
                         } else {
                             fuzzytime = t + "";
                         }
@@ -196,11 +196,12 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
                 }
             }
         } else {
-            fuzzytime = disphour + " O'Clock";
+            fuzzytime = disphour + getString(R.string.fuzzy_o_clock);
         }
 
         if (fuzzytime.length() == 0) {
             Log.d("Timeact", "zero length for " + time);
+            fuzzytime = "0";
         }
         return fuzzytime;
     }
@@ -225,14 +226,14 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
                 tminute = getRand(1)*30;
                 break;
             case Quarter:
-                tminute = getRand(3)*15;
+                tminute = getRand(1,3)*15;
                 break;
             case Five:
-                tminute = getRand(11)*5;
+                tminute = getRand(1,11)*5;
                 break;
             case One:
             default:
-                tminute = getRand(59);
+                tminute = getRand(1,59);
                 break;
         }
         return tminute;

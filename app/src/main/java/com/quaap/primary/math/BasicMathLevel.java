@@ -54,7 +54,7 @@ public class BasicMathLevel extends StdLevel {
     public String getDescription(Context context) {
         String ops = getOpsStr(context);
         String max = (mNegatives != Negatives.None ? "\u00B1" : "") + mMaxNum;
-        return ops + " / " + context.getString(R.string.max, max) + ". " + (getInputMode() == InputMode.Buttons ? "Multiple choice" : "Keyboard");
+        return ops + " / " + context.getString(R.string.max, max) + ". " + getInputModeString(context);
 
     }
 

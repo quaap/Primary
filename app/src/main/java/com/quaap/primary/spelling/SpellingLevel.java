@@ -2,6 +2,7 @@ package com.quaap.primary.spelling;
 
 import android.content.Context;
 
+import com.quaap.primary.R;
 import com.quaap.primary.base.StdLevel;
 import com.quaap.primary.base.component.InputMode;
 
@@ -35,7 +36,7 @@ public class SpellingLevel extends StdLevel {
 
     @Override
     public String getDescription(Context context) {
-        return "Length: " + mMaxwordlength + ". " + (getInputMode() == InputMode.Buttons ? "Multiple choice" : "Keyboard");
+        return context.getString(R.string.length, mMaxwordlength) + " " + getInputModeString(context);
     }
 
     @Override

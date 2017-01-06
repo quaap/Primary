@@ -88,6 +88,24 @@
     <string name="record">Record</string>
     <string name="no_record">Don\'t record</string>
     <string name="can_change_csv">You can change the CSV setting from the Settings menu at any time.</string>
+    <string name="what_time_is_it">What time is it?</string>
+    <string name="clock">Clock</string>
+    <string name="sort_the_values">Sort the values</string>
+    <string name="disp_buttons">Multiple choice</string>
+    <string name="disp_input">Keyboard</string>
+    <string name="length">Length: %d.</string>
+
+    <string name="min_gran_hour">Hour</string>
+    <string name="min_gran_half">Half hour</string>
+    <string name="min_gran_quarter">Quarter hour</string>
+    <string name="min_gran_five">Fives</string>
+    <string name="min_gran_one">Ones</string>
+    <string name="fuzzy_after">" after "</string>
+    <string name="fuzzy_till">" till "</string>
+    <string name="fuzzy_half_past">"Half past "</string>
+    <string name="fuzzy_quarter">Quarter</string>
+    <string name="fuzzy_o_clock">" o'clock"</string>
+    <string name="fuzzy_closest_message">What is the closest time?</string>
 
 
 </resources>

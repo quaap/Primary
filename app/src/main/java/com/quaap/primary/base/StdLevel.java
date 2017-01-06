@@ -1,5 +1,8 @@
 package com.quaap.primary.base;
 
+import android.content.Context;
+
+import com.quaap.primary.R;
 import com.quaap.primary.base.component.InputMode;
 
 /**
@@ -28,5 +31,9 @@ public abstract class StdLevel extends Level {
 
     public InputMode getInputMode() {
         return mInputMode;
+    }
+
+    public String getInputModeString(Context context) {
+        return getInputMode() == InputMode.Buttons ? context.getString(R.string.disp_buttons) : context.getString(R.string.disp_input);
     }
 }
