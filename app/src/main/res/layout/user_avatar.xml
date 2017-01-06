@@ -13,7 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/userimage_avatar"
-        android:textSize="36sp" />
+        android:textSize="36sp"
+        android:soundEffectsEnabled="true" />
 
     <TextView
         android:text=""

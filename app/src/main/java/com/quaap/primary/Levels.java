@@ -152,33 +152,6 @@ public class Levels {
                         }),
 
 
-                new Subjects.Desc(context, SubjectGroup.Math, R.string.subject_t1_code, R.string.subject_t1_name, R.string.subject_t1_desc,
-                        TimeActivity.class,
-                        new Level[]{
-                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Hour, 10, InputMode.Buttons),
-                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Hour, 10, InputMode.Input),
-                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Half, 10, InputMode.Buttons),
-                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Half, 10, InputMode.Input),
-                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Quarter, 10, InputMode.Buttons),
-                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Quarter, 10, InputMode.Input),
-                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Five, 10, InputMode.Buttons),
-                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Five, 10, InputMode.Input),
-                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.One, 10, InputMode.Buttons),
-                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.One, 5, InputMode.Input),
-                        }),
-
-                new Subjects.Desc(context, SubjectGroup.Math, R.string.subject_t2_code, R.string.subject_t2_name, R.string.subject_t2_desc,
-                        TimeActivity.class,
-                        new Level[]{
-                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.Hour, 10, InputMode.Buttons, true),
-                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.Half, 10, InputMode.Buttons, true),
-                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.Quarter, 10, InputMode.Buttons, true),
-                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.Five, 10, InputMode.Buttons, true),
-                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.One, 10, InputMode.Buttons, true),
-                        }),
-
-
-
                 new Subjects.Desc(context, SubjectGroup.Math, R.string.subject_m6_code, R.string.subject_m6_name, R.string.subject_m6_desc,
                         SortingActivity.class,
                         new Level[]{
@@ -215,6 +188,34 @@ public class Levels {
                                 new SortingLevel(R.string.subject_m9_code, 12, 999, 15),
                                 new SortingLevel(R.string.subject_m9_code, 16, 999, 15),
                         }),
+
+
+                new Subjects.Desc(context, SubjectGroup.TimeMoney, R.string.subject_t1_code, R.string.subject_t1_name, R.string.subject_t1_desc,
+                        TimeActivity.class,
+                        new Level[]{
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Hour, 10, InputMode.Buttons),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Hour, 10, InputMode.Input),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Half, 10, InputMode.Buttons),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Half, 10, InputMode.Input),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Quarter, 10, InputMode.Buttons),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Quarter, 10, InputMode.Input),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Five, 10, InputMode.Buttons),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.Five, 10, InputMode.Input),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.One, 10, InputMode.Buttons),
+                                new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.One, 5, InputMode.Input),
+                        }),
+
+                new Subjects.Desc(context, SubjectGroup.TimeMoney, R.string.subject_t2_code, R.string.subject_t2_name, R.string.subject_t2_desc,
+                        TimeActivity.class,
+                        new Level[]{
+                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.Hour, 10, InputMode.Buttons, true),
+                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.Half, 10, InputMode.Buttons, true),
+                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.Quarter, 10, InputMode.Buttons, true),
+                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.Five, 10, InputMode.Buttons, true),
+                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.One, 10, InputMode.Buttons, true),
+                        }),
+
+
 
 
                 new Subjects.Desc(context, SubjectGroup.LanguageArts, R.string.subject_sp1_code, R.string.subject_sp1_name, R.string.subject_sp1_desc,

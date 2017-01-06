@@ -5,12 +5,14 @@
 
     <string name="group_m">Math</string>
     <string name="group_sc">Science</string>
+    <string name="group_tm">Time &amp; Money</string>
     <string name="group_la">Language Arts</string>
     <string name="group_mu">Music</string>
     <string name="group_ar">Art</string>
 
     <color name="group_color_m">#a86486fd</color>
     <color name="group_color_sc">#aaaaffaa</color>
+    <color name="group_color_tm">#aaf9aaff</color>
     <color name="group_color_la">#aafc767b</color>
     <color name="group_color_mu">#aaffff77</color>
     <color name="group_color_ar">#aaff975f</color>
@@ -51,11 +53,11 @@
     <string name="subject_m9_name">Sorting big</string>
     <string name="subject_m9_desc">Sorting more three digit numbers.</string>
 
-    <string name="subject_t1_code">M-T1</string>
+    <string name="subject_t1_code">TM-T1</string>
     <string name="subject_t1_name">Clocks 1</string>
     <string name="subject_t1_desc">Telling time on analog clocks</string>
 
-    <string name="subject_t2_code">M-T2</string>
+    <string name="subject_t2_code">TM-T2</string>
     <string name="subject_t2_name">Clocks 2</string>
     <string name="subject_t2_desc">Telling fuzzy time on analog clocks</string>
 

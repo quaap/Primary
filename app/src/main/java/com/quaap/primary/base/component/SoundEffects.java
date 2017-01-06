@@ -60,7 +60,7 @@ public class SoundEffects {
             .5f,
             .7f,
             .7f,
-            .2f,
+            .3f,
     };
 
     private SharedPreferences appPreferences;
@@ -116,8 +116,8 @@ public class SoundEffects {
         try {
             if (isReady() && !mMute && appPreferences.getBoolean("use_sound_effects", true)) {
 
-                float vol = soundVolumes[soundKey];
-                mSounds.play(mSoundIds.get(soundKey), vol, vol, 1, 0, speed);
+                float vol = soundVolumes[soundKey] + getRandHundreth();
+                mSounds.play(mSoundIds.get(soundKey), vol, vol, 1, 0, speed + getRandHundreth());
             }
         } catch (Exception e) {
             Log.e("SoundEffects", "Error playing " + soundKey, e);
@@ -144,6 +144,9 @@ public class SoundEffects {
         play(BABA);
     }
 
+    private float getRandHundreth() {
+        return (float)((Math.random()-.5)/5.1);
+    }
     public void playHit1() {
         play(HIT, 1);
     }

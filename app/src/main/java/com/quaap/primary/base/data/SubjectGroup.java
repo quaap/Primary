@@ -23,6 +23,7 @@ import com.quaap.primary.R;
 public enum SubjectGroup {
     Math("M", R.string.group_m, R.color.group_color_m),
     LanguageArts("LA", R.string.group_la, R.color.group_color_la),
+    TimeMoney("TM", R.string.group_tm, R.color.group_color_tm),
     Science("Sc", R.string.group_sc, R.color.group_color_sc),
     Music("Mu", R.string.group_mu, R.color.group_color_mu),
     Art("Ar", R.string.group_ar, R.color.group_color_ar);
