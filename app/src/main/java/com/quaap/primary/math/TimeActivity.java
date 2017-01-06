@@ -74,10 +74,13 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
             TextView t = (TextView)findViewById(R.id.txt_time_header);
             t.setText(R.string.fuzzy_closest_message);
         }
+
+        int fac = level.getMinuteGranularity().ordinal() + 1 + (level.useFuzzy()?1:0);
         if (level.getInputMode() == InputMode.Buttons) {
-            setFasttimes(800, 1600, 3000);
+
+            setFasttimes(600 + 250*fac, 800 + 250*fac, 1100 + 225*fac);
         } else {
-            setFasttimes(1500, 2200, 5000);
+            setFasttimes(1000 + 250*fac, 1200 + 250*fac, 1400 + 250*fac);
         }
 
     }
