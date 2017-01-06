@@ -34,6 +34,7 @@ public class SpellingLevel extends StdLevel {
 
     }
 
+
     @Override
     public String getDescription(Context context) {
         return context.getString(R.string.length, mMaxwordlength) + " " + getInputModeString(context);
@@ -48,5 +49,7 @@ public class SpellingLevel extends StdLevel {
         return mWordlistId;
     }
 
-
+    public int getMaxwordlength() {
+        return mMaxwordlength;
+    }
 }

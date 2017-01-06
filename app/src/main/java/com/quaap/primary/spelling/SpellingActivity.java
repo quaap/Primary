@@ -116,12 +116,13 @@ public class SpellingActivity extends StdGameActivity
         super.onShowLevel();
         words = Arrays.asList(getResources().getStringArray(((SpellingLevel) getLevel()).getmWordlistId()));
 
-        if (((SpellingLevel) getLevel()).getInputMode() == InputMode.Buttons) {
-            setFasttimes(800, 1600, 3000);
-            //  showHint = false;
+        SpellingLevel level = (SpellingLevel) getLevel();
+        int fac = level.getMaxwordlength();
+        if (level.getInputMode() == InputMode.Buttons) {
+            setFasttimes(600 + 50*fac, 700 + 75*fac, 800 + 125*fac);
+
         } else {
-            setFasttimes(1500, 2200, 5000);
-            // showHint = true;
+            setFasttimes(800 + 200*fac, 900 + 400*fac, 1000 + 600*fac);
         }
 
     }
@@ -142,25 +143,12 @@ public class SpellingActivity extends StdGameActivity
         Log.d("spell", word);
 
         SpellingLevel level = (SpellingLevel) getLevel();
+        if (level.getInputMode() == InputMode.Input) {
 
-        if (level.getInputMode() == InputMode.Buttons) {
-            List<String> answers = getAnswerChoices(word);
-
-            makeChoiceButtons(getAnswerArea(), answers, this);
-
-        } else if (level.getInputMode() == InputMode.Input) {
-
-            makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_TEXT, 5, 0);
-        } else {
-            throw new IllegalArgumentException("Unknown inputMode! " + level.getInputMode());
+            makeInputBox(getAnswerArea(), getKeysArea(), SpellingActivity.this, INPUTTYPE_TEXT, 5, 0);
         }
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                v.speak(word);
-            }
-        }, 500);
+        v.speak(word);
         ((TextView) findViewById(R.id.spell_hint)).setText("");
 
     }
@@ -229,6 +217,18 @@ public class SpellingActivity extends StdGameActivity
             startTimer();
             startHint(word.length());
             wordStart = word;
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    SpellingLevel level = (SpellingLevel) getLevel();
+                    if (level.getInputMode() == InputMode.Buttons) {
+                        List<String> answers = getAnswerChoices(word);
+
+                        makeChoiceButtons(getAnswerArea(), answers, SpellingActivity.this);
+
+                    }
+                }
+            });
         }
     }
 
