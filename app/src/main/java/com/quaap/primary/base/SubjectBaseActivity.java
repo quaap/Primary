@@ -68,6 +68,8 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     public static final String LEVELNUM = "levelnum";
     public static final String START_AT_ZERO = "startover";
+    public static final int STATUS_TIMEOUT = 1400;
+    public static final int ONWRONG_DELAY = 1000;
     protected static int INPUTTYPE_TEXT = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_CLASS_TEXT;
     protected static int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL;
     protected static int INPUTTYPE_TIME = InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_TIME;
@@ -498,7 +500,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                                     ab.setEnabled(true);
                                 }
                             }
-                        }, 1000);
+                        }, ONWRONG_DELAY);
                     }
                 }
             });
@@ -674,7 +676,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                 onDeleteLevelValues();
                 correct = 0;
                 incorrect = 0;
-                onSetStatus(R.string.correct, 1200);
+                onSetStatus(R.string.correct, STATUS_TIMEOUT);
                 if (levelnum + 1 >= levels.length) {
                     mSubjectData.setSubjectCompleted(true);
                     saveGameData();
@@ -691,14 +693,14 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                     return;
                 }
             } else {
-                onSetStatus(getString(R.string.correct), 1200);
+                onSetStatus(getString(R.string.correct), STATUS_TIMEOUT);
             }
             showProb();
         } else {
             incorrect++;
             correctInARow = 0;
             totalIncorrect++;
-            onSetStatus(R.string.try_again, 1200);
+            onSetStatus(R.string.try_again, STATUS_TIMEOUT);
             if (actwriter != null) {
                 actwriter.log(levelnum + 1, problem, answer, useranswer, isright, timespent, getCurrentPercentFloat(), 0);
             }
