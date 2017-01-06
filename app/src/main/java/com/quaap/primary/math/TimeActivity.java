@@ -85,7 +85,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
             do {
                 mHour = getRand(1, 12);
                 mMinute = getMinutes();
-            } while (tries++ < 50 && seenProblem(mHour, mMinute));
+            } while (tries++ < 100 && seenProblem(mHour, mMinute));
         } else {
             deleteSavedLevelValue("mHour");
             deleteSavedLevelValue("mMinute");
@@ -247,10 +247,19 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
 
     @Override
     public boolean onAnswerGiven(Object answer) {
-        String ranswer = formatTime(mHour,mMinute);
-        boolean isright = ranswer.equals((String)answer);
 
-        answerDone(isright, ranswer, ranswer, (String)answer);
+
+        String ranswer = formatTime(mHour,mMinute);
+        String uanswer = ((String)answer);
+
+        //Allow user to just type 9 instead of 9:00
+        //I might add seconds later, the double replace doesn't hurt now.
+        String ranswer2 = ranswer.replaceFirst(":00$","").replaceFirst(":00$","");
+        String uanswer2 = uanswer.replaceFirst(":00$","").replaceFirst(":00$","");
+
+        boolean isright = ranswer2.equals(uanswer2);
+
+        answerDone(isright, ranswer, ranswer, uanswer);
         return isright;
     }
 
