@@ -18,6 +18,7 @@ package com.quaap.primary.math;
  */
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,7 +42,7 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
 
     public BasicMathActivity() {
         super(R.layout.std_math_prob);
-        setFasttimes(900, 1800, 3000);
+
     }
 
 
@@ -95,10 +96,13 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
         float fontsize = num1txt.getTextSize();
         BasicMathLevel level = (BasicMathLevel) getLevel();
 
+        int fac = Math.max(3, (int)Math.sqrt(level.getMaxNum() + 1+(op.ordinal()*2)));
+
         if (level.getInputMode() == InputMode.Buttons) {
+            setFasttimes(fac * 300, fac * 500, fac * 700);
             makeAnswerButtons(getAnswerArea(), fontsize);
         } else if (level.getInputMode() == InputMode.Input) {
-
+            setFasttimes(fac * 500, fac * 650, fac * 850);
             makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_NUMBER, 3, fontsize / 2);
             startHint(op.ordinal() + 1);
 
