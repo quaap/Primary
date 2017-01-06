@@ -8,6 +8,7 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.quaap.primary.R;
 
@@ -39,9 +40,28 @@ public class SoundEffects {
     private static final int BADBING = 1;
     private static final int HIGHCLICK = 2;
     private static final int LOWCLICK = 3;
+    private static final int BABA = 4;
+    private static final int DRUMROLLHIT = 5;
+    private static final int HIT = 6;
 
-    private final int [] soundFiles = {R.raw.goodbing, R.raw.badbing, R.raw.highclick, R.raw.lowclick};
-    private final float [] soundVolumes = {.9f, .4f, .5f, .5f};
+    private final int [] soundFiles = {
+            R.raw.goodbing,
+            R.raw.badbing,
+            R.raw.highclick,
+            R.raw.lowclick,
+            R.raw.baba,
+            R.raw.drumrollhit,
+            R.raw.hit
+    };
+    private final float [] soundVolumes = {
+            .9f,
+            .4f,
+            .5f,
+            .5f,
+            .7f,
+            .7f,
+            .3f,
+    };
 
     private SharedPreferences appPreferences;
 
@@ -57,9 +77,10 @@ public class SoundEffects {
                     .build();
             mSounds = new SoundPool.Builder()
                     .setAudioAttributes(attributes)
+                    .setMaxStreams(4)
                     .build();
         } else {
-            mSounds = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+            mSounds = new SoundPool(4, AudioManager.STREAM_MUSIC, 0);
         }
         appPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
@@ -89,25 +110,49 @@ public class SoundEffects {
     }
 
     private void play(int soundKey) {
-
-        if (isReady() && !mMute && appPreferences.getBoolean("use_sound_effects", true)) {
-            float vol = soundVolumes[soundKey];
-            mSounds.play(mSoundIds.get(soundKey), vol, vol, 1, 0, 1);
+        play(soundKey, 1);
+    }
+    private void play(int soundKey, float speed) {
+        try {
+            if (isReady() && !mMute && appPreferences.getBoolean("use_sound_effects", true)) {
+                float vol = soundVolumes[soundKey];
+                mSounds.play(mSoundIds.get(soundKey), vol, vol, 1, 0, speed);
+            }
+        } catch (Exception e) {
+            Log.e("SoundEffects", "Error playing " + soundKey, e);
         }
     }
 
     public void playGood() {
         play(GOODBING);
     }
+
     public void playBad() {
         play(BADBING);
     }
+
     public void playHighClick() {
         play(HIGHCLICK);
     }
+
     public void playLowClick() {
         play(LOWCLICK);
     }
+
+    public void playBaba() {
+        play(BABA);
+    }
+
+    public void playHit1() {
+        play(HIT, 1);
+    }
+    public void playHit2() {
+        play(HIT, 1.2f);
+    }
+    public void playHit3() {
+        play(HIT, 1.5f);
+    }
+
 
     public void release() {
         mSounds.release();

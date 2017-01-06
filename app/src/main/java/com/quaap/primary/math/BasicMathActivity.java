@@ -96,13 +96,13 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
         float fontsize = num1txt.getTextSize();
         BasicMathLevel level = (BasicMathLevel) getLevel();
 
-        int fac = Math.max(3, (int)Math.sqrt(level.getMaxNum() + 1+(op.ordinal()*2)));
+        int fac = Math.max(3, (int)Math.sqrt(level.getMaxNum() + (op.ordinal()*2)));
 
         if (level.getInputMode() == InputMode.Buttons) {
-            setFasttimes(fac * 300, fac * 500, fac * 700);
+            setFasttimes(fac * 300, fac * 400, fac * 600);
             makeAnswerButtons(getAnswerArea(), fontsize);
         } else if (level.getInputMode() == InputMode.Input) {
-            setFasttimes(fac * 500, fac * 650, fac * 850);
+            setFasttimes(fac * 400, fac * 600, fac * 800);
             makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_NUMBER, 3, fontsize / 2);
             startHint(op.ordinal() + 1);
 

@@ -651,9 +651,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     protected void answerDone(boolean isright, String problem, String answer, String useranswer) {
 
 
-        if (isright) {
-            soundEffects.playGood();
-        } else {
+        if (!isright) {
             soundEffects.playBad();
         }
 
@@ -674,6 +672,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
             if (correct >= levels[levelnum].getRounds()) {
                 onDeleteLevelValues();
+                soundEffects.playBaba();
                 correct = 0;
                 incorrect = 0;
                 onSetStatus(R.string.correct, STATUS_TIMEOUT);
@@ -807,12 +806,17 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         if (timespent < fasttimes[0]) {
             bonuses = getString(R.string.superfast) + " ×3";
             points *= 3;
+            soundEffects.playHit3();
         } else if (timespent < fasttimes[1]) {
             bonuses = getString(R.string.fast) + " ×2";
             points *= 2;
+            soundEffects.playHit2();
         } else if (timespent < fasttimes[2]) {
             bonuses = getString(R.string.quick) + " +50%";
             points *= 1.5;
+            soundEffects.playHit1();
+        } else {
+            soundEffects.playGood();
         }
 
         if (useInARow) {
