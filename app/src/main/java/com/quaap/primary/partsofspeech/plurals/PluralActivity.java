@@ -101,11 +101,6 @@ public class PluralActivity extends StdGameActivity
     protected void onShowLevel() {
         super.onShowLevel();
 
-        if (((PluralLevel) getLevel()).getInputMode() == InputMode.Buttons) {
-            setFasttimes(800, 1600, 3000);
-        } else {
-            setFasttimes(1500, 2200, 5000);
-        }
 
     }
 
@@ -130,6 +125,14 @@ public class PluralActivity extends StdGameActivity
         } else {
             deleteSavedLevelValue("word");
         }
+
+        int score = scoreWord(word);
+        if (((PluralLevel) getLevel()).getInputMode() == InputMode.Buttons) {
+            setFasttimes(800 + score*100, 900 + score*250, 1000 + score*320);
+        } else {
+            setFasttimes(900 + score*100, 1100 + score*300, 1400 + score*500);
+        }
+
 
         answer = pluralsMap.get(word);
         Log.d("plural", word + " -> " + answer);
