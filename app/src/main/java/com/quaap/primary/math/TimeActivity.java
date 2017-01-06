@@ -44,7 +44,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
 
     public TimeActivity() {
         super(R.layout.std_time_prob);
-        setFasttimes(900, 1800, 3000);
+
     }
 
     @Override
@@ -74,6 +74,12 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
             TextView t = (TextView)findViewById(R.id.txt_time_header);
             t.setText(R.string.fuzzy_closest_message);
         }
+        if (level.getInputMode() == InputMode.Buttons) {
+            setFasttimes(800, 1600, 3000);
+        } else {
+            setFasttimes(1500, 2200, 5000);
+        }
+
     }
 
     @Override
