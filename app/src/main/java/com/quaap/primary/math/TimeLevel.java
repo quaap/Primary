@@ -27,9 +27,18 @@ public class TimeLevel extends StdLevel {
 
     private MinuteGranularity mMinuteGranularity;
 
-    public TimeLevel(int subjectkey, MinuteGranularity minGran, int rounds, InputMode mInputMode) {
-        super(subjectkey, rounds, mInputMode);
+    private boolean mFuzzy;
+    public TimeLevel(int subjectkey, MinuteGranularity minGran, int rounds, InputMode inputMode) {
+        this(subjectkey, minGran, rounds, inputMode, false);
+    }
+    public TimeLevel(int subjectkey, MinuteGranularity minGran, int rounds, InputMode inputMode, boolean useFuzzy) {
+        super(subjectkey, rounds, inputMode);
         mMinuteGranularity = minGran;
+        mFuzzy = useFuzzy;
+    }
+
+    public boolean useFuzzy() {
+        return mFuzzy;
     }
 
     public MinuteGranularity getMinuteGranularity() {

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -68,6 +69,11 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
     protected void onShowLevel() {
         super.onShowLevel();
         clearSeenProblem();
+        TimeLevel level = (TimeLevel)getLevel();
+        if (level.useFuzzy() && level.getMinuteGranularity()== TimeLevel.MinuteGranularity.One) {
+            TextView t = (TextView)findViewById(R.id.txt_time_header);
+            t.setText("What is the closest time?");
+        }
     }
 
     @Override
@@ -126,12 +132,12 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
                 if (mMinute==0) {
                     thour = 12;
                 } else {
-                    thour = (mMinute) / 5;
+                    thour = (mMinute+5) / 5;
                 }
                 if (level.getMinuteGranularity()!= TimeLevel.MinuteGranularity.Hour) {
                     tminute = (t-1) * 5;
                 }
-            } else if (getRand(10)>5 && (
+            } else if (getRand(10)>6 && (
                        level.getMinuteGranularity()== TimeLevel.MinuteGranularity.Five
                     || level.getMinuteGranularity()== TimeLevel.MinuteGranularity.One)) {
                 thour = mHour;
@@ -148,6 +154,55 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         } while (answerset.size()<4);
 
         return new ArrayList<>(answerset);
+    }
+
+    private String makeFuzzyTime(String time) {
+
+        String fuzzytime = "";
+        String [] tparts = time.split(":");
+        int hour = Integer.parseInt(tparts[0]);
+        int min = Integer.parseInt(tparts[1]);
+
+        int disphour = hour;
+        int dispmin = min;
+
+        boolean noMins = false;
+        String befaft = "";
+        if (min <= 27) {
+            befaft = " after ";
+            disphour = hour;
+            dispmin = min;
+        } else if (min >= 33) {
+            befaft = " till ";
+            disphour = hour==12 ? 1 : hour+1;
+            dispmin = 60 - min;
+
+        } else {
+            befaft = "Half past ";
+            noMins = true;
+        }
+        if (min >3 && min<57) {
+            for (int t = 5; t < 31; t += 5) {
+                if (Math.abs(dispmin - t) <= 2) {
+                    if (!noMins) {
+                        if (t==15 || t==45) {
+                            fuzzytime = "Quarter";
+                        } else {
+                            fuzzytime = t + "";
+                        }
+                    }
+                    fuzzytime += befaft + disphour;
+                    break;
+                }
+            }
+        } else {
+            fuzzytime = disphour + " O'Clock";
+        }
+
+        if (fuzzytime.length() == 0) {
+            Log.d("Timeact", "zero length for " + time);
+        }
+        return fuzzytime;
     }
 
     @Override
@@ -220,11 +275,20 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         return super.onCalculatePoints() * 50 * (level.getMinuteGranularity().ordinal()+1);
     }
 
-    public static String formatTime(int hour, int minute) {
-        return String.format(Locale.getDefault(),"%d:%02d", hour, minute);
+    public String formatTime(int hour, int minute) {
+        String time = String.format(Locale.getDefault(),"%d:%02d", hour, minute);
+        TimeLevel level = (TimeLevel)getLevel();
+        if (level.useFuzzy()) {
+            time = makeFuzzyTime(time);
+        }
+        return time;
     }
-    @NonNull
+
     private Bitmap getClockBitmap(int hour, int minute) {
+        return getClockBitmap(hour, minute, -1);
+    }
+
+    private Bitmap getClockBitmap(int hour, int minute, int second) {
         Paint black = new Paint();
         black.setARGB(255,0,0,0);
         black.setStrokeWidth(mClockwidth /60);
@@ -246,7 +310,13 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         minuteColor.setStyle(Paint.Style.STROKE);
 
         Paint minuteColorThin = new Paint(minuteColor);
-        minuteColorThin.setStrokeWidth(2);
+        minuteColorThin.setStrokeWidth(3);
+
+
+        Paint secondColor = new Paint();
+        secondColor.setARGB(255,180,0,64);
+        secondColor.setStrokeWidth(2);
+        secondColor.setStyle(Paint.Style.STROKE);
 
         int centerX = mClockwidth /2;
         int centerY = mClockwidth /2;
@@ -254,6 +324,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
 
         double hourRadian = 2 * Math.PI / 12;
         double minuteRadian = 2 * Math.PI / 60;
+        double secondRadian = 2 * Math.PI / 60;
 
         Bitmap bitmap = Bitmap.createBitmap(mClockwidth, mClockwidth, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -281,9 +352,20 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         float hY = (float)(Math.sin(hourRadian * (hour+hourAdj) - Math.PI/2) * (radius*.5));
         canvas.drawLine(centerX, centerY, centerX+hX, centerY+hY, hourColor);
 
-        float mX = (float)(Math.cos(minuteRadian * minute - Math.PI/2) * (radius*.8));
-        float mY = (float)(Math.sin(minuteRadian * minute - Math.PI/2) * (radius*.8));
+        double minuteAdj = 0;
+        if (second!=-1) {
+            minuteAdj = second/60.0;
+        }
+
+        float mX = (float)(Math.cos(minuteRadian * (minute+minuteAdj) - Math.PI/2) * (radius*.8));
+        float mY = (float)(Math.sin(minuteRadian * (minute+minuteAdj) - Math.PI/2) * (radius*.8));
         canvas.drawLine(centerX, centerY, centerX+mX, centerY+mY, minuteColor);
+
+        if (second!=-1) {
+            float sX = (float) (Math.cos(secondRadian * second - Math.PI / 2) * (radius * .95));
+            float sY = (float) (Math.sin(secondRadian * second - Math.PI / 2) * (radius * .95));
+            canvas.drawLine(centerX, centerY, centerX + sX, centerY + sY, secondColor);
+        }
 
         canvas.drawCircle(centerX, centerY, 4, black);
         canvas.drawCircle(centerX, centerY, radius, black);

@@ -167,6 +167,17 @@ public class Levels {
                                 new TimeLevel(R.string.subject_t1_code, TimeLevel.MinuteGranularity.One, 5, InputMode.Input),
                         }),
 
+                new Subjects.Desc(context, SubjectGroup.Math, R.string.subject_t2_code, R.string.subject_t2_name, R.string.subject_t2_desc,
+                        TimeActivity.class,
+                        new Level[]{
+                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.Hour, 10, InputMode.Buttons, true),
+                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.Half, 10, InputMode.Buttons, true),
+                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.Quarter, 10, InputMode.Buttons, true),
+                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.Five, 10, InputMode.Buttons, true),
+                                new TimeLevel(R.string.subject_t2_code, TimeLevel.MinuteGranularity.One, 10, InputMode.Buttons, true),
+                        }),
+
+
 
                 new Subjects.Desc(context, SubjectGroup.Math, R.string.subject_m6_code, R.string.subject_m6_name, R.string.subject_m6_desc,
                         SortingActivity.class,

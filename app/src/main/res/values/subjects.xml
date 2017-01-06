@@ -52,8 +52,12 @@
     <string name="subject_m9_desc">Sorting more three digit numbers.</string>
 
     <string name="subject_t1_code">M-T1</string>
-    <string name="subject_t1_name">Clocks</string>
+    <string name="subject_t1_name">Clocks 1</string>
     <string name="subject_t1_desc">Telling time on analog clocks</string>
+
+    <string name="subject_t2_code">M-T2</string>
+    <string name="subject_t2_name">Clocks 2</string>
+    <string name="subject_t2_desc">Telling fuzzy time on analog clocks</string>
 
     <string name="subject_sp1_code">LA-Sp1</string>
     <string name="subject_sp1_name">Spelling 1–6</string>

@@ -5,7 +5,7 @@
         android:text="What time is it?"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3"
+        android:id="@+id/txt_time_header"
         android:textSize="24sp"
         android:gravity="center_horizontal"
         android:layout_marginEnd="8dp"
