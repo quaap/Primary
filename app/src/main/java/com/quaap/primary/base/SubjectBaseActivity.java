@@ -103,6 +103,9 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     private int maxseensize = 40;
     private long timespent;
     private boolean timeMeasured;
+    private String correctStatus;
+
+
 
     private SoundEffects soundEffects;
 
@@ -661,6 +664,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             correct++;
             correctInARow++;
             totalCorrect++;
+            correctStatus = getString(R.string.correct);
 
             int points = getBonuses(onCalculatePoints(), timespent);
             tscore += points;
@@ -675,7 +679,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                 soundEffects.playBaba();
                 correct = 0;
                 incorrect = 0;
-                onSetStatus(R.string.correct, STATUS_TIMEOUT);
+                onSetStatus(correctStatus, STATUS_TIMEOUT);
                 if (levelnum + 1 >= levels.length) {
                     mSubjectData.setSubjectCompleted(true);
                     saveGameData();
@@ -692,7 +696,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                     return;
                 }
             } else {
-                onSetStatus(getString(R.string.correct), STATUS_TIMEOUT);
+                onSetStatus(correctStatus, STATUS_TIMEOUT);
             }
             showProb();
         } else {
@@ -802,19 +806,25 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     private int getBonuses(int addscore, long timespent) {
         int points = addscore;
-
+        correctStatus = getString(R.string.correct);
         if (timespent < fasttimes[0]) {
-            bonuses = getString(R.string.superfast) + " ×3";
+            correctStatus = getString(R.string.superfast);
+            bonuses = correctStatus + " ×3";
             points *= 3;
             soundEffects.playHit3();
+
         } else if (timespent < fasttimes[1]) {
-            bonuses = getString(R.string.fast) + " ×2";
+            correctStatus = getString(R.string.fast);
+            bonuses = correctStatus + " ×2";
             points *= 2;
             soundEffects.playHit2();
+
         } else if (timespent < fasttimes[2]) {
-            bonuses = getString(R.string.quick) + " +50%";
+            correctStatus = getString(R.string.quick);
+            bonuses = correctStatus + " +50%";
             points *= 1.5;
             soundEffects.playHit1();
+
         } else {
             soundEffects.playGood();
         }

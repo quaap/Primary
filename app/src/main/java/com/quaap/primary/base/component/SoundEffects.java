@@ -60,7 +60,7 @@ public class SoundEffects {
             .5f,
             .7f,
             .7f,
-            .3f,
+            .2f,
     };
 
     private SharedPreferences appPreferences;
@@ -115,6 +115,7 @@ public class SoundEffects {
     private void play(int soundKey, float speed) {
         try {
             if (isReady() && !mMute && appPreferences.getBoolean("use_sound_effects", true)) {
+
                 float vol = soundVolumes[soundKey];
                 mSounds.play(mSoundIds.get(soundKey), vol, vol, 1, 0, speed);
             }
