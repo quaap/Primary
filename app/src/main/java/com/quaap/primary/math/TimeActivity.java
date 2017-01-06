@@ -71,7 +71,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
     }
 
     @Override
-    protected void showProbImpl() {
+    protected void onShowProbImpl() {
         mHour = getSavedLevelValue("mHour", -1);
         mMinute = getSavedLevelValue("mMinute", -1);
         if (mMinute ==-1 || mHour ==-1 ) {
@@ -151,13 +151,13 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
     }
 
     @Override
-    protected void performHint(int hintTick) {
+    protected void onPerformHint(int hintTick) {
         String time = formatTime(mHour,mMinute);
         if (hintTick <time.length()) {
             TextView timeHint = (TextView) findViewById(R.id.timeHint);
             timeHint.setText(time.substring(0, hintTick+1));
         }
-        super.performHint(hintTick);
+        super.onPerformHint(hintTick);
     }
 
     private int getMinutes() {
@@ -185,12 +185,12 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
 
 
     @Override
-    public boolean answerTyped(String answer) {
-        return answerGiven(answer);
+    public boolean onAnswerTyped(String answer) {
+        return onAnswerGiven(answer);
     }
 
     @Override
-    public boolean answerGiven(Object answer) {
+    public boolean onAnswerGiven(Object answer) {
         String ranswer = formatTime(mHour,mMinute);
         boolean isright = ranswer.equals((String)answer);
 
@@ -214,10 +214,10 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
      * @return the points for the current problem
      */
     @Override
-    protected int calculatePoints() {
+    protected int onCalculatePoints() {
 
         TimeLevel level = (TimeLevel)getLevel();
-        return super.calculatePoints() * 50 * (level.getMinuteGranularity().ordinal()+1);
+        return super.onCalculatePoints() * 50 * (level.getMinuteGranularity().ordinal()+1);
     }
 
     public static String formatTime(int hour, int minute) {

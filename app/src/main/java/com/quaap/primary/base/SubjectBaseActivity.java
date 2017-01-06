@@ -15,11 +15,9 @@ package com.quaap.primary.base;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -27,7 +25,6 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.text.InputType;
 import android.util.Log;
@@ -129,11 +126,11 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     }
 
     private void showProb() {
-        showProbImpl();
+        onShowProbImpl();
         startTimer();
     }
 
-    protected abstract void showProbImpl();
+    protected abstract void onShowProbImpl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -403,7 +400,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                                 || (actionId == EditorInfo.IME_ACTION_NEXT)
                                 || (actionId == EditorInfo.IME_ACTION_GO)
                                 ) {
-                            if (!listener.answerTyped(uinput.getText().toString())) {
+                            if (!listener.onAnswerTyped(uinput.getText().toString())) {
                                 showSoftKeyboard(uinput, keypadarea, defaultInput);
                             }
                         }
@@ -426,7 +423,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             done.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (!listener.answerTyped(uinput.getText().toString())) {
+                    if (!listener.onAnswerTyped(uinput.getText().toString())) {
                         showSoftKeyboard(uinput, keypadarea, defaultInput);
                     }
                 }
@@ -492,7 +489,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                     for (Button ab : buttons) {
                         ab.setEnabled(false);
                     }
-                    boolean isright = listener.answerGiven(view.getTag());
+                    boolean isright = listener.onAnswerGiven(view.getTag());
                     if (!isright) {
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -598,24 +595,24 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         return false;
     }
 
-    protected abstract void setStatus(String text);
+    protected abstract void onSetStatus(String text);
 
-    private void setStatus(String text, int timeout) {
-        setStatus(text);
+    private void onSetStatus(String text, int timeout) {
+        onSetStatus(text);
         final int corrects = correct;
         final int incorrects = incorrect;
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (corrects == correct && incorrects == incorrect) {
-                    setStatus("");
+                    onSetStatus("");
                 }
             }
         }, timeout);
     }
 
-    private void setStatus(int resid, int timeout) {
-        setStatus(getString(resid), timeout);
+    private void onSetStatus(int resid, int timeout) {
+        onSetStatus(getString(resid), timeout);
     }
 
     protected void startTimer() {
@@ -645,7 +642,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
      *
      * @return the points for the current problem
      */
-    protected int calculatePoints() {
+    protected int onCalculatePoints() {
         return levelnum+1;
     }
 
@@ -664,7 +661,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
             correctInARow++;
             totalCorrect++;
 
-            int points = getBonuses(calculatePoints(), timespent);
+            int points = getBonuses(onCalculatePoints(), timespent);
             tscore += points;
             todaysScore += points;
 
@@ -676,7 +673,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                 onDeleteLevelValues();
                 correct = 0;
                 incorrect = 0;
-                setStatus(R.string.correct, 1200);
+                onSetStatus(R.string.correct, 1200);
                 if (levelnum + 1 >= levels.length) {
                     mSubjectData.setSubjectCompleted(true);
                     saveGameData();
@@ -693,14 +690,14 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                     return;
                 }
             } else {
-                setStatus(getString(R.string.correct), 1200);
+                onSetStatus(getString(R.string.correct), 1200);
             }
             showProb();
         } else {
             incorrect++;
             correctInARow = 0;
             totalIncorrect++;
-            setStatus(R.string.try_again, 1200);
+            onSetStatus(R.string.try_again, 1200);
             if (actwriter != null) {
                 actwriter.log(levelnum + 1, problem, answer, useranswer, isright, timespent, getCurrentPercentFloat(), 0);
             }
@@ -779,7 +776,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         correct = 0;
         incorrect = 0;
         setLevelFields();
-        setStatus("");
+        onSetStatus("");
         showProb();
     }
 
@@ -788,7 +785,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         levelnum++;
         saveGameData();
         setLevelFields();
-        setStatus("");
+        onSetStatus("");
         onShowLevel();
         showProb();
 
@@ -913,10 +910,10 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
 
     public interface AnswerGivenListener<T> {
-        boolean answerGiven(T answer);
+        boolean onAnswerGiven(T answer);
     }
 
     public interface AnswerTypedListener {
-        boolean answerTyped(String answer);
+        boolean onAnswerTyped(String answer);
     }
 }

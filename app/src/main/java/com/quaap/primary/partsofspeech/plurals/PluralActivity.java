@@ -110,7 +110,7 @@ public class PluralActivity extends StdGameActivity
     }
 
     @Override
-    protected void showProbImpl() {
+    protected void onShowProbImpl() {
 
         PluralLevel level = (PluralLevel) getLevel();
         word = getSavedLevelValue("word", (String) null);
@@ -159,12 +159,12 @@ public class PluralActivity extends StdGameActivity
     }
 
     @Override
-    public boolean answerTyped(String answer) {
-        return answerGiven(answer);
+    public boolean onAnswerTyped(String answer) {
+        return onAnswerGiven(answer);
     }
 
     @Override
-    public boolean answerGiven(String answer) {
+    public boolean onAnswerGiven(String answer) {
 
         boolean isright = answer.toLowerCase().trim().equals(this.answer.toLowerCase());
 
@@ -189,13 +189,13 @@ public class PluralActivity extends StdGameActivity
      * @return the points for the current problem
      */
     @Override
-    protected int calculatePoints() {
+    protected int onCalculatePoints() {
         float scoremult = answer.length() - getHintTicks();
 
         if (scoremult<=0) {  //if the hint is fully shown, give partial credit.
             scoremult=.3f;
         }
-        return super.calculatePoints() + (int) (1 + word.length() * scoreWord(word) * scoremult);
+        return super.onCalculatePoints() + (int) (1 + word.length() * scoreWord(word) * scoremult);
     }
 
 
@@ -221,7 +221,7 @@ public class PluralActivity extends StdGameActivity
     }
 
     @Override
-    protected void performHint(int hintTick) {
+    protected void onPerformHint(int hintTick) {
         final TextView hint = (TextView) findViewById(R.id.plurHint);
         if (hintTick < answer.length()) {
 
@@ -230,7 +230,7 @@ public class PluralActivity extends StdGameActivity
         } else {
             cancelHint();
         }
-        super.performHint(hintTick);
+        super.onPerformHint(hintTick);
 
     }
 

@@ -127,7 +127,7 @@ public class SpellingActivity extends StdGameActivity
     }
 
     @Override
-    protected void showProbImpl() {
+    protected void onShowProbImpl() {
 
         word = getSavedLevelValue("word", (String) null);
         if (word == null) {
@@ -166,12 +166,12 @@ public class SpellingActivity extends StdGameActivity
     }
 
     @Override
-    public boolean answerTyped(String answer) {
-        return answerGiven(answer);
+    public boolean onAnswerTyped(String answer) {
+        return onAnswerGiven(answer);
     }
 
     @Override
-    public boolean answerGiven(String answer) {
+    public boolean onAnswerGiven(String answer) {
 
         boolean isright = answer.toLowerCase().trim().equals(word.toLowerCase());
 
@@ -196,13 +196,13 @@ public class SpellingActivity extends StdGameActivity
      * @return the points for the current problem
      */
     @Override
-    protected int calculatePoints() {
+    protected int onCalculatePoints() {
         float scoremult = word.length() - getHintTicks();
 
         if (scoremult<=0) {  //if the hint is fully shown, give partial credit.
             scoremult=.3f;
         }
-        return super.calculatePoints() + (int) (1 + word.length()  * scoremult);
+        return super.onCalculatePoints() + (int) (1 + word.length()  * scoremult);
 
     }
 
@@ -233,7 +233,7 @@ public class SpellingActivity extends StdGameActivity
     }
 
     @Override
-    protected void performHint(int hintTick) {
+    protected void onPerformHint(int hintTick) {
         final TextView hint = (TextView) findViewById(R.id.spell_hint);
         if (hintTick < word.length()) {
 
@@ -247,7 +247,7 @@ public class SpellingActivity extends StdGameActivity
         } else {
             cancelHint();
         }
-        super.performHint(hintTick);
+        super.onPerformHint(hintTick);
 
     }
 

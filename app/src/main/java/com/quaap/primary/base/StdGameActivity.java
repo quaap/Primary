@@ -95,7 +95,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
     }
 
     @Override
-    protected void setStatus(String text) {
+    protected void onSetStatus(String text) {
         final TextView status = (TextView) findViewById(R.id.txtstatus);
         status.setText(text);
 
@@ -147,7 +147,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            performHint(hintTick++);
+                            onPerformHint(hintTick++);
                         }
                     });
                 }
@@ -161,7 +161,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
         return hintTick;
     }
 
-    protected void performHint(int hintTick) {
+    protected void onPerformHint(int hintTick) {
         //override to do something.
         if (hintTick==0) {
             getSoundEffects().playHighClick();

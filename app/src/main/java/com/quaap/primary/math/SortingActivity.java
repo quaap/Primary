@@ -79,7 +79,7 @@ public class SortingActivity extends StdGameActivity implements
     }
 
     @Override
-    protected void showProbImpl() {
+    protected void onShowProbImpl() {
         GridLayout sortArea = (GridLayout) findViewById(R.id.sort_area);
         sortArea.removeAllViews();
 
@@ -290,10 +290,10 @@ public class SortingActivity extends StdGameActivity implements
      * @return the points for the current problem
      */
     @Override
-    protected int calculatePoints() {
+    protected int onCalculatePoints() {
         SortingLevel level = ((SortingLevel) getLevel());
         if (moves == 0 ) moves =1; //failsafe
-        return super.calculatePoints() + (int) (Math.sqrt(level.getMaxNum()) * level.getNumItems() / moves);
+        return super.onCalculatePoints() + (int) (Math.sqrt(level.getMaxNum()) * level.getNumItems() / moves);
     }
 
     private boolean isSorted(List<Integer> list) {
@@ -324,9 +324,9 @@ public class SortingActivity extends StdGameActivity implements
     }
 
     @Override
-    protected void performHint(int hintTick) {
+    protected void onPerformHint(int hintTick) {
         markSorted();
-        super.performHint(hintTick);
+        super.onPerformHint(hintTick);
     }
 
     @Override

@@ -66,7 +66,7 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
 
 
     @Override
-    protected void showProbImpl() {
+    protected void onShowProbImpl() {
 
         TextView txtMathHint = (TextView)findViewById(R.id.txtMathHint);
         txtMathHint.setText("");
@@ -111,13 +111,13 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
 
 
     @Override
-    protected void performHint(int hintTick) {
+    protected void onPerformHint(int hintTick) {
         String a = answer+"";
         if (hintTick <a.length()){
             TextView txtMathHint = (TextView)findViewById(R.id.txtMathHint);
             txtMathHint.setText(a.substring(0, hintTick+1));
         }
-        super.performHint(hintTick);
+        super.onPerformHint(hintTick);
     }
 
     private int getAnswer(int n1, int n2, MathOp op) {
@@ -137,19 +137,19 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
 
 
     @Override
-    public boolean answerTyped(String answer) {
+    public boolean onAnswerTyped(String answer) {
         int ans;
         try {
             ans = Integer.parseInt(answer);
         } catch (NumberFormatException ne) {
             return false;
         }
-        return answerGiven(ans);
+        return onAnswerGiven(ans);
     }
 
 
     @Override
-    public boolean answerGiven(Integer ans) {
+    public boolean onAnswerGiven(Integer ans) {
 
         boolean isright = ans == answer;
 
@@ -175,14 +175,14 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
      * @return the points for the current problem
      */
     @Override
-    protected int calculatePoints() {
+    protected int onCalculatePoints() {
         float scoremult = (answer+"").length() - getHintTicks();
 
         if (scoremult<=0) {  //if the hint is fully shown, give partial credit.
             scoremult=.3f;
         }
 
-        return super.calculatePoints() + (int)((1 + Math.abs(num1) + Math.abs(num2)) * (op.ordinal() + 1) * scoremult);
+        return super.onCalculatePoints() + (int)((1 + Math.abs(num1) + Math.abs(num2)) * (op.ordinal() + 1) * scoremult);
     }
 
     private void makeRandomProblem() {
