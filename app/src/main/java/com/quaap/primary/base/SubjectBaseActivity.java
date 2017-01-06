@@ -647,7 +647,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     }
 
     protected void answerDone(boolean isright, String problem, String answer, String useranswer) {
-        stopTimer();
+
 
         if (isright) {
             soundEffects.playGood();
@@ -657,6 +657,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
         bonuses = null;
         if (isright) {
+            stopTimer();
             correct++;
             correctInARow++;
             totalCorrect++;
@@ -822,7 +823,9 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                 points *= crbonus;
             }
         }
-
+        Log.d("BaseActivity", "Base score: " + addscore );
+        Log.d("BaseActivity", "Timespent: " + timespent );
+        Log.d("BaseActivity", "Points: " + points );
         return points;
     }
 
@@ -881,6 +884,8 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         fasttimes[0] = superfast;
         fasttimes[1] = fast;
         fasttimes[2] = quick;
+
+        Log.d("BaseAcivity", "Fasttimes: " + superfast + " " + fast + " " + quick);
 
     }
 
