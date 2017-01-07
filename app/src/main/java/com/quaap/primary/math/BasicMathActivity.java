@@ -200,6 +200,9 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
             if (negsallowed) {
                 min = -max;
             }
+
+            op = MathOp.random(level.getMinMathOp(), level.getMaxMathOp());
+
             if (correct > level.getRounds() / 2) { //increase difficulty in second half of level
                 if (negsallowed) {
                     num1 = Math.random() > 5 ? getRand(max / 2 - 1, max) : getRand(min, min / 2 + 1);
@@ -209,16 +212,21 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
             } else {
                 num1 = getRand(min / 2, max / 2 + 1);
             }
-            num2 = getRand(min, max);
-            if ((num2 == 0 || num2 == 1) && Math.random() > .3)
-                num2 = getRand(2, max); //reduce number of x+0 and x+1
+            if (level.getDoubles()) {
+                if (num1==0) {
+                    num1 =  getRand(1, max);
+                }
+                num2 = num1;
+            } else {
+                num2 = getRand(min, max);
+                if ((num2 == 0 || num2 == 1) && Math.random() > .3)
+                    num2 = getRand(2, max); //reduce number of x+0 and x+1
 
-            if (level.getNegatives() == Negatives.Required && num1 >= 0 && num2 >= 0) { //force a negative value
-                num1 = -getRand(1, max);
+                if (level.getNegatives() == Negatives.Required && num1 >= 0 && num2 >= 0) { //force a negative value
+                    num1 = -getRand(1, max);
+                }
+
             }
-
-            op = MathOp.random(level.getMinMathOp(), level.getMaxMathOp());
-
             if ((op == MathOp.Minus && level.getNegatives() == Negatives.None) || op == MathOp.Divide) {
                 if (num1 < num2) {
                     int tmp = num1;
@@ -230,13 +238,13 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
                         num2 = getRand(1, max);
                         if (num1 < num2) num1 = getRand(num2, max);
                     }
-                    if (num1 % num2 != 0) {
+                   // if (num1 % num2 != 0) {
                         num1 = num1 * num2;
-                    }
+                   // }
                 }
             }
             if (op == MathOp.Minus) {
-                if (getRand(0, 10) > 5) num1 = num1 + num2;
+                num1 = num1 + num2;
             }
             //prevent 2 identical problems in a row
         } while (tries++ < 50 && seenProblem(num1, num2, op));

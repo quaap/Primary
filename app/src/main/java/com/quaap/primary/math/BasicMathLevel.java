@@ -27,6 +27,7 @@ public class BasicMathLevel extends StdLevel {
     private final MathOp mMinMathOp;
     private final int mMaxNum;
     private final Negatives mNegatives;
+    private final boolean mDoubles;
 
     public BasicMathLevel(int subjectkey, MathOp maxMathOp, int maxNum, int rounds, InputMode inputMode) {
         this(subjectkey, maxMathOp, maxMathOp, maxNum, rounds, inputMode);
@@ -39,14 +40,17 @@ public class BasicMathLevel extends StdLevel {
     public BasicMathLevel(int subjectkey, MathOp maxMathOp, int maxNum, Negatives negatives, int rounds, InputMode inputMode) {
         this(subjectkey, maxMathOp, maxMathOp, maxNum, negatives, rounds, inputMode);
     }
-
     public BasicMathLevel(int subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, Negatives negatives, int rounds, InputMode inputMode) {
+        this(subjectkey, maxMathOp, minMathOp, maxNum, negatives, rounds, false, inputMode);
+    }
+    public BasicMathLevel(int subjectkey, MathOp maxMathOp, MathOp minMathOp, int maxNum, Negatives negatives, int rounds, boolean doubles, InputMode inputMode) {
         super(subjectkey, rounds, inputMode);
 
         mMaxMathOp = maxMathOp;
         mMinMathOp = minMathOp;
         mMaxNum = maxNum;
         mNegatives = negatives;
+        mDoubles = doubles;
 
     }
 
@@ -54,7 +58,7 @@ public class BasicMathLevel extends StdLevel {
     public String getDescription(Context context) {
         String ops = getOpsStr(context);
         String max = (mNegatives != Negatives.None ? "\u00B1" : "") + mMaxNum;
-        return ops + " / " + context.getString(R.string.max, max) + ". " + getInputModeString(context);
+        return ops + " / " +(getDoubles()?context.getString(R.string.doubles):"")+ context.getString(R.string.max, max) + ". " + getInputModeString(context);
 
     }
 
@@ -108,6 +112,10 @@ public class BasicMathLevel extends StdLevel {
 
     public Negatives getNegatives() {
         return mNegatives;
+    }
+
+    public boolean getDoubles() {
+        return mDoubles;
     }
 
 

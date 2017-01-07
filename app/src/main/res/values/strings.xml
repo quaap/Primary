@@ -106,6 +106,7 @@
     <string name="fuzzy_quarter">Quarter</string>
     <string name="fuzzy_o_clock">" o'clock"</string>
     <string name="fuzzy_closest_message">What is the closest time?</string>
+    <string name="doubles">"Doubles. "</string>
 
 
 </resources>
