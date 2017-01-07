@@ -61,7 +61,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         mClockwidth = Math.min(ss.x, ss.y)/2;
 
         if (isLandscape()) {
-            mClockwidth *=.75;
+            mClockwidth *=.8;
             TimeLevel level = (TimeLevel)getLevel();
             if (level.getInputMode() == InputMode.Input) {
                 LinearLayout meta_center = (LinearLayout) findViewById(R.id.meta_center);
@@ -328,9 +328,11 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         hourColor.setStrokeWidth(mClockwidth /40);
         hourColor.setStyle(Paint.Style.STROKE);
 
+
+        System.out.println(mClockwidth);
         Paint hourColorThin = new Paint(hourColor);
         hourColorThin.setStrokeWidth(3);
-        hourColorThin.setTextSize(28);
+        hourColorThin.setTextSize(Math.min(28, mClockwidth/8));
         hourColorThin.setTextAlign(Paint.Align.CENTER);
 
         Paint minuteColor = new Paint();
