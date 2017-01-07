@@ -145,7 +145,7 @@ public class SpellingActivity extends StdGameActivity
         SpellingLevel level = (SpellingLevel) getLevel();
         if (level.getInputMode() == InputMode.Input) {
 
-            makeInputBox(getAnswerArea(), getKeysArea(), SpellingActivity.this, INPUTTYPE_TEXT, 5, 0);
+            makeInputBox(getAnswerArea(), getKeysArea(), SpellingActivity.this, INPUTTYPE_TEXT, 6, 0);
         }
 
         v.speak(word);
