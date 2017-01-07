@@ -216,7 +216,13 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
             gip_layout.setVisibility(View.VISIBLE);
             int correct = mSubjectData.getTotalCorrect();
             int incorrect = mSubjectData.getTotalIncorrect();
+
             int highest = mSubjectData.getHighestLevelNum() + 1;
+            int levs = mSubject.getLevels().length;
+            if (highest>levs) {
+                highest = levs;  // in case an upgrade reduces the number of levels in a subject
+            }
+
             int tscore = mSubjectData.getTotalPoints();
             if (correct + incorrect > 0) {
                 String score = getString(R.string.score_overview, highest, correct, (correct + incorrect), tscore);
