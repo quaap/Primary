@@ -117,7 +117,7 @@ public class SoundEffects {
             if (isReady() && !mMute && appPreferences.getBoolean("use_sound_effects", true)) {
 
                 float vol = soundVolumes[soundKey] + getRandHundreth();
-                mSounds.play(mSoundIds.get(soundKey), vol, vol, 1, 0, speed + getRandHundreth());
+                mSounds.play(mSoundIds.get(soundKey), vol, vol, 1, 0, speed + getRandHundreth()/2);
             }
         } catch (Exception e) {
             Log.e("SoundEffects", "Error playing " + soundKey, e);
