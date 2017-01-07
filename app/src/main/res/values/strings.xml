@@ -9,7 +9,7 @@
     <string name="name">Name</string>
     <string name="add">Add</string>
     <string name="correct">Correct!</string>
-    <string name="score_overview">Level: %1$d. %2$d / %3$d correct. Score: %4$d.</string>
+    <string name="score_overview">"Level: %1$d.  %2$d / %3$d correct. Score: %4$d."</string>
     <string name="levels_done">You\'ve completed all the levels in this subject!</string>
     <string name="level_complete">Level %d complete!</string>
     <string name="next_level">Next level</string>

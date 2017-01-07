@@ -217,7 +217,7 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
             int correct = mSubjectData.getTotalCorrect();
             int incorrect = mSubjectData.getTotalIncorrect();
             int highest = mSubjectData.getHighestLevelNum() + 1;
-            int tscore = mSubjectData.getTodayPoints();
+            int tscore = mSubjectData.getTotalPoints();
             if (correct + incorrect > 0) {
                 String score = getString(R.string.score_overview, highest, correct, (correct + incorrect), tscore);
                 score_overview.setText(score);
