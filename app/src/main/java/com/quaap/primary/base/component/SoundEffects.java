@@ -54,7 +54,7 @@ public class SoundEffects {
             R.raw.hit
     };
     private final float [] soundVolumes = {
-            .9f,
+            .6f,
             .4f,
             .5f,
             .5f,
@@ -145,7 +145,7 @@ public class SoundEffects {
     }
 
     private float getRandHundreth() {
-        return (float)((Math.random()-.5)/5.1);
+        return (float)((Math.random()-.5)/10);
     }
     public void playHit1() {
         play(HIT, 1);
