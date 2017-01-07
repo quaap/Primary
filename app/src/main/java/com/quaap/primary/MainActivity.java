@@ -107,7 +107,20 @@ public class MainActivity extends CommonBaseActivity {
                 startSelectedSubject();
             }
         });
+        Button cleanplurals = (Button) findViewById(R.id.cleanplurals);
 
+        cleanplurals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, NounCleanActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+    }
+
+    public void onCleanPluralsClick(View view) {
 
     }
 

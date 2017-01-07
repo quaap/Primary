@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_noun_clean"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.quaap.primary.NounCleanActivity">
+
+    <TextView
+        android:text="goodnoun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/noun_clean_titlelabel"
+        android:textSize="24sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:id="@+id/noun_clean_noun"
+        android:textSize="18sp"
+        android:layout_below="@+id/noun_clean_titlelabel"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/noun_clean_noun"
+        android:layout_alignStart="@+id/noun_clean_noun"
+        android:layout_marginTop="38dp"
+        android:id="@+id/noun_clean_plural"
+        android:textSize="18sp" />
+
+    <Button
+        android:text="Good"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/noun_clean_plural"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:id="@+id/noun_clean_good" />
+
+    <Button
+        android:text="Bad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/noun_clean_good"
+        android:layout_alignEnd="@+id/noun_clean_good"
+        android:layout_marginTop="11dp"
+        android:id="@+id/noun_clean_bad" />
+
+</RelativeLayout>

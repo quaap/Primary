@@ -13,6 +13,13 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
+        <Button
+            android:text="clean plurals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cleanplurals"
+            android:visibility="gone" />
+
         <TextView
             android:text="@string/choose_user"
             android:layout_height="wrap_content"

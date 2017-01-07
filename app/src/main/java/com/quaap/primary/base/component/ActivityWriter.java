@@ -79,7 +79,7 @@ public class ActivityWriter {
         return Environment.MEDIA_MOUNTED.equals(state);
     }
 
-    private File getAppDocumentsDir(Context context) {
+    public static File getAppDocumentsDir(Context context) {
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS), context.getString(R.string.app_name));
         if (!file.exists() && !file.mkdirs()) {

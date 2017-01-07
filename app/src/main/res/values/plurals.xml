@@ -46,40 +46,24 @@
     <!-- Big list of nouns and their plurals. Not entirely human-checked yet. -->
     <string-array name="plurals">
         <item>ad</item><item>ads</item>
-        <item>bob</item><item>bob</item>
         <item>cod</item><item>cod</item>
-        <item>dab</item><item>dab</item>
-        <item>ex</item><item>exes</item>
-        <item>fry</item><item>fry</item>
         <item>man</item><item>men</item>
-        <item>mrs</item><item>mrs</item>
-        <item>ms</item><item>mses</item>
         <item>ox</item><item>oxen</item>
-        <item>pas</item><item>pas</item>
-        <item>yen</item><item>yen</item>
         <item>ace</item><item>aces</item>
         <item>act</item><item>acts</item>
         <item>age</item><item>ages</item>
         <item>aid</item><item>aids</item>
-        <item>air</item><item>airs</item>
-        <item>alb</item><item>albs</item>
         <item>ale</item><item>ales</item>
-        <item>alp</item><item>alps</item>
         <item>amp</item><item>amps</item>
         <item>ant</item><item>ants</item>
         <item>ape</item><item>apes</item>
         <item>arc</item><item>arcs</item>
-        <item>are</item><item>ares</item>
         <item>ark</item><item>arks</item>
         <item>arm</item><item>arms</item>
-        <item>art</item><item>arts</item>
         <item>asp</item><item>asps</item>
         <item>auk</item><item>auks</item>
-        <item>awe</item><item>awes</item>
         <item>awl</item><item>awls</item>
-        <item>awn</item><item>awns</item>
         <item>bag</item><item>bags</item>
-        <item>bap</item><item>baps</item>
         <item>bar</item><item>bars</item>
         <item>bat</item><item>bats</item>
         <item>bay</item><item>bays</item>
@@ -87,8 +71,6 @@
         <item>bin</item><item>bins</item>
         <item>bit</item><item>bits</item>
         <item>boa</item><item>boas</item>
-        <item>bob</item><item>bobs</item>
-        <item>bod</item><item>bods</item>
         <item>bog</item><item>bogs</item>
         <item>bow</item><item>bows</item>
         <item>boy</item><item>boys</item>
@@ -97,7 +79,6 @@
         <item>bug</item><item>bugs</item>
         <item>bum</item><item>bums</item>
         <item>bun</item><item>buns</item>
-        <item>bur</item><item>burs</item>
         <item>bye</item><item>byes</item>
         <item>cab</item><item>cabs</item>
         <item>cad</item><item>cads</item>
@@ -107,125 +88,87 @@
         <item>car</item><item>cars</item>
         <item>cat</item><item>cats</item>
         <item>caw</item><item>caws</item>
-        <item>chi</item><item>chis</item>
         <item>cob</item><item>cobs</item>
         <item>cod</item><item>cods</item>
         <item>cog</item><item>cogs</item>
-        <item>col</item><item>cols</item>
         <item>con</item><item>cons</item>
         <item>coo</item><item>coos</item>
         <item>cot</item><item>cots</item>
         <item>cow</item><item>cows</item>
         <item>cub</item><item>cubs</item>
-        <item>cud</item><item>cuds</item>
         <item>cue</item><item>cues</item>
         <item>cup</item><item>cups</item>
-        <item>cur</item><item>curs</item>
         <item>dad</item><item>dads</item>
         <item>dam</item><item>dams</item>
         <item>day</item><item>days</item>
-        <item>deb</item><item>debs</item>
         <item>den</item><item>dens</item>
         <item>die</item><item>dies</item>
-        <item>din</item><item>dins</item>
         <item>dog</item><item>dogs</item>
-        <item>don</item><item>dons</item>
         <item>dot</item><item>dots</item>
         <item>duo</item><item>duos</item>
         <item>dye</item><item>dyes</item>
         <item>ear</item><item>ears</item>
-        <item>ebb</item><item>ebbs</item>
         <item>eel</item><item>eels</item>
         <item>egg</item><item>eggs</item>
         <item>ego</item><item>egos</item>
-        <item>ell</item><item>ells</item>
         <item>elm</item><item>elms</item>
         <item>emu</item><item>emus</item>
         <item>end</item><item>ends</item>
         <item>era</item><item>eras</item>
-        <item>erg</item><item>ergs</item>
         <item>eye</item><item>eyes</item>
-        <item>eta</item><item>etas</item>
         <item>eve</item><item>eves</item>
         <item>ewe</item><item>ewes</item>
         <item>fad</item><item>fads</item>
-        <item>fag</item><item>fags</item>
         <item>fan</item><item>fans</item>
-        <item>fat</item><item>fats</item>
-        <item>fay</item><item>fays</item>
         <item>fee</item><item>fees</item>
-        <item>fen</item><item>fens</item>
         <item>fib</item><item>fibs</item>
         <item>fig</item><item>figs</item>
         <item>fin</item><item>fins</item>
-        <item>fir</item><item>firs</item>
         <item>fit</item><item>fits</item>
-        <item>fob</item><item>fobs</item>
         <item>foe</item><item>foes</item>
         <item>fog</item><item>fogs</item>
-        <item>fop</item><item>fops</item>
-        <item>fur</item><item>furs</item>
-        <item>gab</item><item>gabs</item>
         <item>gag</item><item>gags</item>
         <item>gal</item><item>gals</item>
         <item>gap</item><item>gaps</item>
         <item>gel</item><item>gels</item>
         <item>gem</item><item>gems</item>
         <item>gig</item><item>gigs</item>
-        <item>gin</item><item>gins</item>
-        <item>git</item><item>gits</item>
-        <item>gob</item><item>gobs</item>
         <item>god</item><item>gods</item>
         <item>gum</item><item>gums</item>
         <item>gun</item><item>guns</item>
         <item>gut</item><item>guts</item>
-        <item>guv</item><item>guvs</item>
         <item>guy</item><item>guys</item>
         <item>gym</item><item>gyms</item>
         <item>hag</item><item>hags</item>
         <item>ham</item><item>hams</item>
         <item>hat</item><item>hats</item>
         <item>haw</item><item>haws</item>
-        <item>hem</item><item>hems</item>
         <item>hen</item><item>hens</item>
         <item>hip</item><item>hips</item>
-        <item>hem</item><item>hems</item>
         <item>hen</item><item>hens</item>
-        <item>hay</item><item>hays</item>
-        <item>hem</item><item>hems</item>
         <item>hen</item><item>hens</item>
         <item>hip</item><item>hips</item>
-        <item>hob</item><item>hobs</item>
-        <item>hod</item><item>hods</item>
-        <item>hoe</item><item>hoes</item>
         <item>hog</item><item>hogs</item>
         <item>hop</item><item>hops</item>
         <item>hub</item><item>hubs</item>
         <item>hue</item><item>hues</item>
-        <item>hun</item><item>huns</item>
         <item>hut</item><item>huts</item>
         <item>ice</item><item>ices</item>
-        <item>ilk</item><item>ilks</item>
         <item>imp</item><item>imps</item>
         <item>ink</item><item>inks</item>
         <item>inn</item><item>inns</item>
         <item>ion</item><item>ions</item>
-        <item>ism</item><item>isms</item>
-        <item>jag</item><item>jags</item>
         <item>jam</item><item>jams</item>
-        <item>jap</item><item>japs</item>
         <item>jar</item><item>jars</item>
         <item>jaw</item><item>jaws</item>
         <item>jay</item><item>jays</item>
         <item>jet</item><item>jets</item>
         <item>jew</item><item>jews</item>
-        <item>jib</item><item>jibs</item>
         <item>jig</item><item>jigs</item>
         <item>job</item><item>jobs</item>
         <item>joy</item><item>joys</item>
         <item>jug</item><item>jugs</item>
         <item>keg</item><item>kegs</item>
-        <item>ken</item><item>kens</item>
         <item>key</item><item>keys</item>
         <item>kid</item><item>kids</item>
         <item>kit</item><item>kits</item>
@@ -233,22 +176,15 @@
         <item>lad</item><item>lads</item>
         <item>lag</item><item>lags</item>
         <item>lap</item><item>laps</item>
-        <item>lav</item><item>lavs</item>
         <item>law</item><item>laws</item>
         <item>lay</item><item>lays</item>
-        <item>lea</item><item>leas</item>
-        <item>lee</item><item>lees</item>
         <item>leg</item><item>legs</item>
         <item>lei</item><item>leis</item>
-        <item>leo</item><item>leos</item>
-        <item>lea</item><item>leas</item>
         <item>let</item><item>lets</item>
         <item>lid</item><item>lids</item>
-        <item>lie</item><item>lies</item>
         <item>lip</item><item>lips</item>
         <item>log</item><item>logs</item>
         <item>loo</item><item>loos</item>
-        <item>lot</item><item>lots</item>
         <item>low</item><item>lows</item>
         <item>mag</item><item>mags</item>
         <item>map</item><item>maps</item>
@@ -256,7 +192,6 @@
         <item>maw</item><item>maws</item>
         <item>may</item><item>mays</item>
         <item>mew</item><item>mews</item>
-        <item>mil</item><item>mils</item>
         <item>mob</item><item>mobs</item>
         <item>mom</item><item>moms</item>
         <item>moo</item><item>moos</item>
@@ -266,9 +201,7 @@
         <item>nap</item><item>naps</item>
         <item>net</item><item>nets</item>
         <item>nib</item><item>nibs</item>
-        <item>nip</item><item>nips</item>
         <item>nit</item><item>nits</item>
-        <item>nob</item><item>nobs</item>
         <item>nub</item><item>nubs</item>
         <item>nun</item><item>nuns</item>
         <item>nut</item><item>nuts</item>
@@ -286,8 +219,6 @@
         <item>pad</item><item>pads</item>
         <item>pal</item><item>pals</item>
         <item>pan</item><item>pans</item>
-        <item>pap</item><item>paps</item>
-        <item>par</item><item>pars</item>
         <item>paw</item><item>paws</item>
         <item>pea</item><item>peas</item>
         <item>peg</item><item>pegs</item>
@@ -303,10 +234,7 @@
         <item>pom</item><item>poms</item>
         <item>pop</item><item>pops</item>
         <item>pot</item><item>pots</item>
-        <item>pro</item><item>pros</item>
-        <item>psi</item><item>psis</item>
         <item>pub</item><item>pubs</item>
-        <item>pud</item><item>puds</item>
         <item>pun</item><item>puns</item>
         <item>pup</item><item>pups</item>
         <item>rad</item><item>rads</item>
@@ -315,34 +243,25 @@
         <item>rap</item><item>raps</item>
         <item>rat</item><item>rats</item>
         <item>ray</item><item>rays</item>
-        <item>ref</item><item>refs</item>
         <item>rep</item><item>reps</item>
-        <item>rho</item><item>rhos</item>
         <item>rib</item><item>ribs</item>
         <item>rim</item><item>rims</item>
         <item>rip</item><item>rips</item>
         <item>rod</item><item>rods</item>
-        <item>roe</item><item>roes</item>
         <item>row</item><item>rows</item>
         <item>rue</item><item>rues</item>
         <item>rug</item><item>rugs</item>
         <item>rum</item><item>rums</item>
         <item>rut</item><item>ruts</item>
-        <item>sac</item><item>sacs</item>
         <item>sap</item><item>saps</item>
         <item>saw</item><item>saws</item>
         <item>sea</item><item>seas</item>
-        <item>sec</item><item>secs</item>
-        <item>see</item><item>sees</item>
         <item>set</item><item>sets</item>
         <item>sin</item><item>sins</item>
         <item>sir</item><item>sirs</item>
         <item>ski</item><item>skis</item>
-        <item>sod</item><item>sods</item>
         <item>son</item><item>sons</item>
         <item>sop</item><item>sops</item>
-        <item>sot</item><item>sots</item>
-        <item>sou</item><item>sous</item>
         <item>sow</item><item>sows</item>
         <item>spa</item><item>spas</item>
         <item>sum</item><item>sums</item>
@@ -352,27 +271,20 @@
         <item>tan</item><item>tans</item>
         <item>tap</item><item>taps</item>
         <item>tar</item><item>tars</item>
-        <item>tat</item><item>tats</item>
-        <item>tau</item><item>taus</item>
         <item>tea</item><item>teas</item>
         <item>tee</item><item>tees</item>
         <item>tin</item><item>tins</item>
         <item>tip</item><item>tips</item>
-        <item>tit</item><item>tits</item>
         <item>toe</item><item>toes</item>
-        <item>tog</item><item>togs</item>
         <item>ton</item><item>tons</item>
         <item>top</item><item>tops</item>
-        <item>tor</item><item>tors</item>
         <item>tot</item><item>tots</item>
         <item>tow</item><item>tows</item>
         <item>toy</item><item>toys</item>
         <item>tub</item><item>tubs</item>
         <item>tum</item><item>tums</item>
         <item>tun</item><item>tuns</item>
-        <item>uni</item><item>unis</item>
         <item>urn</item><item>urns</item>
-        <item>vac</item><item>vacs</item>
         <item>van</item><item>vans</item>
         <item>vat</item><item>vats</item>
         <item>vet</item><item>vets</item>
@@ -382,22 +294,14 @@
         <item>war</item><item>wars</item>
         <item>way</item><item>ways</item>
         <item>web</item><item>webs</item>
-        <item>wee</item><item>wees</item>
-        <item>wen</item><item>wens</item>
         <item>wig</item><item>wigs</item>
         <item>wit</item><item>wits</item>
         <item>woe</item><item>woes</item>
-        <item>wog</item><item>wogs</item>
         <item>wok</item><item>woks</item>
-        <item>wop</item><item>wops</item>
         <item>wow</item><item>wows</item>
         <item>yak</item><item>yaks</item>
         <item>yam</item><item>yams</item>
         <item>yew</item><item>yews</item>
-        <item>yid</item><item>yids</item>
-        <item>yob</item><item>yobs</item>
-        <item>zed</item><item>zeds</item>
-        <item>zen</item><item>zens</item>
         <item>zip</item><item>zips</item>
         <item>zit</item><item>zits</item>
         <item>zoo</item><item>zoos</item>
@@ -406,10 +310,6 @@
         <item>axis</item><item>axes</item>
         <item>box</item><item>boxes</item>
         <item>carp</item><item>carp</item>
-        <item>char</item><item>char</item>
-        <item>chub</item><item>chub</item>
-        <item>cox</item><item>coxes</item>
-        <item>dace</item><item>dace</item>
         <item>deer</item><item>deer</item>
         <item>dice</item><item>dice</item>
         <item>elf</item><item>elves</item>
@@ -418,60 +318,36 @@
         <item>foot</item><item>feet</item>
         <item>fox</item><item>foxes</item>
         <item>gas</item><item>gases</item>
-        <item>hake</item><item>hake</item>
-        <item>hols</item><item>hols</item>
-        <item>ides</item><item>ides</item>
         <item>ivy</item><item>ivies</item>
-        <item>lees</item><item>lees</item>
-        <item>ling</item><item>ling</item>
-        <item>odds</item><item>odds</item>
         <item>ply</item><item>plies</item>
         <item>pox</item><item>poxes</item>
-        <item>pyx</item><item>pyxes</item>
-        <item>quid</item><item>quid</item>
-        <item>roux</item><item>roux</item>
         <item>sex</item><item>sexes</item>
-        <item>sis</item><item>sises</item>
         <item>sky</item><item>skies</item>
         <item>spy</item><item>spies</item>
         <item>sty</item><item>sties</item>
-        <item>suds</item><item>suds</item>
         <item>tax</item><item>taxes</item>
-        <item>teal</item><item>teal</item>
         <item>tux</item><item>tuxes</item>
         <item>wax</item><item>waxes</item>
-        <item>yuan</item><item>yuan</item>
         <item>ache</item><item>aches</item>
         <item>acid</item><item>acids</item>
-        <item>acme</item><item>acmes</item>
         <item>acre</item><item>acres</item>
-        <item>adam</item><item>adams</item>
         <item>aide</item><item>aides</item>
-        <item>alga</item><item>algae</item>
         <item>aloe</item><item>aloes</item>
         <item>alto</item><item>altos</item>
-        <item>alum</item><item>alums</item>
         <item>ante</item><item>antes</item>
-        <item>apse</item><item>apses</item>
-        <item>aqua</item><item>aquas</item>
-        <item>arab</item><item>arabs</item>
         <item>area</item><item>areas</item>
         <item>aria</item><item>arias</item>
-        <item>arum</item><item>arums</item>
         <item>atom</item><item>atoms</item>
         <item>aunt</item><item>aunts</item>
         <item>aura</item><item>auras</item>
         <item>auto</item><item>autos</item>
         <item>axle</item><item>axles</item>
         <item>babe</item><item>babes</item>
-        <item>back</item><item>backs</item>
         <item>bail</item><item>bails</item>
-        <item>bait</item><item>baits</item>
         <item>bale</item><item>bales</item>
         <item>ball</item><item>balls</item>
         <item>balm</item><item>balms</item>
         <item>band</item><item>bands</item>
-        <item>bane</item><item>banes</item>
         <item>bang</item><item>bangs</item>
         <item>bank</item><item>banks</item>
         <item>barb</item><item>barbs</item>
@@ -480,19 +356,15 @@
         <item>barn</item><item>barns</item>
         <item>base</item><item>bases</item>
         <item>bath</item><item>baths</item>
-        <item>bier</item><item>biers</item>
         <item>bill</item><item>bills</item>
         <item>bird</item><item>birds</item>
         <item>blip</item><item>blips</item>
         <item>blob</item><item>blobs</item>
-        <item>bloc</item><item>blocs</item>
         <item>blot</item><item>blots</item>
         <item>blow</item><item>blows</item>
         <item>boar</item><item>boars</item>
         <item>boat</item><item>boats</item>
         <item>boil</item><item>boils</item>
-        <item>bole</item><item>boles</item>
-        <item>boll</item><item>bolls</item>
         <item>bolt</item><item>bolts</item>
         <item>bomb</item><item>bombs</item>
         <item>bond</item><item>bonds</item>
@@ -501,42 +373,29 @@
         <item>book</item><item>books</item>
         <item>boom</item><item>booms</item>
         <item>boon</item><item>boons</item>
-        <item>boor</item><item>boors</item>
         <item>boot</item><item>boots</item>
         <item>bore</item><item>bores</item>
         <item>bout</item><item>bouts</item>
         <item>bowl</item><item>bowls</item>
-        <item>brad</item><item>brads</item>
-        <item>brae</item><item>braes</item>
         <item>brat</item><item>brats</item>
         <item>bray</item><item>brays</item>
-        <item>brie</item><item>bries</item>
-        <item>brig</item><item>brigs</item>
         <item>brim</item><item>brims</item>
-        <item>brit</item><item>brits</item>
         <item>brow</item><item>brows</item>
         <item>buck</item><item>bucks</item>
         <item>bulb</item><item>bulbs</item>
         <item>bulk</item><item>bulks</item>
         <item>bull</item><item>bulls</item>
         <item>bump</item><item>bumps</item>
-        <item>bung</item><item>bungs</item>
         <item>bunk</item><item>bunks</item>
         <item>buoy</item><item>buoys</item>
         <item>burn</item><item>burns</item>
-        <item>burr</item><item>burrs</item>
-        <item>bust</item><item>busts</item>
         <item>butt</item><item>butts</item>
-        <item>byre</item><item>byres</item>
         <item>byte</item><item>bytes</item>
         <item>cage</item><item>cages</item>
-        <item>cain</item><item>cains</item>
         <item>cake</item><item>cakes</item>
         <item>camp</item><item>camps</item>
         <item>cane</item><item>canes</item>
-        <item>cant</item><item>cants</item>
         <item>cape</item><item>capes</item>
-        <item>capo</item><item>capos</item>
         <item>card</item><item>cards</item>
         <item>care</item><item>cares</item>
         <item>cart</item><item>carts</item>
@@ -546,12 +405,8 @@
         <item>cell</item><item>cells</item>
         <item>cent</item><item>cents</item>
         <item>chap</item><item>chaps</item>
-        <item>char</item><item>chars</item>
         <item>chin</item><item>chins</item>
         <item>chip</item><item>chips</item>
-        <item>chit</item><item>chits</item>
-        <item>choc</item><item>chocs</item>
-        <item>chow</item><item>chows</item>
         <item>chum</item><item>chums</item>
         <item>clam</item><item>clams</item>
         <item>clan</item><item>clans</item>
@@ -566,8 +421,6 @@
         <item>clue</item><item>clues</item>
         <item>coal</item><item>coals</item>
         <item>coat</item><item>coats</item>
-        <item>cock</item><item>cocks</item>
-        <item>coco</item><item>cocos</item>
         <item>coda</item><item>codas</item>
         <item>code</item><item>codes</item>
         <item>coif</item><item>coifs</item>
@@ -584,9 +437,7 @@
         <item>cord</item><item>cords</item>
         <item>core</item><item>cores</item>
         <item>cork</item><item>corks</item>
-        <item>corm</item><item>corms</item>
         <item>corn</item><item>corns</item>
-        <item>cote</item><item>cotes</item>
         <item>coup</item><item>coups</item>
         <item>cove</item><item>coves</item>
         <item>cowl</item><item>cowls</item>
@@ -599,18 +450,15 @@
         <item>cube</item><item>cubes</item>
         <item>cuff</item><item>cuffs</item>
         <item>cult</item><item>cults</item>
-        <item>cunt</item><item>cunts</item>
         <item>curb</item><item>curbs</item>
         <item>cusp</item><item>cusps</item>
         <item>cyst</item><item>cysts</item>
-        <item>dago</item><item>dagos</item>
         <item>dale</item><item>dales</item>
         <item>dame</item><item>dames</item>
         <item>dane</item><item>danes</item>
         <item>dart</item><item>darts</item>
         <item>date</item><item>dates</item>
         <item>deal</item><item>deals</item>
-        <item>dean</item><item>deans</item>
         <item>debt</item><item>debts</item>
         <item>deck</item><item>decks</item>
         <item>deed</item><item>deeds</item>
@@ -620,14 +468,11 @@
         <item>dent</item><item>dents</item>
         <item>desk</item><item>desks</item>
         <item>dial</item><item>dials</item>
-        <item>dick</item><item>dicks</item>
         <item>diet</item><item>diets</item>
         <item>dill</item><item>dills</item>
         <item>dime</item><item>dimes</item>
         <item>dirk</item><item>dirks</item>
         <item>diva</item><item>divas</item>
-        <item>doer</item><item>doers</item>
-        <item>doge</item><item>doges</item>
         <item>dole</item><item>doles</item>
         <item>doll</item><item>dolls</item>
         <item>dolt</item><item>dolts</item>
@@ -647,7 +492,6 @@
         <item>dude</item><item>dudes</item>
         <item>duel</item><item>duels</item>
         <item>duet</item><item>duets</item>
-        <item>duff</item><item>duffs</item>
         <item>duke</item><item>dukes</item>
         <item>dump</item><item>dumps</item>
         <item>dune</item><item>dunes</item>
@@ -655,14 +499,11 @@
         <item>dupe</item><item>dupes</item>
         <item>dust</item><item>dusts</item>
         <item>earl</item><item>earls</item>
-        <item>ease</item><item>eases</item>
         <item>east</item><item>easts</item>
-        <item>edam</item><item>edams</item>
         <item>eden</item><item>edens</item>
         <item>edge</item><item>edges</item>
         <item>epic</item><item>epics</item>
         <item>even</item><item>evens</item>
-        <item>ewer</item><item>ewers</item>
         <item>exam</item><item>exams</item>
         <item>exit</item><item>exits</item>
         <item>face</item><item>faces</item>
@@ -716,9 +557,6 @@
         <item>fuel</item><item>fuels</item>
         <item>fund</item><item>funds</item>
         <item>funk</item><item>funks</item>
-        <item>gael</item><item>gaels</item>
-        <item>gaff</item><item>gaffs</item>
-        <item>gait</item><item>gaits</item>
         <item>gala</item><item>galas</item>
         <item>gale</item><item>gales</item>
         <item>game</item><item>games</item>
@@ -730,24 +568,17 @@
         <item>gaul</item><item>gauls</item>
         <item>gear</item><item>gears</item>
         <item>gene</item><item>genes</item>
-        <item>gent</item><item>gents</item>
         <item>germ</item><item>germs</item>
         <item>gift</item><item>gifts</item>
         <item>gill</item><item>gills</item>
-        <item>gilt</item><item>gilts</item>
         <item>girl</item><item>girls</item>
-        <item>giro</item><item>giros</item>
-        <item>glen</item><item>glens</item>
         <item>glob</item><item>globs</item>
         <item>glue</item><item>glues</item>
         <item>gnat</item><item>gnats</item>
         <item>goal</item><item>goals</item>
         <item>goat</item><item>goats</item>
-        <item>goer</item><item>goers</item>
         <item>gong</item><item>gongs</item>
         <item>goon</item><item>goons</item>
-        <item>gore</item><item>gores</item>
-        <item>goth</item><item>goths</item>
         <item>gown</item><item>gowns</item>
         <item>gran</item><item>grans</item>
         <item>grid</item><item>grids</item>
@@ -763,13 +594,10 @@
         <item>hail</item><item>hails</item>
         <item>hair</item><item>hairs</item>
         <item>hall</item><item>halls</item>
-        <item>halt</item><item>halts</item>
         <item>hand</item><item>hands</item>
-        <item>hank</item><item>hanks</item>
         <item>hare</item><item>hares</item>
         <item>harm</item><item>harms</item>
         <item>harp</item><item>harps</item>
-        <item>hasp</item><item>hasps</item>
         <item>hawk</item><item>hawks</item>
         <item>heap</item><item>heaps</item>
         <item>heat</item><item>heats</item>
@@ -786,7 +614,6 @@
         <item>hive</item><item>hives</item>
         <item>head</item><item>heads</item>
         <item>heap</item><item>heaps</item>
-        <item>heat</item><item>heats</item>
         <item>heel</item><item>heels</item>
         <item>helm</item><item>helms</item>
         <item>herb</item><item>herbs</item>
@@ -794,7 +621,6 @@
         <item>haze</item><item>hazes</item>
         <item>head</item><item>heads</item>
         <item>heap</item><item>heaps</item>
-        <item>heat</item><item>heats</item>
         <item>heel</item><item>heels</item>
         <item>helm</item><item>helms</item>
         <item>herb</item><item>herbs</item>
@@ -803,8 +629,6 @@
         <item>hike</item><item>hikes</item>
         <item>hill</item><item>hills</item>
         <item>hilt</item><item>hilts</item>
-        <item>hind</item><item>hinds</item>
-        <item>hint</item><item>hints</item>
         <item>hive</item><item>hives</item>
         <item>hock</item><item>hocks</item>
         <item>hold</item><item>holds</item>
@@ -822,43 +646,29 @@
         <item>host</item><item>hosts</item>
         <item>hour</item><item>hours</item>
         <item>howl</item><item>howls</item>
-        <item>huff</item><item>huffs</item>
         <item>hulk</item><item>hulks</item>
         <item>hull</item><item>hulls</item>
         <item>hump</item><item>humps</item>
         <item>hunk</item><item>hunks</item>
         <item>husk</item><item>husks</item>
         <item>hymn</item><item>hymns</item>
-        <item>hypo</item><item>hypos</item>
         <item>idea</item><item>ideas</item>
         <item>idol</item><item>idols</item>
-        <item>ileum</item><item>ilea</item>
         <item>imam</item><item>imams</item>
         <item>inca</item><item>incas</item>
         <item>iota</item><item>iotas</item>
         <item>iron</item><item>irons</item>
         <item>isle</item><item>isles</item>
         <item>item</item><item>items</item>
-        <item>jack</item><item>jacks</item>
-        <item>jade</item><item>jades</item>
-        <item>jamb</item><item>jambs</item>
-        <item>jape</item><item>japes</item>
         <item>jeep</item><item>jeeps</item>
         <item>jerk</item><item>jerks</item>
-        <item>jest</item><item>jests</item>
         <item>jive</item><item>jives</item>
         <item>jock</item><item>jocks</item>
         <item>john</item><item>johns</item>
         <item>joke</item><item>jokes</item>
         <item>jowl</item><item>jowls</item>
         <item>june</item><item>junes</item>
-        <item>junk</item><item>junks</item>
-        <item>keel</item><item>keels</item>
-        <item>keen</item><item>keens</item>
-        <item>kepi</item><item>kepis</item>
-        <item>khan</item><item>khans</item>
         <item>kiln</item><item>kilns</item>
-        <item>kilo</item><item>kilos</item>
         <item>kilt</item><item>kilts</item>
         <item>kind</item><item>kinds</item>
         <item>king</item><item>kings</item>
@@ -877,18 +687,12 @@
         <item>lamp</item><item>lamps</item>
         <item>land</item><item>lands</item>
         <item>lane</item><item>lanes</item>
-        <item>lapp</item><item>lapps</item>
-        <item>lard</item><item>lards</item>
         <item>lark</item><item>larks</item>
-        <item>last</item><item>lasts</item>
-        <item>lath</item><item>laths</item>
         <item>lawn</item><item>lawns</item>
         <item>lead</item><item>leads</item>
         <item>leak</item><item>leaks</item>
         <item>leek</item><item>leeks</item>
-        <item>lent</item><item>lents</item>
         <item>liar</item><item>liars</item>
-        <item>lido</item><item>lidos</item>
         <item>lien</item><item>liens</item>
         <item>life</item><item>lives</item>
         <item>lilt</item><item>lilts</item>
@@ -896,7 +700,6 @@
         <item>lime</item><item>limes</item>
         <item>limo</item><item>limos</item>
         <item>line</item><item>lines</item>
-        <item>ling</item><item>lings</item>
         <item>link</item><item>links</item>
         <item>lint</item><item>lints</item>
         <item>lion</item><item>lions</item>
@@ -906,7 +709,6 @@
         <item>loan</item><item>loans</item>
         <item>lobe</item><item>lobes</item>
         <item>lock</item><item>locks</item>
-        <item>loco</item><item>locos</item>
         <item>locus</item><item>loci</item>
         <item>lode</item><item>lodes</item>
         <item>loft</item><item>lofts</item>
@@ -922,11 +724,8 @@
         <item>luck</item><item>lucks</item>
         <item>lump</item><item>lumps</item>
         <item>lung</item><item>lungs</item>
-        <item>lust</item><item>lusts</item>
         <item>lute</item><item>lutes</item>
         <item>lyre</item><item>lyres</item>
-        <item>mace</item><item>maces</item>
-        <item>magus</item><item>magi</item>
         <item>maid</item><item>maids</item>
         <item>mail</item><item>mails</item>
         <item>mall</item><item>malls</item>
@@ -946,14 +745,9 @@
         <item>meat</item><item>meats</item>
         <item>memo</item><item>memos</item>
         <item>menu</item><item>menus</item>
-        <item>mere</item><item>meres</item>
-        <item>mick</item><item>micks</item>
-        <item>mien</item><item>miens</item>
-        <item>mike</item><item>mikes</item>
         <item>mile</item><item>miles</item>
         <item>milk</item><item>milks</item>
         <item>mill</item><item>mills</item>
-        <item>milt</item><item>milts</item>
         <item>mime</item><item>mimes</item>
         <item>mind</item><item>minds</item>
         <item>mine</item><item>mines</item>
@@ -962,15 +756,14 @@
         <item>mire</item><item>mires</item>
         <item>mist</item><item>mists</item>
         <item>mite</item><item>mites</item>
-        <item>mitt</item><item>mitts</item>
         <item>mode</item><item>modes</item>
         <item>mole</item><item>moles</item>
-        <item>moll</item><item>molls</item>
         <item>monk</item><item>monks</item>
         <item>mood</item><item>moods</item>
         <item>moon</item><item>moons</item>
         <item>moor</item><item>moors</item>
         <item>morn</item><item>morns</item>
+    <!--end human cleaning -->
         <item>mote</item><item>motes</item>
         <item>moth</item><item>moths</item>
         <item>mouse</item><item>mice</item>
@@ -4675,7 +4468,6 @@
         <item>brocade</item><item>brocades</item>
         <item>broiler</item><item>broilers</item>
         <item>bromide</item><item>bromides</item>
-        <item>brothel</item><item>brothels</item>
         <item>brother</item><item>brothers</item>
         <item>brownie</item><item>brownies</item>
         <item>bruiser</item><item>bruisers</item>
