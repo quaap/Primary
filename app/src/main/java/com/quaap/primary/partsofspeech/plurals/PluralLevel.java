@@ -23,7 +23,7 @@ import com.quaap.primary.base.component.InputMode;
  */
 public class PluralLevel extends StdLevel {
 
-    private static final int wDiff = 4;
+    private static final int wDiff = 3;
     private int mMaxwordlength;
     private int mMinwordlength;
 

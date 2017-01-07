@@ -272,8 +272,8 @@ public class Levels {
                                 new PluralLevel(R.string.subject_eng2_code, 10, 10, InputMode.Input),
                                 new PluralLevel(R.string.subject_eng2_code, 12, 20, InputMode.Buttons),
                                 new PluralLevel(R.string.subject_eng2_code, 12, 10, InputMode.Input),
-                                new PluralLevel(R.string.subject_eng2_code, 18, 20, InputMode.Buttons),
-                                new PluralLevel(R.string.subject_eng2_code, 18, 10, InputMode.Input),
+                                new PluralLevel(R.string.subject_eng2_code, 14, 20, InputMode.Buttons),
+                                new PluralLevel(R.string.subject_eng2_code, 14, 10, InputMode.Input),
                         }),
 
 

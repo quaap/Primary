@@ -121,7 +121,7 @@ public class PluralActivity extends StdGameActivity
                 while (!pluralsMap.containsKey(word) || (getRand(10) > 2 && score < 2) || (getRand(10) > 3 && score < 3)); //try to get tricky words
 
             }
-            while (tries++ < 100 && (word.length() < level.getMinWordLength() || word.length() > level.getMaxWordLength() || seenProblem(word)));
+            while (tries++ < 200 && (word.length() < level.getMinWordLength() || word.length() > level.getMaxWordLength() || seenProblem(word)));
         } else {
             deleteSavedLevelValue("word");
         }
@@ -151,7 +151,7 @@ public class PluralActivity extends StdGameActivity
 
         } else if (level.getInputMode() == InputMode.Input) {
 
-            makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_TEXT, 5, 0, word);
+            makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_TEXT, 6, 0, word);
 
             startHint(word.length());
 
