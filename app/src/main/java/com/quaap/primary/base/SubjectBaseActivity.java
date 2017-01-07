@@ -68,6 +68,8 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     public static final String LEVELNUM = "levelnum";
     public static final String START_AT_ZERO = "startover";
+    public static final int PROB_START_PREDELAY = 500;
+    public static final int PROB_START_POSTDELAY = 500;
     public static final int STATUS_TIMEOUT = 1400;
     public static final int ONWRONG_DELAY = 1000;
     protected static int INPUTTYPE_TEXT = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_CLASS_TEXT;
@@ -130,12 +132,28 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         return levels[levelnum];
     }
 
-    private void showProb() {
-        onShowProbImpl();
-        startTimer();
+    protected void showProb() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onBeforeShowProb();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        onShowProbImpl();
+                        startTimer();
+                        onAfterShowProb();
+                    }
+                }, PROB_START_POSTDELAY);
+            }
+        }, PROB_START_PREDELAY);
     }
 
+    protected abstract void onBeforeShowProb();
+
     protected abstract void onShowProbImpl();
+
+    protected abstract void onAfterShowProb();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -679,7 +697,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                 soundEffects.playBaba();
                 correct = 0;
                 incorrect = 0;
-                onSetStatus(correctStatus, STATUS_TIMEOUT);
+                onSetStatus(correctStatus, STATUS_TIMEOUT*2);
                 if (levelnum + 1 >= levels.length) {
                     mSubjectData.setSubjectCompleted(true);
                     saveGameData();

@@ -4,6 +4,7 @@ package com.quaap.primary.base;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
@@ -116,6 +117,22 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
         Keyboard.hideKeys(getKeysArea());
     }
 
+    @Override
+    protected void onBeforeShowProb() {
+        View problem_area = findViewById(R.id.problem_area);
+        problem_area.setVisibility(View.INVISIBLE);
+        View answer_area = findViewById(R.id.answer_area);
+        answer_area.setVisibility(View.INVISIBLE);
+    }
+
+
+    @Override
+    protected void onAfterShowProb() {
+        View problem_area = findViewById(R.id.problem_area);
+        problem_area.setVisibility(View.VISIBLE);
+        View answer_area = findViewById(R.id.answer_area);
+        answer_area.setVisibility(View.VISIBLE);
+    }
 
     @Override
     protected void answerDone(boolean isright, String problem, String answer, String useranswer) {
