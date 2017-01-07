@@ -156,7 +156,7 @@ public class Levels {
                         BasicMathActivity.class,
                         new Level[]{
                                 new BasicMathLevel(R.string.subject_m5_code, MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 100, InputMode.Buttons),
-                                new BasicMathLevel(R.string.subject_m5_code, MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 50, InputMode.Input)
+                                new BasicMathLevel(R.string.subject_m5_code, MathOp.Divide, MathOp.Plus, 12, Negatives.Allowed, 100, InputMode.Input)
                         }),
 
 
