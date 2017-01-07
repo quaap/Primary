@@ -30,7 +30,7 @@
             android:parentActivityName=".base.SubjectMenuActivity" />
 
         <activity
-            android:name=".math.TimeActivity"
+            android:name=".timemoney.TimeActivity"
             android:parentActivityName=".base.SubjectMenuActivity" />
 
         <activity

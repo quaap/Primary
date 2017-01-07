@@ -1,4 +1,4 @@
-package com.quaap.primary.math;
+package com.quaap.primary.timemoney;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
