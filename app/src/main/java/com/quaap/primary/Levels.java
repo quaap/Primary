@@ -53,8 +53,7 @@ public class Levels {
 
                                 new BasicMathLevel(R.string.subject_m1_code, MathOp.Minus, MathOp.Plus, 10, Negatives.None, 20, true, InputMode.Buttons),
 
-                                new BasicMathLevel(R.string.subject_m1_code, MathOp.Plus, 10, 10, InputMode.Input),
-                                new BasicMathLevel(R.string.subject_m1_code, MathOp.Minus, 10, 10, InputMode.Input),
+                                new BasicMathLevel(R.string.subject_m1_code, MathOp.Minus, MathOp.Plus, 10, 10, InputMode.Input),
 
                                 new BasicMathLevel(R.string.subject_m1_code, MathOp.Plus, 15, 20, InputMode.Buttons),
                                 new BasicMathLevel(R.string.subject_m1_code, MathOp.Minus, 15, 20, InputMode.Buttons),
@@ -64,8 +63,7 @@ public class Levels {
                                 new BasicMathLevel(R.string.subject_m1_code, MathOp.Plus, 25, 20, InputMode.Buttons),
                                 new BasicMathLevel(R.string.subject_m1_code, MathOp.Minus, 25, 20, InputMode.Buttons),
 
-                                new BasicMathLevel(R.string.subject_m1_code, MathOp.Plus, 25, 10, InputMode.Input),
-                                new BasicMathLevel(R.string.subject_m1_code, MathOp.Minus, 25, 10, InputMode.Input),
+                                new BasicMathLevel(R.string.subject_m1_code, MathOp.Minus, MathOp.Plus, 25, 10, InputMode.Input),
 
                                 new BasicMathLevel(R.string.subject_m1_code, MathOp.Minus, MathOp.Plus, 25, 20, InputMode.Buttons)
                         }),
@@ -82,16 +80,14 @@ public class Levels {
 
                                 new BasicMathLevel(R.string.subject_m2_code, MathOp.Divide, MathOp.Times, 10, Negatives.None, 20, true, InputMode.Buttons),
 
-                                new BasicMathLevel(R.string.subject_m2_code, MathOp.Times, 10, 10, InputMode.Input),
-                                new BasicMathLevel(R.string.subject_m2_code, MathOp.Divide, 10, 10, InputMode.Input),
+                                new BasicMathLevel(R.string.subject_m2_code, MathOp.Divide, MathOp.Times, 10, 10, InputMode.Input),
 
                                 new BasicMathLevel(R.string.subject_m2_code, MathOp.Times, 12, 20, InputMode.Buttons),
                                 new BasicMathLevel(R.string.subject_m2_code, MathOp.Divide, 12, 20, InputMode.Buttons),
 
                                 new BasicMathLevel(R.string.subject_m2_code, MathOp.Divide, MathOp.Times, 12, Negatives.None, 20, true, InputMode.Buttons),
 
-                                new BasicMathLevel(R.string.subject_m2_code, MathOp.Times, 12, 10, InputMode.Input),
-                                new BasicMathLevel(R.string.subject_m2_code, MathOp.Divide, 12, 10, InputMode.Input),
+                                new BasicMathLevel(R.string.subject_m2_code, MathOp.Divide, MathOp.Times, 12, 10, InputMode.Input),
 
                                 new BasicMathLevel(R.string.subject_m2_code, MathOp.Divide, MathOp.Times, 12, 20, InputMode.Buttons),
 
@@ -110,8 +106,7 @@ public class Levels {
                                 new BasicMathLevel(R.string.subject_m3_code, MathOp.Plus, 10, Negatives.Required, 20, InputMode.Buttons),
                                 new BasicMathLevel(R.string.subject_m3_code, MathOp.Minus, 10, Negatives.Required, 20, InputMode.Buttons),
 
-                                new BasicMathLevel(R.string.subject_m3_code, MathOp.Plus, 10, Negatives.Required, 10, InputMode.Input),
-                                new BasicMathLevel(R.string.subject_m3_code, MathOp.Minus, 10, Negatives.Required, 10, InputMode.Input),
+                                new BasicMathLevel(R.string.subject_m3_code, MathOp.Minus, MathOp.Plus, 10, Negatives.Required, 10, InputMode.Input),
 
                                 new BasicMathLevel(R.string.subject_m3_code, MathOp.Plus, 15, Negatives.Required, 20, InputMode.Buttons),
                                 new BasicMathLevel(R.string.subject_m3_code, MathOp.Minus, 15, Negatives.Required, 20, InputMode.Buttons),
@@ -119,8 +114,7 @@ public class Levels {
                                 new BasicMathLevel(R.string.subject_m3_code, MathOp.Plus, 25, Negatives.Required, 20, InputMode.Buttons),
                                 new BasicMathLevel(R.string.subject_m3_code, MathOp.Minus, 25, Negatives.Required, 20, InputMode.Buttons),
 
-                                new BasicMathLevel(R.string.subject_m3_code, MathOp.Plus, 25, Negatives.Required, 10, InputMode.Input),
-                                new BasicMathLevel(R.string.subject_m3_code, MathOp.Minus, 25, Negatives.Required, 10, InputMode.Input),
+                                new BasicMathLevel(R.string.subject_m3_code, MathOp.Minus, MathOp.Plus, 25, Negatives.Required, 10, InputMode.Input),
 
                                 new BasicMathLevel(R.string.subject_m3_code, MathOp.Minus, MathOp.Plus, 25, Negatives.Allowed, 20, InputMode.Buttons),
 
@@ -137,15 +131,12 @@ public class Levels {
                                 new BasicMathLevel(R.string.subject_m4_code, MathOp.Times, 10, Negatives.Required, 20, InputMode.Buttons),
                                 new BasicMathLevel(R.string.subject_m4_code, MathOp.Divide, 10, Negatives.Required, 20, InputMode.Buttons),
 
-                                new BasicMathLevel(R.string.subject_m4_code, MathOp.Times, 10, Negatives.Required, 10, InputMode.Input),
-                                new BasicMathLevel(R.string.subject_m4_code, MathOp.Divide, 10, Negatives.Required, 10, InputMode.Input),
+                                new BasicMathLevel(R.string.subject_m4_code, MathOp.Minus, MathOp.Times, 10, Negatives.Required, 10, InputMode.Input),
 
                                 new BasicMathLevel(R.string.subject_m4_code, MathOp.Times, 12, Negatives.Required, 20, InputMode.Buttons),
                                 new BasicMathLevel(R.string.subject_m4_code, MathOp.Divide, 12, Negatives.Required, 20, InputMode.Buttons),
 
-                                new BasicMathLevel(R.string.subject_m4_code, MathOp.Times, 12, Negatives.Required, 10, InputMode.Input),
-                                new BasicMathLevel(R.string.subject_m4_code, MathOp.Divide, 12, Negatives.Required, 10, InputMode.Input),
-
+                                new BasicMathLevel(R.string.subject_m4_code, MathOp.Minus, MathOp.Times, 12, Negatives.Required, 10, InputMode.Input),
 
                                 new BasicMathLevel(R.string.subject_m4_code, MathOp.Divide, MathOp.Times, 12, Negatives.Allowed, 20, InputMode.Buttons),
 
