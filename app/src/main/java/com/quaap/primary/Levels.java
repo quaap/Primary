@@ -155,9 +155,9 @@ public class Levels {
                         SortingActivity.class,
                         new Level[]{
                                 new SortingLevel(R.string.subject_m6_code, 3, 9, 10),
-                                new SortingLevel(R.string.subject_m6_code, 4, 9, 15),
+                                new SortingLevel(R.string.subject_m6_code, 4, 9, 10),
                                 new SortingLevel(R.string.subject_m6_code, 6, 9, 15),
-                                new SortingLevel(R.string.subject_m6_code, 9, 9, 15),
+                                new SortingLevel(R.string.subject_m6_code, 9, 9, 10),
                         }),
 
 
@@ -167,7 +167,7 @@ public class Levels {
                                 new SortingLevel(R.string.subject_m7_code, 3, 99, 10),
                                 new SortingLevel(R.string.subject_m7_code, 4, 99, 10),
                                 new SortingLevel(R.string.subject_m7_code, 6, 99, 15),
-                                new SortingLevel(R.string.subject_m7_code, 9, 99, 15),
+                                new SortingLevel(R.string.subject_m7_code, 9, 99, 10),
                         }),
 
                 new Subjects.Desc(context, SubjectGroup.Math, R.string.subject_m8_code, R.string.subject_m8_name, R.string.subject_m8_desc,
@@ -176,7 +176,7 @@ public class Levels {
                                 new SortingLevel(R.string.subject_m8_code, 3, 999, 10),
                                 new SortingLevel(R.string.subject_m8_code, 4, 999, 10),
                                 new SortingLevel(R.string.subject_m8_code, 6, 999, 15),
-                                new SortingLevel(R.string.subject_m8_code, 9, 999, 15),
+                                new SortingLevel(R.string.subject_m8_code, 9, 999, 10),
                         }),
 
 
@@ -185,7 +185,7 @@ public class Levels {
                         new Level[]{
                                 new SortingLevel(R.string.subject_m9_code, 9, 999, 15),
                                 new SortingLevel(R.string.subject_m9_code, 12, 999, 15),
-                                new SortingLevel(R.string.subject_m9_code, 16, 999, 15),
+                                new SortingLevel(R.string.subject_m9_code, 16, 999, 10),
                         }),
 
 
