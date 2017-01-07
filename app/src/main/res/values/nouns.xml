@@ -39,6 +39,7 @@
         <item>fun</item>
         <item>gap</item>
         <item>gas</item>
+        <item>gay</item>
         <item>god</item>
         <item>guy</item>
         <item>hat</item>
@@ -87,7 +88,6 @@
         <item>ball</item>
         <item>band</item>
         <item>bank</item>
-        <item>base</item>
         <item>bath</item>
         <item>beer</item>
         <item>bell</item>
@@ -235,13 +235,10 @@
         <item>risk</item>
         <item>road</item>
         <item>rock</item>
-        <item>role</item>
         <item>room</item>
         <item>rope</item>
         <item>ruin</item>
         <item>rule</item>
-        <item>sail</item>
-        <item>sale</item>
         <item>salt</item>
         <item>sand</item>
         <item>seat</item>
@@ -252,7 +249,6 @@
         <item>shot</item>
         <item>side</item>
         <item>sign</item>
-        <item>site</item>
         <item>size</item>
         <item>skin</item>
         <item>snow</item>
@@ -265,7 +261,6 @@
         <item>star</item>
         <item>step</item>
         <item>suit</item>
-        <item>tale</item>
         <item>tank</item>
         <item>task</item>
         <item>team</item>
@@ -280,14 +275,12 @@
         <item>town</item>
         <item>tree</item>
         <item>trip</item>
-        <item>tune</item>
         <item>type</item>
         <item>unit</item>
         <item>user</item>
         <item>view</item>
         <item>wall</item>
         <item>wave</item>
-        <item>week</item>
         <item>west</item>
         <item>wife</item>
         <item>wind</item>
@@ -756,6 +749,7 @@
         <item>kitchen</item>
         <item>leather</item>
         <item>lecture</item>
+        <item>lesbian</item>
         <item>library</item>
         <item>machine</item>
         <item>manager</item>
@@ -900,7 +894,6 @@
         <item>mountain</item>
         <item>occasion</item>
         <item>painting</item>
-        <item>patience</item>
         <item>platform</item>
         <item>pleasure</item>
         <item>politics</item>
