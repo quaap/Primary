@@ -12,12 +12,12 @@ import com.quaap.primary.math.MathOp;
 import com.quaap.primary.math.Negatives;
 import com.quaap.primary.math.SortingActivity;
 import com.quaap.primary.math.SortingLevel;
-import com.quaap.primary.timemoney.TimeActivity;
-import com.quaap.primary.timemoney.TimeLevel;
 import com.quaap.primary.partsofspeech.plurals.PluralActivity;
 import com.quaap.primary.partsofspeech.plurals.PluralLevel;
 import com.quaap.primary.spelling.SpellingActivity;
 import com.quaap.primary.spelling.SpellingLevel;
+import com.quaap.primary.timemoney.TimeActivity;
+import com.quaap.primary.timemoney.TimeLevel;
 
 /**
  * Created by tom on 12/15/16.

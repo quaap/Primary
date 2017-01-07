@@ -329,7 +329,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         hourColor.setStyle(Paint.Style.STROKE);
 
 
-        System.out.println(mClockwidth);
+        //System.out.println(mClockwidth);
         Paint hourColorThin = new Paint(hourColor);
         hourColorThin.setStrokeWidth(3);
         hourColorThin.setTextSize(Math.min(28, mClockwidth/8));
