@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -79,8 +80,9 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
         if (isLandscape()) {
 
-            LinearLayout answerarea = (LinearLayout) findViewById(R.id.answer_area);
-            answerarea.setOrientation(LinearLayout.HORIZONTAL);
+            GridLayout answerarea = (GridLayout) findViewById(R.id.answer_area);
+            //answerarea.setOrientation(GridLayout.VERTICAL);
+            answerarea.setColumnCount(2);
 
             LinearLayout centercol = (LinearLayout) findViewById(R.id.centercol);
             centercol.setOrientation(LinearLayout.HORIZONTAL);
@@ -125,8 +127,8 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
         return (ViewGroup) findViewById(R.id.keypad_area);
     }
 
-    protected LinearLayout getAnswerArea() {
-        return (LinearLayout) findViewById(R.id.answer_area);
+    protected GridLayout getAnswerArea() {
+        return (GridLayout) findViewById(R.id.answer_area);
     }
 
 

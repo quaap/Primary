@@ -45,15 +45,15 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
+        <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/answer_area"
             android:layout_marginTop="2dp"
             android:minWidth="0dp"
             android:gravity="center_horizontal"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:columnCount="1">
 
 
             <TextView
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:ignore="HardcodedText" />
-        </LinearLayout>
+        </GridLayout>
 
     </LinearLayout>
 

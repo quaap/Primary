@@ -20,6 +20,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -302,16 +303,13 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
 
 
     @SuppressLint("RtlHardcoded")
-    private void makeAnswerButtons(LinearLayout answerarea, float fontsize) {
+    private void makeAnswerButtons(GridLayout answerarea, float fontsize) {
 
         List<Integer> answers = getAnswerChoices(4);
 
-        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        //lparams.gravity = Gravity.RIGHT;
-        lparams.weight = 1;
 
 
-        makeChoiceButtons(answerarea, answers, this, fontsize, lparams, Gravity.RIGHT);
+        makeChoiceButtons(answerarea, answers, this, fontsize, null, Gravity.RIGHT);
 
     }
 
