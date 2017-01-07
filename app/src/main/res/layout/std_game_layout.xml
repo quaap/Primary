@@ -14,51 +14,57 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="false"
-        android:id="@+id/centercol"
-        android:gravity="center_horizontal"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/scores_area">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtstatus"
-            android:textSize="24sp"
-            android:textColor="@android:color/holo_green_light"
-            android:ems="4" />
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/scores_area"
+        android:layout_above="@+id/keypad_area"
+        android:gravity="center_horizontal"
+        android:id="@+id/meta_center">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/problem_area"
-            android:gravity="center_horizontal" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/answer_area"
-        android:layout_below="@+id/centercol"
-        android:layout_centerHorizontal="false"
-        android:layout_marginTop="2dp"
-        android:minWidth="0dp"
-        android:gravity="center_horizontal"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_toEndOf="@+id/scores_area">
-
-        <TextView
-            android:text=" "
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:ignore="HardcodedText" />
+            android:id="@+id/centercol"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtstatus"
+                android:textSize="24sp"
+                android:textColor="@android:color/holo_green_light"
+                android:ems="4" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/problem_area"
+                android:gravity="center_horizontal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/answer_area"
+            android:layout_marginTop="2dp"
+            android:minWidth="0dp"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal">
+
+
+            <TextView
+                android:text=" "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
     </LinearLayout>
+
 
     <LinearLayout
         android:orientation="vertical"

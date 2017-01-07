@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quaap.primary.R;
@@ -58,6 +59,15 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
     protected void onResume() {
         Point ss = getScreenSize();
         mClockwidth = Math.min(ss.x, ss.y)/2;
+
+        if (isLandscape()) {
+            mClockwidth *=.75;
+            TimeLevel level = (TimeLevel)getLevel();
+            if (level.getInputMode() == InputMode.Input) {
+                LinearLayout meta_center = (LinearLayout) findViewById(R.id.meta_center);
+                meta_center.setOrientation(LinearLayout.HORIZONTAL);
+            }
+        }
         addToNumpadKeyMap(".",":");
         setMaxSeenSize(12);
         super.onResume();
