@@ -44,7 +44,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
     private volatile boolean showHint = false;
     private volatile int hintTick;
 
-    protected static final int BASE_HINT_TIME = 30000;
+    protected static final int BASE_HINT_TIME = 20000;
     protected static final int BASE_HINT_REPEAT_TIME = 3000;
 
     public StdGameActivity(int problemView) {
