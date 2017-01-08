@@ -141,8 +141,8 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                     @Override
                     public void run() {
                         onShowProbImpl();
-                        startTimer();
                         onAfterShowProb();
+                        startTimer();
                     }
                 }, PROB_START_POSTDELAY);
             }

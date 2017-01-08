@@ -90,7 +90,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
 
             setFasttimes(600 + 250*fac, 800 + 250*fac, 1100 + 225*fac);
         } else {
-            setFasttimes(1000 + 250*fac, 1200 + 250*fac, 1400 + 250*fac);
+            setFasttimes(1000 + 250*fac, 1300 + 250*fac, 1500 + 275*fac);
         }
 
     }
