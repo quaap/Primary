@@ -54,8 +54,7 @@
             android:minWidth="0dp"
             android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
-            android:columnCount="1"
-            android:visibility="invisible">
+            android:columnCount="1">
 
 
             <TextView

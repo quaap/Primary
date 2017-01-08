@@ -91,6 +91,8 @@ public class SpellingActivity extends StdGameActivity
         //timer = new Timer();
 
         setReadyForProblem(false);
+        View problem_area = findViewById(R.id.problem_area);
+        problem_area.setVisibility(View.VISIBLE);
         findViewById(R.id.spelling_problem_area).setVisibility(View.INVISIBLE);
         findViewById(R.id.spell_loading).setVisibility(View.VISIBLE);
 
@@ -127,6 +129,10 @@ public class SpellingActivity extends StdGameActivity
 
     }
 
+    @Override
+    protected void onBeforeShowProb() {
+
+    }
     @Override
     protected void onShowProbImpl() {
 
