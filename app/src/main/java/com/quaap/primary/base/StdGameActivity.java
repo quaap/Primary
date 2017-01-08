@@ -38,8 +38,8 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
     private int mProblemView;
 
-    private Timer timer;
-    private TimerTask hinttask;
+    private volatile Timer timer;
+    private volatile TimerTask hinttask;
 
     private volatile boolean showHint = false;
     private volatile int hintTick;
@@ -64,6 +64,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
     @Override
     protected void onPause() {
 
+
         cancelHint();
 
         if (timer != null) {
@@ -77,6 +78,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
     @Override
     protected void onResume() {
+        super.onResume();
         timer = new Timer();
 
         if (isLandscape()) {
@@ -93,7 +95,6 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
                 actionBar.hide();
             }
         }
-        super.onResume();
 
     }
 
@@ -172,7 +173,9 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
                 }
             };
 
-            timer.scheduleAtFixedRate(hinttask, firstHintDelayMillis, repeatHintDelaysMillis);
+            if (timer!=null) {
+                timer.scheduleAtFixedRate(hinttask, firstHintDelayMillis, repeatHintDelaysMillis);
+            }
         }
     }
 

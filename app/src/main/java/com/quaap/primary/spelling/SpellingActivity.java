@@ -80,9 +80,11 @@ public class SpellingActivity extends StdGameActivity
 
     @Override
     protected void onPause() {
-        v.stop();
+        if (v!=null) {
+            v.stop();
 
-        saveLevelValue("word", word);
+            saveLevelValue("word", word);
+        }
         super.onPause();
     }
 

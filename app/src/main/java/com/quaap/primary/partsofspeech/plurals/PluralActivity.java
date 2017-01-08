@@ -81,8 +81,9 @@ public class PluralActivity extends StdGameActivity
     @Override
     protected void onPause() {
 
-
-        saveLevelValue("word", word);
+        if (word!=null) {
+            saveLevelValue("word", word);
+        }
         super.onPause();
     }
 

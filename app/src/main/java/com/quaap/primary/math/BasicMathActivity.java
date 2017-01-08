@@ -54,16 +54,14 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
 
     @Override
     protected void onPause() {
-        saveLevelValue("num1", num1);
-        saveLevelValue("num2", num2);
-        saveLevelValue("op", op.name());
+        if (op!=null) {
+            saveLevelValue("num1", num1);
+            saveLevelValue("num2", num2);
+            saveLevelValue("op", op.name());
+        }
         super.onPause();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 
 
     @Override

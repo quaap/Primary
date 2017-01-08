@@ -54,7 +54,9 @@ public class SortingActivity extends StdGameActivity implements
     @Override
     protected void onPause() {
         super.onPause();
-        saveLevelValue("numlist", join(",", numlist));
+        if (numlist!=null) {
+            saveLevelValue("numlist", join(",", numlist));
+        }
     }
 
     @Override

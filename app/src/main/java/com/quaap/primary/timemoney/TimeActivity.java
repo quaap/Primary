@@ -57,6 +57,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
 
     @Override
     protected void onResume() {
+        super.onResume();
         Point ss = getScreenSize();
         mClockwidth = Math.min(ss.x, ss.y)/2;
 
@@ -70,7 +71,6 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         }
         addToNumpadKeyMap(".",":");
         setMaxSeenSize(12);
-        super.onResume();
 
     }
 
