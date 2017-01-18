@@ -6,6 +6,8 @@ In version 0.2 there are levels dealing with Math and Language Arts.
 
 Version 0.3 will add Time and Clocks.
 
+You can find the latest installable version on [FDroid](https://f-droid.org/repository/browse/?fdid=com.quaap.primary).
+
 The app is designed to allow other level sets, and in the future I'd like to add 
 other math levels (ideas: word problems, easier and harder math,  fractions, decimals, time, etc) and other subjects 
 as well (ideas: reading, maps, geometry, science, etc?)
