@@ -740,10 +740,14 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
         Point size = getScreenSize();
 
+
         int width = size.x;
         int height = size.y;
 
-        levelCompletePopup = new PopupWindow(levelcompleteView, width, height, true);
+       // Log.d("popup", "show popup " + width + "x" + height);
+
+
+        levelCompletePopup = new PopupWindow(levelcompleteView, width, height, false);
 
         View no_more_levels_txt = levelcompleteView.findViewById(R.id.no_more_levels_txt);
 
@@ -786,11 +790,13 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         }
 
 
-        levelcompleteView.post(new Runnable() {
-            public void run() {
-                levelCompletePopup.showAsDropDown(levelcompleteView, Gravity.CENTER, 0, 0);
-            }
-        });
+        //levelcompleteView.post(new Runnable() {
+         //   public void run() {
+
+         //       Log.d("popup", "show popup 2");
+                levelCompletePopup.showAtLocation(levelcompleteView, Gravity.CENTER, 0, 0);
+       //     }
+        //});
 
 
     }
