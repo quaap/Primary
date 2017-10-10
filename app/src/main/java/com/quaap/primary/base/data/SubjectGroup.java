@@ -44,7 +44,7 @@ public enum SubjectGroup {
     }
 
     public int getColor(Context context) {
-        if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= 23) {
             return context.getColor(mColorResId);
         } else {
             return context.getResources().getColor(mColorResId);
