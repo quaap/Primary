@@ -1,6 +1,7 @@
 package com.quaap.primary.base;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import com.quaap.primary.R;
 import com.quaap.primary.base.component.InputMode;
 import com.quaap.primary.base.component.Keyboard;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -81,21 +84,56 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
         super.onResume();
         timer = new Timer();
 
+
+
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        GridLayout answerarea = (GridLayout) findViewById(R.id.answer_area);
+        LinearLayout centercol = (LinearLayout) findViewById(R.id.centercol);
+        ActionBar actionBar = getSupportActionBar();
         if (isLandscape()) {
 
-            GridLayout answerarea = (GridLayout) findViewById(R.id.answer_area);
             //answerarea.setOrientation(GridLayout.VERTICAL);
-            answerarea.setColumnCount(2);
+            setColumnCount(answerarea,2);
 
-            LinearLayout centercol = (LinearLayout) findViewById(R.id.centercol);
             centercol.setOrientation(LinearLayout.HORIZONTAL);
 
-            ActionBar actionBar = getSupportActionBar();
             if (actionBar != null) {
                 actionBar.hide();
             }
+        } else {
+            //answerarea.setOrientation(GridLayout.VERTICAL);
+
+
+            setColumnCount(answerarea,1);
+
+            centercol.setOrientation(LinearLayout.VERTICAL);
+
+            if (actionBar != null) {
+                actionBar.show();
+            }
+
         }
 
+    }
+
+    private void setColumnCount(GridLayout answerarea, int count) {
+        List<View> kids = new ArrayList<>();
+        for(int i = 0; i< answerarea.getChildCount(); i++) {
+            kids.add(answerarea.getChildAt(i));
+        }
+        answerarea.removeAllViews();
+
+        answerarea.setColumnCount(count);
+
+        for (View k: kids) {
+            k.setLayoutParams(new GridLayout.LayoutParams());
+            answerarea.addView(k);
+        }
     }
 
     @Override
