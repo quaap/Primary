@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.quaap.primary.math.BasicMathMenuActivity"
+    tools:context="com.quaap.primary.base.SubjectMenuActivity"
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
     android:id="@+id/subject_menu_layout">

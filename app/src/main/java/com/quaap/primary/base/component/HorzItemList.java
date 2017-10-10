@@ -102,7 +102,7 @@ public abstract class HorzItemList {
             @Override
             public void onClick(View view) {
                 setSelected(view);
-                onItemClicked(mListItemsRev.get(view), (LinearLayout) view);
+                onItemClicked(mListItemsRev.get((ViewGroup)view), (LinearLayout) view);
             }
         });
         item.setTag(key);
@@ -219,7 +219,7 @@ public abstract class HorzItemList {
     }
 
     private void setSelected(View item) {
-        setSelected(mListItemsRev.get(item));
+        setSelected(mListItemsRev.get((ViewGroup)item));
     }
 
 //    private void focusChild(final HorizontalScrollView scroll, final View view) {

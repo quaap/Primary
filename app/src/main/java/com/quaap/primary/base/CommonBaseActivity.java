@@ -1,6 +1,7 @@
 package com.quaap.primary.base;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ import com.quaap.primary.SettingsActivity;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+@SuppressLint("Registered")
 public class CommonBaseActivity extends AppCompatActivity {
 
     // Things here are common to ALL activities.
