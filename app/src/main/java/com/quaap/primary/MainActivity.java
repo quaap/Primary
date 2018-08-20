@@ -363,8 +363,8 @@ public class MainActivity extends CommonBaseActivity {
 
         if (username != null) {
             appdata.deleteUser(username);
-
             userlist.removeItem(username);
+            selectUser(null);
             populateAvatarSpinner();
             updateSubjectList();
         }
