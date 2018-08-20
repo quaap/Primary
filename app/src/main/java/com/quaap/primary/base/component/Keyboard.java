@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.os.Build;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quaap.primary.R;
@@ -108,7 +111,9 @@ public class Keyboard {
         }
 
         parentlayout.removeAllViews();
-        GridLayout glayout = new GridLayout(mContext);
+        LinearLayout glayout = new LinearLayout(mContext);
+        glayout.setOrientation(LinearLayout.VERTICAL);
+        glayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         glayout.setBackgroundColor(Color.WHITE);
         glayout.setPadding(2, 2, 2, 2);
 
@@ -119,36 +124,51 @@ public class Keyboard {
 
         int cols = keys.length / rows;
         if (keys.length % 2 != 0) cols += 1;
-        glayout.setColumnCount(cols);
 
-        float xfac = .95f;
-        int orientation = mContext.getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            xfac = .83f;
-        }
+//        float xfac = .95f;
+//        int orientation = mContext.getResources().getConfiguration().orientation;
+//        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            xfac = .83f;
+//        }
 
-        int keywidth = (int) (size.x / cols * xfac);
-        int keyheight = (int) (keywidth * 1.4);
-
-        if (keyheight > 100) keyheight = 100;
+//        int keywidth = (int) (size.x / cols * xfac);
+//        int keyheight = (int) (keywidth * 1.4);
+//
+//        if (keyheight > 100) keyheight = 100;
 
         System.out.println("size: " + size.x + ", " + size.y);
 
+        LinearLayout rowlayout = new LinearLayout(mContext);
+        rowlayout.setOrientation(LinearLayout.HORIZONTAL);
+        glayout.addView(rowlayout);
+        int num=0;
         for (String k : keys) {
+
+            if (num++ % cols == 0) {
+                rowlayout = new LinearLayout(mContext);
+                rowlayout.setOrientation(LinearLayout.HORIZONTAL);
+                glayout.addView(rowlayout);
+            }
+
             if (mKeyMap.containsKey(k)) {
                 k = mKeyMap.get(k);
             }
 
             TextView key = new TextView(mContext);
+
+            key.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+
             key.setClickable(true);
             key.setPadding(4, 4, 4, 4);
             key.setGravity(Gravity.CENTER);
             key.setBackgroundResource(android.R.drawable.btn_default_small);
-            key.setTextSize((int) (keyheight / 3.5));
-            key.setMinimumWidth(0);
-            key.setMinimumHeight(0);
-            key.setHeight(keyheight);
-            key.setWidth(keywidth);
+            //key.setTextSize((int) (keyheight / 3.5));
+            key.setTextSize(TypedValue.COMPLEX_UNIT_DIP,18);
+            key.setTypeface(null, Typeface.BOLD);
+            //key.setMinimumWidth(0);
+            //key.setMinimumHeight(0);
+            //key.setHeight(keyheight);
+            //key.setWidth(keywidth);
 
             if (k.equals(KEY_BACKSP)) {
                 key.setText("\u2190");
@@ -179,7 +199,7 @@ public class Keyboard {
 
                 }
             });
-            glayout.addView(key);
+            rowlayout.addView(key);
         }
 
         parentlayout.addView(glayout);
