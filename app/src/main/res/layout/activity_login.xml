@@ -77,14 +77,14 @@
             android:visibility="gone">
 
             <EditText
+                android:id="@+id/username_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords|textPersonName"
-                android:ems="10"
-                android:id="@+id/username_input"
                 android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:ems="10"
                 android:hint="@string/name"
-                android:layout_weight="1" />
+                android:inputType="textCapWords|textPersonName" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -109,19 +109,21 @@
             </LinearLayout>
 
             <Button
-                android:text="@string/add"
+                android:id="@+id/user_added_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/user_added_button"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:imeOptions="actionDone"
+                android:text="@string/add" />
 
             <Button
-                android:text="@string/update_avatar"
+                android:id="@+id/user_change_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/user_change_button"
-                android:visibility="gone"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:imeOptions="actionDone"
+                android:text="@string/update_avatar"
+                android:visibility="gone" />
 
         </LinearLayout>
 

@@ -25,6 +25,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -280,7 +281,11 @@ public class MainActivity extends CommonBaseActivity {
             public void onClick(View view) {
                 Spinner avatarspinner = (Spinner) findViewById(R.id.user_avatar_spinner);
                 EditText newnamebox = (EditText) findViewById(R.id.username_input);
+
                 String newname = newnamebox.getText().toString();
+
+                newname = newname.replaceAll("[/\\\\$:;(){}\\[\\]]", "_");
+
                 if (new_user_shown) {
                     newname = newname.trim();
                     if (newname.length() < 1) {
@@ -293,6 +298,7 @@ public class MainActivity extends CommonBaseActivity {
                     }
                     UserData user = addUser(newname, (String) avatarspinner.getSelectedItem());
                     if (user != null) {
+                        goAwayKeys(newnamebox);
                         userlist.addItem(newname);
                         //addUserToUserList(user);
                         selectUser(newname);
@@ -312,6 +318,9 @@ public class MainActivity extends CommonBaseActivity {
             @Override
             public void onClick(View view) {
                 EditText namebox = (EditText) findViewById(R.id.username_input);
+
+                goAwayKeys(namebox);
+
                 String username = namebox.getText().toString();
                 Spinner avatarspinner = (Spinner) findViewById(R.id.user_avatar_spinner);
 
@@ -322,12 +331,25 @@ public class MainActivity extends CommonBaseActivity {
                 txtavatar.setText(avatar);
                 showNewUserArea(false);
                 selectUser(username);
+
             }
         });
 
 
     }
 
+
+    private void goAwayKeys(EditText input) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+
+        if(imm!=null && imm.isAcceptingText()) { // verify if the soft keyboard is open
+            if (input!=null) {
+                imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
+            } else if (getCurrentFocus()!=null){
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            }
+        }
+    }
 
     private void populateAvatarSpinner() {
         populateAvatarSpinner(null);
