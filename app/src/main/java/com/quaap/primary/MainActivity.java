@@ -284,7 +284,7 @@ public class MainActivity extends CommonBaseActivity {
 
                 String newname = newnamebox.getText().toString();
 
-                newname = newname.replaceAll("[/\\\\$:;(){}\\[\\]]", "_");
+                newname = newname.replaceAll("[/\\\\$:;|\"'?{}\\[\\]<>]", "_");
 
                 if (new_user_shown) {
                     newname = newname.trim();
