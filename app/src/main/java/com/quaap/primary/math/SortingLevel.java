@@ -22,8 +22,8 @@ import com.quaap.primary.base.component.InputMode;
  * GNU General Public License for more details.
  */
 public class SortingLevel extends StdLevel {
-    private int mNumItems;
-    private int mMaxNum;
+    private final int mNumItems;
+    private final int mMaxNum;
 
     public SortingLevel(int subjectkey, int numItems, int maxNum, int rounds) {
         super(subjectkey, rounds, InputMode.None);

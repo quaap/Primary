@@ -41,7 +41,7 @@ public class SpellingActivity extends StdGameActivity
         SubjectBaseActivity.AnswerTypedListener {
 
 
-    final protected Handler handler = new Handler();
+    private final Handler handler = new Handler();
     private final int numanswers = 4;
     private TextToVoice v;
     private List<String> words;
@@ -69,7 +69,7 @@ public class SpellingActivity extends StdGameActivity
         super.onCreate(savedInstanceState);
 
 
-        Button b = (Button) findViewById(R.id.btn_repeat);
+        Button b = findViewById(R.id.btn_repeat);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,7 +102,7 @@ public class SpellingActivity extends StdGameActivity
 
 
         if (isLandscape()) {
-            LinearLayout spelling_problem_area = (LinearLayout) findViewById(R.id.spelling_problem_area);
+            LinearLayout spelling_problem_area = findViewById(R.id.spelling_problem_area);
             spelling_problem_area.setOrientation(LinearLayout.HORIZONTAL);
         }
 
@@ -213,7 +213,7 @@ public class SpellingActivity extends StdGameActivity
         Log.d("sp1", "onVoiceReady called");
     }
 
-    protected void setWeReady() {
+    private void setWeReady() {
         findViewById(R.id.spelling_problem_area).setVisibility(View.VISIBLE);
         findViewById(R.id.spell_loading).setVisibility(View.GONE);
         setReadyForProblem(true);
@@ -242,7 +242,7 @@ public class SpellingActivity extends StdGameActivity
 
     @Override
     protected void onPerformHint(int hintTick) {
-        final TextView hint = (TextView) findViewById(R.id.spell_hint);
+        final TextView hint = findViewById(R.id.spell_hint);
         if (hintTick < word.length()) {
 
 
@@ -264,7 +264,7 @@ public class SpellingActivity extends StdGameActivity
 
     }
 
-    protected List<String> getAnswerChoices(String realanswer) {
+    private List<String> getAnswerChoices(String realanswer) {
         List<String> answers = new ArrayList<>();
         int maxtries = unspellMap.length;
         int tries;
@@ -285,7 +285,7 @@ public class SpellingActivity extends StdGameActivity
     }
 
 
-    public String unspell(String word) {
+    private String unspell(String word) {
 
         for (int j = 0; j < 1; j++) {
             int i = ((int) (Math.random() * ((unspellMap.length - 1) / 2)) * 2);

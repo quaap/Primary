@@ -41,7 +41,7 @@ public class ScoresActivity extends CommonBaseActivity {
 
         //ViewGroup scroll = (ViewGroup) findViewById(R.id.scores_scroll);
 
-        LinearLayout list = (LinearLayout) findViewById(R.id.scores_list);
+        LinearLayout list = findViewById(R.id.scores_list);
 
         subjects = Subjects.getInstance(this);
 

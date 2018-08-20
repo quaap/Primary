@@ -32,10 +32,10 @@ import static android.content.Context.MODE_PRIVATE;
 public class AppData {
 
     private static final String USERS_KEY = "users";
-    private SharedPreferences mPrefs;
+    private final SharedPreferences mPrefs;
 
-    private Context mContext;
-    private Map<String, UserData> users = new HashMap<>();
+    private final Context mContext;
+    private final Map<String, UserData> users = new HashMap<>();
 
     private AppData(Context context) {
         mContext = context;
@@ -95,7 +95,7 @@ public class AppData {
         return user;
     }
 
-    public boolean avatarInUse(String avatar) {
+    private boolean avatarInUse(String avatar) {
         return mPrefs.getBoolean("avatar:" + avatar, false);
     }
 

@@ -24,10 +24,10 @@ public abstract class Level {
 
     private final static Map<Integer, Integer> nextlevelnum = new HashMap<>();
     private final int mRounds;
-    protected int mLevel;
-    private int mSubjectkey;
+    private final int mLevel;
+    private final int mSubjectkey;
 
-    protected Level(int subjectkey, int rounds) {
+    Level(int subjectkey, int rounds) {
         mSubjectkey = subjectkey;
         mRounds = rounds;
         synchronized (nextlevelnum) {

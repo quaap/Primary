@@ -14,20 +14,20 @@ import java.io.IOException;
 
 public class NounCleanActivity extends AppCompatActivity {
 
-    String [] plurals;
-    File outdir;
-    FileWriter badpluralsfile;
-    FileWriter goodpluralsfile;
+    private String [] plurals;
+    private File outdir;
+    private FileWriter badpluralsfile;
+    private FileWriter goodpluralsfile;
 
-    int onval = 0;
+    private int onval = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_noun_clean);
 
-        Button good = (Button)findViewById(R.id.noun_clean_good);
-        Button bad = (Button)findViewById(R.id.noun_clean_bad);
+        Button good = findViewById(R.id.noun_clean_good);
+        Button bad = findViewById(R.id.noun_clean_bad);
 
 
 
@@ -74,8 +74,8 @@ public class NounCleanActivity extends AppCompatActivity {
 
 
     private void loadNextPlural() {
-        TextView noun = (TextView)findViewById(R.id.noun_clean_noun);
-        TextView plural = (TextView)findViewById(R.id.noun_clean_plural);
+        TextView noun = findViewById(R.id.noun_clean_noun);
+        TextView plural = findViewById(R.id.noun_clean_plural);
 
 
         noun.setText(plurals[onval]);

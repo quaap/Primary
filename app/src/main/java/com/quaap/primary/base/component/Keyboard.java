@@ -1,7 +1,6 @@
 package com.quaap.primary.base.component;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -42,17 +40,17 @@ import java.util.Map;
 public class Keyboard {
 
 
-    private static String KEY_BACKSP = "\u0008";
-    private static String KEY_DONE = "\n";
-    private Context mContext;
+    private static final String KEY_BACKSP = "\u0008";
+    private static final String KEY_DONE = "\n";
+    private final Context mContext;
 
-    private Map<String,String> mKeyMap = new HashMap<>();
+    private final Map<String,String> mKeyMap = new HashMap<>();
 
-    public Keyboard(Context context) {
+    private Keyboard(Context context) {
         mContext = context;
     }
 
-    public Keyboard(Context context, Map<String,String> keyMap ) {
+    private Keyboard(Context context, Map<String, String> keyMap) {
         mContext = context;
         mKeyMap.putAll(keyMap);
     }
@@ -79,7 +77,7 @@ public class Keyboard {
 
     }
 
-    protected void showKeyboard(final EditText editText, ViewGroup parentlayout) {
+    private void showKeyboard(final EditText editText, ViewGroup parentlayout) {
         String[] keys = mContext.getResources().getStringArray(R.array.keyboard_keys);
         int rows = mContext.getResources().getInteger(R.integer.keyboard_rows);
 
@@ -87,14 +85,14 @@ public class Keyboard {
     }
 
 
-    protected void showNumberpad(final EditText editText, ViewGroup parentlayout) {
+    private void showNumberpad(final EditText editText, ViewGroup parentlayout) {
         String[] keys = mContext.getResources().getStringArray(R.array.keypad_keys);
         int rows = mContext.getResources().getInteger(R.integer.keypad_rows);
 
         showKeys(editText, parentlayout, keys, rows);
     }
 
-    protected void showKeys(final EditText editText, ViewGroup parentlayout, String[] keys, int rows) {
+    private void showKeys(final EditText editText, ViewGroup parentlayout, String[] keys, int rows) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             editText.setShowSoftInputOnFocus(false);
@@ -102,7 +100,7 @@ public class Keyboard {
             try {
                 final Method method = EditText.class.getMethod(
                         "setShowSoftInputOnFocus"
-                        , new Class[]{boolean.class});
+                        , boolean.class);
                 method.setAccessible(true);
                 method.invoke(editText, false);
             } catch (Exception e) {

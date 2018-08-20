@@ -68,18 +68,18 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     public static final String LEVELNUM = "levelnum";
     public static final String START_AT_ZERO = "startover";
-    public static final int PROB_START_PREDELAY = 500;
-    public static final int PROB_START_POSTDELAY = 500;
-    public static final int STATUS_TIMEOUT = 1400;
-    public static final int ONWRONG_DELAY = 1000;
-    protected static int INPUTTYPE_TEXT = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_CLASS_TEXT;
-    protected static int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL;
-    protected static int INPUTTYPE_TIME = InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_TIME;
+    private static final int PROB_START_PREDELAY = 500;
+    private static final int PROB_START_POSTDELAY = 500;
+    private static final int STATUS_TIMEOUT = 1400;
+    private static final int ONWRONG_DELAY = 1000;
+    protected static final int INPUTTYPE_TEXT = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_CLASS_TEXT;
+    protected static final int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL;
+    protected static final int INPUTTYPE_TIME = InputType.TYPE_CLASS_DATETIME | InputType.TYPE_DATETIME_VARIATION_TIME;
     final protected Handler handler = new Handler();
     private final int layoutId;
     protected int correct = 0;
-    protected int incorrect = 0;
-    protected int levelnum = 0;
+    private int incorrect = 0;
+    private int levelnum = 0;
     private UserData.Subject mSubjectData;
     private int highestLevelnum = 0;
     private int totalCorrect = 0;
@@ -93,7 +93,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     private String bonuses;
     private Subjects.Desc mSubject;
     private String mSubjectCode;
-    private int[] fasttimes = {1000, 2000, 3000};
+    private final int[] fasttimes = {1000, 2000, 3000};
     private Level[] levels;
     private String username;
     private boolean startover;
@@ -132,7 +132,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         return levels[levelnum];
     }
 
-    protected void showProb() {
+    private void showProb() {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -342,7 +342,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         return mSubjectData.getValue(name + LDKEY + levelnum, stringlist);
     }
 
-    protected void deleteLevelKeys() {
+    private void deleteLevelKeys() {
         Set<String> keys = mSubjectData.getKeys("^.*" + LDKEY + levelnum + "$");
         for (String key: keys) {
             mSubjectData.deleteValue(key);
@@ -353,7 +353,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         return join(sep, list.toArray());
     }
 
-    protected String join(String sep, Object... list) {
+    private String join(String sep, Object... list) {
         StringBuilder sb = new StringBuilder();
         boolean first = true;
         for (Object item : list) {
@@ -394,7 +394,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         answerlayout.removeAllViews();
         ViewGroup type_area = (ViewGroup) LayoutInflater.from(this).inflate(R.layout.typed_input, answerlayout);
 
-        final EditText uinput = (EditText) type_area.findViewById(R.id.uinput_edit);
+        final EditText uinput = type_area.findViewById(R.id.uinput_edit);
 
 
         if ((inputttpe & InputType.TYPE_CLASS_NUMBER) == InputType.TYPE_CLASS_NUMBER) {
@@ -431,8 +431,8 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
                     }
                 });
 
-        Button clear = (Button) type_area.findViewById(R.id.uinput_clear);
-        Button done = (Button) type_area.findViewById(R.id.uinput_done);
+        Button clear = type_area.findViewById(R.id.uinput_clear);
+        Button done = type_area.findViewById(R.id.uinput_done);
         if (keypadarea == null) {
             clear.setVisibility(View.VISIBLE);
             done.setVisibility(View.VISIBLE);
@@ -462,13 +462,13 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         showSoftKeyboard(uinput, keypadarea, defaultInput);
     }
 
-    private Map<String,String> mNumpadkeyMap = new TreeMap<>();
+    private final Map<String,String> mNumpadkeyMap = new TreeMap<>();
 
     protected void addToNumpadKeyMap(String orig, String repacement) {
         mNumpadkeyMap.put(orig, repacement);
     }
 
-    private Map<String,String> mKeyboardkeyMap = new TreeMap<>();
+    private final Map<String,String> mKeyboardkeyMap = new TreeMap<>();
 
     protected void addToKeyboardKeyMap(String orig, String repacement) {
         mKeyboardkeyMap.put(orig, repacement);
@@ -549,7 +549,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         return text.substring(0, 1).toUpperCase(Locale.getDefault()) + (text.length() > 1 ? text.substring(1) : "");
     }
 
-    protected void showSoftKeyboard(final EditText view, ViewGroup keypadarea, String defaultInput) {
+    private void showSoftKeyboard(final EditText view, ViewGroup keypadarea, String defaultInput) {
 
         view.clearFocus();
 
@@ -579,7 +579,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     }
 
-    protected void showSystemKeyboard(final EditText view) {
+    private void showSystemKeyboard(final EditText view) {
         view.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -669,7 +669,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         return levelnum+1;
     }
 
-    protected void answerDone(boolean isright, String problem, String answer, String useranswer) {
+    void answerDone(boolean isright, String problem, String answer, String useranswer) {
 
 
         if (!isright) {
@@ -735,7 +735,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     private void showLevelCompletePopup(boolean alldone) {
         final LinearLayout levelcompleteView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.level_complete, null);
 
-        TextView lc = (TextView) levelcompleteView.findViewById(R.id.level_complete_text);
+        TextView lc = levelcompleteView.findViewById(R.id.level_complete_text);
         lc.setText(getString(R.string.level_complete, getLevel(levelnum).getLevelNum()));
 
         Point size = getScreenSize();
@@ -801,7 +801,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     }
 
-    public void repeatLevel() {
+    private void repeatLevel() {
         saveGameData();
         correct = 0;
         incorrect = 0;
@@ -811,7 +811,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
     }
 
 
-    public void nextLevel() {
+    private void nextLevel() {
         levelnum++;
         saveGameData();
         setLevelFields();
@@ -821,7 +821,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     }
 
-    public void goBackToMain() {
+    private void goBackToMain() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(MainActivity.LEVELSETDONE, true);
         startActivity(intent);
@@ -871,31 +871,31 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
 
     private void setLevelFields() {
-        TextView leveltxt = (TextView) findViewById(R.id.level);
+        TextView leveltxt = findViewById(R.id.level);
         leveltxt.setText(getString(R.string.level, getLevel(levelnum).getLevelNum()));
 
-        TextView leveldesc = (TextView) findViewById(R.id.level_desc);
+        TextView leveldesc = findViewById(R.id.level_desc);
         leveldesc.setText(getLevel(levelnum).getShortDescription(this));
 
-        TextView correcttxt = (TextView) findViewById(R.id.correct);
+        TextView correcttxt = findViewById(R.id.correct);
 
         correcttxt.setText(String.format(Locale.getDefault(), "%d", getLevel(levelnum).getRounds() - correct));
 
 
-        TextView scoretxt = (TextView) findViewById(R.id.score);
+        TextView scoretxt = findViewById(R.id.score);
         scoretxt.setText(getCurrentPercent());
 
 
-        TextView total_ratio = (TextView) findViewById(R.id.total_ratio);
+        TextView total_ratio = findViewById(R.id.total_ratio);
         total_ratio.setText(String.format(Locale.getDefault(), "%d / %d", totalCorrect, totalCorrect + totalIncorrect));
 
-        TextView todayscore_txt = (TextView) findViewById(R.id.todayscore);
+        TextView todayscore_txt = findViewById(R.id.todayscore);
         todayscore_txt.setText(String.format(Locale.getDefault(), "%d", todaysScore));
 
-        TextView tscore_txt = (TextView) findViewById(R.id.tscore);
+        TextView tscore_txt = findViewById(R.id.tscore);
         tscore_txt.setText(String.format(Locale.getDefault(), "%d", tscore));
 
-        TextView bonusestxt = (TextView) findViewById(R.id.bonuses);
+        TextView bonusestxt = findViewById(R.id.bonuses);
         bonusestxt.setText(bonuses);
     }
 
@@ -929,16 +929,16 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
 
     }
 
-    protected void onDeleteLevelValues() {
+    private void onDeleteLevelValues() {
         deleteLevelKeys();
     }
 
-    public boolean isLandscape() {
+    protected boolean isLandscape() {
         int orientation = getResources().getConfiguration().orientation;
         return orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
-    public Point getScreenSize() {
+    protected Point getScreenSize() {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -949,7 +949,7 @@ public abstract class SubjectBaseActivity extends CommonBaseActivity {
         useInARow = use;
     }
 
-    protected SoundEffects getSoundEffects() {
+    SoundEffects getSoundEffects() {
         return soundEffects;
     }
 

@@ -29,10 +29,10 @@ import java.util.Map;
 public class Subjects {
 
     private static Subjects inst;
-    private Desc[] subjects;
-    private Map<String, Desc> subjectMap = new HashMap<>();
-    private List<String> codes = new ArrayList<>();
-    public Subjects(Context context) {
+    private final Desc[] subjects;
+    private final Map<String, Desc> subjectMap = new HashMap<>();
+    private final List<String> codes = new ArrayList<>();
+    private Subjects(Context context) {
         subjects = loadSubjects(context);
         for (Desc subject : subjects) {
             subjectMap.put(subject.getCode(), subject);
@@ -47,7 +47,7 @@ public class Subjects {
         return inst;
     }
 
-    public static Desc[] loadSubjects(Context context) {
+    private static Desc[] loadSubjects(Context context) {
 
         return Levels.getSubjectInstances(context);
     }
@@ -87,7 +87,7 @@ public class Subjects {
         private Class activityclass;
 
 
-        private Level[] levels;
+        private final Level[] levels;
 
         public Desc(Context context, SubjectGroup group, int code, int name, int desc, Class activityClass, Level[] levels) {
             this.setGroup(group);
@@ -103,7 +103,7 @@ public class Subjects {
             return code;
         }
 
-        public void setCode(String code) {
+        void setCode(String code) {
             this.code = code;
         }
 
@@ -111,7 +111,7 @@ public class Subjects {
             return name;
         }
 
-        public void setName(String name) {
+        void setName(String name) {
             this.name = name;
         }
 
@@ -119,7 +119,7 @@ public class Subjects {
             return desc;
         }
 
-        public void setDesc(String desc) {
+        void setDesc(String desc) {
             this.desc = desc;
         }
 
@@ -127,7 +127,7 @@ public class Subjects {
             return activityclass;
         }
 
-        public void setActivityclass(Class activityclass) {
+        void setActivityclass(Class activityclass) {
             this.activityclass = activityclass;
         }
 
@@ -139,7 +139,7 @@ public class Subjects {
             return group;
         }
 
-        public void setGroup(SubjectGroup group) {
+        void setGroup(SubjectGroup group) {
             this.group = group;
         }
 

@@ -29,9 +29,9 @@ public enum SubjectGroup {
     Art("Ar", R.string.group_ar, R.color.group_color_ar);
 
 
-    private String mCode;
-    private int mResId;
-    private int mColorResId;
+    private final String mCode;
+    private final int mResId;
+    private final int mColorResId;
 
     SubjectGroup(String code, int resId, int colorResId) {
         mCode = code;

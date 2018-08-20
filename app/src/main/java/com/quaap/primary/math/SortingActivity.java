@@ -39,7 +39,7 @@ import java.util.TreeSet;
 public class SortingActivity extends StdGameActivity implements
         View.OnTouchListener, View.OnDragListener {
 
-    public static final int BACKGROUND_COLOR = Color.rgb(200, 200, 200);
+    private static final int BACKGROUND_COLOR = Color.rgb(200, 200, 200);
 
     private List<Integer> numlist;
     private boolean problemDone = false;
@@ -62,7 +62,7 @@ public class SortingActivity extends StdGameActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-        GridLayout sortArea = (GridLayout) findViewById(R.id.sort_area);
+        GridLayout sortArea = findViewById(R.id.sort_area);
         if (isLandscape()) {
             numcolumns = 6;
         } else {
@@ -71,7 +71,7 @@ public class SortingActivity extends StdGameActivity implements
         sortArea.setColumnCount(numcolumns);
 
         //override super class
-        LinearLayout centercol = (LinearLayout) findViewById(R.id.centercol);
+        LinearLayout centercol = findViewById(R.id.centercol);
         centercol.setOrientation(LinearLayout.VERTICAL);
 
 
@@ -82,7 +82,7 @@ public class SortingActivity extends StdGameActivity implements
 
     @Override
     protected void onShowProbImpl() {
-        GridLayout sortArea = (GridLayout) findViewById(R.id.sort_area);
+        GridLayout sortArea = findViewById(R.id.sort_area);
         sortArea.removeAllViews();
 
         sortArea.setOnDragListener(this);
@@ -224,7 +224,7 @@ public class SortingActivity extends StdGameActivity implements
 
     private void checkDone() {
         if (!problemDone) {
-            final GridLayout sortArea = (GridLayout) findViewById(R.id.sort_area);
+            final GridLayout sortArea = findViewById(R.id.sort_area);
 
             boolean sorted = true;
 
@@ -311,7 +311,7 @@ public class SortingActivity extends StdGameActivity implements
     }
 
     private void markSorted() {
-        final GridLayout sortArea = (GridLayout) findViewById(R.id.sort_area);
+        final GridLayout sortArea = findViewById(R.id.sort_area);
 
         for (int i = 0; i < sortArea.getChildCount() - 1; i++) {
             int num1 = (int) sortArea.getChildAt(i).getTag();

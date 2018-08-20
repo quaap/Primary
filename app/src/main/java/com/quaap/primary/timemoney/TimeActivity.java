@@ -65,7 +65,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
             mClockwidth *=.8;
             TimeLevel level = (TimeLevel)getLevel();
             if (level.getInputMode() == InputMode.Input) {
-                LinearLayout meta_center = (LinearLayout) findViewById(R.id.meta_center);
+                LinearLayout meta_center = findViewById(R.id.meta_center);
                 meta_center.setOrientation(LinearLayout.HORIZONTAL);
             }
         }
@@ -81,7 +81,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         clearSeenProblem();
         TimeLevel level = (TimeLevel)getLevel();
         if (level.useFuzzy() && level.getMinuteGranularity()== TimeLevel.MinuteGranularity.One) {
-            TextView t = (TextView)findViewById(R.id.txt_time_header);
+            TextView t = findViewById(R.id.txt_time_header);
             t.setText(R.string.fuzzy_closest_message);
         }
 
@@ -113,7 +113,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         TimeLevel level = (TimeLevel)getLevel();
         Bitmap bitmap = getClockBitmap(mHour, mMinute);
 
-        ImageView timeimage = (ImageView) findViewById(R.id.timeimage);
+        ImageView timeimage = findViewById(R.id.timeimage);
         timeimage.setImageBitmap(bitmap);
 
         List<String> answers = getAnswers(level);
@@ -126,7 +126,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
             makeInputBox(getAnswerArea(), getKeysArea(), this, INPUTTYPE_TIME, 3, 0);
             startHint(level.getLevelNum()+1);
         }
-        TextView timeHint = (TextView) findViewById(R.id.timeHint);
+        TextView timeHint = findViewById(R.id.timeHint);
         timeHint.setText("");
 
     }
@@ -229,7 +229,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
     protected void onPerformHint(int hintTick) {
         String time = formatTime(mHour,mMinute);
         if (hintTick <time.length()) {
-            TextView timeHint = (TextView) findViewById(R.id.timeHint);
+            TextView timeHint = findViewById(R.id.timeHint);
             timeHint.setText(time.substring(0, hintTick+1));
         }
         super.onPerformHint(hintTick);
@@ -304,7 +304,7 @@ public class TimeActivity extends StdGameActivity implements SubjectBaseActivity
         return super.onCalculatePoints() * 50 * (level.getMinuteGranularity().ordinal()+1);
     }
 
-    public String formatTime(int hour, int minute) {
+    private String formatTime(int hour, int minute) {
         String time = String.format(Locale.getDefault(),"%d:%02d", hour, minute);
         TimeLevel level = (TimeLevel)getLevel();
         if (level.useFuzzy()) {

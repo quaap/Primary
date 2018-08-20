@@ -27,7 +27,7 @@ import java.util.Locale;
  */
 public class TextToVoice implements TextToSpeech.OnInitListener {
     private TextToSpeech mTts = null;
-    private Context mContext;
+    private final Context mContext;
     private boolean isInit = false;
 
     private float mPitch = .8f;
@@ -125,7 +125,7 @@ public class TextToVoice implements TextToSpeech.OnInitListener {
         return mPitch;
     }
 
-    public void setPitch(float pitch) {
+    private void setPitch(float pitch) {
         mPitch = pitch;
         mTts.setPitch(pitch);
     }
@@ -134,7 +134,7 @@ public class TextToVoice implements TextToSpeech.OnInitListener {
         return mSpeed;
     }
 
-    public void setSpeed(float speed) {
+    private void setSpeed(float speed) {
         mSpeed = speed;
         mTts.setSpeechRate(speed);
     }

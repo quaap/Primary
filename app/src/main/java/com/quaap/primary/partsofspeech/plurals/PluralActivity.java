@@ -92,7 +92,7 @@ public class PluralActivity extends StdGameActivity
 
         super.onResume();
         if (isLandscape() && ((StdLevel) getLevel()).getInputMode() == InputMode.Input) {
-            LinearLayout problem_area = (LinearLayout) findViewById(R.id.problem_area);
+            LinearLayout problem_area = findViewById(R.id.problem_area);
             problem_area.setOrientation(LinearLayout.HORIZONTAL);
         }
 
@@ -138,11 +138,11 @@ public class PluralActivity extends StdGameActivity
         answer = pluralsMap.get(word);
         Log.d("plural", word + " -> " + answer);
 
-        TextView plural = (TextView) findViewById(R.id.txtplural);
+        TextView plural = findViewById(R.id.txtplural);
         plural.setText(capitalize(word));
 
 
-        final TextView hint = (TextView) findViewById(R.id.plurHint);
+        final TextView hint = findViewById(R.id.plurHint);
         hint.setText("");
 
         if (level.getInputMode() == InputMode.Buttons) {
@@ -203,7 +203,7 @@ public class PluralActivity extends StdGameActivity
     }
 
 
-    protected List<String> getAnswerChoices(String realanswer) {
+    private List<String> getAnswerChoices(String realanswer) {
         List<String> answers = new ArrayList<>();
         answers.add(realanswer);
         int maxtries = unpluralMap.length;
@@ -226,7 +226,7 @@ public class PluralActivity extends StdGameActivity
 
     @Override
     protected void onPerformHint(int hintTick) {
-        final TextView hint = (TextView) findViewById(R.id.plurHint);
+        final TextView hint = findViewById(R.id.plurHint);
         if (hintTick < answer.length()) {
 
             hint.setText(answer.substring(0, hintTick+1));
@@ -238,7 +238,7 @@ public class PluralActivity extends StdGameActivity
 
     }
 
-    public String unplural(String word) {
+    private String unplural(String word) {
 
         for (int j = 0; j < 1; j++) {
             int i = ((int) (Math.random() * ((unpluralMap.length - 1) / 2)) * 2);

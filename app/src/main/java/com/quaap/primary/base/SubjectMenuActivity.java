@@ -94,11 +94,11 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
         setContentView(R.layout.activity_subject_menu);
 
 
-        Button resume_button = (Button) findViewById(R.id.resume_button);
+        Button resume_button = findViewById(R.id.resume_button);
         resume_button.setTag(-1);
         resume_button.setOnClickListener(this);
 
-        Button clear_button = (Button) findViewById(R.id.clear_button);
+        Button clear_button = findViewById(R.id.clear_button);
         clear_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,7 +167,7 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
     private void showLevelButtons() {
         int highest = mUserData.getSubjectForUser(mSubjectCode).getHighestLevelNum();
 
-        LinearLayout button_layout = (LinearLayout) findViewById(R.id.button_layout);
+        LinearLayout button_layout = findViewById(R.id.button_layout);
 
         button_layout.removeAllViews();
 
@@ -207,8 +207,8 @@ public class SubjectMenuActivity extends CommonBaseActivity implements Button.On
     }
 
     private void show_hide_gip() {
-        LinearLayout gip_layout = (LinearLayout) findViewById(R.id.gip_layout);
-        TextView score_overview = (TextView) findViewById(R.id.score_overview);
+        LinearLayout gip_layout = findViewById(R.id.gip_layout);
+        TextView score_overview = findViewById(R.id.score_overview);
         if (mSubjectData.getLevelNum() == -1) {
             gip_layout.setVisibility(View.GONE);
             score_overview.setText(" ");

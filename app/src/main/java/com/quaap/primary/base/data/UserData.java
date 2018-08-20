@@ -95,7 +95,7 @@ public class UserData {
         return mUsername;
     }
 
-    public void addSubjectStarted(String subject) {
+    private void addSubjectStarted(String subject) {
         Set<String> subjects = new TreeSet<>();
         subjects = mUserPrefs.getStringSet("subjects", subjects);
         subjects.add(subject);
@@ -140,8 +140,8 @@ public class UserData {
     public class Subject {
 
         private final static String PREFIX = "_extra_";
-        private SharedPreferences mSubjectPrefs;
-        private String mSubject;
+        private final SharedPreferences mSubjectPrefs;
+        private final String mSubject;
 
         private Subject(String subject) {
             mSubject = subject;

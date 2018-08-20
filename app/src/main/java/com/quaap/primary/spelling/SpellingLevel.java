@@ -23,8 +23,8 @@ import com.quaap.primary.base.component.InputMode;
  */
 public class SpellingLevel extends StdLevel {
 
-    private int mWordlistId;
-    private int mMaxwordlength;
+    private final int mWordlistId;
+    private final int mMaxwordlength;
 
 
     public SpellingLevel(int subjectkey, int wordlistid, int maxwordlength, int rounds, InputMode inputMode) {

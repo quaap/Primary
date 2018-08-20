@@ -30,20 +30,20 @@ public class TimeLevel extends StdLevel {
         Five(R.string.min_gran_five),
         One(R.string.min_gran_one);
 
-        private int mResId;
+        private final int mResId;
         MinuteGranularity(int resId) {
             mResId = resId;
         }
 
-        public String getString(Context context) {
+        String getString(Context context) {
             return context.getString(mResId);
         }
     }
     //public enum SecondGranularity {Minute, Half, Quarter, Five, One}
 
-    private MinuteGranularity mMinuteGranularity;
+    private final MinuteGranularity mMinuteGranularity;
 
-    private boolean mFuzzy;
+    private final boolean mFuzzy;
     public TimeLevel(int subjectkey, MinuteGranularity minGran, int rounds, InputMode inputMode) {
         this(subjectkey, minGran, rounds, inputMode, false);
     }

@@ -21,9 +21,9 @@ import com.quaap.primary.base.component.InputMode;
  * GNU General Public License for more details.
  */
 public abstract class StdLevel extends Level {
-    private InputMode mInputMode;
+    private final InputMode mInputMode;
 
-    public StdLevel(int subjectkey, int rounds, InputMode mInputMode) {
+    protected StdLevel(int subjectkey, int rounds, InputMode mInputMode) {
         super(subjectkey, rounds);
         this.mInputMode = mInputMode;
     }
@@ -33,7 +33,7 @@ public abstract class StdLevel extends Level {
         return mInputMode;
     }
 
-    public String getInputModeString(Context context) {
+    protected String getInputModeString(Context context) {
         return getInputMode() == InputMode.Buttons ? context.getString(R.string.disp_buttons) : context.getString(R.string.disp_input);
     }
 }

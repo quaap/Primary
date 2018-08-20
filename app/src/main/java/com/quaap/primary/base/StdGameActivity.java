@@ -39,7 +39,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
     // Things here are common to game activities which want ot use the standard layout.
 
-    private int mProblemView;
+    private final int mProblemView;
 
     private volatile Timer timer;
     private volatile TimerTask hinttask;
@@ -47,8 +47,8 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
     private volatile boolean showHint = false;
     private volatile int hintTick;
 
-    protected static final int BASE_HINT_TIME = 20000;
-    protected static final int BASE_HINT_REPEAT_TIME = 3000;
+    private static final int BASE_HINT_TIME = 20000;
+    private static final int BASE_HINT_REPEAT_TIME = 3000;
 
     public StdGameActivity(int problemView) {
         super(R.layout.std_game_layout);
@@ -58,7 +58,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewGroup probarea = (ViewGroup) findViewById(R.id.problem_area);
+        ViewGroup probarea = findViewById(R.id.problem_area);
 
         LayoutInflater.from(this).inflate(mProblemView, probarea);
 
@@ -92,8 +92,8 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        GridLayout answerarea = (GridLayout) findViewById(R.id.answer_area);
-        LinearLayout centercol = (LinearLayout) findViewById(R.id.centercol);
+        GridLayout answerarea = findViewById(R.id.answer_area);
+        LinearLayout centercol = findViewById(R.id.centercol);
         ActionBar actionBar = getSupportActionBar();
         if (isLandscape()) {
 
@@ -138,7 +138,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
     @Override
     protected void onSetStatus(String text) {
-        final TextView status = (TextView) findViewById(R.id.txtstatus);
+        final TextView status = findViewById(R.id.txtstatus);
         status.setText(text);
 
     }
@@ -193,7 +193,7 @@ public abstract class StdGameActivity extends SubjectBaseActivity {
 
     }
 
-    protected void startHint(int firstHintDelayMillis, int repeatHintDelaysMillis) {
+    private void startHint(int firstHintDelayMillis, int repeatHintDelaysMillis) {
 
         cancelHint();
 

@@ -67,12 +67,12 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
     @Override
     protected void onShowProbImpl() {
 
-        TextView txtMathHint = (TextView)findViewById(R.id.txtMathHint);
+        TextView txtMathHint = findViewById(R.id.txtMathHint);
         txtMathHint.setText("");
 
-        TextView num1txt = (TextView) findViewById(R.id.num1);
-        TextView num2txt = (TextView) findViewById(R.id.num2);
-        TextView optxt = (TextView) findViewById(R.id.op);
+        TextView num1txt = findViewById(R.id.num1);
+        TextView num2txt = findViewById(R.id.num2);
+        TextView optxt = findViewById(R.id.op);
 
         num1 = getSavedLevelValue("num1", Integer.MIN_VALUE);
         num2 = getSavedLevelValue("num2", Integer.MIN_VALUE);
@@ -116,7 +116,7 @@ public class BasicMathActivity extends StdGameActivity implements SubjectBaseAct
     protected void onPerformHint(int hintTick) {
         String a = answer+"";
         if (hintTick <a.length()){
-            TextView txtMathHint = (TextView)findViewById(R.id.txtMathHint);
+            TextView txtMathHint = findViewById(R.id.txtMathHint);
             txtMathHint.setText(a.substring(0, hintTick+1));
         }
         super.onPerformHint(hintTick);

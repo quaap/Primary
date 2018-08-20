@@ -38,12 +38,12 @@ public abstract class HorzItemList {
 
 
     private final int normalColor = Color.argb(64, 200, 200, 200);
-    private Activity mParent;
-    private int mItemLayoutId;
-    private View mHorzList;
-    private LinearLayout mItemsListView;
-    private Map<String, ViewGroup> mListItems = new HashMap<>();
-    private Map<ViewGroup, String> mListItemsRev = new HashMap<>();
+    private final Activity mParent;
+    private final int mItemLayoutId;
+    private final View mHorzList;
+    private final LinearLayout mItemsListView;
+    private final Map<String, ViewGroup> mListItems = new HashMap<>();
+    private final Map<ViewGroup, String> mListItemsRev = new HashMap<>();
     private String selected;
 
     public HorzItemList(Activity parent, int includeID, int itemLayoutId) {
@@ -56,8 +56,8 @@ public abstract class HorzItemList {
         mItemLayoutId = itemLayoutId;
 
         mHorzList = parent.findViewById(includeID);
-        mItemsListView = (LinearLayout) mHorzList.findViewById(R.id.items_list_area);
-        ImageView newbutton = (ImageView) mHorzList.findViewById(R.id.add_list_item_button);
+        mItemsListView = mHorzList.findViewById(R.id.items_list_area);
+        ImageView newbutton = mHorzList.findViewById(R.id.add_list_item_button);
         newbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,11 +83,11 @@ public abstract class HorzItemList {
         return addItem(-1, key);
     }
 
-    public ViewGroup addItem(int pos, String key) {
+    private ViewGroup addItem(int pos, String key) {
         if (mListItems.containsKey(key)) {
             return mListItems.get(key);
         }
-        ViewGroup item = (ViewGroup) LayoutInflater.from(mParent).inflate(mItemLayoutId, (ViewGroup) null);
+        ViewGroup item = (ViewGroup) LayoutInflater.from(mParent).inflate(mItemLayoutId, null);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.setMargins(10, 10, 10, 10);
         item.setLayoutParams(lp);
@@ -102,7 +102,7 @@ public abstract class HorzItemList {
             @Override
             public void onClick(View view) {
                 setSelected(view);
-                onItemClicked(mListItemsRev.get((ViewGroup)view), (LinearLayout) view);
+                onItemClicked(mListItemsRev.get(view), (LinearLayout) view);
             }
         });
         item.setTag(key);
@@ -144,7 +144,7 @@ public abstract class HorzItemList {
     }
 
     public void setItemTextField(View item, int itemFieldId, String value) {
-        TextView itemfield = (TextView) item.findViewById(itemFieldId);
+        TextView itemfield = item.findViewById(itemFieldId);
         itemfield.setText(value);
     }
 
@@ -198,7 +198,7 @@ public abstract class HorzItemList {
         }
         selected = key;
         if (selected != null) {
-            HorizontalScrollView hsv = (HorizontalScrollView) mHorzList.findViewById(R.id.horz_list_scroller);
+            HorizontalScrollView hsv = mHorzList.findViewById(R.id.horz_list_scroller);
             View new_selected = mListItems.get(selected);
 //            boolean nextone = false;
 //            for (String sk: mListItems.keySet()) {
@@ -219,7 +219,7 @@ public abstract class HorzItemList {
     }
 
     private void setSelected(View item) {
-        setSelected(mListItemsRev.get((ViewGroup)item));
+        setSelected(mListItemsRev.get(item));
     }
 
 //    private void focusChild(final HorizontalScrollView scroll, final View view) {

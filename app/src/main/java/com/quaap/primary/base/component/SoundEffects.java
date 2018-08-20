@@ -32,9 +32,9 @@ import java.util.Map;
  */
 public class SoundEffects {
 
-    private SoundPool mSounds;
+    private final SoundPool mSounds;
 
-    private Map<Integer,Integer> mSoundIds = new HashMap<>();
+    private final Map<Integer,Integer> mSoundIds = new HashMap<>();
 
     private static final int GOODBING = 0;
     private static final int BADBING = 1;
@@ -63,7 +63,7 @@ public class SoundEffects {
             .3f,
     };
 
-    private SharedPreferences appPreferences;
+    private final SharedPreferences appPreferences;
 
     private volatile boolean mReady = false;
 

@@ -37,7 +37,7 @@ public class CommonBaseActivity extends AppCompatActivity {
 
     // Things here are common to ALL activities.
 
-    protected static final int REQUEST_WRITE_EXTERNAL_STORAGE = 121;
+    private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 121;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,7 +71,7 @@ public class CommonBaseActivity extends AppCompatActivity {
     }
 
 
-    protected boolean hasStorageAccess() {
+    boolean hasStorageAccess() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 

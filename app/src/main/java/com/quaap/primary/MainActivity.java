@@ -50,7 +50,7 @@ public class MainActivity extends CommonBaseActivity {
     public static final String USERNAME = "username";
     public static final String SUBJECTCODE = "subjectcode";
     public static final String LEVELSETDONE = "levelsetdone";
-    List<String> avatarlist = new ArrayList<>();
+    private List<String> avatarlist = new ArrayList<>();
     private HorzItemList userlist;
     private HorzItemList subjectlist;
     private boolean new_user_shown = false;
@@ -100,7 +100,7 @@ public class MainActivity extends CommonBaseActivity {
             }
         });
 
-        Button goButton = (Button) findViewById(R.id.login_button);
+        Button goButton = findViewById(R.id.login_button);
 
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +108,7 @@ public class MainActivity extends CommonBaseActivity {
                 startSelectedSubject();
             }
         });
-        Button cleanplurals = (Button) findViewById(R.id.cleanplurals);
+        Button cleanplurals = findViewById(R.id.cleanplurals);
 
         cleanplurals.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,7 +168,7 @@ public class MainActivity extends CommonBaseActivity {
 
         updateSubjectList();
 
-        Button goButton = (Button) findViewById(R.id.login_button);
+        Button goButton = findViewById(R.id.login_button);
 
         goButton.postDelayed(new Runnable() {
             @Override
@@ -263,7 +263,7 @@ public class MainActivity extends CommonBaseActivity {
     private void setSubjectDesc(String code) {
 
         if (subjectDescs.get(code) != null) {
-            TextView subject_desc = (TextView) findViewById(R.id.subject_desc);
+            TextView subject_desc = findViewById(R.id.subject_desc);
             subject_desc.setText(subjectDescs.get(code).getDesc());
         }
 
@@ -274,13 +274,13 @@ public class MainActivity extends CommonBaseActivity {
         populateAvatarSpinner();
 
 
-        Button user_added = (Button) findViewById(R.id.user_added_button);
+        Button user_added = findViewById(R.id.user_added_button);
 
         user_added.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Spinner avatarspinner = (Spinner) findViewById(R.id.user_avatar_spinner);
-                EditText newnamebox = (EditText) findViewById(R.id.username_input);
+                Spinner avatarspinner = findViewById(R.id.user_avatar_spinner);
+                EditText newnamebox = findViewById(R.id.username_input);
 
                 String newname = newnamebox.getText().toString();
 
@@ -303,7 +303,7 @@ public class MainActivity extends CommonBaseActivity {
                         //addUserToUserList(user);
                         selectUser(newname);
                         new_user_shown = false;
-                        LinearLayout new_user_area = (LinearLayout) findViewById(R.id.login_new_user_area);
+                        LinearLayout new_user_area = findViewById(R.id.login_new_user_area);
                         new_user_area.setVisibility(View.GONE);
                     } else {
                         Toast.makeText(MainActivity.this, R.string.name_in_use, Toast.LENGTH_LONG).show();
@@ -313,21 +313,21 @@ public class MainActivity extends CommonBaseActivity {
             }
         });
 
-        Button user_changed = (Button) findViewById(R.id.user_change_button);
+        Button user_changed = findViewById(R.id.user_change_button);
         user_changed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText namebox = (EditText) findViewById(R.id.username_input);
+                EditText namebox = findViewById(R.id.username_input);
 
                 goAwayKeys(namebox);
 
                 String username = namebox.getText().toString();
-                Spinner avatarspinner = (Spinner) findViewById(R.id.user_avatar_spinner);
+                Spinner avatarspinner = findViewById(R.id.user_avatar_spinner);
 
                 String avatar = (String) avatarspinner.getSelectedItem();
                 setUserAvatar(username, (String) avatarspinner.getSelectedItem());
                 View userview = userlist.getItem(username);
-                TextView txtavatar = (TextView) userview.findViewById(R.id.userimage_avatar);
+                TextView txtavatar = userview.findViewById(R.id.userimage_avatar);
                 txtavatar.setText(avatar);
                 showNewUserArea(false);
                 selectUser(username);
@@ -358,7 +358,7 @@ public class MainActivity extends CommonBaseActivity {
     private void populateAvatarSpinner(String additional) {
         avatarlist = appdata.getUnusedAvatars(additional);
 
-        Spinner avatarspinner = (Spinner) findViewById(R.id.user_avatar_spinner);
+        Spinner avatarspinner = findViewById(R.id.user_avatar_spinner);
         avatarspinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_item, avatarlist));
 
     }
@@ -450,7 +450,7 @@ public class MainActivity extends CommonBaseActivity {
         userlist.setSelected(username);
 
         View user_controls_area = findViewById(R.id.user_controls_area);
-        Button goButton = (Button) findViewById(R.id.login_button);
+        Button goButton = findViewById(R.id.login_button);
         if (userlist.hasSelected()) {
             showSteps2and3(true);
 
@@ -475,7 +475,7 @@ public class MainActivity extends CommonBaseActivity {
     }
 
     private void showSteps2and3(boolean show) {
-        LinearLayout steps2and3 = (LinearLayout) findViewById(R.id.steps2and3);
+        LinearLayout steps2and3 = findViewById(R.id.steps2and3);
         steps2and3.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
@@ -484,11 +484,11 @@ public class MainActivity extends CommonBaseActivity {
     }
 
     private void showNewUserArea(boolean show, boolean edit) {
-        LinearLayout new_user_area = (LinearLayout) findViewById(R.id.login_new_user_area);
-        TextView nametxt = (TextView) findViewById(R.id.username_input);
-        Spinner avatarspinner = (Spinner) findViewById(R.id.user_avatar_spinner);
-        Button user_change_button = (Button) findViewById(R.id.user_change_button);
-        Button user_added_button = (Button) findViewById(R.id.user_added_button);
+        LinearLayout new_user_area = findViewById(R.id.login_new_user_area);
+        TextView nametxt = findViewById(R.id.username_input);
+        Spinner avatarspinner = findViewById(R.id.user_avatar_spinner);
+        Button user_change_button = findViewById(R.id.user_change_button);
+        Button user_added_button = findViewById(R.id.user_added_button);
 
 
         nametxt.setEnabled(!edit);
