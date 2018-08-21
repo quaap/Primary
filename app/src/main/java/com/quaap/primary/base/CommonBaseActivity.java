@@ -65,6 +65,10 @@ public class CommonBaseActivity extends AppCompatActivity {
                 break;
         }
         if (intent != null) {
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

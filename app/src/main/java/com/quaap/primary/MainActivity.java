@@ -45,6 +45,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+//Yeah, I know this is weird code.
+
 public class MainActivity extends CommonBaseActivity {
 
     public static final String USERNAME = "username";
